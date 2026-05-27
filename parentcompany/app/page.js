@@ -211,7 +211,7 @@ const ParallaxMarquee = ({ text, direction = "left" }) => {
     );
 
     return (
-        <div className="overflow-hidden whitespace-nowrap py-8 md:py-16 opacity-[0.2] border-y border-dark/5 bg-dark/[0.02] pointer-events-none select-none">
+        <div className="overflow-hidden whitespace-nowrap py-4 md:py-16 opacity-[0.2] border-y border-dark/5 bg-dark/[0.02] pointer-events-none select-none">
             <motion.div
                 animate={{
                     x: direction === "left" ? [0, -1000] : [-1000, 0]
@@ -508,10 +508,10 @@ export default function Home() {
 
             <main>
                 {/* 1. HERO SECTION - REFINED WITH USER IMAGE */}
-                <section className="relative min-h-screen bg-[#FAF9F6] pt-36 pb-20 overflow-hidden">
+                <section className="relative min-h-screen bg-[#FAF9F6] pt-24 pb-12 md:pt-36 md:pb-20 overflow-hidden">
                     <div className="container-wide relative z-10">
                         {/* Top Content Row: Designing for Impact */}
-                        <div className="flex flex-col lg:flex-row justify-between items-start gap-16 mb-20">
+                        <div className="flex flex-col lg:flex-row justify-between items-start gap-10 lg:gap-16 mb-10 md:mb-20">
 
                             {/* Left: Massive Typography - Architecture of Scale */}
                             <div className="lg:max-w-[900px]">
@@ -519,7 +519,7 @@ export default function Home() {
                                     initial={{ opacity: 0, y: 40 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                                    className="text-[64px] md:text-[110px] lg:text-[160px] font-black text-[#1A1A1A] leading-[0.8] tracking-[-0.04em]"
+                                    className="text-[42px] sm:text-[64px] md:text-[110px] lg:text-[160px] font-black text-[#1A1A1A] leading-[0.8] tracking-[-0.04em]"
                                 >
                                     Architecting <br />
                                     <span className="text-[#002366]">Sovereign</span> <br />
@@ -532,14 +532,14 @@ export default function Home() {
                                 initial={{ opacity: 0, y: 60 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
-                                className="lg:max-w-[360px] pt-8"
+                                className="lg:max-w-[360px] pt-4 md:pt-8"
                             >
                                 <div className="flex gap-10 mb-14 hidden md:flex border-b border-dark/5 pb-2">
                                     <span className="text-[10px] font-black uppercase tracking-[0.4em] text-dark">Institutional Pulse</span>
                                     <span className="text-[10px] font-black uppercase tracking-[0.4em] text-dark/20 hover:text-dark transition-all cursor-pointer">Live Metrics</span>
                                 </div>
 
-                                <div className="space-y-8">
+                                <div className="space-y-6 md:space-y-8">
                                     {/* Partner Avatars & Social Proof */}
                                     <div className="flex items-center gap-6">
                                         <div className="flex items-center -space-x-4">
@@ -737,13 +737,13 @@ export default function Home() {
                 </ScrollReveal>
 
                 {/* 3. CORE VALUES - ARCHITECTURAL REDESIGN */}
-                <section id="values" className="py-24 md:py-32 bg-[#FAF9F6] relative overflow-hidden">
+                <section id="values" className="py-12 md:py-32 bg-[#FAF9F6] relative overflow-hidden">
                     {/* Background Infrastructure */}
                     <div className="absolute top-0 left-0 w-full h-[1px] bg-dark/5" />
                     <div className="absolute bottom-0 left-0 w-full h-[1px] bg-dark/5" />
 
                     <div className="container-wide relative z-10">
-                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 items-end mb-24">
+                        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-20 items-end mb-12 md:mb-24">
                             <div className="lg:col-span-8">
                                 <SectionLabel>Institutional Foundation</SectionLabel>
                                 <h2 className="text-5xl md:text-7xl lg:text-8xl font-black text-dark leading-[0.95] tracking-tight">
@@ -760,7 +760,7 @@ export default function Home() {
 
 
 
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-10">
                             {[
                                 {
                                     title: "Our Vision",
@@ -783,31 +783,31 @@ export default function Home() {
                                     initial="initial"
                                     whileInView="whileInView"
                                     whileHover={{ y: -10 }}
-                                    className="group relative p-12 lg:p-16 bg-white rounded-[40px] md:rounded-[60px] border border-dark/5 hover:border-[#002366]/30 hover:shadow-[0_80px_120px_-30px_rgba(232,126,67,0.08)] transition-all duration-1000 overflow-hidden"
+                                    className="group relative p-6 md:p-12 lg:p-16 bg-white rounded-[32px] md:rounded-[60px] border border-dark/5 hover:border-[#002366]/30 hover:shadow-[0_80px_120px_-30px_rgba(232,126,67,0.08)] transition-all duration-1000 overflow-hidden"
                                 >
                                     {/* Card Background Number */}
                                     <div className="absolute top-10 right-10 text-[120px] md:text-[200px] font-black text-dark/[0.03] leading-none transition-all duration-1000 group-hover:text-[#002366]/[0.05] group-hover:scale-110 pointer-events-none">
                                         {card.num}
                                     </div>
 
-                                    <div className="relative z-10 flex flex-col h-full gap-10">
-                                        <div className="flex items-center gap-6">
-                                            <div className="w-16 h-16 rounded-2xl bg-dark text-white flex items-center justify-center group-hover:bg-[#002366] transition-colors duration-700">
-                                                <span className="material-symbols-outlined text-3xl">{card.icon}</span>
+                                    <div className="relative z-10 flex flex-col h-full gap-6 md:gap-10">
+                                        <div className="flex items-center gap-4 md:gap-6">
+                                            <div className="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-dark text-white flex items-center justify-center group-hover:bg-[#002366] transition-colors duration-700">
+                                                <span className="material-symbols-outlined text-2xl md:text-3xl">{card.icon}</span>
                                             </div>
                                             <div>
                                                 <h3 className="text-[10px] font-black uppercase tracking-[0.5em] text-[#002366] mb-1">{card.subtitle}</h3>
-                                                <p className="text-3xl font-black text-dark tracking-tighter">{card.title}</p>
+                                                <p className="text-2xl md:text-3xl font-black text-dark tracking-tighter">{card.title}</p>
                                             </div>
                                         </div>
 
                                         <div className="max-w-md">
-                                            <p className="text-xl md:text-2xl text-dark/30 font-semibold font-secondary leading-snug group-hover:text-dark/80 transition-colors duration-700">
+                                            <p className="text-base md:text-2xl text-dark/30 font-semibold font-secondary leading-snug group-hover:text-dark/80 transition-colors duration-700">
                                                 "{card.desc}"
                                             </p>
                                         </div>
 
-                                        <div className="mt-auto pt-10 border-t border-dark/5 flex items-center justify-between">
+                                        <div className="mt-auto pt-6 md:pt-10 border-t border-dark/5 flex items-center justify-between">
                                             <div className="flex items-center gap-4">
                                                 <div className="h-[2px] w-12 bg-dark/10 group-hover:bg-[#002366] group-hover:w-20 transition-all duration-1000" />
                                                 <span className="text-[9px] font-black uppercase tracking-[0.5em] text-dark/40 group-hover:text-dark transition-colors">Institutional Mandate</span>
@@ -826,13 +826,13 @@ export default function Home() {
 
                 {/* 4. LEADERSHIP - ARCHITECTS STAGGER */}
                 <ScrollReveal>
-                    <section className="py-20 md:py-32 bg-white overflow-hidden">
+                    <section className="py-12 md:py-32 bg-white overflow-hidden">
                         <div className="container-wide">
                             <motion.div
                                 variants={sectionAnimation}
                                 initial="initial"
                                 whileInView="whileInView"
-                                className="flex flex-col md:flex-row justify-between items-end mb-8 lg:mb-16"
+                                className="flex flex-col md:flex-row justify-between items-end mb-6 md:mb-16"
                             >
                                 <div className="max-w-4xl">
                                     <SectionLabel>Registry Governance</SectionLabel>
@@ -845,7 +845,7 @@ export default function Home() {
                                 </p>
                             </motion.div>
 
-                            <div className="space-y-12">
+                            <div className="space-y-6 md:space-y-12">
                                 {/* First Row: Top Leadership (Large) */}
                                 <div className="grid grid-cols-2 md:grid-cols-2 gap-4 md:gap-10 lg:gap-14 max-w-7xl mx-auto">
                                     {founders.slice(0, 2).map((founder, idx) => (
@@ -866,7 +866,7 @@ export default function Home() {
 
                 {/* 5. PORTFOLIO - CINEMATIC IMMERSION */}
                 <ScrollReveal>
-                    <section id="portfolio" className="py-8 md:py-16 bg-[#fdfdfd] overflow-hidden relative">
+                    <section id="portfolio" className="py-10 md:py-16 bg-[#fdfdfd] overflow-hidden relative">
                         {/* Background Grids */}
                         <div className="absolute inset-0 grid grid-cols-12 opacity-[0.03] pointer-events-none">
                             {[...Array(12)].map((_, i) => (
@@ -904,9 +904,9 @@ export default function Home() {
                 <ParallaxMarquee text="Institutional Excellence · Strategic Allocation · Sovereign Growth · " direction="left" />
 
                 {/* 6. NEXUS COLLECTIVE - INSTITUTIONAL CONNECTION */}
-                <section className="py-24 bg-white overflow-hidden relative border-t border-dark/5">
+                <section className="py-12 md:py-24 bg-white overflow-hidden relative border-t border-dark/5">
                     <div className="container-wide relative z-10">
-                        <div className="flex flex-col lg:flex-row justify-between items-start gap-16 mb-24">
+                        <div className="flex flex-col lg:flex-row justify-between items-start gap-10 lg:gap-16 mb-12 md:mb-24">
                             <div className="max-w-3xl">
                                 <SectionLabel>Initialize Connection</SectionLabel>
                                 <h2 className="text-5xl md:text-8xl font-black text-dark tracking-tighter leading-[0.9] mb-8">
@@ -919,7 +919,7 @@ export default function Home() {
                         </div>
 
                         {/* Entity Matrix */}
-                        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 mb-16 md:mb-32">
+                        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 mb-10 md:mb-32">
                             {[
                                 {
                                     name: "BWorth Support", logo: "/BWORTH.jpg",
@@ -983,7 +983,7 @@ export default function Home() {
                         </div>
 
                         {/* Hub Infrastructure */}
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12">
                             {[
                                 {
                                     type: "Global Headquarters",
