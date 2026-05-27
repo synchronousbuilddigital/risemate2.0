@@ -100,7 +100,7 @@ export default function Portfolio() {
                                     <span className="text-[11px] font-black uppercase tracking-[0.4em] text-dark/70">Sovereign Registry</span>
                                 </motion.div>
 
-                                <h1 className="text-4xl sm:text-6xl md:text-[7rem] lg:text-[8.5rem] font-black leading-[0.85] text-dark tracking-tighter mb-10 group">
+                                <h1 className="text-3xl sm:text-6xl md:text-[7rem] lg:text-[8.5rem] font-black leading-[0.85] text-dark tracking-tighter mb-10 group">
                                     Institutional <br />
                                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-dark to-dark/30 italic pr-4">Portfolio.</span>
                                 </h1>
@@ -182,7 +182,7 @@ export default function Portfolio() {
                 </section>
 
                 {/* SHOWCASE */}
-                <div className="space-y-24 pb-24">
+                <div className="space-y-12 pb-12 md:space-y-24 md:pb-24">
                     {entities.map((entity, idx) => (
                         <EntitySection key={entity.id} entity={entity} index={idx} />
                     ))}
@@ -206,7 +206,7 @@ function EntitySection({ entity, index }) {
 
     return (
         <section id={entity.name.toLowerCase().replace(/\s+/g, '-')} ref={sectionRef} className="container-wide relative">
-            <div className={`grid grid-cols-1 lg:grid-cols-12 gap-12 md:gap-24 items-center`}>
+            <div className={`grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-24 items-center`}>
                 {/* Image side */}
                 <div className={`lg:col-span-1 border-r border-dark/5 hidden lg:block`}>
                     <p className="text-[10vw] font-black text-dark/[0.03] rotate-180 [writing-mode:vertical-lr] select-none">
@@ -237,12 +237,12 @@ function EntitySection({ entity, index }) {
                         transition={{ duration: 1 }}
                         style={{ y }}
                     >
-                        <div className="flex items-center gap-4 mb-8">
+                        <div className="flex items-center gap-4 mb-4 md:mb-8">
                             <span className="px-4 py-1 bg-dark text-white text-[10px] font-black uppercase tracking-widest rounded-full">{entity.tag}</span>
                             <div className="h-[1px] flex-grow bg-dark/5"></div>
                         </div>
 
-                        <div className="flex items-center justify-between gap-6 mb-10">
+                        <div className="flex items-center justify-between gap-4 md:gap-6 mb-6 md:mb-10">
                             <h2 className="text-4xl md:text-7xl font-black text-dark tracking-tighter">
                                 {entity.name}
                             </h2>
@@ -253,15 +253,15 @@ function EntitySection({ entity, index }) {
                             )}
                         </div>
 
-                        <p className="text-xs md:text-sm font-black uppercase tracking-[0.2em] text-blue-600 mb-8 italic">
+                        <p className="text-xs md:text-sm font-black uppercase tracking-[0.2em] text-blue-600 mb-4 md:mb-8 italic">
                             {entity.tagline}
                         </p>
 
-                        <p className="text-lg text-dark/60 font-secondary leading-relaxed mb-12 italic border-l-2 border-dark/10 pl-8">
+                        <p className="text-lg text-dark/60 font-secondary leading-relaxed mb-6 md:mb-12 italic border-l-2 border-dark/10 pl-8">
                             {entity.desc}
                         </p>
 
-                        <div className="space-y-8 mb-12">
+                        <div className="space-y-6 md:space-y-8 mb-6 md:mb-12">
                             <div>
                                 <h4 className="text-[10px] font-black uppercase tracking-widest text-dark/30 mb-4">Core Pillars</h4>
                                 <div className="flex flex-wrap gap-3">
