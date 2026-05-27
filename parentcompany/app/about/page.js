@@ -12,9 +12,9 @@ export default function About() {
         <div className="bg-white min-h-screen">
             <Navbar />
 
-            <main className="pt-20">
+            <main className="pt-16 md:pt-20">
                 {/* 1. HERO SECTION */}
-                <section className="relative pt-32 pb-24 md:pt-48 md:pb-40 px-6 md:px-12 lg:px-24 overflow-hidden border-b border-dark/5 bg-[#fafafa]">
+                <section className="relative pt-10 pb-16 md:pt-48 md:pb-40 px-6 md:px-12 lg:px-24 overflow-hidden border-b border-dark/5 bg-[#fafafa]">
                     {/* Architectural Mesh Background */}
                     <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,#000_1px,transparent_1px),linear-gradient(to_bottom,#000_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
 
@@ -124,7 +124,7 @@ export default function About() {
                                     exit={{ opacity: 0, x: -30 }}
                                     viewport={{ once: false, amount: 0.3 }}
                                     transition={{ duration: 0.8 }}
-                                    className="p-10 border border-white/10 rounded-[40px] hover:border-gold/30 transition-all group"
+                                    className="p-6 md:p-10 border border-white/10 rounded-[24px] md:rounded-[40px] hover:border-gold/30 transition-all group"
                                 >
                                     <h3 className="text-2xl font-bold mb-6 text-gold group-hover:tracking-widest transition-all">Our Philosophy</h3>
                                     <p className="text-lg text-white/50 font-secondary leading-relaxed italic">
@@ -139,7 +139,7 @@ export default function About() {
                                     exit={{ opacity: 0, x: 30 }}
                                     viewport={{ once: false, amount: 0.3 }}
                                     transition={{ duration: 0.8 }}
-                                    className="p-10 border border-white/10 rounded-[40px] hover:border-blue-500/30 transition-all group"
+                                    className="p-6 md:p-10 border border-white/10 rounded-[24px] md:rounded-[40px] hover:border-blue-500/30 transition-all group"
                                 >
                                     <h3 className="text-2xl font-bold mb-6 text-blue-500 group-hover:tracking-widest transition-all">Institutional Impact</h3>
                                     <p className="text-lg text-white/50 font-secondary leading-relaxed italic">
@@ -164,7 +164,7 @@ export default function About() {
                             <p className="text-dark/40 font-black uppercase tracking-[0.3em] text-xs mt-4 md:mt-0">Ref: CONTENT_MANIFESTO_2026</p>
                         </motion.div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
                             {[
                                 {
                                     name: "BWorth",
@@ -213,27 +213,31 @@ export default function About() {
                                     whileInView={{ opacity: 1, scale: 1, y: 0 }}
                                     exit={{ opacity: 0, scale: 0.95, y: 20 }}
                                     viewport={{ once: true, amount: 0.1 }}
-                                    transition={{ delay: idx * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                                    className="group relative h-[380px] lg:h-[420px] bg-[#f8f9fa] border border-dark/5 hover:border-blue-600/10 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] rounded-[40px] overflow-hidden flex flex-col"
+                                    transition={{ delay: idx * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}                                    className="group relative h-auto pb-6 sm:h-[300px] md:h-[380px] lg:h-[420px] bg-[#f8f9fa] border border-dark/5 hover:border-blue-600/10 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] rounded-[20px] md:rounded-[40px] overflow-hidden flex flex-col"
                                 >
                                     {/* Top bar with Entity Number & Logo */}
-                                    <div className="flex items-center justify-between p-10 pb-0 z-10">
-                                        <span className={`text-[10px] font-black uppercase tracking-[0.4em] text-dark/30 block ${entity.hoverTextColor} transition-colors duration-500`}>Entity 0{idx + 1}</span>
+                                    <div className="flex items-center justify-between p-5 pb-0 lg:p-10 lg:pb-0 z-10">
+                                        <span className={`text-[7px] md:text-[10px] font-black uppercase tracking-[0.4em] text-dark/30 block ${entity.hoverTextColor} transition-colors duration-500`}>Entity 0{idx + 1}</span>
                                         {entity.logo && (
-                                            <div className={`w-16 h-16 ${entity.name === 'Synchronous' ? 'bg-zinc-950' : 'bg-white'} rounded-full p-2 border border-dark/5 shadow-sm overflow-hidden flex items-center justify-center group-hover:scale-105 transition-transform duration-500`}>
+                                            <div className={`w-10 h-10 md:w-16 md:h-16 ${entity.name === 'Synchronous' ? 'bg-zinc-950' : 'bg-white'} rounded-full p-1.5 md:p-2 border border-dark/5 shadow-sm overflow-hidden flex items-center justify-center group-hover:scale-105 transition-transform duration-500`}>
                                                 <Image src={entity.logo} alt={entity.name} width={44} height={44} className="object-contain" unoptimized={true} />
                                             </div>
                                         )}
                                     </div>
-
-                                    {/* Content container that slides up */}
-                                    <div className="p-10 pt-6 flex flex-col h-full justify-end transform transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-[120px] lg:group-hover:-translate-y-[140px] z-10 relative">
-                                        <h4 className="text-3xl font-black text-dark mb-3 lg:mb-4">{entity.name}</h4>
-                                        <p className={`text-[10px] sm:text-xs font-bold ${entity.textColor} uppercase tracking-widest`}>{entity.sector}</p>
+ 
+                                    {/* Content container that slides up (desktop only) */}
+                                    <div className="p-5 pt-4 lg:p-10 lg:pt-6 flex flex-col h-full justify-end transform transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] md:group-hover:-translate-y-[120px] lg:group-hover:-translate-y-[140px] z-10 relative">
+                                        <h4 className="text-base sm:text-3xl font-black text-dark mb-1 lg:mb-4 leading-none">{entity.name}</h4>
+                                        <p className={`text-[7px] sm:text-[10px] sm:text-xs font-bold ${entity.textColor} uppercase tracking-widest leading-none mb-3 md:mb-0`}>{entity.sector}</p>
+                                        
+                                        {/* Mobile Description to fill empty card space */}
+                                        <p className="block md:hidden text-[9px] text-dark/70 font-secondary leading-tight mt-2">
+                                            {entity.desc}
+                                        </p>
                                     </div>
 
-                                    {/* Absolute details that fade & slide in from bottom */}
-                                    <div className="absolute bottom-0 left-0 w-full p-10 pt-0 opacity-0 translate-y-12 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-20 pointer-events-none">
+                                    {/* Absolute details that fade & slide in from bottom (desktop only) */}
+                                    <div className="hidden md:block absolute bottom-0 left-0 w-full p-10 pt-0 opacity-0 translate-y-12 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-20 pointer-events-none">
                                         <div className={`w-8 h-[2px] ${entity.lineColor} mb-5 group-hover:w-16 transition-all duration-700 delay-100 ease-[cubic-bezier(0.16,1,0.3,1)]`} />
                                         <p className="text-[11px] lg:text-xs text-dark/70 font-secondary leading-relaxed w-[95%]">
                                             {entity.desc}
@@ -268,7 +272,7 @@ export default function About() {
                                 whileInView={{ opacity: 1, x: 0 }}
                                 exit={{ opacity: 0, x: -50 }}
                                 viewport={{ once: false, amount: 0.2 }}
-                                className="p-12 md:p-20 bg-white shadow-2xl rounded-[60px] relative overflow-hidden group border border-dark/5"
+                                className="p-6 md:p-16 bg-white shadow-xl rounded-[32px] md:rounded-[60px] relative overflow-hidden group border border-dark/5"
                             >
                                 <div className="absolute top-0 right-0 w-32 h-32 bg-gold/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-1000" />
                                 <span className="block text-xs font-black uppercase tracking-[0.8em] text-gold mb-10">Institutional NCR</span>
@@ -283,7 +287,7 @@ export default function About() {
                                 whileInView={{ opacity: 1, x: 0 }}
                                 exit={{ opacity: 0, x: 50 }}
                                 viewport={{ once: false, amount: 0.2 }}
-                                className="p-12 md:p-20 bg-white shadow-2xl rounded-[60px] relative overflow-hidden group border border-dark/5"
+                                className="p-6 md:p-16 bg-white shadow-xl rounded-[32px] md:rounded-[60px] relative overflow-hidden group border border-dark/5"
                             >
                                 <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-1000" />
                                 <span className="block text-xs font-black uppercase tracking-[0.8em] text-blue-600 mb-10">Royal Heritage Hub</span>

@@ -69,9 +69,9 @@ export default function Portfolio() {
         <div className="bg-white min-h-screen">
             <Navbar />
 
-            <main className="pt-24">
+            <main className="pt-16 md:pt-24">
                 {/* HERO */}
-                <section className="relative py-20 md:py-32 px-6 md:px-24 overflow-hidden">
+                <section className="relative pt-6 pb-16 md:py-32 px-6 md:px-24 overflow-hidden">
                     {/* Background Gradients */}
                     <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-50 rounded-full blur-[120px] -z-10 opacity-70" />
                     <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-50 rounded-full blur-[120px] -z-10 opacity-50" />

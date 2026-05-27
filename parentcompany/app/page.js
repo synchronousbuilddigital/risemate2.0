@@ -250,20 +250,20 @@ const PortfolioItem = ({ item, index }) => {
             variants={fadeInUp}
             whileHover={{ y: -12, scale: 1.01 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="group relative flex flex-col bg-[#fdfdfd] rounded-[24px] md:rounded-[40px] border border-dark/5 p-6 md:p-8 hover:border-[#002366]/20 hover:shadow-[0_40px_80px_-20px_rgba(0,18,51,0.08)] transition-all duration-1000 overflow-hidden"
+            className="group relative flex flex-col bg-[#fdfdfd] rounded-[16px] md:rounded-[40px] border border-dark/5 p-4 md:p-8 hover:border-[#002366]/20 hover:shadow-[0_40px_80px_-20px_rgba(0,18,51,0.08)] transition-all duration-1000 overflow-hidden"
         >
-            <div className="absolute -top-6 -right-6 pointer-events-none opacity-[0.03] transition-all duration-1000 group-hover:opacity-[0.08] group-hover:scale-110 group-hover:text-[#002366]">
-                <span className="text-[140px] font-black leading-none">0{index + 1}</span>
+            <div className="absolute -top-4 -right-4 md:-top-6 md:-right-6 pointer-events-none opacity-[0.03] transition-all duration-1000 group-hover:opacity-[0.08] group-hover:scale-110 group-hover:text-[#002366]">
+                <span className="text-[70px] md:text-[140px] font-black leading-none">0{index + 1}</span>
             </div>
 
-            <div className="flex items-center justify-between gap-4 mb-6 relative z-10">
+            <div className="flex items-center justify-between gap-4 mb-4 md:mb-6 relative z-10">
                 <div className="flex items-center gap-3">
-                    <span className="px-3 py-1 bg-[#f0f7ff] text-[#003380] text-[8px] font-black uppercase tracking-[0.2em] rounded-md">{item.tag}</span>
-                    <div className="h-[1px] w-12 bg-dark/10 group-hover:w-20 group-hover:bg-[#002366] transition-all duration-700"></div>
+                    <span className="px-2 py-0.5 md:px-3 md:py-1 bg-[#f0f7ff] text-[#003380] text-[6px] md:text-[8px] font-black uppercase tracking-[0.2em] rounded-md">{item.tag}</span>
+                    <div className="h-[1px] w-6 md:w-12 bg-dark/10 group-hover:w-10 md:group-hover:w-20 group-hover:bg-[#002366] transition-all duration-700"></div>
                 </div>
             </div>
 
-            <div className="relative aspect-[16/10] overflow-hidden rounded-[24px] mb-8 shadow-xl transition-all duration-1000">
+            <div className="relative aspect-[16/10] overflow-hidden rounded-[12px] md:rounded-[24px] mb-4 md:mb-8 shadow-xl transition-all duration-1000">
                 <motion.div
                     initial={{ scale: 1.5, opacity: 0 }}
                     animate={isInView ? { scale: 1, opacity: 1 } : {}}
@@ -285,27 +285,30 @@ const PortfolioItem = ({ item, index }) => {
                         initial={{ y: 20, opacity: 0 }}
                         animate={isInView ? { y: 0, opacity: 1 } : {}}
                         transition={{ delay: 0.5, duration: 1 }}
-                        className={`absolute bottom-6 right-6 w-16 h-16 ${item.logoBg || 'bg-white'} flex items-center justify-center rounded-2xl shadow-2xl p-3 border border-dark/5 transition-all duration-700 group-hover:scale-110 group-hover:-rotate-3`}
+                        className={`absolute bottom-2 right-2 md:bottom-6 md:right-6 w-8 h-8 md:w-16 md:h-16 ${item.logoBg || 'bg-white'} flex items-center justify-center rounded-lg md:rounded-2xl shadow-2xl p-1 md:p-3 border border-dark/5 transition-all duration-700 group-hover:scale-110 group-hover:-rotate-3`}
                     >
-                        <img src={item.logo} alt={item.title} className="w-10 h-10 object-contain" />
+                        <img src={item.logo} alt={item.title} className="w-5 h-5 md:w-10 md:h-10 object-contain" />
                     </motion.div>
                 )}
             </div>
 
             <div className="flex flex-col relative z-10 flex-grow">
-                <p className="text-[8px] font-black uppercase tracking-[0.5em] text-[#002366] mb-2 opacity-60 italic">{item.tagline}</p>
-                <h3 className="text-2xl md:text-3xl font-black text-dark mb-4 tracking-tighter leading-none group-hover:text-[#002366] transition-colors duration-500 uppercase">{item.title}</h3>
+                <p className="text-[6px] md:text-[8px] font-black uppercase tracking-[0.3em] md:tracking-[0.5em] text-[#002366] mb-1 md:mb-2 opacity-60 italic">{item.tagline}</p>
+                <h3 className="text-sm sm:text-base md:text-3xl font-black text-dark mb-2 md:mb-4 tracking-tighter leading-none group-hover:text-[#002366] transition-colors duration-500 uppercase">{item.title}</h3>
 
-                <p className="text-sm text-dark/50 font-secondary leading-relaxed mb-8 line-clamp-3">
+                <p className="hidden sm:block text-xs md:text-sm text-dark/50 font-secondary leading-relaxed mb-4 md:mb-8 line-clamp-3">
                     {item.desc}
                 </p>
 
-                <div className="mt-auto pt-8 border-t border-dark/5">
+                <div className="mt-auto pt-4 md:pt-8 border-t border-dark/5">
                     <Magnetic>
-                        <Link href={`/portfolio#${item.title.toLowerCase().replace(/\s+/g, '-')}`} className="inline-flex items-center gap-4 group/link">
-                            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-dark border-b-2 border-transparent group-hover/link:border-[#002366] transition-all duration-500">View Sovereign Entity</span>
-                            <div className="w-10 h-10 rounded-full border border-dark/10 flex items-center justify-center group-hover/link:bg-dark group-hover/link:text-white transition-all duration-700">
-                                <span className="material-symbols-outlined text-sm">north_east</span>
+                        <Link href={`/portfolio#${item.title.toLowerCase().replace(/\s+/g, '-')}`} className="inline-flex items-center gap-2 md:gap-4 group/link">
+                            <span className="text-[8px] md:text-[10px] font-black uppercase tracking-[0.2em] md:tracking-[0.4em] text-dark border-b-2 border-transparent group-hover/link:border-[#002366] transition-all duration-500">
+                                <span className="sm:hidden">View</span>
+                                <span className="hidden sm:inline">View Sovereign Entity</span>
+                            </span>
+                            <div className="w-6 h-6 md:w-10 md:h-10 rounded-full border border-dark/10 flex items-center justify-center group-hover/link:bg-dark group-hover/link:text-white transition-all duration-700">
+                                <span className="material-symbols-outlined text-[10px] md:text-sm">north_east</span>
                             </div>
                         </Link>
                     </Magnetic>
@@ -315,6 +318,8 @@ const PortfolioItem = ({ item, index }) => {
     );
 };
 
+
+
 const FounderCard = ({ founder, isSmall }) => {
     return (
         <motion.div
@@ -322,7 +327,7 @@ const FounderCard = ({ founder, isSmall }) => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className={`group relative bg-[#FAF9F6] rounded-[32px] overflow-hidden flex flex-col h-full border border-dark/5 shadow-[0_10px_40px_-15px_rgba(0,18,51,0.05)] hover:shadow-[0_40px_80px_-20px_rgba(0,18,51,0.12)] transition-all duration-700 ${isSmall ? 'scale-[0.95] origin-top' : ''}`}
+            className={`group relative bg-[#FAF9F6] rounded-[16px] md:rounded-[32px] overflow-hidden flex flex-col h-full border border-dark/5 shadow-[0_10px_40px_-15px_rgba(0,18,51,0.05)] hover:shadow-[0_40px_80px_-20px_rgba(0,18,51,0.12)] transition-all duration-700 ${isSmall ? 'scale-[0.95] origin-top' : ''}`}
         >
             {/* ── Image Section ── */}
             <div className={`relative ${isSmall ? 'aspect-square' : 'aspect-[4/5]'} overflow-hidden`}>
@@ -338,7 +343,7 @@ const FounderCard = ({ founder, isSmall }) => {
                 <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-dark/95 via-dark/40 to-transparent" />
                 
                 {/* Executive Tier Badge */}
-                <div className="absolute top-6 left-6">
+                <div className="hidden md:block absolute top-6 left-6">
                     <div className="bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1.5 rounded-full">
                         <span className="text-[8px] font-black uppercase tracking-[0.3em] text-white/90">
                             {founder.tier}
@@ -347,27 +352,28 @@ const FounderCard = ({ founder, isSmall }) => {
                 </div>
 
                 {/* Name & Role Overlay */}
-                <div className="absolute bottom-6 left-8 right-8 z-10 transition-transform duration-700 group-hover:-translate-y-2">
-                    <h3 className={`${isSmall ? 'text-2xl' : 'text-3xl md:text-4xl'} font-black text-white tracking-tighter leading-none mb-1`}>
-                        {founder.name}
+                <div className="absolute bottom-2.5 left-2.5 right-2.5 md:bottom-6 md:left-8 md:right-8 z-10 transition-transform duration-700 group-hover:-translate-y-2">
+                    <h3 className={`${isSmall ? 'text-[10px] md:text-2xl' : 'text-sm sm:text-base md:text-3xl lg:text-4xl'} font-black text-white tracking-tighter leading-none mb-1 uppercase`}>
+                        <span className="md:hidden">{founder.name.split(' ')[0]}</span>
+                        <span className="hidden md:inline">{founder.name}</span>
                     </h3>
-                    <p className="text-[9px] font-black uppercase tracking-[0.3em] text-white/40 italic">
-                        {founder.role.split('·')[0]} · <span className="text-white/60">{founder.role.split('·')[1]}</span>
+                    <p className="text-[6px] md:text-[9px] font-black uppercase tracking-[0.1em] md:tracking-[0.3em] text-white/50 leading-none">
+                        {founder.role.split('·')[0].trim()}
                     </p>
                 </div>
 
                 {/* Logo Badge */}
                 {founder.logo && (
-                    <div className={`absolute ${isSmall ? 'bottom-4 right-4' : 'bottom-6 right-6'} z-20`}>
-                        <div className={`${isSmall ? 'w-8 h-8' : 'w-10 h-10'} ${founder.logoBg || "bg-white"} rounded-xl shadow-xl p-2 border border-dark/5 flex items-center justify-center group-hover:rotate-12 transition-all duration-700`}>
-                            <Image src={founder.logo} alt="Company Logo" width={isSmall ? 20 : 28} height={isSmall ? 20 : 28} className="object-contain" unoptimized={true} />
+                    <div className={`absolute ${isSmall ? 'bottom-2 right-2' : 'bottom-2.5 right-2.5 md:bottom-6 md:right-6'} z-20`}>
+                        <div className={`${isSmall ? 'w-5 h-5 p-1' : 'w-6 h-6 p-1 md:w-10 md:h-10 md:p-2'} ${founder.logoBg || "bg-white"} rounded-md md:rounded-xl shadow-xl border border-dark/5 flex items-center justify-center group-hover:rotate-12 transition-all duration-700`}>
+                            <Image src={founder.logo} alt="Company Logo" width={isSmall ? 12 : 16} height={isSmall ? 12 : 16} className="object-contain" unoptimized={true} />
                         </div>
                     </div>
                 )}
             </div>
 
-            {/* ── Content Section ── */}
-            <div className={`${isSmall ? 'p-6' : 'p-8 md:p-10'} flex flex-col flex-grow`}>
+            {/* ── Content Section (Desktop only to prevent dense text clutter in tiny mobile cards) ── */}
+            <div className={`${isSmall ? 'p-6' : 'p-8 md:p-10'} hidden md:flex flex-col flex-grow`}>
                 {/* Operational Mandate */}
                 <div className={`${isSmall ? 'mb-4' : 'mb-8'}`}>
                     <h5 className="text-[10px] font-black uppercase tracking-[0.35em] text-dark/40 mb-4 uppercase">Operational Mandate</h5>
@@ -559,44 +565,70 @@ export default function Home() {
                             </motion.div>
                         </div>
 
-                        {/* Immersive Landscape Reveal */}
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.95, y: 100 }}
-                            animate={{ opacity: 1, scale: 1, y: 0 }}
-                            transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
-                            className="relative w-full aspect-[21/9] md:aspect-[16/7] rounded-[48px] lg:rounded-[100px] overflow-hidden shadow-[0_120px_200px_-60px_rgba(37,99,235,0.12)] group"
-                        >
-                            <Image
-                                src="/beautiful-city-landscape-with-tall-buildings.jpg"
-                                alt="Sovereign Industrial Cityscape"
-                                fill
-                                className="object-cover scale-105 group-hover:scale-110 transition-transform duration-[8s] ease-out"
-                                priority
-                            />
+                        {/* Immersive Landscape Reveal with Mobile Stats Below */}
+                        <div className="flex flex-col gap-6 md:block w-full">
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.95, y: 100 }}
+                                animate={{ opacity: 1, scale: 1, y: 0 }}
+                                transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
+                                className="relative w-full aspect-[1.5/1] sm:aspect-[1.8/1] md:aspect-[16/7] lg:aspect-[21/9] rounded-[24px] sm:rounded-[48px] lg:rounded-[100px] overflow-hidden shadow-[0_40px_80px_-20px_rgba(0,18,51,0.08)] md:shadow-[0_120px_200px_-60px_rgba(37,99,235,0.12)] group"
+                            >
+                                <Image
+                                    src="/beautiful-city-landscape-with-tall-buildings.jpg"
+                                    alt="Sovereign Industrial Cityscape"
+                                    fill
+                                    className="object-cover scale-105 group-hover:scale-110 transition-transform duration-[8s] ease-out"
+                                    priority
+                                />
 
-                            {/* Cinematic Design Overlays */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-dark/60 via-transparent to-transparent opacity-40 group-hover:opacity-60 transition-opacity duration-1000" />
-                            <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-[48px] lg:rounded-[100px]" />
+                                {/* Cinematic Design Overlays (Desktop only overlay) */}
+                                <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-dark/60 via-transparent to-transparent opacity-40 group-hover:opacity-60 transition-opacity duration-1000" />
+                                <div className="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-[24px] sm:rounded-[48px] lg:rounded-[100px]" />
 
-                            {/* High-Impact Metric Strip */}
-                            <div className="absolute bottom-12 left-0 right-0 px-12 flex flex-wrap justify-between items-center gap-10">
+                                {/* High-Impact Metric Strip (Desktop only overlay) */}
+                                <div className="hidden md:flex absolute bottom-12 left-0 right-0 px-12 justify-between items-center gap-10">
+                                    {[
+                                        { val: 4, suffix: "+", label: "Sovereign Partners" },
+                                        { val: 1.2, suffix: "B+", label: "Capital Allocated" },
+                                        { val: 100, suffix: "%", label: "Industrial Integrity" }
+                                    ].map((stat, i) => (
+                                        <div key={i} className="flex items-center gap-5 bg-white/5 backdrop-blur-2xl px-8 py-5 rounded-[32px] border border-white/10 hover:bg-white/10 transition-colors duration-500">
+                                            <span className="text-4xl font-black text-white tracking-tighter">
+                                                <Counter value={stat.val} />{stat.suffix}
+                                            </span>
+                                            <div className="h-8 w-[1px] bg-white/20" />
+                                            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white/80 leading-none">
+                                                {stat.label}
+                                            </span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </motion.div>
+
+                            {/* High-Impact Metric Strip (Mobile only - below the image) */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.8 }}
+                                className="flex md:hidden flex-col gap-4 px-2"
+                            >
                                 {[
                                     { val: 4, suffix: "+", label: "Sovereign Partners" },
                                     { val: 1.2, suffix: "B+", label: "Capital Allocated" },
                                     { val: 100, suffix: "%", label: "Industrial Integrity" }
                                 ].map((stat, i) => (
-                                    <div key={i} className="flex items-center gap-5 bg-white/5 backdrop-blur-2xl px-8 py-5 rounded-[32px] border border-white/10 hover:bg-white/10 transition-colors duration-500">
-                                        <span className="text-4xl font-black text-white tracking-tighter">
+                                    <div key={i} className="flex items-center justify-center gap-4 bg-white border border-dark/5 shadow-[0_12px_24px_-10px_rgba(0,18,51,0.06)] px-6 py-5 rounded-[24px] hover:border-[#002366]/20 transition-all duration-500 w-full">
+                                        <span className="text-3xl font-black text-[#002366] tracking-tighter leading-none">
                                             <Counter value={stat.val} />{stat.suffix}
                                         </span>
-                                        <div className="h-8 w-[1px] bg-white/20" />
-                                        <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white/80 leading-none">
+                                        <div className="h-6 w-[1px] bg-dark/10" />
+                                        <span className="text-[10px] font-black uppercase tracking-[0.3em] text-dark/70 leading-none">
                                             {stat.label}
                                         </span>
                                     </div>
                                 ))}
-                            </div>
-                        </motion.div>
+                            </motion.div>
+                        </div>
                     </div>
 
                     {/* Architectural Ambient Blur */}
@@ -675,25 +707,25 @@ export default function Home() {
                                         variants={staggerContainer}
                                         initial="initial"
                                         whileInView="animate"
-                                        className="lg:col-span-4 space-y-8"
+                                        className="lg:col-span-4 grid grid-cols-2 lg:grid-cols-1 gap-6 md:gap-8"
                                     >
-                                        <div className="space-y-4">
-                                            <motion.h4 variants={fadeInUp} className="text-5xl md:text-7xl font-black text-dark tracking-tighter">
+                                        <div className="space-y-2 md:space-y-4">
+                                            <motion.h4 variants={fadeInUp} className="text-4xl md:text-7xl font-black text-dark tracking-tighter">
                                                 <Counter value={4} />
                                             </motion.h4>
-                                            <motion.p variants={fadeInUp} className="text-[10px] font-black text-dark/30 uppercase tracking-[0.5em]">Sovereign Entities Integrated</motion.p>
+                                            <motion.p variants={fadeInUp} className="text-[9px] md:text-[10px] font-black text-dark/30 uppercase tracking-[0.2em] md:tracking-[0.5em] leading-tight">Sovereign Entities Integrated</motion.p>
                                         </div>
-                                        <div className="space-y-4">
-                                            <h4 className="text-5xl md:text-7xl font-black text-dark tracking-tighter">
+                                        <div className="space-y-2 md:space-y-4">
+                                            <h4 className="text-4xl md:text-7xl font-black text-dark tracking-tighter">
                                                 <Counter value={10000} />+
                                             </h4>
-                                            <p className="text-[10px] font-black text-dark/30 uppercase tracking-[0.5em]">Growth Optimization Cycles</p>
+                                            <p className="text-[9px] md:text-[10px] font-black text-dark/30 uppercase tracking-[0.2em] md:tracking-[0.5em] leading-tight">Growth Optimization Cycles</p>
                                         </div>
-                                        <motion.div variants={fadeInUp}>
+                                        <motion.div variants={fadeInUp} className="col-span-2 lg:col-span-1 mt-2 lg:mt-0">
                                             <Link href="/about" className="inline-flex items-center gap-4 group">
-                                                <span className="text-xs font-black uppercase tracking-[0.4em] text-dark border-b-2 border-[#002366]/20 py-2 group-hover:border-[#002366] transition-all duration-700">Deep Dive Into HQ</span>
-                                                <span className="w-10 h-10 rounded-full border border-dark/10 flex items-center justify-center group-hover:bg-dark group-hover:text-white transition-all duration-700">
-                                                    <span className="material-symbols-outlined text-sm">open_in_new</span>
+                                                <span className="text-[10px] md:text-xs font-black uppercase tracking-[0.4em] text-dark border-b-2 border-[#002366]/20 py-2 group-hover:border-[#002366] transition-all duration-700">Deep Dive Into HQ</span>
+                                                <span className="w-8 h-8 md:w-10 md:h-10 rounded-full border border-dark/10 flex items-center justify-center group-hover:bg-dark group-hover:text-white transition-all duration-700">
+                                                    <span className="material-symbols-outlined text-xs md:text-sm">open_in_new</span>
                                                 </span>
                                             </Link>
                                         </motion.div>
@@ -815,14 +847,14 @@ export default function Home() {
 
                             <div className="space-y-12">
                                 {/* First Row: Top Leadership (Large) */}
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14 max-w-7xl mx-auto">
+                                <div className="grid grid-cols-2 md:grid-cols-2 gap-4 md:gap-10 lg:gap-14 max-w-7xl mx-auto">
                                     {founders.slice(0, 2).map((founder, idx) => (
                                         <FounderCard key={idx} founder={founder} />
                                     ))}
                                 </div>
 
                                 {/* Second Row: Executive Team (Compact) */}
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                                <div className="grid grid-cols-3 md:grid-cols-3 gap-3 md:gap-8 max-w-7xl mx-auto">
                                     {founders.slice(2).map((founder, idx) => (
                                         <FounderCard key={idx + 2} founder={founder} isSmall={true} />
                                     ))}
@@ -860,7 +892,7 @@ export default function Home() {
 
 
                             {/* Portfolio List with extreme scroll depth */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-7xl mx-auto">
+                            <div className="grid grid-cols-2 md:grid-cols-2 gap-4 md:gap-8 max-w-7xl mx-auto">
                                 {portfolioItems.map((item, idx) => (
                                     <PortfolioItem key={idx} item={item} index={idx} />
                                 ))}
@@ -887,7 +919,7 @@ export default function Home() {
                         </div>
 
                         {/* Entity Matrix */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-32">
+                        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 mb-16 md:mb-32">
                             {[
                                 {
                                     name: "BWorth Support", logo: "/BWORTH.jpg",
@@ -930,21 +962,21 @@ export default function Home() {
                                     key={i}
                                     variants={fadeInUp}
                                     onClick={() => window.open(entity.link, '_blank')}
-                                    className={`group relative p-10 ${entity.bgLightColor} rounded-[40px] border border-dark/5 hover:border-dark/10 hover:shadow-[0_45px_90px_-20px_rgba(0,35,102,0.08)] transition-all duration-700 cursor-pointer overflow-hidden`}
+                                    className={`group relative p-5 md:p-10 ${entity.bgLightColor} rounded-[20px] md:rounded-[40px] border border-dark/5 hover:border-dark/10 hover:shadow-[0_45px_90px_-20px_rgba(0,35,102,0.08)] transition-all duration-700 cursor-pointer overflow-hidden`}
                                 >
                                     {/* Subtle Entity Accent Glow */}
                                     <div className={`absolute -top-10 -right-10 w-24 h-24 blur-3xl opacity-0 hover:opacity-20 transition-opacity duration-1000 ${entity.bgGlowColor}`} />
 
-                                    <div className="relative z-10 w-14 h-14 rounded-2xl bg-white shadow-xl flex items-center justify-center mb-10 group-hover:-translate-y-1 transition-all duration-500 overflow-hidden border border-dark/5">
+                                    <div className="relative z-10 w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl bg-white shadow-xl flex items-center justify-center mb-5 md:mb-10 group-hover:-translate-y-1 transition-all duration-500 overflow-hidden border border-dark/5">
                                         {entity.logo && <Image src={entity.logo} alt={entity.name} width={40} height={40} className="object-contain" unoptimized={true} />}
                                     </div>
-                                    <div className="relative z-10 mb-8">
-                                        <p className="text-[10px] font-black uppercase tracking-[0.4em] text-dark/30 mb-2">{entity.ref}</p>
-                                        <h3 className={`text-2xl font-black ${entity.color} tracking-tight`}>{entity.name}</h3>
+                                    <div className="relative z-10 mb-4 md:mb-8">
+                                        <p className="text-[7px] md:text-[10px] font-black uppercase tracking-[0.2em] md:tracking-[0.4em] text-dark/30 mb-1 md:mb-2">{entity.ref}</p>
+                                        <h3 className={`text-base md:text-2xl font-black ${entity.color} tracking-tight leading-none`}>{entity.name}</h3>
                                     </div>
-                                    <div className="relative z-10 space-y-2">
-                                        <p className="text-sm font-bold text-dark/60 hover:text-dark transition-colors">{entity.email}</p>
-                                        <p className={`text-xs font-black uppercase tracking-widest ${entity.color}`}>{entity.phone}</p>
+                                    <div className="relative z-10 space-y-1 md:space-y-2">
+                                        <p className="text-[9px] sm:text-xs md:text-sm font-bold text-dark/60 hover:text-dark transition-colors truncate">{entity.email}</p>
+                                        <p className={`text-[8px] md:text-xs font-black uppercase tracking-widest ${entity.color}`}>{entity.phone}</p>
                                     </div>
                                 </motion.div>
                             ))}
@@ -968,21 +1000,22 @@ export default function Home() {
                                     ref: "Satellite Office Strategy Hub"
                                 }
                             ].map((hub, i) => (
-                                <div key={i} className="relative p-12 bg-white rounded-[56px] border border-dark/5 overflow-hidden group">
-                                    <div className="absolute top-0 right-0 p-12 text-[100px] font-black text-dark/[0.02] leading-none pointer-events-none group-hover:text-[#002366]/[0.05] transition-all duration-1000">
+                                <div key={i} className="relative p-6 md:p-12 bg-white rounded-[24px] md:rounded-[56px] border border-dark/5 overflow-hidden group">
+                                    {/* Hide watermark on mobile/tablet to prevent overlapping with text */}
+                                    <div className="hidden lg:block absolute top-0 right-0 p-12 text-[100px] font-black text-dark/[0.02] leading-none pointer-events-none group-hover:text-[#002366]/[0.05] transition-all duration-1000">
                                         {hub.city === "Gurugram" ? "NCR" : "RP"}
                                     </div>
                                     <div className="relative z-10">
-                                        <div className="flex items-center gap-4 mb-8">
-                                            <span className="text-[10px] font-black uppercase tracking-[0.6em] text-[#002366] bg-[#002366]/5 px-4 py-2 rounded-full">{hub.type}</span>
+                                        <div className="flex items-center gap-4 mb-3 md:mb-8">
+                                            <span className="text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em] md:tracking-[0.6em] text-[#002366] bg-[#002366]/5 px-3 py-1.5 md:px-4 md:py-2 rounded-full">{hub.type}</span>
                                         </div>
-                                        <h4 className="text-4xl font-black text-dark mb-2 tracking-tighter">{hub.label}</h4>
-                                        <p className="text-2xl font-black text-[#002366] mb-8">{hub.city}</p>
-                                        <div className="h-[1px] w-full bg-dark/5 mb-8" />
-                                        <p className="text-xl text-dark/50 font-secondary leading-relaxed max-w-sm mb-12">
+                                        <h4 className="text-2xl md:text-4xl font-black text-dark mb-1 md:mb-2 tracking-tighter leading-none">{hub.label}</h4>
+                                        <p className="text-lg md:text-2xl font-black text-[#002366] mb-3 md:mb-8">{hub.city}</p>
+                                        <div className="h-[1px] w-full bg-dark/5 mb-3 md:mb-8" />
+                                        <p className="text-sm md:text-xl text-dark/50 font-secondary leading-relaxed max-w-sm mb-4 md:mb-12">
                                             {hub.address}
                                         </p>
-                                        <p className="text-[10px] font-black uppercase tracking-[0.4em] text-dark/30 italic">
+                                        <p className="text-[8px] md:text-[10px] font-black uppercase tracking-[0.2em] md:tracking-[0.4em] text-dark/30 italic">
                                             {hub.ref}
                                         </p>
                                     </div>
