@@ -20,7 +20,7 @@ const Footer = () => {
 
             <div className="container-wide relative z-10">
                 {/* CTA SECTION */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center mb-10">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-16 items-center mb-6 md:mb-10">
                     <div className="lg:col-span-8">
                         <motion.div
                             initial={{ opacity: 0, y: 30 }}
@@ -29,11 +29,11 @@ const Footer = () => {
                             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
                             viewport={{ once: false, amount: 0.3 }}
                         >
-                            <h2 className="text-5xl md:text-8xl font-black mb-8 leading-[1] tracking-tighter">
+                            <h2 className="text-4xl sm:text-5xl md:text-8xl font-black mb-6 md:mb-8 leading-[1] tracking-tighter">
                                 Ready to Build <br />
                                 <span className="text-gold">the Future?</span>
                             </h2>
-                            <p className="text-xl md:text-2xl text-white/70 font-secondary leading-relaxed max-w-2xl">
+                            <p className="text-lg md:text-2xl text-white/70 font-secondary leading-relaxed max-w-2xl">
                                 Join our network of strategic partners and visionaries. <br className="hidden md:block" />
                                 Let's create lasting impact together.
                             </p>
@@ -50,11 +50,11 @@ const Footer = () => {
                         >
                             <Link
                                 href="/contact"
-                                className="group relative inline-flex items-center justify-center w-48 h-48 md:w-64 md:h-64 border border-white/20 rounded-full hover:bg-white hover:text-dark transition-all duration-700"
+                                className="group relative inline-flex items-center justify-center w-40 h-40 md:w-64 md:h-64 border border-white/20 rounded-full hover:bg-white hover:text-dark transition-all duration-700"
                             >
                                 <div className="text-center relative z-10 transition-transform duration-700 group-hover:scale-110">
-                                    <span className="block text-lg font-black uppercase tracking-widest mb-2">Get in Touch</span>
-                                    <span className="material-symbols-outlined text-4xl group-hover:rotate-45 transition-transform duration-500">north_east</span>
+                                    <span className="block text-xs md:text-lg font-black uppercase tracking-wider md:tracking-widest mb-1 md:mb-2">Get in Touch</span>
+                                    <span className="material-symbols-outlined text-2xl md:text-4xl group-hover:rotate-45 transition-transform duration-500">north_east</span>
                                 </div>
 
                                 {/* Continuous Spinning Text */}
@@ -85,12 +85,12 @@ const Footer = () => {
                 <div className="h-[1px] w-full bg-white/10 mb-8" />
 
                 {/* BOTTOM SECTION */}
-                <div className="flex flex-col md:flex-row justify-between items-center gap-12 pt-8">
-                    <div className="flex flex-col gap-4 text-center md:text-left">
+                <div className="flex flex-col md:flex-row justify-between items-center gap-6 md:gap-12 pt-4 md:pt-8">
+                    <div className="flex flex-col gap-3 text-center md:text-left">
                         <Link href="/" className="text-2xl md:text-3xl font-black tracking-tighter group">
                             RISEMATE <span className="text-gold transition-all duration-500 group-hover:tracking-widest">VENTURE</span>
                         </Link>
-                        <p className="text-white/40 text-[10px] font-black uppercase tracking-[0.4em]">© 2026 RISEMATE VENTURE. ALL RIGHTS RESERVED.</p>
+                        <p className="text-white/40 text-[9px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em]">© 2026 RISEMATE VENTURE. ALL RIGHTS RESERVED.</p>
                     </div>
 
                     <div className="flex items-center gap-10">
@@ -104,10 +104,10 @@ const Footer = () => {
                         </Link>
                     </div>
 
-                    <div className="flex gap-4">
+                    <div className="flex gap-3">
                         {/* Social Links placeholder */}
                         {['LinkedIn', 'Twitter', 'X'].map((social) => (
-                            <Link key={social} href="#" className="w-12 h-12 rounded-full border border-white/5 flex items-center justify-center text-white/30 hover:border-white/20 hover:text-white hover:bg-white/5 transition-all duration-500 group">
+                            <Link key={social} href="#" className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white/5 flex items-center justify-center text-white/30 hover:border-white/20 hover:text-white hover:bg-white/5 transition-all duration-500 group">
                                 <span className="sr-only">{social}</span>
                                 <div className="w-1 h-1 bg-current rounded-full group-hover:scale-150 transition-transform" />
                             </Link>

@@ -129,7 +129,7 @@ const HeroContent = ({ theme }) => {
 
             {/* Main Heading */}
             <div className="relative mb-16 lg:mb-24">
-                <h1 className={`text-5xl sm:text-6xl md:text-[110px] lg:text-[180px] font-black leading-[0.85] tracking-tight ${primaryColor}`}>
+                <h1 className={`text-4xl sm:text-6xl md:text-[110px] lg:text-[180px] font-black leading-[0.85] tracking-tight ${primaryColor}`}>
                     <div className="flex flex-col">
                         <motion.span variants={fadeInUp} className="relative inline-block">
                             Architecting

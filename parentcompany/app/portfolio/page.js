@@ -100,7 +100,7 @@ export default function Portfolio() {
                                     <span className="text-[11px] font-black uppercase tracking-[0.4em] text-dark/70">Sovereign Registry</span>
                                 </motion.div>
 
-                                <h1 className="text-5xl sm:text-6xl md:text-[7rem] lg:text-[8.5rem] font-black leading-[0.85] text-dark tracking-tighter mb-10 group">
+                                <h1 className="text-4xl sm:text-6xl md:text-[7rem] lg:text-[8.5rem] font-black leading-[0.85] text-dark tracking-tighter mb-10 group">
                                     Institutional <br />
                                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-dark to-dark/30 italic pr-4">Portfolio.</span>
                                 </h1>
