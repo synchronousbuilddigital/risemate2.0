@@ -47,7 +47,7 @@ export default function About() {
                                     <span className="text-[10px] font-black uppercase tracking-[0.6em] text-blue-600">About the Portal</span>
                                 </div>
                                 
-                                <h1 className="text-6xl md:text-[6.5rem] xl:text-[8.5rem] font-black leading-[0.85] text-dark tracking-tighter mb-8">
+                                <h1 className="text-5xl sm:text-6xl md:text-[6.5rem] xl:text-[8.5rem] font-black leading-[0.85] text-dark tracking-tighter mb-8">
                                     The Sovereign<br />
                                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-blue-900 to-dark opacity-90 pr-4">Legacy.</span>
                                 </h1>
