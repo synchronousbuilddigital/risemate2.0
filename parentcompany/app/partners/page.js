@@ -248,7 +248,7 @@ export default function Partners() {
 
                         {/* BOTTOM COPYRIGHT - COMPACT */}
                         <div className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
-                            <span className="font-industrial text-[9px] text-glacier/30 tracking-[1em] uppercase font-bold">© 2026 RISEMATE VENTURE ALL RIGHTS RESERVED.</span>
+                            <span className="font-industrial text-[9px] text-glacier/30 tracking-[1em] uppercase font-bold">© 2026 RISEMATES VENTURES ALL RIGHTS RESERVED.</span>
                         </div>
                     </div>
                 </footer>

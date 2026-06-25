@@ -234,7 +234,7 @@ const ParallaxMarquee = ({ text, direction = "left" }) => {
     );
 };
 
-const PortfolioItem = ({ item, index }) => {
+const PortfolioItem = ({ item, index, isMarquee }) => {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true, amount: 0.2 });
     const { scrollYProgress } = useScroll({
@@ -246,9 +246,9 @@ const PortfolioItem = ({ item, index }) => {
     return (
         <motion.div
             ref={ref}
-            style={{ y }}
+            style={isMarquee ? {} : { y }}
             variants={fadeInUp}
-            whileHover={{ y: -12, scale: 1.01 }}
+            whileHover={isMarquee ? { y: -8, scale: 1.01 } : { y: -12, scale: 1.01 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="group relative flex flex-col bg-[#fdfdfd] rounded-[16px] md:rounded-[40px] border border-dark/5 p-4 md:p-8 hover:border-[#002366]/20 hover:shadow-[0_40px_80px_-20px_rgba(0,18,51,0.08)] transition-all duration-1000 overflow-hidden"
         >
@@ -294,7 +294,15 @@ const PortfolioItem = ({ item, index }) => {
 
             <div className="flex flex-col relative z-10 flex-grow">
                 <p className="text-[6px] md:text-[8px] font-black uppercase tracking-[0.3em] md:tracking-[0.5em] text-[#002366] mb-1 md:mb-2 opacity-60 italic">{item.tagline}</p>
-                <h3 className="text-sm sm:text-base md:text-3xl font-black text-dark mb-2 md:mb-4 tracking-tighter leading-none group-hover:text-[#002366] transition-colors duration-500 uppercase">{item.title}</h3>
+                <div className="flex items-center gap-2 md:gap-3 mb-2 md:mb-4 flex-wrap">
+                    <h3 className="text-sm sm:text-base md:text-3xl font-black text-dark tracking-tighter leading-none group-hover:text-[#002366] transition-colors duration-500 uppercase">{item.title}</h3>
+                    {item.link && (
+                        <a href={item.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-0.5 text-[8px] md:text-[10px] font-black uppercase tracking-wider text-[#002366] hover:underline" onClick={(e) => e.stopPropagation()}>
+                            <span>Link</span>
+                            <span className="material-symbols-outlined text-[8px] md:text-[10px]">north_east</span>
+                        </a>
+                    )}
+                </div>
 
                 <p className="hidden sm:block text-xs md:text-sm text-dark/50 font-secondary leading-relaxed mb-4 md:mb-8 line-clamp-3">
                     {item.desc}
@@ -338,18 +346,11 @@ const FounderCard = ({ founder, isSmall }) => {
                     className="object-cover object-top group-hover:scale-105 transition-transform duration-1000"
                     unoptimized={true}
                 />
-                
+
                 {/* Overlays */}
                 <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-dark/95 via-dark/40 to-transparent" />
-                
-                {/* Executive Tier Badge */}
-                <div className="hidden md:block absolute top-6 left-6">
-                    <div className="bg-white/10 backdrop-blur-md border border-white/20 px-4 py-1.5 rounded-full">
-                        <span className="text-[8px] font-black uppercase tracking-[0.3em] text-white/90">
-                            {founder.tier}
-                        </span>
-                    </div>
-                </div>
+
+
 
                 {/* Name & Role Overlay */}
                 <div className="absolute bottom-2.5 left-2.5 right-2.5 md:bottom-6 md:left-8 md:right-8 z-10 transition-transform duration-700 group-hover:-translate-y-2">
@@ -376,7 +377,6 @@ const FounderCard = ({ founder, isSmall }) => {
             <div className={`${isSmall ? 'p-6' : 'p-8 md:p-10'} hidden md:flex flex-col flex-grow`}>
                 {/* Operational Mandate */}
                 <div className={`${isSmall ? 'mb-4' : 'mb-8'}`}>
-                    <h5 className="text-[10px] font-black uppercase tracking-[0.35em] text-dark/40 mb-4 uppercase">Operational Mandate</h5>
                     <div className="border-l-2 border-blue-600/30 pl-5">
                         <p className={`${isSmall ? 'text-sm' : 'text-base md:text-[16px]'} text-dark/80 font-medium leading-relaxed italic`}>
                             "{founder.philosophy}"
@@ -427,8 +427,7 @@ const founders = [
         philosophy: "Harnessing deep-tech intelligence to solve the world's most critical energy challenges.",
         vision: "Enabling a carbon-neutral future by developing the world’s greenest battery cell and intelligent green-tech infrastructure.",
         focus: "Clean Energy, AI/ML-driven IoT Innovations & Smart Energy Automation Systems.",
-        logo: "https://rymgrenergy.com/images/logo.png",
-        image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=2574&auto=format&fit=crop"
+        image: "/Yograj.jpeg"
     },
     {
         tier: "Executive Tier 004",
@@ -437,7 +436,6 @@ const founders = [
         philosophy: "Scaling institutional legacies through the convergence of high-conversion engineering and supreme aesthetics.",
         vision: "Architecting high-velocity digital ecosystems for high-growth elite brands via algorithmic process automation.",
         focus: "Brand Identity Architecture, Autonomous AI Agents & Predictive Growth Modeling.",
-        logo: "/sync.jpg",
         image: "/devam .jpeg"
     },
     {
@@ -447,7 +445,6 @@ const founders = [
         philosophy: "Expanding industrial footprints through collaborative strategic alliance and market intelligence.",
         vision: "Integrating emerging market opportunities with core institutional values for sustained expansion.",
         focus: "Strategic Alliances, Market Expansion & Operational Scalability.",
-        logo: "/logo.png",
         image: "/aryan.png"
     }
 ];
@@ -460,7 +457,8 @@ const portfolioItems = [
         desc: "Orchestrating a systemic shift in the industrial value chain through a proprietary circular luxury ecosystem. We integrate end-to-end lifecycle management to preserve capital and environmental equity.",
         tag: "Circular Luxury",
         tagline: "Sovereign Industrial Value Chain",
-        logo: "/BWORTH.jpg"
+        logo: "/BWORTH.jpg",
+        link: "https://bworth.co.in"
     },
     {
         title: "Vega Vrudhi",
@@ -469,7 +467,8 @@ const portfolioItems = [
         desc: "Deploying high-precision execution frameworks that bridge the divide between global strategic mandates and regional operational reality. We architect the backbone of national scale logistics.",
         tag: "Managed Sales",
         tagline: "Regional Execution Infrastructure",
-        logo: "/VEGA.png"
+        logo: "/VEGA.png",
+        link: "https://vegavruddhi.com"
     },
     {
         title: "RYM Grenergy",
@@ -477,7 +476,8 @@ const portfolioItems = [
         desc: "Pioneering the next generation of energy sovereignty through advanced electrochemical storage solutions. Our vertically integrated AI-driven infrastructure ensures energy security for high-growth sectors.",
         tag: "Clean Energy",
         tagline: "Sovereign Energy Infrastructure",
-        logo: "https://rymgrenergy.com/images/logo.png"
+        logo: "/RYM.png",
+        link: "https://rymgrenergy.com/"
     },
     {
         title: "Synchronous",
@@ -486,7 +486,8 @@ const portfolioItems = [
         desc: "Synthesizing brand identity with autonomous agent intelligence to create compound ROI for institutional-grade brands. We build the digital nexus where aesthetics meet algorithmic precision.",
         tag: "Autonomous AI",
         tagline: "Institutional Brand Architecture",
-        logo: "/sync.jpg"
+        logo: "/sync.jpg",
+        link: "https://www.synchronousbuilddigital.com/"
     },
 ];
 
@@ -826,7 +827,7 @@ export default function Home() {
 
                 {/* 4. LEADERSHIP - ARCHITECTS STAGGER */}
                 <ScrollReveal>
-                    <section className="py-12 md:py-32 bg-white overflow-hidden">
+                    <section className="pt-12 pb-6 md:pt-32 md:pb-10 bg-white overflow-hidden">
                         <div className="container-wide">
                             <motion.div
                                 variants={sectionAnimation}
@@ -841,7 +842,7 @@ export default function Home() {
                                     </h2>
                                 </div>
                                 <p className="text-xl text-dark/30 font-secondary mt-8 md:mt-0 max-w-sm md:text-right italic">
-                                    The executive governance behind RiseMate Venture. Each leader operates at the nexus of institutional stability and regional opportunity.
+                                    The executive governance behind RiseMates Ventures. Each leader operates at the nexus of institutional stability and regional opportunity.
                                 </p>
                             </motion.div>
 
@@ -866,7 +867,7 @@ export default function Home() {
 
                 {/* 5. PORTFOLIO - CINEMATIC IMMERSION */}
                 <ScrollReveal>
-                    <section id="portfolio" className="py-10 md:py-16 bg-[#fdfdfd] overflow-hidden relative">
+                    <section id="portfolio" className="pt-6 pb-10 md:pt-10 md:pb-16 bg-[#fdfdfd] overflow-hidden relative">
                         {/* Background Grids */}
                         <div className="absolute inset-0 grid grid-cols-12 opacity-[0.03] pointer-events-none">
                             {[...Array(12)].map((_, i) => (
@@ -880,7 +881,7 @@ export default function Home() {
                                 <div className="lg:col-span-9 w-full">
                                     <motion.div variants={sectionAnimation} initial="initial" whileInView="whileInView">
                                         <SectionLabel>Portfolio Spotlight</SectionLabel>
-                                        <h2 className="text-4xl md:text-6xl lg:text-8xl font-black text-dark leading-[1.1] tracking-tight">
+                                        <h2 className="text-5xl md:text-7xl lg:text-[7.5rem] font-black text-dark leading-[1.1] tracking-tight">
                                             <RevealText text="A Legacy of" delay={0.2} /> <br />
                                             <span className="text-[#002366] italic font-serif font-normal pr-6">Strategic</span> <br />
                                             <RevealText text="Allocation" delay={0.6} />
@@ -891,11 +892,25 @@ export default function Home() {
 
 
 
-                            {/* Portfolio List with extreme scroll depth */}
-                            <div className="grid grid-cols-2 md:grid-cols-2 gap-4 md:gap-8 max-w-7xl mx-auto">
-                                {portfolioItems.map((item, idx) => (
-                                    <PortfolioItem key={idx} item={item} index={idx} />
-                                ))}
+                            {/* Portfolio List with infinite scroll marquee row */}
+                            <div className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] overflow-hidden py-10">
+                                <motion.div
+                                    animate={{
+                                        x: ["0%", "-50%"]
+                                    }}
+                                    transition={{
+                                        duration: 35,
+                                        repeat: Infinity,
+                                        ease: "linear"
+                                    }}
+                                    className="flex gap-6 md:gap-10 w-max px-6"
+                                >
+                                    {[...portfolioItems, ...portfolioItems, ...portfolioItems, ...portfolioItems].map((item, idx) => (
+                                        <div key={idx} className="w-[300px] sm:w-[380px] md:w-[460px] flex-shrink-0">
+                                            <PortfolioItem item={item} index={idx % portfolioItems.length} isMarquee={true} />
+                                        </div>
+                                    ))}
+                                </motion.div>
                             </div>
                         </div>
                     </section>
@@ -940,7 +955,7 @@ export default function Home() {
                                     link: "https://vegavruddhi.com"
                                 },
                                 {
-                                    name: "RYM Grenergy", logo: "https://rymgrenergy.com/images/logo.png",
+                                    name: "RYM Grenergy", logo: "/RYM.png",
                                     email: "contact@rym-grenergy.com", phone: "+91 82000 55645",
                                     ref: "Energy Sovereignty",
                                     color: "text-[#C9A84C]",

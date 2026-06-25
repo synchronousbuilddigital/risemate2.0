@@ -8,7 +8,7 @@ import Image from "next/image";
 
 const ContactOrbit = () => (
     <div className="relative w-full aspect-square max-w-[550px] mx-auto flex justify-center items-center group">
-        
+
         {/* Core Glow */}
         <div className="absolute w-[60%] h-[60%] bg-blue-500/10 blur-[100px] rounded-full animate-pulse transition-all duration-1000 group-hover:bg-blue-600/20" />
 
@@ -16,9 +16,9 @@ const ContactOrbit = () => (
         <svg viewBox="0 0 600 600" className="absolute w-full h-full overflow-visible pointer-events-none drop-shadow-xl" strokeLinejoin="round" strokeLinecap="round">
             <defs>
                 <linearGradient id="primaryOrbit" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#002366" stopOpacity="0.0"/>
-                    <stop offset="50%" stopColor="#002366" stopOpacity="0.5"/>
-                    <stop offset="100%" stopColor="#002366" stopOpacity="0.0"/>
+                    <stop offset="0%" stopColor="#002366" stopOpacity="0.0" />
+                    <stop offset="50%" stopColor="#002366" stopOpacity="0.5" />
+                    <stop offset="100%" stopColor="#002366" stopOpacity="0.0" />
                 </linearGradient>
                 <radialGradient id="nodeGlow" cx="50%" cy="50%" r="50%">
                     <stop offset="0%" stopColor="#3B82F6" stopOpacity="1" />
@@ -29,7 +29,7 @@ const ContactOrbit = () => (
             {/* Static Inner Rings */}
             <circle cx="300" cy="300" r="140" fill="none" stroke="#002366" strokeOpacity="0.05" strokeWidth="1" />
             <circle cx="300" cy="300" r="90" fill="none" stroke="#002366" strokeOpacity="0.08" strokeWidth="1" strokeDasharray="4 8" />
-            
+
             {/* Animated Outer Orbit 1 */}
             <g className="animate-[spin_40s_linear_infinite] origin-center">
                 <circle cx="300" cy="300" r="240" fill="none" stroke="url(#primaryOrbit)" strokeWidth="1" />
@@ -56,14 +56,14 @@ const ContactOrbit = () => (
         <div className="relative z-10 w-48 h-48 sm:w-56 sm:h-56">
             <div className="absolute inset-0 bg-white/40 backdrop-blur-xl border border-white shadow-[0_20px_50px_-10px_rgba(0,35,102,0.1)] rounded-full flex flex-col items-center justify-center p-6 group-hover:scale-105 transition-all duration-700 z-10">
                 <div className="absolute inset-2 border-[1px] border-dashed border-[#002366]/10 rounded-full animate-[spin_60s_linear_infinite]"></div>
-                
+
                 <div className="w-20 h-20 rounded-[1.2rem] bg-gradient-to-br from-[#002366] to-blue-800 text-white flex items-center justify-center mb-4 shadow-xl group-hover:-translate-y-1 transition-transform duration-500">
                     <span className="material-symbols-outlined text-4xl font-light">language</span>
                 </div>
-                
+
                 <span className="text-[10px] font-black uppercase tracking-[0.5em] text-[#002366]/40 mb-1 mt-2">Global</span>
                 <span className="text-xl font-black text-[#002366] tracking-tight">Nexus</span>
-                
+
                 <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-white px-4 py-1.5 rounded-full border border-dark/5 shadow-sm flex items-center gap-2 text-xs font-bold text-dark whitespace-nowrap">
                     <span className="relative flex h-2 w-2">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -90,11 +90,11 @@ const ContactOrbit = () => (
         </div>
 
         <div className="absolute top-[30%] right-[10%] w-10 h-10 bg-[#002366] rounded-xl flex items-center justify-center shadow-xl animate-bounce z-20" style={{ animationDuration: '4s' }}>
-             <span className="material-symbols-outlined text-white text-sm">mail</span>
+            <span className="material-symbols-outlined text-white text-sm">mail</span>
         </div>
 
         <div className="absolute bottom-[30%] left-[10%] w-12 h-12 bg-white border border-dark/5 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all z-20">
-             <span className="material-symbols-outlined text-emerald-500 text-lg">public</span>
+            <span className="material-symbols-outlined text-emerald-500 text-lg">public</span>
         </div>
     </div>
 );
@@ -224,7 +224,7 @@ export default function Contact() {
                                 title="RYM Grenergy"
                                 email="contact@rym-grenergy.com"
                                 phone="+91 82000 55645"
-                                logo="https://rymgrenergy.com/images/logo.png"
+                                logo="/RYM.png"
                                 refLabel="Energy Sovereignty"
                                 textColor="text-[#C9A84C]"
                                 bgLightColor="bg-[#C9A84C]/10"

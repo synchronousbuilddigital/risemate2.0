@@ -7,7 +7,7 @@ import Navbar from "../components/Navbar";
 const LOCATIONS = [
   { id: "mumbai", name: "MUMBAI", type: "BWORTH APPAREL", focus: "Premium Lifestyle & Fashion HQ", coords: { x: "21.6%", y: "60.2%" } },
   { id: "bangalore", name: "BENGALURU", type: "RYM TECH", focus: "Neural Innovation / AI SaaS Hub", coords: { x: "41.2%", y: "81.5%" } },
-  { id: "delhi", name: "NEW DELHI", type: "RISEMATE HQ", focus: "Corporate Governance / Venture Policy", coords: { x: "36.8%", y: "27.8%" } },
+  { id: "delhi", name: "NEW DELHI", type: "RISEMATES HQ", focus: "Corporate Governance / Venture Policy", coords: { x: "36.8%", y: "27.8%" } },
   { id: "hyderabad", name: "HYDERABAD", type: "SYNCHRONOUS DIGITAL", focus: "Marketing Strategy / Web Presence", coords: { x: "44.9%", y: "66.4%" } },
   { id: "kolkata", name: "KOLKATA", type: "VEGAVRUDHI", focus: "Sales & Staffing Excellence", coords: { x: "78.4%", y: "48.2%" } },
 ];
@@ -152,8 +152,8 @@ export default function Operations() {
 
         <footer className="bg-dark py-12 border-t border-white/5">
              <div className="max-w-screen-2xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12 px-8 md:px-0">
-                   <div className="font-industrial text-gold-premium tracking-[0.6em] text-3xl uppercase">RISEMATE VENTURE</div>
-                   <p className="font-body text-[10px] uppercase tracking-widest opacity-20">© 2024 RISEMATE VENTURE. OPERATIONAL FOOTPRINT.</p>
+                   <div className="font-industrial text-gold-premium tracking-[0.6em] text-3xl uppercase">RISEMATES VENTURES</div>
+                   <p className="font-body text-[10px] uppercase tracking-widest opacity-20">© 2024 RISEMATES VENTURES. OPERATIONAL FOOTPRINT.</p>
              </div>
         </footer>
       </main>

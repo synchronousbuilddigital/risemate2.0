@@ -34,8 +34,7 @@ const leaders = [
         vision: "Enabling a carbon-neutral future by developing the world's greenest battery cell and intelligent green-tech infrastructure.",
         focus: "Clean Energy, AI/ML-driven IoT Innovations & Smart Energy Automation Systems.",
         philosophy: "Harnessing deep-tech intelligence to solve the world's most critical energy challenges.",
-        logo: "https://rymgrenergy.com/images/logo.png",
-        image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=2574&auto=format&fit=crop",
+        image: "/Yograj.jpeg",
         id: "03"
     },
     {
@@ -44,7 +43,6 @@ const leaders = [
         vision: "Architecting high-velocity digital ecosystems for high-growth elite brands via algorithmic process automation.",
         focus: "Brand Identity Architecture, Autonomous AI Agents & Predictive Growth Modeling.",
         philosophy: "Scaling institutional legacies through the convergence of high-conversion engineering and supreme aesthetics.",
-        logo: "/sync.jpg",
         logoBg: "bg-white",
         image: "/devam .jpeg",
         id: "04"
@@ -55,7 +53,6 @@ const leaders = [
         vision: "Integrating emerging market opportunities with core institutional values for sustained expansion.",
         focus: "Strategic Alliances, Market Expansion & Operational Scalability.",
         philosophy: "Expanding industrial footprints through collaborative strategic alliance and market intelligence.",
-        logo: "/logo.png",
         image: "/aryan.png",
         id: "05"
     }
@@ -246,14 +243,7 @@ const LeaderRow = ({ leader, reverse }) => {
                 {/* Subtle bottom gradient only — same as homepage */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#001233]/60 via-transparent to-transparent" />
 
-                {/* Executive badge */}
-                <div className="absolute top-8 left-8 z-20">
-                    <div className="bg-white/60 backdrop-blur-xl border border-dark/10 px-5 py-2 rounded-full">
-                        <span className="text-[9px] font-black uppercase tracking-[0.45em] text-dark/70">
-                            Executive Tier {leader.id}
-                        </span>
-                    </div>
-                </div>
+
 
                 {/* Logo badge */}
                 {leader.logo && (
@@ -379,7 +369,7 @@ export default function Leadership() {
                                 className="flex flex-col gap-10"
                             >
                                 <p className="text-lg md:text-xl text-dark/45 font-secondary leading-relaxed max-w-lg">
-                                    The executive governance behind RiseMate Venture. Each leader operates at the nexus of institutional stability and regional opportunity.
+                                    The executive governance behind RiseMates Ventures. Each leader operates at the nexus of institutional stability and regional opportunity.
                                 </p>
 
                                 {/* Stat pills */}

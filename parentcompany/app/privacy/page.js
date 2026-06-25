@@ -13,7 +13,7 @@ export default function PrivacyPolicy() {
                     <p>Last updated: April 2026</p>
                     <section>
                         <h2 className="text-2xl font-bold text-dark mb-4">1. Data Collection</h2>
-                        <p>RiseMate Venture operates a Sovereign Digital Legacy Registry. We collect institutional identifiers necessary for strategic induction and capital synchronization.</p>
+                        <p>RiseMates Ventures operates a Sovereign Digital Legacy Registry. We collect institutional identifiers necessary for strategic induction and capital synchronization.</p>
                     </section>
                     <section>
                         <h2 className="text-2xl font-bold text-dark mb-4">2. Industrial Security</h2>

@@ -2,8 +2,8 @@ import "./globals.css";
 import PageAnimatePresence from "./components/PageAnimatePresence";
 
 export const metadata = {
-  title: "RISEMATE VENTURE | One Vision. Four Empires.",
-  description: "A premium conglomerate merging Bworth, VegaVrudhi, RYM, and Synchronous Digital Build under the RISEMATE banner.",
+  title: "RISEMATES VENTURES | One Vision. Four Empires.",
+  description: "A premium conglomerate merging Bworth, VegaVrudhi, RYM, and Synchronous Digital Build under the RISEMATES banner.",
 };
 
 export default function RootLayout({ children }) {

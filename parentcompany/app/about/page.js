@@ -7,7 +7,79 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { motion } from "framer-motion";
 
+const staticEntities = [
+    {
+        name: "BWorth",
+        sector: "Sustainable Fashion",
+        desc: "Revolutionizing the fashion industry through a unique circular luxury ecosystem. Buy, sell, and recycle fashion while earning rewards through our unique buyback program that preserves the planet's beauty.",
+        logo: "/BWORTH.jpg",
+        textColor: "text-cyan-600",
+        hoverTextColor: "group-hover:text-cyan-600",
+        lineColor: "bg-cyan-600/30",
+        gradientColor: "from-cyan-50/80"
+    },
+    {
+        name: "Vega Vrudhi",
+        sector: "Execution Architecture",
+        desc: "Precision execution architecture bridging the gap between digital leads and on-ground reality. We deploy trained field teams to accelerate market presence for national growth engines.",
+        logo: "/VEGA.png",
+        textColor: "text-green-600",
+        hoverTextColor: "group-hover:text-green-600",
+        lineColor: "bg-green-600/30",
+        gradientColor: "from-green-50/80"
+    },
+    {
+        name: "RYM Grenergy",
+        sector: "Deep-Tech",
+        desc: "Enabling a carbon-neutral future by developing the world’s greenest battery cell and intelligent green-tech infrastructure through AI, IoT, and Smart Automation.",
+        logo: "/RYM.png",
+        textColor: "text-[#C9A84C]",
+        hoverTextColor: "group-hover:text-[#C9A84C]",
+        lineColor: "bg-[#C9A84C]/30",
+        gradientColor: "from-[#C9A84C]/10"
+    },
+    {
+        name: "Synchronous",
+        sector: "Digital Marketing",
+        desc: "Architecting high-velocity digital ecosystems for high-growth elite brands. We build vertically integrated brand identities and compound ROI via algorithmic process automation.",
+        logo: "/sync.jpg",
+        textColor: "text-orange-500",
+        hoverTextColor: "group-hover:text-orange-500",
+        lineColor: "bg-orange-500/30",
+        gradientColor: "from-orange-50/80"
+    }
+];
+
 export default function About() {
+    const [dynamicEntities, setDynamicEntities] = useState(staticEntities);
+
+    useEffect(() => {
+        fetch("/api/content")
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.portfolioItems && data.portfolioItems.length > 0) {
+                    const merged = staticEntities.map((staticEnt) => {
+                        const dynamicEnt = data.portfolioItems.find(p => p.title.toLowerCase() === staticEnt.name.toLowerCase());
+                        if (dynamicEnt) {
+                            return {
+                                ...staticEnt,
+                                name: dynamicEnt.title,
+                                tagline: dynamicEnt.tagline || staticEnt.tagline,
+                                tag: dynamicEnt.tag || staticEnt.tag,
+                                img: dynamicEnt.img || staticEnt.img,
+                                desc: dynamicEnt.desc || staticEnt.desc,
+                                logo: dynamicEnt.logo || staticEnt.logo,
+                                link: dynamicEnt.link || staticEnt.link
+                            };
+                        }
+                        return staticEnt;
+                    });
+                    setDynamicEntities(merged);
+                }
+            })
+            .catch((err) => console.error("Error fetching content:", err));
+    }, []);
+
     return (
         <div className="bg-white min-h-screen">
             <Navbar />
@@ -20,18 +92,18 @@ export default function About() {
 
                     {/* Massive Outline Text Background */}
                     <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center pointer-events-none select-none z-0">
-                        <motion.h2 
+                        <motion.h2
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 2, ease: "easeOut" }}
                             className="text-[15vw] font-black text-transparent uppercase tracking-tighter" style={{ WebkitTextStroke: "2px rgba(0,35,102,0.05)" }}>
-                            RISEMATE
+                            RISEMATES
                         </motion.h2>
                     </div>
 
                     <div className="max-w-screen-2xl mx-auto relative z-10 w-full">
                         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-16 lg:gap-24 w-full">
-                            
+
                             {/* Left Text Block */}
                             <motion.div
                                 initial={{ opacity: 0, y: 30 }}
@@ -46,7 +118,7 @@ export default function About() {
                                     </div>
                                     <span className="text-[10px] font-black uppercase tracking-[0.6em] text-blue-600">About the Portal</span>
                                 </div>
-                                
+
                                 <h1 className="text-3xl sm:text-6xl md:text-[6.5rem] xl:text-[8.5rem] font-black leading-[0.85] text-dark tracking-tighter mb-8">
                                     The Sovereign<br />
                                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-blue-900 to-dark opacity-90 pr-4">Legacy.</span>
@@ -62,11 +134,11 @@ export default function About() {
                                 className="flex-1 lg:max-w-xl pb-6 border-l-[2px] border-blue-600/20 pl-8 lg:pl-16 relative"
                             >
                                 {/* Vertical Animated Line Overlay */}
-                                <motion.div 
-                                    initial={{ height: 0 }} 
-                                    animate={{ height: "100%" }} 
-                                    transition={{ duration: 1.5, delay: 0.8, ease: "easeInOut" }} 
-                                    className="absolute top-0 -left-[2px] w-[2px] bg-blue-600" 
+                                <motion.div
+                                    initial={{ height: 0 }}
+                                    animate={{ height: "100%" }}
+                                    transition={{ duration: 1.5, delay: 0.8, ease: "easeInOut" }}
+                                    className="absolute top-0 -left-[2px] w-[2px] bg-blue-600"
                                 />
 
                                 <div className="hidden lg:flex w-14 h-14 mb-10 rounded-full border border-dark/10 items-center justify-center bg-white shadow-md">
@@ -74,9 +146,9 @@ export default function About() {
                                 </div>
 
                                 <p className="text-xl md:text-3xl text-dark/60 font-secondary leading-snug">
-                                    RiseMate Venture catalysts economic development by connecting global institutional expertise with high-growth entities across <span className="font-bold text-dark">fashion, tech, energy,</span> and <span className="font-bold text-dark">digital sectors.</span>
+                                    RiseMates Ventures catalysts economic development by connecting global institutional expertise with high-growth entities across <span className="font-bold text-dark">fashion, tech, energy,</span> and <span className="font-bold text-dark">digital sectors.</span>
                                 </p>
-                                
+
                                 <div className="mt-14 flex flex-col sm:flex-row sm:items-center gap-6">
                                     <div className="flex -space-x-4">
                                         <div className="w-12 h-12 rounded-full border-[3px] border-[#fafafa] bg-emerald-50 text-emerald-600 shadow-lg flex items-center justify-center z-[1]">
@@ -143,7 +215,7 @@ export default function About() {
                                 >
                                     <h3 className="text-2xl font-bold mb-6 text-blue-500 group-hover:tracking-widest transition-all">Institutional Impact</h3>
                                     <p className="text-lg text-white/50 font-secondary leading-relaxed italic">
-                                        We operate as a central repository for verified institutional content, ensuring that every entity under the RISEMATE banner adheres to supreme market authority.
+                                        We operate as a central repository for verified institutional content, ensuring that every entity under the RISEMATES banner adheres to supreme market authority.
                                     </p>
                                 </motion.div>
                             </div>
@@ -165,71 +237,36 @@ export default function About() {
                         </motion.div>
 
                         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                            {[
-                                {
-                                    name: "BWorth",
-                                    sector: "Sustainable Fashion",
-                                    desc: "Revolutionizing the fashion industry through a unique circular luxury ecosystem. Buy, sell, and recycle fashion while earning rewards through our unique buyback program that preserves the planet's beauty.",
-                                    logo: "/BWORTH.jpg",
-                                    textColor: "text-cyan-600",
-                                    hoverTextColor: "group-hover:text-cyan-600",
-                                    lineColor: "bg-cyan-600/30",
-                                    gradientColor: "from-cyan-50/80"
-                                },
-                                {
-                                    name: "Vega Vrudhi",
-                                    sector: "Execution Architecture",
-                                    desc: "Precision execution architecture bridging the gap between digital leads and on-ground reality. We deploy trained field teams to accelerate market presence for national growth engines.",
-                                    logo: "/VEGA.png",
-                                    textColor: "text-green-600",
-                                    hoverTextColor: "group-hover:text-green-600",
-                                    lineColor: "bg-green-600/30",
-                                    gradientColor: "from-green-50/80"
-                                },
-                                {
-                                    name: "RYM Grenergy",
-                                    sector: "Deep-Tech",
-                                    desc: "Enabling a carbon-neutral future by developing the world’s greenest battery cell and intelligent green-tech infrastructure through AI, IoT, and Smart Automation.",
-                                    logo: "https://rymgrenergy.com/_next/image?url=%2Fimages%2Flogo.png&w=128&q=75",
-                                    textColor: "text-[#C9A84C]",
-                                    hoverTextColor: "group-hover:text-[#C9A84C]",
-                                    lineColor: "bg-[#C9A84C]/30",
-                                    gradientColor: "from-[#C9A84C]/10"
-                                },
-                                {
-                                    name: "Synchronous",
-                                    sector: "Digital Marketing",
-                                    desc: "Architecting high-velocity digital ecosystems for high-growth elite brands. We build vertically integrated brand identities and compound ROI via algorithmic process automation.",
-                                    logo: "/sync.jpg",
-                                    textColor: "text-orange-500",
-                                    hoverTextColor: "group-hover:text-orange-500",
-                                    lineColor: "bg-orange-500/30",
-                                    gradientColor: "from-orange-50/80"
-                                }
-                            ].map((entity, idx) => (
+                            {dynamicEntities.map((entity, idx) => (
                                 <motion.div
                                     key={idx}
                                     initial={{ opacity: 0, scale: 0.95, y: 20 }}
                                     whileInView={{ opacity: 1, scale: 1, y: 0 }}
                                     exit={{ opacity: 0, scale: 0.95, y: 20 }}
                                     viewport={{ once: true, amount: 0.1 }}
-                                    transition={{ delay: idx * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}                                    className="group relative h-auto pb-6 sm:h-[300px] md:h-[380px] lg:h-[420px] bg-[#f8f9fa] border border-dark/5 hover:border-blue-600/10 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] rounded-[20px] md:rounded-[40px] overflow-hidden flex flex-col"
+                                    transition={{ delay: idx * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }} className="group relative h-auto pb-6 sm:h-[300px] md:h-[380px] lg:h-[420px] bg-[#f8f9fa] border border-dark/5 hover:border-blue-600/10 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] rounded-[20px] md:rounded-[40px] overflow-hidden flex flex-col"
                                 >
+                                    {/* Large background watermark logo */}
+                                    {entity.logo && (
+                                        <div className="absolute inset-0 w-full h-full opacity-[0.25] group-hover:opacity-[0.4] group-hover:scale-105 pointer-events-none z-0 transition-all duration-1000">
+                                            <Image src={entity.logo} alt="" fill className="object-contain p-6 filter grayscale mix-blend-multiply" unoptimized={true} />
+                                        </div>
+                                    )}
                                     {/* Top bar with Entity Number & Logo */}
                                     <div className="flex items-center justify-between p-5 pb-0 lg:p-10 lg:pb-0 z-10">
                                         <span className={`text-[7px] md:text-[10px] font-black uppercase tracking-[0.4em] text-dark/30 block ${entity.hoverTextColor} transition-colors duration-500`}>Entity 0{idx + 1}</span>
                                         {entity.logo && (
-                                            <div className={`w-10 h-10 md:w-16 md:h-16 ${entity.name === 'Synchronous' ? 'bg-zinc-950' : 'bg-white'} rounded-full p-1.5 md:p-2 border border-dark/5 shadow-sm overflow-hidden flex items-center justify-center group-hover:scale-105 transition-transform duration-500`}>
+                                            <div className="w-10 h-10 md:w-16 md:h-16 bg-white rounded-full p-1.5 md:p-2 border border-dark/5 shadow-sm overflow-hidden flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
                                                 <Image src={entity.logo} alt={entity.name} width={44} height={44} className="object-contain" unoptimized={true} />
                                             </div>
                                         )}
                                     </div>
- 
+
                                     {/* Content container that slides up (desktop only) */}
                                     <div className="p-5 pt-4 lg:p-10 lg:pt-6 flex flex-col h-full justify-end transform transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] md:group-hover:-translate-y-[120px] lg:group-hover:-translate-y-[140px] z-10 relative">
                                         <h4 className="text-base sm:text-3xl font-black text-dark mb-1 lg:mb-4 leading-none">{entity.name}</h4>
                                         <p className={`text-[7px] sm:text-[10px] sm:text-xs font-bold ${entity.textColor} uppercase tracking-widest leading-none mb-3 md:mb-0`}>{entity.sector}</p>
-                                        
+
                                         {/* Mobile Description to fill empty card space */}
                                         <p className="block md:hidden text-[9px] text-dark/70 font-secondary leading-tight mt-2">
                                             {entity.desc}
@@ -243,7 +280,7 @@ export default function About() {
                                             {entity.desc}
                                         </p>
                                     </div>
-                                    
+
                                     {/* Subtle decorative background gradient on hover */}
                                     <div className={`absolute inset-0 bg-gradient-to-t ${entity.gradientColor} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none`} />
                                 </motion.div>
@@ -306,4 +343,3 @@ export default function About() {
         </div>
     );
 }
-

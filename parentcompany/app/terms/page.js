@@ -13,11 +13,11 @@ export default function TermsOfService() {
                     <p>Effective Date: April 2026</p>
                     <section>
                         <h2 className="text-2xl font-bold text-dark mb-4">1. Institutional Engagement</h2>
-                        <p>By accessing the RiseMate Venture portal, you agree to engage with our sovereign entities in accordance with institutional best practices.</p>
+                        <p>By accessing the RiseMates Ventures portal, you agree to engage with our sovereign entities in accordance with institutional best practices.</p>
                     </section>
                     <section>
                         <h2 className="text-2xl font-bold text-dark mb-4">2. Intellectual Capital</h2>
-                        <p>All architectural designs, digital legacy content, and entity taglines are the intellectual capital of RiseMate Venture.</p>
+                        <p>All architectural designs, digital legacy content, and entity taglines are the intellectual capital of RiseMates Ventures.</p>
                     </section>
                 </div>
             </main>

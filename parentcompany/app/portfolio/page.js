@@ -46,7 +46,7 @@ const entities = [
         pillars: ["ULTRON Energy Platform", "INTELLEXA AI", "Weighbridge AI", "REEWS Earthquake Warning"],
         color: "text-gold",
         link: "https://rymgrenergy.com/",
-        logo: "https://rymgrenergy.com/images/logo.png"
+        logo: "/RYM.png"
     },
     {
         id: "04",
@@ -75,7 +75,7 @@ export default function Portfolio() {
                     {/* Background Gradients */}
                     <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-50 rounded-full blur-[120px] -z-10 opacity-70" />
                     <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-50 rounded-full blur-[120px] -z-10 opacity-50" />
-                    
+
                     <div className="max-w-screen-2xl mx-auto relative z-10">
                         <motion.div
                             initial={{ opacity: 0, y: 30 }}
@@ -107,7 +107,7 @@ export default function Portfolio() {
 
                                 <div className="relative pl-8 md:pl-12">
                                     <div className="absolute top-0 left-0 w-[3px] h-full bg-dark/10">
-                                        <motion.div 
+                                        <motion.div
                                             initial={{ height: 0 }}
                                             animate={{ height: "100%" }}
                                             transition={{ duration: 1.5, delay: 0.5, ease: "easeInOut" }}
@@ -115,14 +115,14 @@ export default function Portfolio() {
                                         />
                                     </div>
                                     <p className="text-xl md:text-2xl text-dark/60 font-secondary max-w-xl leading-relaxed">
-                                        A legacy of strategic allocation across four high-velocity sectors. Each entity operates as a sovereign architectural unit under the RiseMate banner.
+                                        A legacy of strategic allocation across four high-velocity sectors. Each entity operates as a sovereign architectural unit under the RiseMates banner.
                                     </p>
                                 </div>
                             </div>
 
                             {/* Graphic / Card Area */}
                             <div className="lg:col-span-5 relative mt-8 lg:mt-0">
-                                <motion.div 
+                                <motion.div
                                     initial={{ opacity: 0, rotateX: 20, y: 50 }}
                                     whileInView={{ opacity: 1, rotateX: 0, y: 0 }}
                                     transition={{ duration: 1, delay: 0.3 }}
@@ -148,14 +148,14 @@ export default function Portfolio() {
                                     {/* Center Logo Area */}
                                     <div className="relative z-10 flex flex-col items-center justify-center flex-grow group-hover:scale-105 transition-transform duration-1000">
                                         <div className="relative w-64 md:w-80 h-32 md:h-40 mb-4 filter drop-shadow-xl">
-                                            <Image src="/logo.png" alt="RiseMate Venture" fill className="object-contain" />
+                                            <Image src="/logo.png" alt="RiseMates Ventures" fill className="object-contain" />
                                         </div>
                                         <p className="text-[10px] font-black uppercase tracking-[0.4em] text-dark/30">Master Holding Company</p>
                                     </div>
 
                                     {/* Bottom Footer inside Card */}
                                     <div className="relative z-10 border-t border-dark/5 p-8 md:p-10 bg-gradient-to-t from-dark/[0.02] to-transparent">
-                                         <div className="flex items-end justify-between">
+                                        <div className="flex items-end justify-between">
                                             <div>
                                                 <p className="text-[9px] font-black uppercase tracking-[0.3em] text-dark/40 mb-2">Status</p>
                                                 <div className="flex items-center gap-2">
@@ -170,9 +170,9 @@ export default function Portfolio() {
                                                 <p className="text-[9px] font-black uppercase tracking-[0.3em] text-dark/40 mb-2">Architecture</p>
                                                 <p className="text-sm font-bold text-dark">Overarching</p>
                                             </div>
-                                         </div>
+                                        </div>
                                     </div>
-                                    
+
                                     {/* Shine effect */}
                                     <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/50 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 -translate-x-full group-hover:translate-x-full ease-in-out"></div>
                                 </motion.div>

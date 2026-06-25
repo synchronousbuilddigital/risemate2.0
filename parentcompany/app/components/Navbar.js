@@ -59,12 +59,12 @@ export default function Navbar() {
 
           <Link href="/" className="flex min-w-0 flex-1 items-center justify-center gap-2 md:gap-3 group">
             <span className={`text-lg font-black tracking-tighter transition-colors duration-300 md:text-2xl ${scrolled ? "text-[#002366]" : "text-dark"}`}>
-              Risemate
+              Risemates
             </span>
-            <div className={`relative h-10 w-10 transition-transform duration-300 md:h-12 md:w-12 ${scrolled ? "scale-90" : "scale-100"}`}>
+            <div className={`relative h-16 w-16 -my-4 md:h-24 md:w-24 md:-my-6 transition-transform duration-300 ${scrolled ? "scale-90" : "scale-100"}`}>
               <Image
                 src="/logo.png"
-                alt="RISEMATE Logo"
+                alt="RISEMATES Logo"
                 fill
                 className="object-contain"
                 priority
@@ -72,7 +72,7 @@ export default function Navbar() {
               />
             </div>
             <span className={`text-lg font-black tracking-tighter transition-colors duration-300 md:text-2xl ${scrolled ? "text-[#002366]" : "text-dark"}`}>
-              Venture
+              Ventures
             </span>
           </Link>
 

@@ -88,9 +88,9 @@ const Footer = () => {
                 <div className="flex flex-col md:flex-row justify-between items-center gap-6 md:gap-12 pt-4 md:pt-8">
                     <div className="flex flex-col gap-3 text-center md:text-left">
                         <Link href="/" className="text-2xl md:text-3xl font-black tracking-tighter group">
-                            RISEMATE <span className="text-gold transition-all duration-500 group-hover:tracking-widest">VENTURE</span>
+                            RISEMATES <span className="text-gold transition-all duration-500 group-hover:tracking-widest">VENTURES</span>
                         </Link>
-                        <p className="text-white/40 text-[9px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em]">© 2026 RISEMATE VENTURE. ALL RIGHTS RESERVED.</p>
+                        <p className="text-white/40 text-[9px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em]">© 2026 RISEMATES VENTURES. ALL RIGHTS RESERVED.</p>
                     </div>
 
                     <div className="flex items-center gap-10">
