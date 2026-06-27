@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
@@ -314,6 +314,18 @@ const LeaderRow = ({ leader, reverse }) => {
 
 /* ── Page ───────────────────────────────────────────────────────── */
 export default function Leadership() {
+    const [dynamicLeaders, setDynamicLeaders] = useState(leaders);
+
+    useEffect(() => {
+        fetch('/api/leaders', { cache: 'no-store' })
+            .then(res => res.json())
+            .then(data => {
+                if (data.leaders && data.leaders.length > 0) {
+                    setDynamicLeaders(data.leaders);
+                }
+            })
+            .catch(err => console.error("Error loading leaders:", err));
+    }, []);
     const heroRef = useRef(null);
     const { scrollYProgress: heroScroll } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
     const heroY = useTransform(heroScroll, [0, 1], [0, 120]);
@@ -405,7 +417,7 @@ export default function Leadership() {
 
                 {/* ── LEADER ROWS ─────────────────────────── */}
                 <section className="relative">
-                    {leaders.map((leader, i) => (
+                    {dynamicLeaders.map((leader, i) => (
                         <LeaderRow key={leader.id} leader={leader} reverse={i % 2 !== 0} />
                     ))}
                 </section>

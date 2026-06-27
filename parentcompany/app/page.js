@@ -451,6 +451,7 @@ const founders = [
 
 const portfolioItems = [
     {
+        key: "entity_01",
         title: "BWorth",
         img: "/image copy.png",
         objectPos: "object-left",
@@ -461,6 +462,7 @@ const portfolioItems = [
         link: "https://bworth.co.in"
     },
     {
+        key: "entity_02",
         title: "Vega Vrudhi",
         img: "/image copy 2.png",
         objectPos: "object-left",
@@ -471,6 +473,7 @@ const portfolioItems = [
         link: "https://vegavruddhi.com"
     },
     {
+        key: "entity_03",
         title: "RYM Grenergy",
         img: "/image copy 4.png",
         desc: "Pioneering the next generation of energy sovereignty through advanced electrochemical storage solutions. Our vertically integrated AI-driven infrastructure ensures energy security for high-growth sectors.",
@@ -480,6 +483,7 @@ const portfolioItems = [
         link: "https://rymgrenergy.com/"
     },
     {
+        key: "entity_04",
         title: "Synchronous",
         img: "/image copy 5.png",
         objectPos: "object-right",
@@ -492,6 +496,29 @@ const portfolioItems = [
 ];
 
 export default function Home() {
+    const [dynamicPortfolioItems, setDynamicPortfolioItems] = useState(portfolioItems);
+    const [dynamicFounders, setDynamicFounders] = useState(founders);
+
+    useEffect(() => {
+        fetch('/api/content', { cache: 'no-store' })
+            .then(res => res.json())
+            .then(data => {
+                if (data.portfolioItems && data.portfolioItems.length > 0) {
+                    setDynamicPortfolioItems(data.portfolioItems);
+                }
+            })
+            .catch(err => console.error("Error fetching content:", err));
+
+        fetch('/api/leaders', { cache: 'no-store' })
+            .then(res => res.json())
+            .then(data => {
+                if (data.leaders && data.leaders.length > 0) {
+                    setDynamicFounders(data.leaders);
+                }
+            })
+            .catch(err => console.error("Error fetching leaders:", err));
+    }, []);
+
     const { scrollYProgress } = useScroll();
     const scaleX = useSpring(scrollYProgress, {
         stiffness: 100,
@@ -849,14 +876,14 @@ export default function Home() {
                             <div className="space-y-6 md:space-y-12">
                                 {/* First Row: Top Leadership (Large) */}
                                 <div className="grid grid-cols-2 md:grid-cols-2 gap-4 md:gap-10 lg:gap-14 max-w-7xl mx-auto">
-                                    {founders.slice(0, 2).map((founder, idx) => (
+                                    {dynamicFounders.slice(0, 2).map((founder, idx) => (
                                         <FounderCard key={idx} founder={founder} />
                                     ))}
                                 </div>
 
                                 {/* Second Row: Executive Team (Compact) */}
                                 <div className="grid grid-cols-3 md:grid-cols-3 gap-3 md:gap-8 max-w-7xl mx-auto">
-                                    {founders.slice(2).map((founder, idx) => (
+                                    {dynamicFounders.slice(2).map((founder, idx) => (
                                         <FounderCard key={idx + 2} founder={founder} isSmall={true} />
                                     ))}
                                 </div>
@@ -899,15 +926,15 @@ export default function Home() {
                                         x: ["0%", "-50%"]
                                     }}
                                     transition={{
-                                        duration: 35,
+                                        duration: 90,
                                         repeat: Infinity,
                                         ease: "linear"
                                     }}
                                     className="flex gap-6 md:gap-10 w-max px-6"
                                 >
-                                    {[...portfolioItems, ...portfolioItems, ...portfolioItems, ...portfolioItems].map((item, idx) => (
+                                    {[...dynamicPortfolioItems, ...dynamicPortfolioItems, ...dynamicPortfolioItems, ...dynamicPortfolioItems].map((item, idx) => (
                                         <div key={idx} className="w-[300px] sm:w-[380px] md:w-[460px] flex-shrink-0">
-                                            <PortfolioItem item={item} index={idx % portfolioItems.length} isMarquee={true} />
+                                            <PortfolioItem item={item} index={idx % dynamicPortfolioItems.length} isMarquee={true} />
                                         </div>
                                     ))}
                                 </motion.div>

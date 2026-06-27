@@ -9,6 +9,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 
 const entities = [
     {
+        key: "entity_01",
         id: "01",
         name: "BWorth",
         tagline: "Sustainable Fashion Innovation Leader",
@@ -23,6 +24,7 @@ const entities = [
         logo: "/BWORTH.jpg"
     },
     {
+        key: "entity_02",
         id: "02",
         name: "Vega Vrudhi",
         tagline: "Precision Execution & Growth Architecture",
@@ -37,6 +39,7 @@ const entities = [
         logo: "/VEGA.png"
     },
     {
+        key: "entity_03",
         id: "03",
         name: "RYM Grenergy",
         tagline: "Intelligent Systems & Deep-Tech Engineering",
@@ -49,6 +52,7 @@ const entities = [
         logo: "/RYM.png"
     },
     {
+        key: "entity_04",
         id: "04",
         name: "Synchronous",
         tagline: "High-Performance Digital Marketing Group",
@@ -65,6 +69,54 @@ const entities = [
 ];
 
 export default function Portfolio() {
+    const [dynamicEntities, setDynamicEntities] = useState(entities);
+
+    useEffect(() => {
+        fetch('/api/content', { cache: 'no-store' })
+            .then(res => res.json())
+            .then(data => {
+                if (data.portfolioItems && data.portfolioItems.length > 0) {
+                    const merged = entities.map((staticEnt) => {
+                        const dynamicEnt = data.portfolioItems.find(p => p.key === staticEnt.key);
+                        if (dynamicEnt) {
+                            return {
+                                ...staticEnt,
+                                name: dynamicEnt.title,
+                                tagline: dynamicEnt.tagline || staticEnt.tagline,
+                                tag: dynamicEnt.tag || staticEnt.tag,
+                                img: dynamicEnt.img || staticEnt.img,
+                                desc: dynamicEnt.desc || staticEnt.desc,
+                                logo: dynamicEnt.logo || staticEnt.logo,
+                                link: dynamicEnt.link || staticEnt.link
+                            };
+                        }
+                        return staticEnt;
+                    });
+
+                    data.portfolioItems.forEach((dynamicEnt, idx) => {
+                        const exists = entities.some(staticEnt => staticEnt.key === dynamicEnt.key);
+                        if (!exists) {
+                            merged.push({
+                                key: dynamicEnt.key,
+                                id: String(entities.length + idx + 1).padStart(2, '0'),
+                                name: dynamicEnt.title,
+                                tagline: dynamicEnt.tagline || "Dynamic Venture Project",
+                                tag: dynamicEnt.tag || "Enterprise",
+                                img: dynamicEnt.img || "",
+                                desc: dynamicEnt.desc || "",
+                                pillars: ["Verified Holding Node"],
+                                color: "text-blue-600",
+                                link: dynamicEnt.link || "",
+                                logo: dynamicEnt.logo || ""
+                            });
+                        }
+                    });
+
+                    setDynamicEntities(merged);
+                }
+            })
+            .catch(err => console.error("Error fetching content:", err));
+    }, []);
     return (
         <div className="bg-white min-h-screen">
             <Navbar />
@@ -183,7 +235,7 @@ export default function Portfolio() {
 
                 {/* SHOWCASE */}
                 <div className="space-y-12 pb-12 md:space-y-24 md:pb-24">
-                    {entities.map((entity, idx) => (
+                    {dynamicEntities.map((entity, idx) => (
                         <EntitySection key={entity.id} entity={entity} index={idx} />
                     ))}
                 </div>

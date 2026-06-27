@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 
 const staticEntities = [
     {
+        key: "entity_01",
         name: "BWorth",
         sector: "Sustainable Fashion",
         desc: "Revolutionizing the fashion industry through a unique circular luxury ecosystem. Buy, sell, and recycle fashion while earning rewards through our unique buyback program that preserves the planet's beauty.",
@@ -19,6 +20,7 @@ const staticEntities = [
         gradientColor: "from-cyan-50/80"
     },
     {
+        key: "entity_02",
         name: "Vega Vrudhi",
         sector: "Execution Architecture",
         desc: "Precision execution architecture bridging the gap between digital leads and on-ground reality. We deploy trained field teams to accelerate market presence for national growth engines.",
@@ -29,6 +31,7 @@ const staticEntities = [
         gradientColor: "from-green-50/80"
     },
     {
+        key: "entity_03",
         name: "RYM Grenergy",
         sector: "Deep-Tech",
         desc: "Enabling a carbon-neutral future by developing the world’s greenest battery cell and intelligent green-tech infrastructure through AI, IoT, and Smart Automation.",
@@ -39,6 +42,7 @@ const staticEntities = [
         gradientColor: "from-[#C9A84C]/10"
     },
     {
+        key: "entity_04",
         name: "Synchronous",
         sector: "Digital Marketing",
         desc: "Architecting high-velocity digital ecosystems for high-growth elite brands. We build vertically integrated brand identities and compound ROI via algorithmic process automation.",
@@ -54,12 +58,12 @@ export default function About() {
     const [dynamicEntities, setDynamicEntities] = useState(staticEntities);
 
     useEffect(() => {
-        fetch("/api/content")
+        fetch("/api/content", { cache: "no-store" })
             .then((res) => res.json())
             .then((data) => {
                 if (data.portfolioItems && data.portfolioItems.length > 0) {
                     const merged = staticEntities.map((staticEnt) => {
-                        const dynamicEnt = data.portfolioItems.find(p => p.title.toLowerCase() === staticEnt.name.toLowerCase());
+                        const dynamicEnt = data.portfolioItems.find(p => p.key === staticEnt.key);
                         if (dynamicEnt) {
                             return {
                                 ...staticEnt,
@@ -69,10 +73,32 @@ export default function About() {
                                 img: dynamicEnt.img || staticEnt.img,
                                 desc: dynamicEnt.desc || staticEnt.desc,
                                 logo: dynamicEnt.logo || staticEnt.logo,
-                                link: dynamicEnt.link || staticEnt.link
+                                link: dynamicEnt.link || staticEnt.link,
+                                sector: dynamicEnt.sector || staticEnt.sector
                             };
                         }
                         return staticEnt;
+                    });
+
+                    data.portfolioItems.forEach(dynamicEnt => {
+                        const exists = staticEntities.some(staticEnt => staticEnt.key === dynamicEnt.key);
+                        if (!exists) {
+                            merged.push({
+                                key: dynamicEnt.key,
+                                name: dynamicEnt.title,
+                                sector: dynamicEnt.sector || "New Venture",
+                                desc: dynamicEnt.desc || "",
+                                tagline: dynamicEnt.tagline || "",
+                                tag: dynamicEnt.tag || "",
+                                img: dynamicEnt.img || "",
+                                logo: dynamicEnt.logo || "",
+                                link: dynamicEnt.link || "",
+                                textColor: "text-blue-600",
+                                hoverTextColor: "group-hover:text-blue-600",
+                                lineColor: "bg-blue-600/30",
+                                gradientColor: "from-blue-50/80"
+                            });
+                        }
                     });
                     setDynamicEntities(merged);
                 }
