@@ -8,6 +8,8 @@ const navLinks = [
   { name: "About", href: "/about" },
   { name: "Portfolio", href: "/portfolio" },
   { name: "Leadership", href: "/leadership" },
+  { name: "Achievements", href: "/achievements" },
+  { name: "Blog", href: "/blog" },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -45,7 +47,7 @@ export default function Navbar() {
       <div className={`relative rounded-full border px-4 py-3 backdrop-blur-xl transition-all duration-300 ease-out sm:px-5 ${scrolled ? "border-white/70 bg-white/90 shadow-[0_18px_50px_rgba(0,18,51,0.14)] py-2.5" : "border-white/55 bg-white/75 shadow-[0_14px_35px_rgba(0,18,51,0.08)]"}`}>
         <div className="mx-auto flex items-center justify-between gap-3 lg:gap-5">
           <div className="hidden min-w-0 flex-1 items-center gap-6 lg:flex xl:gap-8">
-            {navLinks.slice(0, 2).map((link) => (
+            {navLinks.slice(0, 3).map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
@@ -77,7 +79,7 @@ export default function Navbar() {
           </Link>
 
           <div className="hidden min-w-0 flex-1 items-center justify-end gap-5 lg:flex xl:gap-7">
-            {navLinks.slice(2).map((link) => (
+            {navLinks.slice(3).map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
@@ -91,7 +93,7 @@ export default function Navbar() {
               href="/contact"
               className="rounded-full bg-[#002366] px-5 py-2.5 text-[10px] font-black uppercase tracking-[0.18em] text-white shadow-lg shadow-[#002366]/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-dark"
             >
-              Get Started
+              Book a Consultation
             </Link>
           </div>
 
@@ -131,7 +133,7 @@ export default function Navbar() {
                 onClick={() => setMobileOpen(false)}
                 className="flex w-full items-center justify-center rounded-full bg-[#002366] px-5 py-3 text-sm font-black uppercase tracking-[0.18em] text-white transition-colors duration-300 hover:bg-dark"
               >
-                Get Started
+                Book a Consultation
               </Link>
             </div>
           </div>
