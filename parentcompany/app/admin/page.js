@@ -5,12 +5,23 @@ import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 
+function formatContent(content) {
+    if (!content) return '';
+    if (/<[a-z][\s\S]*>/i.test(content)) {
+        return content;
+    }
+    return content
+        .split(/\n\s*\n/)
+        .map(para => `<p>${para.replace(/\n/g, '<br />')}</p>`)
+        .join('\n');
+}
+
 export default function AdminDashboard() {
     const router = useRouter();
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
-    
-    // Switcher: 'entities' or 'leaders'
+
+    // Switcher: 'entities', 'leaders', or 'blogs'
     const [adminSection, setAdminSection] = useState('entities');
 
     // --- VENTURES STATE ---
@@ -42,6 +53,23 @@ export default function AdminDashboard() {
 
     const [uploadingLeaderImage, setUploadingLeaderImage] = useState(false);
     const [uploadingLeaderLogo, setUploadingLeaderLogo] = useState(false);
+
+    // --- BLOGS STATE ---
+    const [blogs, setBlogs] = useState([]);
+    const [activeBlogSlug, setActiveBlogSlug] = useState(''); // Stores unique blog slug
+    const [blogTitle, setBlogTitle] = useState('');
+    const [blogSlug, setBlogSlug] = useState('');
+    const [blogCategory, setBlogCategory] = useState('Startup Funding');
+    const [blogCustomCategory, setBlogCustomCategory] = useState('');
+    const [blogDescription, setBlogDescription] = useState('');
+    const [blogAuthor, setBlogAuthor] = useState('');
+    const [blogDate, setBlogDate] = useState('');
+    const [blogReadTime, setBlogReadTime] = useState('');
+    const [blogImage, setBlogImage] = useState('');
+    const [blogContent, setBlogContent] = useState('');
+    const [blogRelated, setBlogRelated] = useState([]);
+    const [uploadingBlogImage, setUploadingBlogImage] = useState(false);
+    const [showFullPreviewModal, setShowFullPreviewModal] = useState(false);
 
     // --- GLOBAL ACTIONS ---
     const [saving, setSaving] = useState(false);
@@ -79,6 +107,19 @@ export default function AdminDashboard() {
                     loadLeaderData(firstLeader);
                 }
 
+                // Fetch blogs content
+                const blogsRes = await fetch('/api/blogs', { cache: 'no-store' });
+                const blogsData = await blogsRes.json();
+                if (blogsData.blogs && blogsData.blogs.length > 0) {
+                    setBlogs(blogsData.blogs);
+                    const firstBlog = blogsData.blogs[0];
+                    setActiveBlogSlug(firstBlog.slug);
+                    loadBlogData(firstBlog, blogsData.blogs);
+                } else {
+                    // Pre-fill fields for a new blog if none exist yet
+                    handleAddNewBlogClick();
+                }
+
                 setLoading(false);
             } catch (err) {
                 console.error(err);
@@ -110,6 +151,28 @@ export default function AdminDashboard() {
         setLeaderFocus(leader.focus || '');
         setLeaderLogo(leader.logo || '');
         setLeaderImage(leader.image || '');
+    };
+
+    const loadBlogData = (blog, allBlogs = blogs) => {
+        setBlogTitle(blog.title || '');
+        setBlogSlug(blog.slug || '');
+
+        const stdCategories = ["Startup Funding", "Business Growth", "Investment Tips", "Founder Stories", "Market Insights"];
+        if (stdCategories.includes(blog.category)) {
+            setBlogCategory(blog.category);
+            setBlogCustomCategory('');
+        } else {
+            setBlogCategory('Other');
+            setBlogCustomCategory(blog.category || '');
+        }
+
+        setBlogDescription(blog.description || '');
+        setBlogAuthor(blog.author || '');
+        setBlogDate(blog.date || '');
+        setBlogReadTime(blog.readTime || '');
+        setBlogImage(blog.image || '');
+        setBlogContent(blog.content || '');
+        setBlogRelated(blog.related || []);
     };
 
     // --- TAB CLICK HANDLERS ---
@@ -153,6 +216,33 @@ export default function AdminDashboard() {
         setLeaderImage('');
     };
 
+    const handleBlogTabChange = (slug) => {
+        const blog = blogs.find(b => b.slug === slug);
+        if (blog) {
+            setActiveBlogSlug(slug);
+            loadBlogData(blog);
+        }
+    };
+
+    const handleAddNewBlogClick = () => {
+        setActiveBlogSlug('__new__');
+        setBlogTitle('');
+        setBlogSlug('');
+        setBlogCategory('Startup Funding');
+        setBlogCustomCategory('');
+        setBlogDescription('');
+        setBlogAuthor(user?.username || 'Managing Partner');
+
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const today = new Date().toLocaleDateString('en-US', options);
+        setBlogDate(today);
+
+        setBlogReadTime('5 min read');
+        setBlogImage('');
+        setBlogContent('');
+        setBlogRelated([]);
+    };
+
     const showToast = (message, type = 'success') => {
         setToast({ message, type });
         setTimeout(() => setToast({ message: '', type: '' }), 4000);
@@ -168,7 +258,9 @@ export default function AdminDashboard() {
             return;
         }
 
-        if (field === 'leader') {
+        if (field === 'blog') {
+            if (type === 'img') setUploadingBlogImage(true);
+        } else if (field === 'leader') {
             if (type === 'img') setUploadingLeaderImage(true);
             if (type === 'logo') setUploadingLeaderLogo(true);
         } else {
@@ -179,7 +271,9 @@ export default function AdminDashboard() {
         const reader = new FileReader();
         reader.onloadend = () => {
             const base64Url = reader.result;
-            if (field === 'leader') {
+            if (field === 'blog') {
+                if (type === 'img') setBlogImage(base64Url);
+            } else if (field === 'leader') {
                 if (type === 'img') setLeaderImage(base64Url);
                 if (type === 'logo') setLeaderLogo(base64Url);
             } else {
@@ -187,8 +281,10 @@ export default function AdminDashboard() {
                 if (type === 'logo') setLogo(base64Url);
             }
             showToast(`${type === 'img' ? 'Cover image' : 'Logo badge'} converted. Commit Changes to save.`);
-            
-            if (field === 'leader') {
+
+            if (field === 'blog') {
+                setUploadingBlogImage(false);
+            } else if (field === 'leader') {
                 setUploadingLeaderImage(false);
                 setUploadingLeaderLogo(false);
             } else {
@@ -199,7 +295,9 @@ export default function AdminDashboard() {
 
         reader.onerror = () => {
             showToast('Failed to process image file.', 'error');
-            if (field === 'leader') {
+            if (field === 'blog') {
+                setUploadingBlogImage(false);
+            } else if (field === 'leader') {
                 setUploadingLeaderImage(false);
                 setUploadingLeaderLogo(false);
             } else {
@@ -214,7 +312,7 @@ export default function AdminDashboard() {
     // --- SAVE VENTURES ---
     const handleSave = async (e) => {
         e.preventDefault();
-        
+
         const targetTitle = newTitle.trim();
         if (!targetTitle) {
             showToast('Entity name (title) is required', 'error');
@@ -249,7 +347,7 @@ export default function AdminDashboard() {
 
             const data = await res.json();
             showToast(data.message || 'Entity changes committed successfully');
-            
+
             // Refresh content from MongoDB
             const contentRes = await fetch('/api/content', { cache: 'no-store' });
             const contentData = await contentRes.json();
@@ -273,7 +371,7 @@ export default function AdminDashboard() {
     // --- SAVE LEADERS ---
     const handleSaveLeader = async (e) => {
         e.preventDefault();
-        
+
         const targetName = leaderName.trim();
         if (!targetName) {
             showToast('Leader name is required', 'error');
@@ -308,7 +406,7 @@ export default function AdminDashboard() {
 
             const data = await res.json();
             showToast(data.message || 'Leader changes committed successfully');
-            
+
             // Refresh leaders list
             const leadersRes = await fetch('/api/leaders', { cache: 'no-store' });
             const leadersData = await leadersRes.json();
@@ -322,6 +420,134 @@ export default function AdminDashboard() {
             showToast(err.message, 'error');
         } finally {
             setSaving(false);
+        }
+    };
+
+    // --- SAVE BLOGS ---
+    const handleSaveBlog = async (e) => {
+        e.preventDefault();
+
+        const targetTitle = blogTitle.trim();
+        if (!targetTitle) {
+            showToast('Blog title is required', 'error');
+            return;
+        }
+        if (!blogContent.trim()) {
+            showToast('Blog content HTML is required', 'error');
+            return;
+        }
+
+        setSaving(true);
+
+        const finalCategory = blogCategory === 'Other' ? blogCustomCategory.trim() : blogCategory;
+        if (!finalCategory) {
+            showToast('Blog category is required', 'error');
+            setSaving(false);
+            return;
+        }
+
+        const payload = {
+            slug: activeBlogSlug,
+            title: targetTitle,
+            category: finalCategory,
+            description: blogDescription,
+            author: blogAuthor,
+            date: blogDate,
+            readTime: blogReadTime,
+            image: blogImage,
+            content: blogContent,
+            related: blogRelated
+        };
+
+        try {
+            const res = await fetch('/api/admin/blogs', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!res.ok) {
+                const err = await res.json();
+                throw new Error(err.error || 'Failed to save blog post');
+            }
+
+            const data = await res.json();
+            showToast(data.message || 'Blog post committed successfully');
+
+            // Refresh blogs list
+            const blogsRes = await fetch('/api/blogs', { cache: 'no-store' });
+            const blogsData = await blogsRes.json();
+            if (blogsData.blogs) {
+                setBlogs(blogsData.blogs);
+                if (activeBlogSlug === '__new__' && data.slug) {
+                    setActiveBlogSlug(data.slug);
+                    const saved = blogsData.blogs.find(b => b.slug === data.slug);
+                    if (saved) loadBlogData(saved, blogsData.blogs);
+                } else {
+                    const saved = blogsData.blogs.find(b => b.slug === activeBlogSlug || b.title === targetTitle);
+                    if (saved) {
+                        setActiveBlogSlug(saved.slug);
+                        loadBlogData(saved, blogsData.blogs);
+                    }
+                }
+            }
+        } catch (err) {
+            showToast(err.message, 'error');
+        } finally {
+            setSaving(false);
+        }
+    };
+
+    // --- DELETE BLOG ---
+    const handleDeleteBlog = async () => {
+        if (activeBlogSlug === '__new__') return;
+
+        if (!window.confirm(`Are you absolutely sure you want to permanently delete "${blogTitle}"?`)) {
+            return;
+        }
+
+        setSaving(true);
+
+        try {
+            const res = await fetch('/api/admin/blogs', {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ slug: activeBlogSlug })
+            });
+
+            if (!res.ok) {
+                const err = await res.json();
+                throw new Error(err.error || 'Failed to delete blog post');
+            }
+
+            const data = await res.json();
+            showToast(data.message || 'Blog post deleted successfully');
+
+            // Refresh blogs list
+            const blogsRes = await fetch('/api/blogs', { cache: 'no-store' });
+            const blogsData = await blogsRes.json();
+            if (blogsData.blogs) {
+                setBlogs(blogsData.blogs);
+                if (blogsData.blogs.length > 0) {
+                    const firstBlog = blogsData.blogs[0];
+                    setActiveBlogSlug(firstBlog.slug);
+                    loadBlogData(firstBlog, blogsData.blogs);
+                } else {
+                    handleAddNewBlogClick();
+                }
+            }
+        } catch (err) {
+            showToast(err.message, 'error');
+        } finally {
+            setSaving(false);
+        }
+    };
+
+    const toggleRelatedBlog = (slug) => {
+        if (blogRelated.includes(slug)) {
+            setBlogRelated(blogRelated.filter(s => s !== slug));
+        } else {
+            setBlogRelated([...blogRelated, slug]);
         }
     };
 
@@ -345,6 +571,9 @@ export default function AdminDashboard() {
 
     const currentItem = items.find(i => i.key === activeTab);
     const currentLeader = leaders.find(l => l.id === activeLeaderId);
+    const currentBlog = blogs.find(b => b.slug === activeBlogSlug);
+
+    const activeCategoryLabel = blogCategory === 'Other' ? (blogCustomCategory || 'Custom Category') : blogCategory;
 
     return (
         <div className="bg-[#000c24] text-white min-h-screen flex flex-col grain selection:bg-[#C9A84C] selection:text-dark">
@@ -366,19 +595,24 @@ export default function AdminDashboard() {
                 <div className="hidden sm:flex items-center bg-[#000c24]/85 border border-white/5 p-1 rounded-xl">
                     <button
                         onClick={() => setAdminSection('entities')}
-                        className={`px-4 py-2 text-[10px] font-black uppercase tracking-wider rounded-lg transition-all cursor-pointer ${
-                            adminSection === 'entities' ? 'bg-[#C9A84C] text-dark shadow-md' : 'text-white/40 hover:text-white'
-                        }`}
+                        className={`px-4 py-2 text-[10px] font-black uppercase tracking-wider rounded-lg transition-all cursor-pointer ${adminSection === 'entities' ? 'bg-[#C9A84C] text-dark shadow-md' : 'text-white/40 hover:text-white'
+                            }`}
                     >
                         Sovereign Ventures
                     </button>
                     <button
                         onClick={() => setAdminSection('leaders')}
-                        className={`px-4 py-2 text-[10px] font-black uppercase tracking-wider rounded-lg transition-all cursor-pointer ${
-                            adminSection === 'leaders' ? 'bg-[#C9A84C] text-dark shadow-md' : 'text-white/40 hover:text-white'
-                        }`}
+                        className={`px-4 py-2 text-[10px] font-black uppercase tracking-wider rounded-lg transition-all cursor-pointer ${adminSection === 'leaders' ? 'bg-[#C9A84C] text-dark shadow-md' : 'text-white/40 hover:text-white'
+                            }`}
                     >
                         Leadership Board
+                    </button>
+                    <button
+                        onClick={() => setAdminSection('blogs')}
+                        className={`px-4 py-2 text-[10px] font-black uppercase tracking-wider rounded-lg transition-all cursor-pointer ${adminSection === 'blogs' ? 'bg-[#C9A84C] text-dark shadow-md' : 'text-white/40 hover:text-white'
+                            }`}
+                    >
+                        Ecosystem Blogs
                     </button>
                 </div>
 
@@ -387,7 +621,7 @@ export default function AdminDashboard() {
                         <span className="material-symbols-outlined text-sm">open_in_new</span>
                         View Portal
                     </a>
-                    <button 
+                    <button
                         onClick={handleLogout}
                         className="text-[10px] font-bold uppercase tracking-widest text-[#ef4444] hover:text-red-400 bg-red-500/5 hover:bg-red-500/10 border border-red-500/10 px-4 py-2 rounded-xl transition-all flex items-center gap-1.5 cursor-pointer"
                     >
@@ -401,25 +635,30 @@ export default function AdminDashboard() {
             <div className="flex sm:hidden bg-[#001233]/40 border-b border-white/5 p-2 items-center justify-around gap-2">
                 <button
                     onClick={() => setAdminSection('entities')}
-                    className={`flex-1 py-2 text-[9px] font-black uppercase tracking-wider text-center rounded-lg cursor-pointer ${
-                        adminSection === 'entities' ? 'bg-[#C9A84C] text-dark' : 'text-white/50'
-                    }`}
+                    className={`flex-1 py-2 text-[9px] font-black uppercase tracking-wider text-center rounded-lg cursor-pointer ${adminSection === 'entities' ? 'bg-[#C9A84C] text-dark' : 'text-white/50'
+                        }`}
                 >
                     Sovereign Ventures
                 </button>
                 <button
                     onClick={() => setAdminSection('leaders')}
-                    className={`flex-1 py-2 text-[9px] font-black uppercase tracking-wider text-center rounded-lg cursor-pointer ${
-                        adminSection === 'leaders' ? 'bg-[#C9A84C] text-dark' : 'text-white/50'
-                    }`}
+                    className={`flex-1 py-2 text-[9px] font-black uppercase tracking-wider text-center rounded-lg cursor-pointer ${adminSection === 'leaders' ? 'bg-[#C9A84C] text-dark' : 'text-white/50'
+                        }`}
                 >
                     Leadership Board
+                </button>
+                <button
+                    onClick={() => setAdminSection('blogs')}
+                    className={`flex-1 py-2 text-[9px] font-black uppercase tracking-wider text-center rounded-lg cursor-pointer ${adminSection === 'blogs' ? 'bg-[#C9A84C] text-dark' : 'text-white/50'
+                        }`}
+                >
+                    Ecosystem Blogs
                 </button>
             </div>
 
             {/* Main Area */}
             <main className="flex-1 max-w-7xl mx-auto w-full px-6 md:px-12 py-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                
+
                 {/* --- VENTURES SECTION --- */}
                 {adminSection === 'entities' && (
                     <>
@@ -434,11 +673,10 @@ export default function AdminDashboard() {
                                         <button
                                             key={idx}
                                             onClick={() => handleTabChange(key)}
-                                            className={`flex-1 min-w-[120px] py-3.5 px-4 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer ${
-                                                isActive 
-                                                    ? 'bg-gradient-to-r from-[#002366] to-[#C9A84C] text-white shadow-lg' 
-                                                    : 'text-white/40 hover:text-white hover:bg-white/5'
-                                            }`}
+                                            className={`flex-1 min-w-[120px] py-3.5 px-4 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer ${isActive
+                                                ? 'bg-gradient-to-r from-[#002366] to-[#C9A84C] text-white shadow-lg'
+                                                : 'text-white/40 hover:text-white hover:bg-white/5'
+                                                }`}
                                         >
                                             {name}
                                         </button>
@@ -446,11 +684,10 @@ export default function AdminDashboard() {
                                 })}
                                 <button
                                     onClick={handleAddNewClick}
-                                    className={`min-w-[120px] py-3.5 px-4 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer border border-dashed flex items-center justify-center gap-1.5 ${
-                                        activeTab === '__new__' 
-                                            ? 'bg-gradient-to-r from-emerald-600 to-teal-500 text-white shadow-lg border-transparent' 
-                                            : 'text-emerald-400 border-emerald-500/20 hover:text-emerald-300 hover:bg-emerald-500/5'
-                                    }`}
+                                    className={`min-w-[120px] py-3.5 px-4 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer border border-dashed flex items-center justify-center gap-1.5 ${activeTab === '__new__'
+                                        ? 'bg-gradient-to-r from-emerald-600 to-teal-500 text-white shadow-lg border-transparent'
+                                        : 'text-emerald-400 border-emerald-500/20 hover:text-emerald-300 hover:bg-emerald-500/5'
+                                        }`}
                                 >
                                     <span className="material-symbols-outlined text-xs">add</span>
                                     Add New
@@ -458,7 +695,7 @@ export default function AdminDashboard() {
                             </div>
 
                             {/* Venture Edit Form */}
-                            <motion.div 
+                            <motion.div
                                 key={activeTab}
                                 initial={{ opacity: 0, y: 15 }}
                                 animate={{ opacity: 1, y: 0 }}
@@ -646,7 +883,7 @@ export default function AdminDashboard() {
                         <div className="lg:col-span-5 space-y-6">
                             <div className="border border-white/5 rounded-3xl p-6 bg-[#001233]/20 shadow-xl sticky top-28">
                                 <span className="text-[9px] font-black uppercase tracking-widest text-[#C9A84C] block mb-6 border-b border-white/5 pb-3">Live Visual Preview (Registry View)</span>
-                                
+
                                 <div className="w-full max-w-sm mx-auto h-[400px] bg-[#f8f9fa] border border-dark/5 shadow-2xl rounded-[35px] overflow-hidden flex flex-col justify-between p-8 relative group transition-all duration-700 ease-out select-none">
                                     {logo && (
                                         <div className="absolute inset-0 w-full h-full opacity-[0.25] pointer-events-none z-0">
@@ -672,7 +909,7 @@ export default function AdminDashboard() {
                                         </span>
 
                                         <div className="w-6 h-[2px] bg-blue-600/30 mb-4" />
-                                        
+
                                         <p className="text-[11px] text-dark/60 font-secondary leading-relaxed h-16 overflow-hidden text-ellipsis">
                                             {desc || 'Description text placeholder... edit properties in the form on the left to see live values rendered here.'}
                                         </p>
@@ -706,11 +943,10 @@ export default function AdminDashboard() {
                                         <button
                                             key={idx}
                                             onClick={() => handleLeaderTabChange(id)}
-                                            className={`flex-1 min-w-[120px] py-3.5 px-4 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer ${
-                                                isActive 
-                                                    ? 'bg-gradient-to-r from-[#002366] to-[#C9A84C] text-white shadow-lg' 
-                                                    : 'text-white/40 hover:text-white hover:bg-white/5'
-                                            }`}
+                                            className={`flex-1 min-w-[120px] py-3.5 px-4 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer ${isActive
+                                                ? 'bg-gradient-to-r from-[#002366] to-[#C9A84C] text-white shadow-lg'
+                                                : 'text-white/40 hover:text-white hover:bg-white/5'
+                                                }`}
                                         >
                                             {name}
                                         </button>
@@ -718,11 +954,10 @@ export default function AdminDashboard() {
                                 })}
                                 <button
                                     onClick={handleAddNewLeaderClick}
-                                    className={`min-w-[120px] py-3.5 px-4 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer border border-dashed flex items-center justify-center gap-1.5 ${
-                                        activeLeaderId === '__new__' 
-                                            ? 'bg-gradient-to-r from-emerald-600 to-teal-500 text-white shadow-lg border-transparent' 
-                                            : 'text-emerald-400 border-emerald-500/20 hover:text-emerald-300 hover:bg-emerald-500/5'
-                                    }`}
+                                    className={`min-w-[120px] py-3.5 px-4 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer border border-dashed flex items-center justify-center gap-1.5 ${activeLeaderId === '__new__'
+                                        ? 'bg-gradient-to-r from-emerald-600 to-teal-500 text-white shadow-lg border-transparent'
+                                        : 'text-emerald-400 border-emerald-500/20 hover:text-emerald-300 hover:bg-emerald-500/5'
+                                        }`}
                                 >
                                     <span className="material-symbols-outlined text-xs">person_add</span>
                                     Add Leader
@@ -730,7 +965,7 @@ export default function AdminDashboard() {
                             </div>
 
                             {/* Leader Edit Form */}
-                            <motion.div 
+                            <motion.div
                                 key={activeLeaderId}
                                 initial={{ opacity: 0, y: 15 }}
                                 animate={{ opacity: 1, y: 0 }}
@@ -917,9 +1152,9 @@ export default function AdminDashboard() {
                         <div className="lg:col-span-5 space-y-6">
                             <div className="border border-white/5 rounded-3xl p-6 bg-[#001233]/20 shadow-xl sticky top-28">
                                 <span className="text-[9px] font-black uppercase tracking-widest text-[#C9A84C] block mb-6 border-b border-white/5 pb-3">Live Visual Preview (Leadership View)</span>
-                                
+
                                 <div className="w-full max-w-sm mx-auto bg-white border border-dark/5 shadow-2xl rounded-[35px] overflow-hidden flex flex-col justify-between group transition-all duration-700 ease-out select-none">
-                                    
+
                                     {/* Top Image area */}
                                     <div className="relative aspect-[4/3] bg-dark/10 overflow-hidden">
                                         {leaderImage ? (
@@ -930,7 +1165,7 @@ export default function AdminDashboard() {
                                             </div>
                                         )}
                                         <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-dark/95 via-dark/40 to-transparent" />
-                                        
+
                                         {/* Name & Role overlay */}
                                         <div className="absolute bottom-5 left-5 right-5 z-10">
                                             <h3 className="text-lg font-black text-white leading-tight mb-1 uppercase">
@@ -982,7 +1217,432 @@ export default function AdminDashboard() {
                     </>
                 )}
 
+                {/* --- BLOGS SECTION --- */}
+                {adminSection === 'blogs' && (
+                    <>
+                        <div className="lg:col-span-7 space-y-8">
+                            {/* Blog Tabs */}
+                            <div className="flex gap-2 p-1.5 bg-[#001233]/50 border border-white/5 rounded-2xl overflow-x-auto items-center">
+                                {blogs.map((blog, idx) => {
+                                    const slug = blog.slug;
+                                    const name = blog.title;
+                                    const isActive = activeBlogSlug === slug;
+                                    return (
+                                        <button
+                                            key={idx}
+                                            onClick={() => handleBlogTabChange(slug)}
+                                            className={`flex-1 min-w-[150px] py-3.5 px-4 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer truncate ${isActive
+                                                ? 'bg-gradient-to-r from-[#002366] to-[#C9A84C] text-white shadow-lg'
+                                                : 'text-white/40 hover:text-white hover:bg-white/5'
+                                                }`}
+                                        >
+                                            {name}
+                                        </button>
+                                    );
+                                })}
+                                <button
+                                    onClick={handleAddNewBlogClick}
+                                    className={`min-w-[150px] py-3.5 px-4 rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer border border-dashed flex items-center justify-center gap-1.5 ${activeBlogSlug === '__new__'
+                                        ? 'bg-gradient-to-r from-emerald-600 to-teal-500 text-white shadow-lg border-transparent'
+                                        : 'text-emerald-400 border-emerald-500/20 hover:text-emerald-300 hover:bg-emerald-500/5'
+                                        }`}
+                                >
+                                    <span className="material-symbols-outlined text-xs">add</span>
+                                    Add Blog
+                                </button>
+                            </div>
+
+                            {/* Blog Edit Form */}
+                            <motion.div
+                                key={activeBlogSlug}
+                                initial={{ opacity: 0, y: 15 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="bg-[#001233]/30 border border-white/5 rounded-3xl p-6 md:p-8 shadow-xl"
+                            >
+                                <div className="flex items-center justify-between border-b border-white/5 pb-5 mb-6">
+                                    <div>
+                                        <h3 className="text-xl font-bold uppercase tracking-tight">
+                                            {activeBlogSlug === '__new__' ? 'Draft Ecosystem Article' : 'Edit Article details'}
+                                        </h3>
+                                        <p className="text-xs text-white/40 mt-1">
+                                            Compose industry insights, assign read metrics, select categories, and link related posts.
+                                        </p>
+                                    </div>
+                                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#C9A84C] bg-[#C9A84C]/5 border border-[#C9A84C]/10 px-3 py-1.5 rounded-lg">
+                                        {activeCategoryLabel}
+                                    </span>
+                                </div>
+
+                                <form onSubmit={handleSaveBlog} className="space-y-6">
+
+                                    {/* Title and Slug fields */}
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div className="space-y-2">
+                                            <label className="text-[10px] font-bold uppercase tracking-widest text-white/45">Article Title</label>
+                                            <input
+                                                type="text"
+                                                value={blogTitle}
+                                                onChange={(e) => setBlogTitle(e.target.value)}
+                                                placeholder="e.g. How to Scale Sales Teams"
+                                                required
+                                                className="w-full bg-[#000c24]/40 border border-white/5 focus:border-[#C9A84C]/30 rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 outline-none transition-all"
+                                            />
+                                        </div>
+
+                                        <div className="space-y-2">
+                                            <label className="text-[10px] font-bold uppercase tracking-widest text-white/45 block">
+                                                Custom URL Route (Slug)
+                                                {activeBlogSlug !== '__new__' && <span className="text-[8px] text-amber-500/70 lowercase font-medium ml-1.5">(Modifying this shifts URL links)</span>}
+                                            </label>
+                                            <input
+                                                type="text"
+                                                value={blogSlug}
+                                                onChange={(e) => setBlogSlug(e.target.value)}
+                                                placeholder={activeBlogSlug === '__new__' ? "System auto-generates slug from Title if empty" : "e.g. how-to-scale-teams"}
+                                                className="w-full bg-[#000c24]/40 border border-white/5 focus:border-[#C9A84C]/30 rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 outline-none transition-all"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    {/* Category Selectors */}
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div className="space-y-2">
+                                            <label className="text-[10px] font-bold uppercase tracking-widest text-white/45">Category Option</label>
+                                            <select
+                                                value={blogCategory}
+                                                onChange={(e) => setBlogCategory(e.target.value)}
+                                                className="w-full bg-[#000c24]/40 border border-white/5 focus:border-[#C9A84C]/30 rounded-xl px-4 py-3.5 text-sm text-white outline-none transition-all cursor-pointer"
+                                            >
+                                                <option value="Startup Funding" className="bg-[#000c24] text-white">Startup Funding</option>
+                                                <option value="Business Growth" className="bg-[#000c24] text-white">Business Growth</option>
+                                                <option value="Investment Tips" className="bg-[#000c24] text-white">Investment Tips</option>
+                                                <option value="Founder Stories" className="bg-[#000c24] text-white">Founder Stories</option>
+                                                <option value="Market Insights" className="bg-[#000c24] text-white">Market Insights</option>
+                                                <option value="Other" className="bg-[#000c24] text-white">Other (Custom)...</option>
+                                            </select>
+                                        </div>
+
+                                        {blogCategory === 'Other' && (
+                                            <div className="space-y-2">
+                                                <label className="text-[10px] font-bold uppercase tracking-widest text-[#C9A84C]">Custom Category Name</label>
+                                                <input
+                                                    type="text"
+                                                    value={blogCustomCategory}
+                                                    onChange={(e) => setBlogCustomCategory(e.target.value)}
+                                                    placeholder="Enter custom category"
+                                                    required
+                                                    className="w-full bg-[#000c24]/40 border border-[#C9A84C]/25 focus:border-[#C9A84C]/50 rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 outline-none transition-all"
+                                                />
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    {/* Author, Date, and Read Time */}
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                        <div className="space-y-2">
+                                            <label className="text-[10px] font-bold uppercase tracking-widest text-white/45">Author Name</label>
+                                            <input
+                                                type="text"
+                                                value={blogAuthor}
+                                                onChange={(e) => setBlogAuthor(e.target.value)}
+                                                placeholder="e.g. Saurabh Jain"
+                                                required
+                                                className="w-full bg-[#000c24]/40 border border-white/5 focus:border-[#C9A84C]/30 rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 outline-none transition-all"
+                                            />
+                                        </div>
+
+                                        <div className="space-y-2">
+                                            <label className="text-[10px] font-bold uppercase tracking-widest text-white/45">Publish Date</label>
+                                            <input
+                                                type="text"
+                                                value={blogDate}
+                                                onChange={(e) => setBlogDate(e.target.value)}
+                                                placeholder="e.g. June 30, 2026"
+                                                required
+                                                className="w-full bg-[#000c24]/40 border border-white/5 focus:border-[#C9A84C]/30 rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 outline-none transition-all"
+                                            />
+                                        </div>
+
+                                        <div className="space-y-2">
+                                            <label className="text-[10px] font-bold uppercase tracking-widest text-white/45">Read Time Estimation</label>
+                                            <input
+                                                type="text"
+                                                value={blogReadTime}
+                                                onChange={(e) => setBlogReadTime(e.target.value)}
+                                                placeholder="e.g. 5 min read"
+                                                required
+                                                className="w-full bg-[#000c24]/40 border border-white/5 focus:border-[#C9A84C]/30 rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 outline-none transition-all"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    {/* Description */}
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold uppercase tracking-widest text-white/45">Short Summary (Description)</label>
+                                        <textarea
+                                            value={blogDescription}
+                                            onChange={(e) => setBlogDescription(e.target.value)}
+                                            placeholder="Write a short summary displayed on the blog catalog list..."
+                                            rows={2}
+                                            className="w-full bg-[#000c24]/40 border border-white/5 focus:border-[#C9A84C]/30 rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 outline-none transition-all resize-none leading-relaxed"
+                                        />
+                                    </div>
+
+                                    {/* Image Upload */}
+                                    <div className="space-y-3">
+                                        <label className="text-[10px] font-bold uppercase tracking-widest text-white/45 block">Featured Image</label>
+                                        <div className="relative border border-white/5 rounded-2xl bg-[#000c24]/30 h-40 flex flex-col items-center justify-center overflow-hidden group hover:border-[#C9A84C]/20 transition-all">
+                                            {blogImage ? (
+                                                <div className="absolute inset-0 w-full h-full flex items-center justify-center bg-black/40">
+                                                    <img src={blogImage} alt="Featured Cover" className="w-full h-full object-cover opacity-80" />
+                                                    <div className="absolute inset-0 bg-dark/70 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-1">
+                                                        <span className="material-symbols-outlined text-white text-xl">upload_file</span>
+                                                        <span className="text-[8px] font-black uppercase text-white/80">Change Cover image</span>
+                                                    </div>
+                                                </div>
+                                            ) : (
+                                                <>
+                                                    <span className="material-symbols-outlined text-white/30 text-3xl mb-2 group-hover:text-[#C9A84C] transition-colors">image</span>
+                                                    <span className="text-[9px] font-black uppercase tracking-widest text-white/40 block mb-1">Click to Upload Featured Cover</span>
+                                                    <span className="text-[8px] text-white/20 font-bold uppercase">PNG, JPG, WEBP (Max 8MB)</span>
+                                                </>
+                                            )}
+                                            <input
+                                                type="file"
+                                                accept="image/*"
+                                                onChange={(e) => handleFileUpload(e, 'img', 'blog')}
+                                                disabled={uploadingBlogImage}
+                                                className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    {/* Content Editor */}
+                                    <div className="space-y-2">
+                                        <div className="flex items-center justify-between">
+                                            <label className="text-[10px] font-bold uppercase tracking-widest text-white/45">Article Body Content</label>
+                                            <span className="text-[8px] text-white/30 lowercase font-medium">Write or paste your article text. Paragraphs are automatically formatted.</span>
+                                        </div>
+                                        <textarea
+                                            value={blogContent}
+                                            onChange={(e) => setBlogContent(e.target.value)}
+                                            placeholder="Write your detailed blog article content here..."
+                                            rows={12}
+                                            className="w-full bg-[#000c24]/50 border border-white/5 focus:border-[#C9A84C]/30 rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 outline-none transition-all resize-y leading-relaxed"
+                                        />
+                                    </div>
+
+                                    {/* Related Articles checkboxes */}
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-bold uppercase tracking-widest text-white/45">Link Related Articles</label>
+                                        <div className="border border-white/5 rounded-xl bg-[#000c24]/30 p-4 max-h-48 overflow-y-auto space-y-2.5">
+                                            {blogs.filter(b => b.slug !== activeBlogSlug).length === 0 ? (
+                                                <p className="text-[10px] text-white/25 italic">No other articles in ecosystem to link</p>
+                                            ) : (
+                                                blogs.filter(b => b.slug !== activeBlogSlug).map((otherBlog) => {
+                                                    const isChecked = blogRelated.includes(otherBlog.slug);
+                                                    return (
+                                                        <label key={otherBlog.slug} className="flex items-center gap-3 cursor-pointer text-xs text-white/70 hover:text-white select-none">
+                                                            <input
+                                                                type="checkbox"
+                                                                checked={isChecked}
+                                                                onChange={() => toggleRelatedBlog(otherBlog.slug)}
+                                                                className="w-4 h-4 rounded border-white/10 text-[#C9A84C] focus:ring-[#C9A84C]/20 bg-[#000c24] cursor-pointer"
+                                                            />
+                                                            <span>{otherBlog.title}</span>
+                                                        </label>
+                                                    );
+                                                })
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    {/* Actions */}
+                                    <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 pt-4">
+                                        <button
+                                            type="submit"
+                                            disabled={saving || uploadingBlogImage}
+                                            className={`font-black text-xs uppercase tracking-widest py-4.5 rounded-xl transition-all shadow-xl flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 ${activeBlogSlug === '__new__'
+                                                ? 'sm:col-span-12 bg-[#C9A84C] hover:bg-[#b0913b] text-dark shadow-[#C9A84C]/5'
+                                                : 'sm:col-span-8 bg-[#C9A84C] hover:bg-[#b0913b] text-dark shadow-[#C9A84C]/5'
+                                                }`}
+                                        >
+                                            {saving ? (
+                                                <span className="animate-pulse">Saving changes...</span>
+                                            ) : (
+                                                <>
+                                                    <span>Commit Article to Database</span>
+                                                    <span className="material-symbols-outlined text-sm font-bold">save_as</span>
+                                                </>
+                                            )}
+                                        </button>
+
+                                        {activeBlogSlug !== '__new__' && (
+                                            <button
+                                                type="button"
+                                                onClick={handleDeleteBlog}
+                                                disabled={saving}
+                                                className="sm:col-span-4 bg-red-600/10 hover:bg-red-600/25 border border-red-500/20 hover:border-red-500/40 text-red-300 font-black text-xs uppercase tracking-widest py-4.5 rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer"
+                                            >
+                                                <span>Delete Article</span>
+                                                <span className="material-symbols-outlined text-sm font-bold">delete_forever</span>
+                                            </button>
+                                        )}
+                                    </div>
+                                </form>
+                            </motion.div>
+                        </div>
+
+                        {/* Blog Card Preview */}
+                        <div className="lg:col-span-5 space-y-6">
+                            <div className="border border-white/5 rounded-3xl p-6 bg-[#001233]/20 shadow-xl sticky top-28">
+                                <span className="text-[9px] font-black uppercase tracking-widest text-[#C9A84C] block mb-6 border-b border-white/5 pb-3">Live Visual Preview (Catalog Card View)</span>
+
+                                <div className="w-full max-w-sm mx-auto bg-white border border-dark/5 shadow-2xl rounded-[28px] overflow-hidden flex flex-col justify-between group transition-all duration-500 text-dark select-none">
+                                    <div>
+                                        <div className="relative aspect-[16/10] block overflow-hidden bg-dark/10">
+                                            {blogImage ? (
+                                                <img
+                                                    src={blogImage}
+                                                    alt=""
+                                                    className="w-full h-full object-cover"
+                                                />
+                                            ) : (
+                                                <div className="absolute inset-0 flex items-center justify-center text-dark/30">
+                                                    <span className="material-symbols-outlined text-4xl">image</span>
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        <div className="p-6">
+                                            <div className="flex items-center gap-4 mb-4">
+                                                <span className="px-3 py-1 bg-[#FAF9F6] border border-dark/5 text-[9px] font-black uppercase tracking-wider text-[#002366] rounded-md">
+                                                    {activeCategoryLabel}
+                                                </span>
+                                                <span className="text-[10px] text-dark/45 font-bold uppercase tracking-wider">
+                                                    {blogReadTime || '5 min read'}
+                                                </span>
+                                            </div>
+
+                                            <h3 className="text-lg font-black text-dark tracking-tight leading-snug mb-3 line-clamp-2">
+                                                {blogTitle || 'Blog Post Title'}
+                                            </h3>
+
+                                            <p className="text-xs text-dark/60 font-secondary leading-relaxed line-clamp-3">
+                                                {blogDescription || 'Overview description copy... write summary details inside the form to populate details here.'}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="p-6 pt-0 border-t border-dark/5 flex items-center justify-between">
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-8 h-8 rounded-full bg-[#002366]/10 flex items-center justify-center font-black text-xs text-[#002366] uppercase">
+                                                {(blogAuthor || 'A').charAt(0)}
+                                            </div>
+                                            <div>
+                                                <p className="text-xs font-black text-dark leading-none">{blogAuthor || 'Author Name'}</p>
+                                                <p className="text-[9px] font-bold text-dark/40 uppercase tracking-widest mt-1">{blogDate || 'Publish Date'}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="text-center mt-6 space-y-4">
+                                    <p className="text-[10px] text-white/30 italic">This card simulates how the article listing card scales on the main blogs registry page.</p>
+
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowFullPreviewModal(true)}
+                                        className="w-full bg-[#002366] hover:bg-[#001c52] text-white border border-white/5 font-black text-xs uppercase tracking-widest py-3 rounded-xl transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer"
+                                    >
+                                        <span className="material-symbols-outlined text-sm">visibility</span>
+                                        <span>Preview Full Article Layout</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </>
+                )}
+
             </main>
+
+            {/* Full Article Preview Overlay Modal */}
+            <AnimatePresence>
+                {showFullPreviewModal && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] flex items-center justify-center p-4 overflow-y-auto"
+                        onClick={() => setShowFullPreviewModal(false)}
+                    >
+                        <motion.div
+                            initial={{ scale: 0.95, y: 20 }}
+                            animate={{ scale: 1, y: 0 }}
+                            exit={{ scale: 0.95, y: 20 }}
+                            className="bg-[#FAF9F6] text-dark w-full max-w-3xl rounded-[32px] overflow-hidden shadow-2xl relative max-h-[90vh] flex flex-col"
+                            onClick={e => e.stopPropagation()}
+                        >
+                            {/* Modal Header */}
+                            <div className="bg-[#000c24] text-white px-8 py-4.5 flex items-center justify-between border-b border-white/5 sticky top-0 z-20">
+                                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#C9A84C]">Sovereign Article Preview</span>
+                                <button
+                                    onClick={() => setShowFullPreviewModal(false)}
+                                    className="text-white/60 hover:text-white flex items-center justify-center cursor-pointer border border-white/10 hover:border-white/20 w-8 h-8 rounded-full transition-all"
+                                >
+                                    <span className="material-symbols-outlined text-base">close</span>
+                                </button>
+                            </div>
+
+                            {/* Modal Body */}
+                            <div className="p-8 md:p-12 overflow-y-auto flex-1 font-secondary">
+                                {/* Category, Date, Read Time */}
+                                <div className="flex items-center gap-4 mb-6">
+                                    <span className="px-3 py-1 bg-white border border-dark/10 text-[10px] font-black uppercase tracking-wider text-[#002366] rounded-md">
+                                        {activeCategoryLabel}
+                                    </span>
+                                    <span className="text-xs text-dark/45 font-bold uppercase tracking-wider">
+                                        {blogReadTime || '5 min read'}
+                                    </span>
+                                    <span className="text-dark/20">•</span>
+                                    <span className="text-xs text-dark/45 font-bold uppercase tracking-wider">
+                                        {blogDate || 'Publish Date'}
+                                    </span>
+                                </div>
+
+                                {/* Title */}
+                                <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-dark tracking-tighter leading-tight mb-8">
+                                    {blogTitle || 'Blog Post Title'}
+                                </h1>
+
+                                {/* Author banner */}
+                                <div className="flex items-center gap-4 border-y border-dark/5 py-4 mb-8">
+                                    <div className="w-10 h-10 rounded-full bg-[#002366] text-white flex items-center justify-center font-black text-sm uppercase">
+                                        {(blogAuthor || 'A').charAt(0)}
+                                    </div>
+                                    <div>
+                                        <p className="text-xs font-black text-dark leading-none">{blogAuthor || 'Author Name'}</p>
+                                        <p className="text-[8px] font-bold text-dark/40 uppercase tracking-widest mt-1">Managing Partner</p>
+                                    </div>
+                                </div>
+
+                                {/* Cover image */}
+                                {blogImage && (
+                                    <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden mb-8 border border-dark/5 shadow-sm">
+                                        <img src={blogImage} alt="" className="w-full h-full object-cover" />
+                                    </div>
+                                )}
+
+                                {/* Content body */}
+                                <div
+                                    className="prose prose-sm max-w-none text-dark/85 leading-relaxed space-y-4 font-secondary"
+                                    dangerouslySetInnerHTML={{ __html: formatContent(blogContent) || '<p className="italic text-dark/30">Write blog content in the form editor to preview...</p>' }}
+                                />
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
             {/* Toast Alert */}
             <AnimatePresence>
@@ -991,11 +1651,10 @@ export default function AdminDashboard() {
                         initial={{ opacity: 0, y: 50, x: '-50%' }}
                         animate={{ opacity: 1, y: 0, x: '-50%' }}
                         exit={{ opacity: 0, y: 50, x: '-50%' }}
-                        className={`fixed bottom-8 left-1/2 -translate-x-1/2 px-6 py-3.5 rounded-xl text-xs font-black uppercase tracking-wider z-[100] border shadow-2xl flex items-center gap-2 ${
-                            toast.type === 'error' 
-                                ? 'bg-red-950/80 border-red-500/20 text-red-300' 
-                                : 'bg-[#001233]/90 border-[#C9A84C]/25 text-[#C9A84C]'
-                        }`}
+                        className={`fixed bottom-8 left-1/2 -translate-x-1/2 px-6 py-3.5 rounded-xl text-xs font-black uppercase tracking-wider z-[100] border shadow-2xl flex items-center gap-2 ${toast.type === 'error'
+                            ? 'bg-red-950/80 border-red-500/20 text-red-300'
+                            : 'bg-[#001233]/90 border-[#C9A84C]/25 text-[#C9A84C]'
+                            }`}
                     >
                         <span className="material-symbols-outlined text-sm font-bold">
                             {toast.type === 'error' ? 'error' : 'task_alt'}

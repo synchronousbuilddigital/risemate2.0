@@ -1,3 +1,5 @@
+import { connectToDatabase } from './db';
+
 const BLOGS = [
   {
     slug: "how-to-build-pitch-deck-vc-capital",
@@ -95,20 +97,70 @@ const BLOGS = [
   }
 ];
 
-export function getAllBlogs() {
-  return BLOGS;
+export async function getAllBlogs() {
+  try {
+    const { db } = await connectToDatabase();
+    const collection = db.collection('blogs');
+
+    const count = await collection.countDocuments();
+    if (count === 0) {
+      console.log('MongoDB blogs collection empty. Seeding defaults...');
+      await collection.insertMany(BLOGS);
+    }
+
+    const dbBlogs = await collection.find({}).toArray();
+    const cleanBlogs = dbBlogs.map(({ _id, ...blog }) => blog);
+    
+    // Sort blogs by date descending
+    cleanBlogs.sort((a, b) => new Date(b.date) - new Date(a.date));
+    return cleanBlogs;
+  } catch (error) {
+    console.error('MongoDB database query for blogs failed. Falling back to static data:', error);
+    return BLOGS;
+  }
 }
 
-export function getBlogBySlug(slug) {
+export async function getBlogBySlug(slug) {
+  try {
+    const { db } = await connectToDatabase();
+    const collection = db.collection('blogs');
+    const blog = await collection.findOne({ slug });
+    if (blog) {
+      const { _id, ...cleanBlog } = blog;
+      return cleanBlog;
+    }
+  } catch (error) {
+    console.error(`MongoDB query for blog slug "${slug}" failed. Falling back to static data:`, error);
+  }
   return BLOGS.find(b => b.slug === slug);
 }
 
-export function getRelatedBlogs(slug) {
-  const current = getBlogBySlug(slug);
+export async function getRelatedBlogs(slug) {
+  try {
+    const current = await getBlogBySlug(slug);
+    if (!current || !current.related || current.related.length === 0) return [];
+
+    const { db } = await connectToDatabase();
+    const collection = db.collection('blogs');
+    const dbBlogs = await collection.find({ slug: { $in: current.related } }).toArray();
+    return dbBlogs.map(({ _id, ...blog }) => blog);
+  } catch (error) {
+    console.error(`MongoDB query for related blogs for "${slug}" failed. Falling back to static data:`, error);
+  }
+
+  const current = BLOGS.find(b => b.slug === slug);
   if (!current || !current.related) return [];
   return BLOGS.filter(b => current.related.includes(b.slug));
 }
 
-export function getBlogsByCategory(category) {
+export async function getBlogsByCategory(category) {
+  try {
+    const { db } = await connectToDatabase();
+    const collection = db.collection('blogs');
+    const dbBlogs = await collection.find({ category: { $regex: new RegExp(`^${category}$`, 'i') } }).toArray();
+    return dbBlogs.map(({ _id, ...blog }) => blog);
+  } catch (error) {
+    console.error(`MongoDB query for blogs in category "${category}" failed. Falling back to static data:`, error);
+  }
   return BLOGS.filter(b => b.category.toLowerCase() === category.toLowerCase());
 }

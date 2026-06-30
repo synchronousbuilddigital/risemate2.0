@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-  const blog = getBlogBySlug(slug);
+  const blog = await getBlogBySlug(slug);
 
   if (!blog) {
     return {
@@ -47,15 +47,27 @@ export async function generateMetadata({ params }) {
   };
 }
 
+function formatContent(content) {
+  if (!content) return '';
+  if (/<[a-z][\s\S]*>/i.test(content)) {
+    return content;
+  }
+  return content
+    .split(/\n\s*\n/)
+    .map(para => `<p>${para.replace(/\n/g, '<br />')}</p>`)
+    .join('\n');
+}
+
 export default async function BlogPostPage({ params }) {
   const { slug } = await params;
-  const blog = getBlogBySlug(slug);
+  const blog = await getBlogBySlug(slug);
 
   if (!blog) {
     notFound();
   }
 
-  const relatedBlogs = getRelatedBlogs(slug);
+  const relatedBlogs = await getRelatedBlogs(slug);
+  const formattedContent = formatContent(blog.content);
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -207,7 +219,7 @@ export default async function BlogPostPage({ params }) {
           {/* Main article body */}
           <div
             className="prose prose-lg max-w-none font-secondary text-dark/80 leading-relaxed space-y-6"
-            dangerouslySetInnerHTML={{ __html: blog.content }}
+            dangerouslySetInnerHTML={{ __html: formattedContent }}
           />
 
           {/* Related Articles section */}

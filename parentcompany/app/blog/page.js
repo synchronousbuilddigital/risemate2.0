@@ -33,8 +33,8 @@ export const metadata = {
   },
 };
 
-export default function BlogPage() {
-  const blogs = getAllBlogs();
+export default async function BlogPage() {
+  const blogs = await getAllBlogs();
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",

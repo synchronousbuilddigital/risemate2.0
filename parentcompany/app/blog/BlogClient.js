@@ -116,13 +116,6 @@ export default function BlogClient({ initialBlogs }) {
                       <p className="text-[9px] font-bold text-dark/40 uppercase tracking-widest mt-1">{blog.date}</p>
                     </div>
                   </div>
-
-                  <Link
-                    href={`/blog/${blog.slug}`}
-                    className="w-10 h-10 rounded-full bg-[#FAF9F6] border border-dark/5 flex items-center justify-center group-hover:bg-[#002366] group-hover:text-white transition-colors duration-500"
-                  >
-                    <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                  </Link>
                 </div>
               </motion.article>
             ))}
