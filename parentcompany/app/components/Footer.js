@@ -122,79 +122,9 @@ const Footer = () => {
 
         </div>
 
-        {/* MIDDLE ROW: Footer Navigation Columns */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 py-12">
-          
-          {/* Quick Links */}
-          <div className="space-y-4">
-            <h5 className="text-[10px] font-black uppercase tracking-[0.25em] text-white/30 border-l-2 border-gold pl-3 font-primary">Quick Navigation</h5>
-            <ul className="space-y-2">
-              {[
-                { name: "About Us", href: "/about" },
-                { name: "Our Ecosystem", href: "/ecosystem" },
-                { name: "Services", href: "/services" },
-                { name: "Solutions", href: "/solutions" },
-                { name: "Industries", href: "/industries" },
-                { name: "Contact Us", href: "/contact" }
-              ].map((link, i) => (
-                <li key={i}>
-                  <Link 
-                    href={link.href} 
-                    className="text-xs text-gray-400 hover:text-gold transition-all duration-300 flex items-center hover:translate-x-1.5 transform font-secondary"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Services/Verticals */}
-          <div className="space-y-4">
-            <h5 className="text-[10px] font-black uppercase tracking-[0.25em] text-white/30 border-l-2 border-gold pl-3 font-primary">Ecosystem Services</h5>
-            <ul className="space-y-2">
-              {[
-                { name: "Circular Fashion (BWorth)", href: "/portfolio#bworth" },
-                { name: "Managed Sales (Vega Vrudhi)", href: "/portfolio#vega-vrudhi" },
-                { name: "Deep-Tech IoT (RYM)", href: "/portfolio#rym-grenergy" },
-                { name: "AI & Brand (Synchronous)", href: "/portfolio#synchronous" }
-              ].map((link, i) => (
-                <li key={i}>
-                  <Link 
-                    href={link.href} 
-                    className="text-xs text-gray-400 hover:text-gold transition-all duration-300 flex items-center hover:translate-x-1.5 transform font-secondary"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Resources */}
-          <div className="space-y-4">
-            <h5 className="text-[10px] font-black uppercase tracking-[0.25em] text-white/30 border-l-2 border-gold pl-3 font-primary">Resources</h5>
-            <ul className="space-y-2">
-              {[
-                { name: "F.A.Q.", href: "/#faq" },
-                { name: "Apply for Funding", href: "/contact?type=funding" },
-                { name: "Talk to Our Experts", href: "/contact?type=experts" },
-                { name: "Terms of Service", href: "/terms" }
-              ].map((link, i) => (
-                <li key={i}>
-                  <Link 
-                    href={link.href} 
-                    className="text-xs text-gray-400 hover:text-gold transition-all duration-300 flex items-center hover:translate-x-1.5 transform font-secondary"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact Information */}
-          <div className="space-y-4">
+        {/* MIDDLE ROW: Contact Information */}
+        <div className="py-12 border-t border-white/[0.06] mt-10">
+          <div className="space-y-4 max-w-sm">
             <h5 className="text-[10px] font-black uppercase tracking-[0.25em] text-white/30 border-l-2 border-gold pl-3 font-primary">Contact Info</h5>
             <ul className="space-y-3 text-xs text-gray-400 font-secondary">
               <li className="flex items-start gap-3 leading-relaxed">
@@ -211,7 +141,6 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-
         </div>
 
         {/* BOTTOM ROW: Copyright, Legal & Back to Top */}
