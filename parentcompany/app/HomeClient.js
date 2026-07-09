@@ -561,7 +561,7 @@ export default function HomeClient() {
         <div className="container-wide w-full">
 
           {/* Top Headline Area */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12 md:mb-16">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-6 md:mb-8">
             <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-primary font-black text-[#111] leading-[1.2] sm:leading-[1.15] md:leading-[1.1] lg:leading-[1.05] tracking-tighter max-w-none gsap-hero-fade">
               Building the <span className="inline-block border-[3px] border-gold text-gold rounded-[40px] px-4 py-1.5 md:px-6 md:py-2 mx-1 align-middle">blueprint</span> for global scale
             </h1>
@@ -873,7 +873,7 @@ export default function HomeClient() {
       </section>
 
       {/* 4. WHY RISE MATE VENTURES SECTION */}
-      <section className="py-24 md:py-32 bg-white text-black relative overflow-hidden">
+      <section className="pt-24 pb-12 md:pt-32 md:pb-12 bg-white text-black relative overflow-hidden">
         {/* Background decorative glows */}
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/10 blur-[150px] rounded-full pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-amber-500/5 blur-[120px] rounded-full pointer-events-none" />
@@ -1362,7 +1362,7 @@ export default function HomeClient() {
       </section>
 
       {/* 5. OUR GROWTH FRAMEWORK SECTION - ROADMAP REDESIGN */}
-      <section className="py-24 md:py-32 bg-white relative overflow-hidden">
+      <section className="pt-12 pb-24 md:pt-12 md:pb-32 bg-white relative overflow-hidden">
         <div className="container-wide relative z-10">
 
           {/* Header */}
@@ -1549,8 +1549,8 @@ export default function HomeClient() {
                         )}
 
                         <div className={`max-w-[78%] md:max-w-[70%] rounded-2xl p-4 text-xs md:text-sm font-secondary leading-relaxed shadow-[0_2px_10px_rgba(0,0,0,0.015)] ${isBot
-                            ? 'bg-gray-50 border border-gray-150 text-gray-800 rounded-tl-none'
-                            : 'bg-black text-gold rounded-tr-none shadow-md shadow-black/5'
+                          ? 'bg-gray-50 border border-gray-150 text-gray-800 rounded-tl-none'
+                          : 'bg-black text-gold rounded-tr-none shadow-md shadow-black/5'
                           }`}>
                           {msg.text}
                         </div>

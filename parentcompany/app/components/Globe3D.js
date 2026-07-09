@@ -7,7 +7,7 @@ import am5geodata_worldLow from "@amcharts/amcharts5-geodata/worldLow";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 
 export default function Globe3D({
-  className = "w-full h-full min-h-[400px]",
+  className = "w-full h-full",
   initialRotation = null,
   focusLocation = null
 }) {
@@ -39,7 +39,9 @@ export default function Globe3D({
     let chart = root.container.children.push(
       am5map.MapChart.new(root, {
         panX: "rotateX",
-        panY: "rotateY",
+        panY: "none",
+        wheelY: "none",
+        wheelX: "none",
         projection: am5map.geoOrthographic(),
         rotationX: startX,
         rotationY: startY,
@@ -250,7 +252,7 @@ export default function Globe3D({
       animation = chart.animate({
         key: "rotationX",
         from: startX,
-        to: startX + 360,
+        to: startX - 360,
         duration: 40000,
         loops: Infinity
       });
