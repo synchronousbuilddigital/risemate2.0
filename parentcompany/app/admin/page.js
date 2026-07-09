@@ -1,9 +1,66 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+
+const WysiwygEditor = ({ value, onChange }) => {
+    const editorRef = useRef(null);
+
+    useEffect(() => {
+        if (editorRef.current && editorRef.current.innerHTML !== value) {
+            editorRef.current.innerHTML = value || '';
+        }
+    }, [value]);
+
+    const formatDoc = (cmd, val = null) => {
+        document.execCommand(cmd, false, val);
+        if (editorRef.current) {
+            onChange(editorRef.current.innerHTML);
+            editorRef.current.focus();
+        }
+    };
+
+    return (
+        <div className="space-y-2 relative">
+            <style dangerouslySetInnerHTML={{__html: `
+                div[contenteditable="true"] h2 { font-size: 1.5em; font-weight: 800; margin-bottom: 0.5em; margin-top: 1em; color: white; }
+                div[contenteditable="true"] h3 { font-size: 1.25em; font-weight: 700; margin-bottom: 0.5em; margin-top: 1em; color: white; }
+                div[contenteditable="true"] p { margin-bottom: 1em; }
+                div[contenteditable="true"] ul { list-style-type: disc; padding-left: 1.5em; margin-bottom: 1em; }
+                div[contenteditable="true"] a { color: #C9A84C; text-decoration: underline; }
+                div[contenteditable="true"] blockquote { border-left: 3px solid #C9A84C; padding-left: 1em; margin-left: 0; font-style: italic; color: rgba(255,255,255,0.8); }
+                div[contenteditable="true"]:empty:before { content: attr(placeholder); color: rgba(255,255,255,0.2); pointer-events: none; display: block; }
+            `}} />
+            <div className="flex items-center justify-between">
+                <label className="text-[10px] font-bold uppercase tracking-widest text-white/45">Article Body Content</label>
+                <span className="text-[8px] text-white/30 lowercase font-medium">write or paste your article text. formatting is supported.</span>
+            </div>
+            <div className="flex flex-wrap gap-1.5 p-2 bg-[#000c24]/50 border border-white/5 rounded-t-xl">
+                <button type="button" onClick={(e) => { e.preventDefault(); formatDoc('bold'); }} className="p-1 px-2.5 rounded bg-white/5 hover:bg-white/10 text-xs font-bold text-white cursor-pointer" title="Bold">B</button>
+                <button type="button" onClick={(e) => { e.preventDefault(); formatDoc('italic'); }} className="p-1 px-2.5 rounded bg-white/5 hover:bg-white/10 text-xs font-bold text-white italic cursor-pointer" title="Italic">I</button>
+                <button type="button" onClick={(e) => { e.preventDefault(); formatDoc('underline'); }} className="p-1 px-2.5 rounded bg-white/5 hover:bg-white/10 text-xs font-bold text-white underline cursor-pointer" title="Underline">U</button>
+                <button type="button" onClick={(e) => { e.preventDefault(); formatDoc('formatBlock', 'H2'); }} className="p-1 px-2 rounded bg-white/5 hover:bg-white/10 text-xs font-bold text-white cursor-pointer" title="Heading 2">H2</button>
+                <button type="button" onClick={(e) => { e.preventDefault(); formatDoc('formatBlock', 'H3'); }} className="p-1 px-2 rounded bg-white/5 hover:bg-white/10 text-xs font-bold text-white cursor-pointer" title="Heading 3">H3</button>
+                <button type="button" onClick={(e) => { e.preventDefault(); formatDoc('formatBlock', 'P'); }} className="p-1 px-2 rounded bg-white/5 hover:bg-white/10 text-xs font-bold text-white cursor-pointer" title="Paragraph">P</button>
+                <button type="button" onClick={(e) => { e.preventDefault(); formatDoc('insertUnorderedList'); }} className="p-1 px-2 rounded bg-white/5 hover:bg-white/10 text-xs font-bold text-white cursor-pointer" title="Bullet List">List</button>
+                <button type="button" onClick={(e) => { e.preventDefault(); const url = prompt('Enter link URL:'); if (url) formatDoc('createLink', url); }} className="p-1 px-2 rounded bg-white/5 hover:bg-white/10 text-xs font-bold text-white cursor-pointer" title="Insert Link">Link</button>
+                <button type="button" onClick={(e) => { e.preventDefault(); formatDoc('formatBlock', 'BLOCKQUOTE'); }} className="p-1 px-2 rounded bg-white/5 hover:bg-white/10 text-xs font-bold text-white cursor-pointer" title="Blockquote">Quote</button>
+            </div>
+            <div
+                ref={editorRef}
+                contentEditable={true}
+                suppressContentEditableWarning={true}
+                placeholder="Write your detailed blog article content here..."
+                onInput={(e) => onChange(e.currentTarget.innerHTML)}
+                onBlur={(e) => onChange(e.currentTarget.innerHTML)}
+                className="w-full bg-[#000c24]/50 border border-white/5 border-t-0 focus:border-[#C9A84C]/30 rounded-b-xl px-4 py-3 text-sm text-white outline-none transition-all overflow-y-auto min-h-[300px] max-h-[600px]"
+                style={{ lineHeight: '1.7' }}
+            />
+        </div>
+    );
+};
 
 function formatContent(content) {
     if (!content) return '';
@@ -21,8 +78,8 @@ export default function AdminDashboard() {
     const [loading, setLoading] = useState(true);
     const [user, setUser] = useState(null);
 
-    // Switcher: 'entities', 'leaders', or 'blogs'
-    const [adminSection, setAdminSection] = useState('entities');
+    // Switcher: 'dashboard', 'entities', 'leaders', or 'blogs'
+    const [adminSection, setAdminSection] = useState('dashboard');
 
     // --- VENTURES STATE ---
     const [items, setItems] = useState([]);
@@ -71,6 +128,11 @@ export default function AdminDashboard() {
     const [uploadingBlogImage, setUploadingBlogImage] = useState(false);
     const [showFullPreviewModal, setShowFullPreviewModal] = useState(false);
 
+    // --- DASHBOARD STATS STATE ---
+    const [stats, setStats] = useState(null);
+    const [aiTopic, setAiTopic] = useState('');
+    const [generatingAi, setGeneratingAi] = useState(false);
+
     // --- GLOBAL ACTIONS ---
     const [saving, setSaving] = useState(false);
     const [toast, setToast] = useState({ message: '', type: '' });
@@ -118,6 +180,13 @@ export default function AdminDashboard() {
                 } else {
                     // Pre-fill fields for a new blog if none exist yet
                     handleAddNewBlogClick();
+                }
+
+                // Fetch dashboard stats
+                const statsRes = await fetch('/api/admin/stats');
+                if (statsRes.ok) {
+                    const statsData = await statsRes.json();
+                    setStats(statsData.stats);
                 }
 
                 setLoading(false);
@@ -231,16 +300,24 @@ export default function AdminDashboard() {
         setBlogCategory('Startup Funding');
         setBlogCustomCategory('');
         setBlogDescription('');
-        setBlogAuthor(user?.username || 'Managing Partner');
+        setBlogAuthor('RiseMates Ventures');
 
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         const today = new Date().toLocaleDateString('en-US', options);
         setBlogDate(today);
 
-        setBlogReadTime('5 min read');
+        setBlogReadTime('1 min read');
         setBlogImage('');
         setBlogContent('');
         setBlogRelated([]);
+    };
+
+    const handleTitleChange = (val) => {
+        setBlogTitle(val);
+        if (activeBlogSlug === '__new__') {
+            const slugify = (text) => text.toString().toLowerCase().trim().replace(/\s+/g, '-').replace(/[^\w\-]+/g, '').replace(/\-\-+/g, '-');
+            setBlogSlug(slugify(val));
+        }
     };
 
     const showToast = (message, type = 'success') => {
@@ -551,6 +628,77 @@ export default function AdminDashboard() {
         }
     };
 
+
+    const handleGenerateAiBlog = async () => {
+        if (!aiTopic.trim() || generatingAi) return;
+        setGeneratingAi(true);
+        showToast("Sarvam AI is writing your article. Please wait...", "info");
+
+        try {
+            const res = await fetch('/api/admin/blogs/ai', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ topic: aiTopic })
+            });
+
+            if (!res.ok) {
+                const err = await res.json();
+                throw new Error(err.error || 'Failed to generate AI blog');
+            }
+
+            const data = await res.json();
+            const { blog } = data;
+
+            setBlogTitle(blog.title || '');
+            setBlogDescription(blog.description || '');
+            setBlogCategory(blog.category || 'Startup Funding');
+            setBlogReadTime(blog.readTime || '5 min read');
+            setBlogContent(blog.content || '');
+            setBlogCustomCategory('');
+            
+            const slugify = (text) => text.toString().toLowerCase().trim().replace(/\s+/g, '-').replace(/[^\w\-]+/g, '').replace(/\-\-+/g, '-');
+            setBlogSlug(slugify(blog.title));
+
+            showToast("AI blog draft generated successfully! Check visual preview and hit Save.");
+            setAiTopic('');
+        } catch (err) {
+            showToast(err.message, 'error');
+        } finally {
+            setGeneratingAi(false);
+        }
+    };
+
+    const fetchStats = async () => {
+        try {
+            const res = await fetch('/api/admin/stats');
+            if (res.ok) {
+                const data = await res.json();
+                setStats(data.stats);
+            }
+        } catch (err) {
+            console.error("Failed to load admin stats:", err);
+        }
+    };
+
+    useEffect(() => {
+        if (adminSection === 'dashboard') {
+            fetchStats();
+            const interval = setInterval(fetchStats, 15000); // refresh every 15s
+            return () => clearInterval(interval);
+        }
+    }, [adminSection]);
+
+    useEffect(() => {
+        if (blogContent) {
+            const cleanText = blogContent.replace(/<[^>]*>/g, ' ');
+            const words = cleanText.trim().split(/\s+/).filter(Boolean).length;
+            const minutes = Math.max(Math.ceil(words / 200), 1);
+            setBlogReadTime(`${minutes} min read`);
+        } else {
+            setBlogReadTime('1 min read');
+        }
+    }, [blogContent]);
+
     const handleLogout = async () => {
         try {
             await fetch('/api/admin/logout', { method: 'POST' });
@@ -594,6 +742,13 @@ export default function AdminDashboard() {
                 {/* Main Navigation Section Switcher */}
                 <div className="hidden sm:flex items-center bg-[#000c24]/85 border border-white/5 p-1 rounded-xl">
                     <button
+                        onClick={() => setAdminSection('dashboard')}
+                        className={`px-4 py-2 text-[10px] font-black uppercase tracking-wider rounded-lg transition-all cursor-pointer ${adminSection === 'dashboard' ? 'bg-[#C9A84C] text-dark shadow-md' : 'text-white/40 hover:text-white'
+                            }`}
+                    >
+                        Dashboard
+                    </button>
+                    <button
                         onClick={() => setAdminSection('entities')}
                         className={`px-4 py-2 text-[10px] font-black uppercase tracking-wider rounded-lg transition-all cursor-pointer ${adminSection === 'entities' ? 'bg-[#C9A84C] text-dark shadow-md' : 'text-white/40 hover:text-white'
                             }`}
@@ -634,30 +789,147 @@ export default function AdminDashboard() {
             {/* Mobile Navigation Section Switcher */}
             <div className="flex sm:hidden bg-[#001233]/40 border-b border-white/5 p-2 items-center justify-around gap-2">
                 <button
+                    onClick={() => setAdminSection('dashboard')}
+                    className={`flex-1 py-2 text-[9px] font-black uppercase tracking-wider text-center rounded-lg cursor-pointer ${adminSection === 'dashboard' ? 'bg-[#C9A84C] text-dark' : 'text-white/50'
+                        }`}
+                >
+                    Dash
+                </button>
+                <button
                     onClick={() => setAdminSection('entities')}
                     className={`flex-1 py-2 text-[9px] font-black uppercase tracking-wider text-center rounded-lg cursor-pointer ${adminSection === 'entities' ? 'bg-[#C9A84C] text-dark' : 'text-white/50'
                         }`}
                 >
-                    Sovereign Ventures
+                    Ventures
                 </button>
                 <button
                     onClick={() => setAdminSection('leaders')}
                     className={`flex-1 py-2 text-[9px] font-black uppercase tracking-wider text-center rounded-lg cursor-pointer ${adminSection === 'leaders' ? 'bg-[#C9A84C] text-dark' : 'text-white/50'
                         }`}
                 >
-                    Leadership Board
+                    Leaders
                 </button>
                 <button
                     onClick={() => setAdminSection('blogs')}
                     className={`flex-1 py-2 text-[9px] font-black uppercase tracking-wider text-center rounded-lg cursor-pointer ${adminSection === 'blogs' ? 'bg-[#C9A84C] text-dark' : 'text-white/50'
                         }`}
                 >
-                    Ecosystem Blogs
+                    Blogs
                 </button>
             </div>
 
             {/* Main Area */}
             <main className="flex-1 max-w-7xl mx-auto w-full px-6 md:px-12 py-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+                {/* --- DASHBOARD SECTION --- */}
+                {adminSection === 'dashboard' && (
+                    <div className="lg:col-span-12 space-y-8">
+                        {/* Header Summary */}
+                        <div className="bg-[#001233]/20 border border-white/5 rounded-3xl p-6 md:p-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 shadow-xl">
+                            <div>
+                                <h2 className="text-2xl font-black uppercase tracking-tight text-white">Ecosystem Intelligence Console</h2>
+                                <p className="text-xs text-white/45 mt-1">Real-time telemetry, newsletter reach, and recent contact inquiries.</p>
+                            </div>
+                            <button
+                                onClick={fetchStats}
+                                className="bg-white/5 hover:bg-white/10 text-white border border-white/5 px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 cursor-pointer transition-all"
+                            >
+                                <span className="material-symbols-outlined text-sm animate-spin-slow">sync</span>
+                                Refresh Data
+                            </button>
+                        </div>
+
+                        {/* Stats Grid */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                            {/* Live Active Users */}
+                            <div className="bg-[#001233]/30 border border-white/5 rounded-2xl p-6 shadow-md relative overflow-hidden group">
+                                <div className="absolute top-4 right-4 w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
+                                <span className="text-[10px] font-bold uppercase tracking-widest text-white/40 block mb-2">Live Active Users</span>
+                                <div className="text-3xl font-black text-white font-primary mb-1">
+                                    {stats ? stats.activeUsersCount : '...'}
+                                </div>
+                                <p className="text-[9px] text-white/30">Visits within the last 5 minutes</p>
+                            </div>
+
+                            {/* Total Visits */}
+                            <div className="bg-[#001233]/30 border border-white/5 rounded-2xl p-6 shadow-md">
+                                <span className="text-[10px] font-bold uppercase tracking-widest text-white/40 block mb-2">Total Unique Visits</span>
+                                <div className="text-3xl font-black text-white font-primary mb-1">
+                                    {stats ? stats.sessionsCount : '...'}
+                                </div>
+                                <p className="text-[9px] text-white/30">Cumulative lifetime sessions</p>
+                            </div>
+
+                            {/* Total Inquiries */}
+                            <div className="bg-[#001233]/30 border border-white/5 rounded-2xl p-6 shadow-md">
+                                <span className="text-[10px] font-bold uppercase tracking-widest text-white/40 block mb-2">Business Inquiries</span>
+                                <div className="text-3xl font-black text-[#C9A84C] font-primary mb-1">
+                                    {stats ? stats.contactsCount : '...'}
+                                </div>
+                                <p className="text-[9px] text-white/30">Filled contact forms in MongoDB</p>
+                            </div>
+
+                            {/* Subscribers */}
+                            <div className="bg-[#001233]/30 border border-white/5 rounded-2xl p-6 shadow-md">
+                                <span className="text-[10px] font-bold uppercase tracking-widest text-white/40 block mb-2">Newsletter Reach</span>
+                                <div className="text-3xl font-black text-white font-primary mb-1">
+                                    {stats ? stats.subscribersCount : '...'}
+                                </div>
+                                <p className="text-[9px] text-white/30">Total newsletter subscribers</p>
+                            </div>
+                        </div>
+
+                        {/* Recent Inquiries Table */}
+                        <div className="bg-[#001233]/30 border border-white/5 rounded-3xl p-6 md:p-8 shadow-xl">
+                            <span className="text-[10px] font-black uppercase tracking-widest text-[#C9A84C] block mb-6 border-b border-white/5 pb-3">Recent Contact Inquiries</span>
+                            
+                            <div className="overflow-x-auto w-full">
+                                {stats?.recentContacts && stats.recentContacts.length > 0 ? (
+                                    <table className="w-full text-left text-xs border-collapse">
+                                        <thead>
+                                            <tr className="border-b border-white/5 text-white/40">
+                                                <th className="py-3 px-4 font-bold uppercase tracking-wider">Date</th>
+                                                <th className="py-3 px-4 font-bold uppercase tracking-wider">Contact</th>
+                                                <th className="py-3 px-4 font-bold uppercase tracking-wider">Area of Interest</th>
+                                                <th className="py-3 px-4 font-bold uppercase tracking-wider">Message</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {stats.recentContacts.map((contact, idx) => {
+                                                const formattedDate = new Date(contact.createdAt).toLocaleDateString('en-US', {
+                                                    month: 'short',
+                                                    day: 'numeric',
+                                                    hour: '2-digit',
+                                                    minute: '2-digit'
+                                                });
+                                                return (
+                                                    <tr key={idx} className="border-b border-white/5 hover:bg-white/5 transition-colors text-white/80">
+                                                        <td className="py-3.5 px-4 font-mono text-[10px] text-white/55 whitespace-nowrap">{formattedDate}</td>
+                                                        <td className="py-3.5 px-4">
+                                                            <div className="font-bold text-white">{contact.name}</div>
+                                                            <div className="text-[10px] text-white/40">{contact.email}</div>
+                                                            {contact.phone && <div className="text-[10px] text-white/30">{contact.phone}</div>}
+                                                        </td>
+                                                        <td className="py-3.5 px-4">
+                                                            <span className="inline-block px-2.5 py-1 bg-white/5 border border-white/10 rounded-lg text-[9px] font-bold uppercase text-[#C9A84C] whitespace-nowrap">
+                                                                {contact.interest}
+                                                            </span>
+                                                        </td>
+                                                        <td className="py-3.5 px-4 text-white/60 leading-relaxed min-w-[200px] max-w-sm whitespace-pre-wrap">{contact.message}</td>
+                                                    </tr>
+                                                );
+                                            })}
+                                        </tbody>
+                                    </table>
+                                ) : (
+                                    <div className="text-center py-10 text-white/30 italic">
+                                        No contact inquiries submitted yet.
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                )}
 
                 {/* --- VENTURES SECTION --- */}
                 {adminSection === 'entities' && (
@@ -1282,7 +1554,7 @@ export default function AdminDashboard() {
                                             <input
                                                 type="text"
                                                 value={blogTitle}
-                                                onChange={(e) => setBlogTitle(e.target.value)}
+                                                onChange={(e) => handleTitleChange(e.target.value)}
                                                 placeholder="e.g. How to Scale Sales Teams"
                                                 required
                                                 className="w-full bg-[#000c24]/40 border border-white/5 focus:border-[#C9A84C]/30 rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 outline-none transition-all"
@@ -1417,20 +1689,34 @@ export default function AdminDashboard() {
                                         </div>
                                     </div>
 
-                                    {/* Content Editor */}
-                                    <div className="space-y-2">
-                                        <div className="flex items-center justify-between">
-                                            <label className="text-[10px] font-bold uppercase tracking-widest text-white/45">Article Body Content</label>
-                                            <span className="text-[8px] text-white/30 lowercase font-medium">Write or paste your article text. Paragraphs are automatically formatted.</span>
+                                    {/* AI Blog Writer */}
+                                    <div className="p-4 bg-[#C9A84C]/5 border border-[#C9A84C]/15 rounded-2xl space-y-3">
+                                        <div className="flex items-center gap-2">
+                                            <span className="material-symbols-outlined text-[#C9A84C] text-lg">psychology</span>
+                                            <h4 className="text-xs font-black uppercase tracking-wider text-white">AI Article Drafter (Sarvam AI)</h4>
                                         </div>
-                                        <textarea
-                                            value={blogContent}
-                                            onChange={(e) => setBlogContent(e.target.value)}
-                                            placeholder="Write your detailed blog article content here..."
-                                            rows={12}
-                                            className="w-full bg-[#000c24]/50 border border-white/5 focus:border-[#C9A84C]/30 rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 outline-none transition-all resize-y leading-relaxed"
-                                        />
+                                        <div className="flex gap-2">
+                                            <input 
+                                                type="text"
+                                                value={aiTopic}
+                                                onChange={(e) => setAiTopic(e.target.value)}
+                                                placeholder="Describe topic, e.g. Scaling Managed Sales Force in India"
+                                                className="flex-1 bg-[#000c24]/50 border border-white/5 rounded-xl px-4 py-2 text-xs text-white placeholder-white/20 outline-none"
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={handleGenerateAiBlog}
+                                                disabled={generatingAi || !aiTopic.trim()}
+                                                className="bg-[#C9A84C] hover:bg-[#b0913b] text-dark text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-xl transition-all cursor-pointer disabled:opacity-40"
+                                            >
+                                                {generatingAi ? 'Drafting...' : 'Draft Blog'}
+                                            </button>
+                                        </div>
+                                        <p className="text-[9px] text-white/35">Describe your topic. Sarvam AI will automatically generate the title, description, category, and full HTML content for you.</p>
                                     </div>
+
+                                    {/* Content Editor */}
+                                    <WysiwygEditor value={blogContent} onChange={setBlogContent} />
 
                                     {/* Related Articles checkboxes */}
                                     <div className="space-y-2">

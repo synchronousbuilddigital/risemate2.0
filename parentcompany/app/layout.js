@@ -7,8 +7,7 @@ export const metadata = {
   description: "A premium conglomerate merging Bworth, VegaVrudhi, RYM, and Synchronous Digital Build under the RISEMATES banner.",
 };
 
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+import LayoutWrapper from "./components/LayoutWrapper";
 
 export default function RootLayout({ children }) {
   return (
@@ -20,13 +19,13 @@ export default function RootLayout({ children }) {
       </head>
       <body suppressHydrationWarning={true} className="bg-white text-dark font-secondary overflow-x-hidden selection:bg-[#002366] selection:text-white antialiased grain">
         <LoaderProvider>
-          <Navbar />
-          <PageAnimatePresence>
-            <main>
-              {children}
-            </main>
-          </PageAnimatePresence>
-          <Footer />
+          <LayoutWrapper>
+            <PageAnimatePresence>
+              <main>
+                {children}
+              </main>
+            </PageAnimatePresence>
+          </LayoutWrapper>
         </LoaderProvider>
       </body>
     </html>

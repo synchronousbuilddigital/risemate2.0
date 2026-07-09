@@ -102,12 +102,6 @@ export async function getAllBlogs() {
     const { db } = await connectToDatabase();
     const collection = db.collection('blogs');
 
-    const count = await collection.countDocuments();
-    if (count === 0) {
-      console.log('MongoDB blogs collection empty. Seeding defaults...');
-      await collection.insertMany(BLOGS);
-    }
-
     const dbBlogs = await collection.find({}).toArray();
     const cleanBlogs = dbBlogs.map(({ _id, ...blog }) => blog);
     
@@ -115,8 +109,8 @@ export async function getAllBlogs() {
     cleanBlogs.sort((a, b) => new Date(b.date) - new Date(a.date));
     return cleanBlogs;
   } catch (error) {
-    console.error('MongoDB database query for blogs failed. Falling back to static data:', error);
-    return BLOGS;
+    console.error('MongoDB database query for blogs failed:', error);
+    return [];
   }
 }
 
@@ -129,10 +123,11 @@ export async function getBlogBySlug(slug) {
       const { _id, ...cleanBlog } = blog;
       return cleanBlog;
     }
+    return null;
   } catch (error) {
-    console.error(`MongoDB query for blog slug "${slug}" failed. Falling back to static data:`, error);
+    console.error(`MongoDB query for blog slug "${slug}" failed:`, error);
+    return null;
   }
-  return BLOGS.find(b => b.slug === slug);
 }
 
 export async function getRelatedBlogs(slug) {
@@ -145,12 +140,9 @@ export async function getRelatedBlogs(slug) {
     const dbBlogs = await collection.find({ slug: { $in: current.related } }).toArray();
     return dbBlogs.map(({ _id, ...blog }) => blog);
   } catch (error) {
-    console.error(`MongoDB query for related blogs for "${slug}" failed. Falling back to static data:`, error);
+    console.error(`MongoDB query for related blogs for "${slug}" failed:`, error);
+    return [];
   }
-
-  const current = BLOGS.find(b => b.slug === slug);
-  if (!current || !current.related) return [];
-  return BLOGS.filter(b => current.related.includes(b.slug));
 }
 
 export async function getBlogsByCategory(category) {
@@ -160,7 +152,7 @@ export async function getBlogsByCategory(category) {
     const dbBlogs = await collection.find({ category: { $regex: new RegExp(`^${category}$`, 'i') } }).toArray();
     return dbBlogs.map(({ _id, ...blog }) => blog);
   } catch (error) {
-    console.error(`MongoDB query for blogs in category "${category}" failed. Falling back to static data:`, error);
+    console.error(`MongoDB query for blogs in category "${category}" failed:`, error);
+    return [];
   }
-  return BLOGS.filter(b => b.category.toLowerCase() === category.toLowerCase());
 }

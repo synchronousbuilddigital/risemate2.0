@@ -1451,8 +1451,6 @@ export default function HomeClient() {
         </div>
       </section>
 
-
-
       {/* 7. FAQ SECTION - ADVANCED REDESIGN */}
       <section className="py-24 md:py-32 bg-gray-50 text-black relative overflow-hidden">
         {/* Background Accents */}
