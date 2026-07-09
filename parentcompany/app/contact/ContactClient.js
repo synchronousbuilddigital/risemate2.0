@@ -295,7 +295,7 @@ export default function ContactClient() {
               <div className="bg-black p-8 rounded-[40px] shadow-xl text-white">
                 <h3 className="text-lg font-black tracking-tight mb-6 font-primary">Connect with us</h3>
                 <div className="flex gap-3">
-                  <a href="https://www.linkedin.com/company/RiseMatessventures/posts/?feedView=all" target="_blank" className="flex-1 flex flex-col items-center justify-center p-4 bg-white/10 rounded-2xl hover:bg-gold hover:text-black transition-all">
+                  <a href="https://www.linkedin.com/company/risematesventures/posts/?feedView=all" target="_blank" className="flex-1 flex flex-col items-center justify-center p-4 bg-white/10 rounded-2xl hover:bg-gold hover:text-black transition-all">
                     <span className="font-bold text-sm">LinkedIn</span>
                   </a>
                 </div>

@@ -61,7 +61,7 @@ export default function ContactPage() {
       "closes": "18:00"
     },
     "sameAs": [
-      "https://www.linkedin.com/company/RiseMatess-ventures",
+      "https://www.linkedin.com/company/risematesventures/posts/?feedView=all",
       "https://www.instagram.com/RiseMatess"
     ]
   };

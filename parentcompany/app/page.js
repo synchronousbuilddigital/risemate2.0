@@ -120,7 +120,7 @@ export default function Home() {
       }
     ],
     "sameAs": [
-      "https://www.linkedin.com/company/RiseMatess-ventures",
+      "https://www.linkedin.com/company/risematesventures/posts/?feedView=all",
       "https://www.instagram.com/RiseMatess"
     ]
   };
