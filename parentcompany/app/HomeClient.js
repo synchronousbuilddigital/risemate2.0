@@ -1,12 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import Globe3D from "./components/Globe3D";
 import Counter from "./components/Counter";
-import Magnetic from "./components/Magnetic";
-import { SERVICES_DATA } from "../lib/servicesData";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 // --- Animation Variants ---
 const fadeInUp = {
@@ -25,232 +26,211 @@ const staggerContainer = {
 
 const cardHover = {
   hover: {
-    y: -10,
-    boxShadow: "0 30px 60px -15px rgba(0, 35, 102, 0.15)",
-    borderColor: "rgba(0, 35, 102, 0.2)",
-    transition: { duration: 0.4, ease: "easeOut" }
+    y: -8,
+    boxShadow: "0 20px 40px -15px rgba(0, 35, 102, 0.08)",
+    borderColor: "rgba(0, 35, 102, 0.15)",
+    transition: { duration: 0.3, ease: "easeOut" }
   }
 };
 
-const services = [
+// --- Data Structures ---
+const whatWeDoList = [
   {
-    title: "Circular Supply Chain & Sustainable Commerce",
-    entity: "BWorth",
-    tagline: "Preserving Capital & Environmental Equity",
-    icon: "eco",
-    desc: "Leading-edge circular economy solutions that help consumer brands buy back, recycle, and monetize excess inventory through loyalty systems.",
+    title: "Global Market Expansion",
+    icon: "public",
+    desc: "Helping businesses confidently enter new markets through market intelligence, strategic partnerships, localization, regulatory guidance, and execution support.",
     benefits: [
-      "Significant carbon footprint reduction",
-      "Monetize deadstock through BWorth Coins system",
-      "Dramatically improve customer retention and sustainability metrics"
+      "Cross-border localization strategies",
+      "Regulatory alignment & entry compliance",
+      "International trade & local distribution partnerships"
     ],
-    process: "Inventory Audit → Infrastructure Customization → Loyalty API Integration → Lifecycle Deployment.",
-    deliverables: "Whitelabel Circular Commerce App, Custom Loyalty Coins, Dashboard with Live CO2 Tracking.",
-    results: "25,000+ items saved, average +25% client repeat purchase rate, verified ESG audit logs.",
     color: "text-cyan-600",
     bgColor: "bg-cyan-50/50",
-    borderColor: "hover:border-cyan-200",
-    logo: "/BWORTH.jpg"
+    borderColor: "hover:border-cyan-200"
   },
   {
-    title: "Precision Managed Sales & Execution",
-    entity: "Vega Vrudhi",
-    tagline: "Bridging Digital Mandates with Physical Scale",
-    icon: "groups",
-    desc: "Direct field-force scaling, rapid merchant onboarding, and strategic physical customer activation pipelines for high-growth sectors.",
+    title: "Startup & Venture Growth",
+    icon: "rocket_launch",
+    desc: "Supporting founders from validation to commercialization with mentorship, go-to-market strategy, investor readiness, strategic partnerships, and business scaling.",
     benefits: [
-      "Nationwide on-ground execution in Tier 1 and Tier 2 cities",
-      "Algorithmic lead distribution and field agent performance tracking",
-      "Optimized client conversion rates via trained, specialized teams"
+      "Investor readiness & pitch deck styling",
+      "Mentorship & go-to-market validations",
+      "Strategic joint ventures & seed commercialization"
     ],
-    process: "Territory Mapping → Custom Staffing Alignment → Real-time Onboarding Activation → Lead Fulfillment.",
-    deliverables: "Nationwide Field Sales Team, Custom Merchant Onboarding Software, Analytics Dashboard.",
-    results: "10,000+ active onboarding cycles, 95%+ verified client acquisition compliance.",
     color: "text-emerald-600",
     bgColor: "bg-emerald-50/50",
-    borderColor: "hover:border-emerald-200",
-    logo: "/VEGA.png"
+    borderColor: "hover:border-emerald-200"
   },
   {
-    title: "AI Automation & Deep-Tech IoT Engineering",
-    entity: "RYM Grenergy",
-    tagline: "Energy Sovereignty & Enterprise Intelligence",
-    icon: "memory",
-    desc: "Next-generation energy management solutions, automated vehicle routing systems, and universal document intelligence platforms.",
+    title: "Funding & Strategic Partnerships",
+    icon: "handshake",
+    desc: "Connecting businesses with investors, venture funds, family offices, financial institutions, corporate partners, and government programs that accelerate growth.",
     benefits: [
-      "Optimized clean energy grid architectures with ULTRON",
-      "Automated document processing via advanced neural engines",
-      "Real-time IoT sensory networks for safety warnings"
+      "Access to global venture capital networks",
+      "Family office & angel syndicate introductions",
+      "Government agency program integrations"
     ],
-    process: "Edge Sensor Deployment → IoT Controller Setup → AI/ML Neural Tuning → Enterprise Integration.",
-    deliverables: "ULTRON Energy Platform, Intellexa AI Analyzer License, REEWS Early-Warning API Access.",
-    results: "Average 32% energy bill reduction, 90%+ processing speed improvement.",
-    color: "text-amber-600",
+    color: "text-[#C9A84C]",
     bgColor: "bg-amber-50/30",
-    borderColor: "hover:border-amber-200",
-    logo: "/RYM.png"
+    borderColor: "hover:border-amber-200"
   },
   {
-    title: "High-Performance Brand Identity & Autonomous AI",
-    entity: "Synchronous",
-    tagline: "Algorithmic Growth & Elite Visual Legacies",
+    title: "Business Automation & AI",
     icon: "smart_toy",
-    desc: "Synthesizing custom autonomous AI agents, high-conversion visual design, and data-backed digital marketing pipelines.",
+    desc: "Helping organizations transform operations through Artificial Intelligence, workflow automation, CRM implementation, analytics, digital transformation, and intelligent business systems.",
     benefits: [
-      "Bespoke visual identity and digital interface architectures",
-      "Custom AI agents that automate customer service and operations",
-      "Algorithmic advertising optimization to drive down client acquisition costs"
+      "Neural workflows & custom AI models",
+      "CRM & business intelligence dashboard integrations",
+      "Digital conversion & process optimization"
     ],
-    process: "Neural Arbitrage Audit → Visual Identity System Design → Autonomous Agent Injection → Scaled Automation.",
-    deliverables: "Interactive Brand Style Guidelines, High-Conversion Web Architecture, Active AI Agents.",
-    results: "Compound digital ROI, average 60% customer support operational savings.",
     color: "text-orange-500",
     bgColor: "bg-orange-50/50",
-    borderColor: "hover:border-orange-200",
-    logo: "/sync.jpg"
+    borderColor: "hover:border-orange-200"
+  },
+  {
+    title: "Ground Execution & Growth Infrastructure",
+    icon: "domain",
+    desc: "Providing businesses with operational capabilities including sales teams, channel partners, implementation support, business development, market activation, and execution management.",
+    benefits: [
+      "Active field sales & merchant acquisition units",
+      "Channel development & local operations setup",
+      "Account-based execution & campaign activation"
+    ],
+    color: "text-blue-600",
+    bgColor: "bg-blue-50/50",
+    borderColor: "hover:border-blue-200"
   }
 ];
 
-const testimonials = [
+const whyPoints = [
   {
-    name: "Siddharth Mehta",
-    role: "CEO & Founder",
-    company: "GreenLoop Apparel",
-    logo: "/BWORTH.jpg",
-    photo: "https://i.pravatar.cc/150?u=siddharth",
-    rating: 5,
-    review: "RiseMate completely transformed our sustainability strategy. By integrating the BWorth circular commerce engine, we saw direct improvements in customer retention and managed to save over 15,000 garments from landfills. Their team understands the metrics that investors care about.",
-    metrics: {
-      funding: "₹12 Cr Raised",
-      growth: "+180% Revenue",
-      users: "50k+ Active Users",
-      saved: "40% Time Saved"
-    }
+    title: "Unified Platform",
+    desc: "Integrated strategy, capital, execution",
+    color: "#FF7B00",
+    glowColor: "rgba(255, 123, 0, 0.4)",
+    textColor: "text-[#FF7B00]",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+        <path d="M12.24 2a10 10 0 0 0-8.9 5.5" />
+        <path d="M3 5v3h3" />
+        <path d="M11.76 22a10 10 0 0 0 8.9-5.5" />
+        <path d="M21 19v-3h-3" />
+        <circle cx="12" cy="12" r="3.5" />
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+      </svg>
+    )
   },
   {
-    name: "Neha Sharma",
-    role: "Co-Founder",
-    company: "SwiftPay Solutions",
-    logo: "/VEGA.png",
-    photo: "https://i.pravatar.cc/150?u=neha",
-    rating: 5,
-    review: "The execution capabilities of Vega Vrudhi under the RiseMate umbrella are outstanding. We needed to onboard 15,000 merchants across North India in three months, and they handled it with precision. Deployed on-ground field forces made the difference.",
-    metrics: {
-      funding: "₹28 Cr Series A",
-      growth: "+320% Merchants",
-      users: "200k+ End Users",
-      saved: "35% Onboarding Cost"
-    }
+    title: "Integrated Ecosystem",
+    desc: "One partner managing business growth",
+    color: "#E5B800",
+    glowColor: "rgba(229, 184, 0, 0.4)",
+    textColor: "text-[#E5B800]",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-6 h-6">
+        <circle cx="12" cy="12" r="3" fill="currentColor" className="opacity-20" />
+        <circle cx="12" cy="12" r="3" />
+        <circle cx="6" cy="7" r="1.5" />
+        <circle cx="18" cy="7" r="1.5" />
+        <circle cx="6" cy="17" r="1.5" />
+        <circle cx="18" cy="17" r="1.5" />
+        <circle cx="12" cy="5" r="1.5" />
+        <circle cx="12" cy="19" r="1.5" />
+        <line x1="12" y1="12" x2="6" y2="7" strokeWidth="1.5" />
+        <line x1="12" y1="12" x2="18" y2="7" strokeWidth="1.5" />
+        <line x1="12" y1="12" x2="6" y2="17" strokeWidth="1.5" />
+        <line x1="12" y1="12" x2="18" y2="17" strokeWidth="1.5" />
+        <line x1="12" y1="12" x2="12" y2="5" strokeWidth="1.5" />
+        <line x1="12" y1="12" x2="12" y2="19" strokeWidth="1.5" />
+      </svg>
+    )
   },
   {
-    name: "Amit Patel",
-    role: "Chief Technology Officer",
-    company: "EnerGrid Systems",
-    logo: "/RYM.png",
-    photo: "https://i.pravatar.cc/150?u=amit",
-    rating: 5,
-    review: "RYM Grenergy's ULTRON platform optimized our grid operations within weeks. We achieved significant cost savings and obtained certifications that helped us secure our growth funding round. The deep-tech integration was seamless.",
-    metrics: {
-      funding: "₹15 Cr Facilitated",
-      growth: "32% Energy Saved",
-      users: "12 Enterprise Clients",
-      saved: "50% Development Time"
-    }
+    title: "Global Network",
+    desc: "Connecting businesses with opportunities",
+    color: "#2ECC71",
+    glowColor: "rgba(46, 204, 113, 0.4)",
+    textColor: "text-[#2ECC71]",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-6 h-6">
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 3a15.3 15.3 0 0 1 4 9 15.3 15.3 0 0 1-4 9 15.3 15.3 0 0 1-4-9 15.3 15.3 0 0 1 4-9z" />
+        <path d="M3 12h18" />
+        <circle cx="12" cy="7" r="1" fill="currentColor" />
+        <circle cx="12" cy="17" r="1" fill="currentColor" />
+        <circle cx="7.5" cy="12" r="1" fill="currentColor" />
+        <circle cx="16.5" cy="12" r="1" fill="currentColor" />
+      </svg>
+    )
   },
   {
-    name: "Vikram Malhotra",
-    role: "Founder & CEO",
-    company: "AI-Med Devices",
-    logo: "/sync.jpg",
-    photo: "https://i.pravatar.cc/150?u=vikram",
-    rating: 5,
-    review: "Synchronous helped us build our brand visual system and integrate custom LLM support agents. It saved our operational team endless hours of customer service tickets and boosted order values by 28%. Highest quality execution I've seen in years.",
-    metrics: {
-      funding: "₹18 Cr Series A",
-      growth: "+140% Growth",
-      users: "30+ Hospitals",
-      saved: "60% Support Saved"
-    }
+    title: "Technology Driven",
+    desc: "Building future-ready businesses",
+    color: "#0066CC",
+    glowColor: "rgba(0, 102, 204, 0.4)",
+    textColor: "text-[#0066CC]",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+        <rect x="5" y="5" width="14" height="14" rx="2" />
+        <rect x="9" y="9" width="6" height="6" rx="1" />
+        <path d="M9 1v4M15 1v4M9 19v4M15 19v4M1 9h4M1 15h4M19 9h4M19 15h4" />
+      </svg>
+    )
   },
   {
-    name: "Priyanka Sen",
-    role: "Co-Founder & CEO",
-    company: "AeroEco Logistics",
-    logo: "/VEGA.png",
-    photo: "https://i.pravatar.cc/150?u=priyanka",
-    rating: 5,
-    review: "The managed sales infrastructure provided by Vega Vrudhi was a game changer for our FMCG expansion. We scale-deployed field campaigns across 8 states in record time, which was critical for our Series B round validation.",
-    metrics: {
-      funding: "₹45 Cr Series B",
-      growth: "+210% Retail",
-      users: "850+ Outlets",
-      saved: "45% CAC Decreased"
-    }
-  },
-  {
-    name: "Rohan Deshmukh",
-    role: "CTO",
-    company: "CircularThread",
-    logo: "/BWORTH.jpg",
-    photo: "https://i.pravatar.cc/150?u=rohan",
-    rating: 5,
-    review: "BWorth's recycling engine was integrated into our app within three weeks. Our customers love the coin-reward system, and the automated carbon tracking API has added huge ESG validation to our investor deck.",
-    metrics: {
-      funding: "₹7 Cr Seed Round",
-      growth: "+250% Recycled",
-      users: "18k+ Recyclers",
-      saved: "30% Dev Cost Saved"
-    }
+    title: "Execution Excellence",
+    desc: "Delivering measurable outcomes",
+    color: "#8E44AD",
+    glowColor: "rgba(142, 68, 173, 0.4)",
+    textColor: "text-[#8E44AD]",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+        <path d="M3 3v18h18" />
+        <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3" />
+        <circle cx="18.7" cy="8" r="1.5" fill="currentColor" />
+        <circle cx="13.6" cy="13.2" r="1.5" fill="currentColor" />
+        <circle cx="10.8" cy="10.5" r="1.5" fill="currentColor" />
+        <circle cx="18.7" cy="8" r="3.5" />
+        <path d="M21.2 10.5l-1.5-1.5" />
+      </svg>
+    )
   }
 ];
 
-const caseStudies = [
+const growthSteps = [
   {
-    title: "Scaling Sustainable Retail via Circular Economy Integration",
-    client: "EcoWear India",
-    stage: "Seed Stage",
-    industry: "Sustainable Retail / E-commerce",
-    challenge: "High customer acquisition costs and excess inventory resulting in capital blockages.",
-    solution: "Custom BWorth circular loyalty system integrated into their e-commerce platform. Allowed users to recycle old clothes for store currency.",
-    process: "Audited inventory → Deployed whitelabel app → Marketed sustainability program → Tracked carbon offset.",
-    results: "25,000+ items recycled, customer lifetime value increased by 42%, conversion rate boosted from 1.8% to 3.5%.",
-    funding: "Secured ₹8.5 Cr Seed Round supported by audited circularity metrics.",
-    beforeAfter: { before: "1.8% CR", after: "3.5% CR" }
+    step: "Step 1",
+    title: "Business Discovery",
+    desc: "Understanding business objectives, opportunities, challenges, and market potential."
   },
   {
-    title: "Deploying Nationwide On-ground Merchant Acquisition",
-    client: "PaySwift FinTech",
-    stage: "Series A Stage",
-    industry: "FinTech / Payments",
-    challenge: "High friction in onboarding retail merchants in semi-urban areas using online methods.",
-    solution: "Vega Vrudhi deployed managed, specialized field teams equipped with mobile identity scanning apps for real-time compliance validation.",
-    process: "Territory selection → Recruited & trained field force → Deployed field application → Real-time lead review.",
-    results: "Onboarded 50,000+ retail merchants across 14 cities in 90 days, with 98% compliance accuracy.",
-    funding: "Helped secure ₹35 Cr Series A round via documented active transaction points.",
-    beforeAfter: { before: "₹1,200 Cost/CAC", after: "₹450 Cost/CAC" }
+    step: "Step 2",
+    title: "Strategic Planning",
+    desc: "Creating growth roadmaps supported by market intelligence and execution planning."
   },
   {
-    title: "AI-Powered Brand Legacy and Support Automation",
-    client: "Luminary Luxury Co.",
-    stage: "Growth Stage",
-    industry: "Consumer Luxury",
-    challenge: "Visual identity mismatch with high-end audience, combined with scaling customer support bottlenecks.",
-    solution: "Synchronous team created a premium visual brand architecture and deployed autonomous customer support AI agents.",
-    process: "Brand audit & styling guidelines redesign → Custom LLM agent configuration → API connection to CRM → Full deployment.",
-    results: "60% reduction in support ticketing costs, customer response times reduced to under 5 seconds, average order value grew by 28%.",
-    funding: "Attracted private equity expansion round of ₹45 Cr within 6 months.",
-    beforeAfter: { before: "18m Response Time", after: "< 5s Response Time" }
+    step: "Step 3",
+    title: "Business Partnerships",
+    desc: "Connecting organizations with customers, investors, distributors, technology providers, and strategic collaborators."
+  },
+  {
+    step: "Step 4",
+    title: "Technology Enablement",
+    desc: "Leveraging AI, automation, analytics, and digital transformation to increase efficiency."
+  },
+  {
+    step: "Step 5",
+    title: "Execution",
+    desc: "Deploying sales teams, operational support, implementation resources, and growth infrastructure."
+  },
+  {
+    step: "Step 6",
+    title: "Scale",
+    desc: "Supporting businesses as they expand across cities, countries, and international markets."
   }
 ];
 
-const partnerLogos = [
-  { name: "Jaipur Angel Network", logoText: "JAN" },
-  { name: "Sovereign Cap", logoText: "SOVEREIGN" },
-  { name: "Rajasthan Venture Capital Fund", logoText: "RVCF" },
-  { name: "NCR Capital Group", logoText: "NCR CAP" },
-  { name: "Vega Trust Partners", logoText: "VEGA TRUST" },
-  { name: "Circular Economy Fund", logoText: "CE FUND" }
-];
+
 
 const faqs = [
   {
@@ -284,187 +264,395 @@ const faqs = [
 ];
 
 export default function HomeClient() {
-  const [activeCaseStudy, setActiveCaseStudy] = useState(0);
-  const [activeAchievementTab, setActiveAchievementTab] = useState("journey");
-  const [activeServiceModal, setActiveServiceModal] = useState(null);
-  const [activeModalTab, setActiveModalTab] = useState("overview");
-  const [openFaq, setOpenFaq] = useState(null);
+  const [activeService, setActiveService] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [hoveredSegment, setHoveredSegment] = useState(null);
 
-  const toggleFaq = (index) => {
-    setOpenFaq(openFaq === index ? null : index);
+  // Chatbot State
+  const [chatMessages, setChatMessages] = useState([
+    { role: 'bot', text: 'Hi! I am the RiseMate AI Assistant. How can I help you with our funding process, capital structure, or mentorship today?' }
+  ]);
+  const [chatInput, setChatInput] = useState("");
+  const [isBotTyping, setIsBotTyping] = useState(false);
+  const chatScrollRef = useRef(null);
+
+  useEffect(() => {
+    // Auto-scroll chat to bottom when messages change
+    if (chatScrollRef.current) {
+      chatScrollRef.current.scrollTop = chatScrollRef.current.scrollHeight;
+    }
+  }, [chatMessages, isBotTyping]);
+
+
+  useEffect(() => {
+    if (isPaused) return;
+    const interval = setInterval(() => {
+      setActiveService((prev) => (prev + 1) % whatWeDoList.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [isPaused]);
+
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    // Register ScrollTrigger
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Create GSAP context for safe cleanup in React
+    let ctx = gsap.context(() => {
+      // 1. Hero Animations (Title, Subtitle, CTA buttons, Globe Parallax)
+      gsap.from(".gsap-hero-fade", {
+        y: 40,
+        opacity: 0,
+        duration: 1.2,
+        stagger: 0.15,
+        ease: "power4.out"
+      });
+
+      // Parallax effect on the Globe container
+      gsap.to(".gsap-globe-parallax", {
+        yPercent: 12,
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".gsap-globe-parallax",
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true
+        }
+      });
+
+      // 2. Trust/Ecosystem Authority Section Stats
+      gsap.fromTo(".gsap-stat-card",
+        { scale: 0.85, opacity: 0, y: 30 },
+        {
+          scale: 1,
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: "back.out(1.2)",
+          scrollTrigger: {
+            trigger: ".gsap-stat-card",
+            start: "top 85%",
+            toggleActions: "play none none none"
+          }
+        }
+      );
+
+      // 3. What We Do Section - Title & Paragraphs
+      gsap.fromTo(".gsap-wwd-header",
+        { x: -30, opacity: 0 },
+        {
+          x: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".gsap-wwd-header",
+            start: "top 80%"
+          }
+        }
+      );
+
+      // 4. The Ecosystem Difference (Why section)
+      gsap.fromTo(".gsap-why-header",
+        { y: 30, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".gsap-why-header",
+            start: "top 80%"
+          }
+        }
+      );
+
+      gsap.fromTo(".gsap-why-svg",
+        { scale: 0.95, opacity: 0 },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 1.2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".gsap-why-svg",
+            start: "top 75%"
+          }
+        }
+      );
+
+      // 5. Growth Framework Section Title
+      gsap.fromTo(".gsap-framework-header",
+        { y: 30, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".gsap-framework-header",
+            start: "top 85%"
+          }
+        }
+      );
+
+      // 6. Growth Framework Section Cards - Staggered Slide In
+      gsap.fromTo(".gsap-framework-card",
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".gsap-framework-card",
+            start: "top 85%"
+          }
+        }
+      );
+
+      // 7. FAQ Columns
+      gsap.fromTo(".gsap-faq-item",
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".gsap-faq-item",
+            start: "top 85%"
+          }
+        }
+      );
+
+      // 8. Call To Action section (depth parallax & zoom)
+      gsap.fromTo(".gsap-cta-card",
+        { scale: 0.95, opacity: 0 },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".gsap-cta-card",
+            start: "top 85%"
+          }
+        }
+      );
+
+    }, containerRef); // Scope all selectors to containerRef
+
+    return () => {
+      // Revert GSAP context and kill all scroll triggers on unmount
+      ctx.revert();
+    };
+  }, []);
+
+  const getLocalResponse = (query) => {
+    const normalizedQuery = query.toLowerCase();
+
+    const knowledgeBase = [
+      {
+        keywords: ["apply", "eligible", "eligibility", "who can", "stage", "criteria"],
+        response: "Startups from Seed to Growth stages seeking strategic capital, execution capability, sustainable commerce architecture, or tech engineering can apply. We look for passionate founders focusing on circular economy, FinTech, clean tech, or automation."
+      },
+      {
+        keywords: ["how much", "funding", "limit", "amount", "receive", "ticket", "size", "capital", "money"],
+        response: "We facilitate capital investments ranging from ₹1 Cr (Seed/Pre-Series A) up to ₹50 Cr+ (Growth rounds) through our direct fund and partner networks of institutional investors."
+      },
+      {
+        keywords: ["process", "work", "facilitation", "steps", "application"],
+        response: "Our process begins with an initial discover review of your business roadmap. If aligned, program scoping, verification, and funding facilitation takes 4 to 6 weeks."
+      },
+      {
+        keywords: ["industries", "sectors", "fields", "areas", "banking", "fintech", "saas", "ai"],
+        response: "We support diverse sectors including Banking & Financial Services, FinTech, Technology & SaaS, Artificial Intelligence, Healthcare, Manufacturing, Smart Cities, Energy, Logistics, and Startups. Our own ecosystem companies (like BWorth, Vega Vrudhi, RYM Grenergy, and Synchronous) operate across these verticals."
+      },
+      {
+        keywords: ["mentorship", "advisory", "coaching", "partners", "saurabh", "dheeraj", "yograj", "devam"],
+        response: "Yes, selected startups work directly with our partners (Saurabh Jain, Dheeraj Anand, Yograj Rundhanker, and Devam Srivastava) to scale their sales force, refine brand systems, and deploy custom hardware/AI tools."
+      },
+      {
+        keywords: ["documents", "required", "pitch", "deck", "financials", "governance"],
+        response: "Initially, only a comprehensive Pitch Deck and a brief business overview are needed. Detailed review requires standard corporate governance documents, product architecture plans, and financial reports."
+      },
+      {
+        keywords: ["how long", "time", "timeline", "duration", "days", "weeks"],
+        response: "An initial review of your pitch deck takes 48 hours. The complete scoping, verification, and funding facilitation process takes between 4 to 6 weeks."
+      },
+      {
+        keywords: ["location", "hq", "office", "address", "gurugram", "delhi", "jaipur"],
+        response: "Our corporate headquarters (NCR HQ) is located at 7th Floor, Spaze Plazo, Golf Course Ext. Road Sector – 69, Gurugram. All operations are managed from this location."
+      },
+      {
+        keywords: ["hello", "hi", "hey", "greetings", "good morning", "good afternoon"],
+        response: "Hi! I am the RiseMate AI Assistant. How can I help you with our funding process, capital structure, or mentorship today?"
+      }
+    ];
+
+    let bestMatch = null;
+    let maxScore = 0;
+
+    for (const item of knowledgeBase) {
+      let score = 0;
+      for (const keyword of item.keywords) {
+        if (normalizedQuery.includes(keyword)) {
+          score += 1;
+        }
+      }
+      if (score > maxScore) {
+        maxScore = score;
+        bestMatch = item;
+      }
+    }
+
+    if (bestMatch && maxScore > 0) {
+      return bestMatch.response;
+    }
+
+    return "That's a great question! For detailed information regarding this, please click 'Talk to Our Experts' to outline a funding blueprint directly with our team.";
+  };
+
+  const handleSendMessage = async (text) => {
+    if (!text.trim() || isBotTyping) return;
+
+    const newMessages = [...chatMessages, { role: 'user', text }];
+    setChatMessages(newMessages);
+    setChatInput("");
+    setIsBotTyping(true);
+
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ message: text }),
+      });
+
+      if (!res.ok) {
+        throw new Error("API call failed");
+      }
+
+      const data = await res.json();
+      setChatMessages([...newMessages, { role: 'bot', text: data.response }]);
+    } catch (err) {
+      console.warn("Chatbot API connection failed, falling back to client NLP matcher:", err);
+      // Client-side local NLP fallback response
+      const localResponse = getLocalResponse(text);
+      setChatMessages([...newMessages, { role: 'bot', text: localResponse }]);
+    } finally {
+      setIsBotTyping(false);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-white selection:bg-[#002366] selection:text-white relative">
-      
-      {/* 1. HERO SECTION */}
-      <section className="relative min-h-screen bg-[#FAF9F6] pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden flex flex-col justify-center">
-        {/* Decorative background grid and flows */}
-        <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[linear-gradient(to_right,#000_1px,transparent_1px),linear-gradient(to_bottom,#000_1px,transparent_1px)] bg-[size:4rem_4rem]" />
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-[#002366]/5 blur-[200px] -translate-y-1/2 rounded-full pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-1/3 h-1/2 bg-amber-500/5 blur-[150px] rounded-full pointer-events-none" />
+    <div ref={containerRef} className="min-h-screen bg-white selection:bg-black selection:text-black relative">
 
-        <div className="container-wide relative z-10 w-full flex flex-col">
-          
-          {/* Top: Massive Typographic Headline */}
-          <div className="w-full mb-16 text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#002366]/5 border border-[#002366]/10 mb-6 select-none">
-              <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
-              <span className="text-[10px] font-black uppercase tracking-[0.25em] text-[#002366]">Ecosystem Accelerator</span>
-            </div>
-            
-            <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-[100px] xl:text-[116px] font-black text-dark leading-[0.85] tracking-tighter">
-              <motion.span
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="block"
-              >
-                We build products,
-              </motion.span>
-              <motion.span
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-                className="text-[#002366] relative block"
-              >
-                automate workflows,
-                <span className="absolute bottom-2 left-0 w-full h-[6px] md:h-[10px] bg-gold/30 -z-10 rounded-full" />
-              </motion.span>
-              <motion.span
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                className="block text-dark/95"
-              >
-                & accelerate <span className="italic font-serif font-normal text-[#002366]">funding.</span>
-              </motion.span>
+      {/* 1. HERO SECTION - BENTO REDESIGN */}
+      <section className="relative min-h-[100svh] flex flex-col justify-center pt-32 pb-20 md:pt-24 md:pb-12 bg-[#FAFAFA] overflow-hidden">
+        <div className="container-wide w-full">
+
+          {/* Top Headline Area */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12 md:mb-16">
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-primary font-black text-[#111] leading-[1.2] sm:leading-[1.15] md:leading-[1.1] lg:leading-[1.05] tracking-tighter max-w-none gsap-hero-fade">
+              Building the <span className="inline-block border-[3px] border-gold text-gold rounded-[40px] px-4 py-1.5 md:px-6 md:py-2 mx-1 align-middle">blueprint</span> for global scale
             </h1>
+            <div className="hidden md:flex items-center justify-center w-24 h-24 relative opacity-80 shrink-0">
+              <svg viewBox="0 0 100 100" className="w-full h-full text-gold animate-[spin_20s_linear_infinite] origin-center">
+                <path fill="currentColor" d="M50 0 C50 25 75 50 100 50 C75 50 50 75 50 100 C50 75 25 50 0 50 C25 50 50 25 50 0 Z" />
+              </svg>
+            </div>
           </div>
 
-          {/* Bottom: 3-Column Dashboard */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
-            
-            {/* Column 1: Slogan & Actions */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.2 }}
-              className="bg-white border border-dark/5 p-8 rounded-[32px] shadow-sm flex flex-col justify-between"
-            >
-              <div>
-                <h3 className="text-xs font-black uppercase tracking-widest text-[#002366] mb-3">Our Core Philosophy</h3>
-                <p className="text-sm text-dark/60 font-secondary leading-relaxed">
-                  We bridge the gap between global institutional expertise and high-velocity regional execution through proprietary technology. By deploying capital alongside circular commerce (BWorth), field-force scaling (Vega Vrudhi), deep-tech IoT (RYM), and visual AI brand systems (Synchronous), we build verified scale.
+          {/* Bento Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 relative">
+
+            {/* Left Column (col-4) */}
+            <div className="lg:col-span-4 flex flex-col gap-6 justify-center">
+
+              {/* Bottom Box */}
+              <div className="gsap-hero-fade">
+                <span className="text-[10px] font-black uppercase tracking-widest text-gray-400 block mb-3">Global Ecosystem</span>
+                <h2 className="text-4xl md:text-5xl font-black text-[#111] font-primary leading-[1.1] tracking-tight mb-8">
+                  Execute your <br />vision with us
+                </h2>
+                <Link href="/contact" className="inline-flex items-center gap-3 border border-gray-300 rounded-full px-6 py-3 hover:border-gold hover:text-gold transition-colors text-xs font-bold uppercase tracking-widest">
+                  Partner Now
+                  <span className="material-symbols-outlined text-sm">arrow_outward</span>
+                </Link>
+              </div>
+            </div>
+
+            {/* Right Column (col-8) */}
+            <div className="lg:col-span-8 flex flex-col relative">
+
+              {/* Wide Image / 3D Globe */}
+              <div className="relative w-full h-[300px] md:h-[340px] rounded-[40px] overflow-hidden shadow-2xl bg-gradient-to-br from-[#000d24] to-[#001f54] gsap-globe-parallax">
+                <Globe3D />
+                <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: 'inset 0 0 40px rgba(0,0,0,0.5)' }} />
+
+                {/* Scroll hint circle */}
+                <div className="absolute bottom-6 right-6 w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white border border-white/20 z-10 pointer-events-none">
+                  <span className="material-symbols-outlined text-sm">keyboard_arrow_down</span>
+                </div>
+              </div>
+
+
+
+              {/* Bottom Area */}
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 pt-8 lg:pt-12 px-6 lg:px-0 relative gsap-hero-fade">
+                <p className="text-xl md:text-2xl text-[#111] font-primary font-bold leading-snug max-w-md tracking-tight">
+                  We strive to protect growth ambitions and transform businesses for future generations.
                 </p>
-              </div>
-
-              <div className="flex flex-col gap-3 mt-8 w-full">
-                <Link
-                  href="/contact"
-                  className="flex justify-center items-center bg-[#002366] text-white px-6 py-4 rounded-xl text-xs font-black uppercase tracking-[0.2em] shadow-md shadow-[#002366]/15 hover:bg-dark transition-colors text-center"
-                >
-                  Book Free Consultation
-                </Link>
-                <Link
-                  href="/contact?type=funding"
-                  className="flex justify-center items-center bg-[#FAF9F6] border border-dark/5 text-dark px-6 py-4 rounded-xl text-xs font-black uppercase tracking-[0.2em] hover:bg-dark hover:text-white transition-all text-center group"
-                >
-                  Apply for Funding
-                  <span className="material-symbols-outlined text-sm ml-2 group-hover:translate-x-1 transition-transform">arrow_forward</span>
-                </Link>
-              </div>
-            </motion.div>
-
-            {/* Column 2: Media Window */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.3 }}
-              className="relative aspect-[4/3] lg:aspect-auto rounded-[32px] overflow-hidden border border-dark/5 shadow-md min-h-[280px] group"
-            >
-              <Image
-                src="/corporate-interior.png"
-                alt="RiseMate Operations Hub"
-                fill
-                className="object-cover scale-105 group-hover:scale-110 transition-transform duration-[6s] ease-out"
-                priority
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-dark/40 to-transparent" />
-              
-              <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-md p-4 rounded-2xl border border-dark/5 flex items-center gap-3 shadow-md">
-                <span className="relative flex h-2 w-2 shrink-0">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                </span>
-                <div>
-                  <p className="text-[8px] font-black uppercase tracking-widest text-[#002366] leading-none mb-1">HQ Operations</p>
-                  <p className="text-[10px] font-black text-dark leading-none">NCR Gurgaon Hub Active</p>
+                <div className="flex flex-wrap gap-4 items-center lg:pr-32">
+                  <Link href="/about" className="bg-[#FAF3E0] text-[#8C6B18] px-8 py-4 rounded-full text-xs font-primary font-black uppercase tracking-[0.2em] hover:bg-gold hover:text-black transition-colors border border-transparent">
+                    About Us
+                  </Link>
+                  <Link href="/services" className="flex items-center gap-2 text-xs font-primary font-black uppercase tracking-[0.2em] text-black hover:text-gold transition-colors">
+                    View Services
+                    <span className="material-symbols-outlined text-sm font-bold" style={{ strokeWidth: 2 }}>arrow_outward</span>
+                  </Link>
                 </div>
-              </div>
-            </motion.div>
 
-            {/* Column 3: VC Capital Dashboard */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.4 }}
-              className="bg-[#001233] text-white p-8 rounded-[32px] flex flex-col justify-between shadow-xl relative overflow-hidden"
-            >
-              {/* Backgrid accent */}
-              <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] bg-[size:2rem_2rem] pointer-events-none" />
-
-              <div className="flex justify-between items-center z-10">
-                <span className="text-[9px] font-black uppercase tracking-widest text-gold">Capital Status</span>
-                <span className="px-2 py-0.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[8px] font-black uppercase tracking-widest rounded-md flex items-center gap-1">
-                  <span className="w-1 h-1 bg-emerald-400 rounded-full animate-pulse" /> Live Pool
-                </span>
               </div>
 
-              <div className="my-6 z-10">
-                <p className="text-[8px] font-black uppercase tracking-widest text-white/45 mb-1">Facilitated Funding</p>
-                <h4 className="text-4xl sm:text-5xl font-black text-white tracking-tighter leading-none mb-4">₹150 Cr+</h4>
-                
-                <div className="h-[1px] w-full bg-white/10 my-4" />
-                
-                <div className="flex justify-between items-center text-xs text-white/70 font-secondary">
-                  <span>Completed Rounds: <strong className="text-white font-bold">25+</strong></span>
-                  <span>Target: <strong className="text-white font-bold">Seed to Series A</strong></span>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3 border-t border-white/10 pt-4 text-[9px] font-black uppercase tracking-wider text-white/45 z-10">
-                <span className="material-symbols-outlined text-[#002366] text-sm text-gold">workspace_premium</span>
-                <span>ISO 9001 Certified | 94% SUCCESS RATE</span>
-              </div>
-            </motion.div>
+            </div>
 
           </div>
-
         </div>
       </section>
 
       {/* 2. TRUST SECTION & STATS STRIP */}
-      <section className="py-16 bg-white border-y border-dark/5">
+      <section className="py-12 bg-white border-y border-gray-200">
         <div className="container-wide">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 md:gap-16">
             <div className="max-w-md">
-              <h2 className="text-xs font-black uppercase tracking-[0.4em] text-[#002366] mb-3">Ecosystem Authority</h2>
-              <p className="text-lg font-bold text-dark leading-tight">
-                Our founders are veterans operating active companies. We validate growth model accuracy before bringing you to investors.
+              <h2 className="text-xs font-black uppercase tracking-[0.4em] text-black mb-3">Ecosystem Authority</h2>
+              <p className="text-base font-bold text-black leading-snug font-primary">
+                Connecting top-tier opportunities with robust scaling mechanisms. We manage and mitigate growth risks through execution partnerships.
               </p>
             </div>
-            
+
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 flex-grow justify-items-center">
               {[
-                { number: "25+", label: "Industry Advisors" },
-                { number: "4", label: "Sovereign Verticals" },
-                { number: "100%", label: "Process Audited" },
-                { number: "₹200 Cr+", label: "Ecosystem Valuation" }
+                { value: 25, suffix: "+", label: "Industry Advisors" },
+                { value: 5, suffix: "", label: "Growth Domains" },
+                { value: 100, suffix: "%", label: "Process Audited" },
+                { value: 94, suffix: "%", label: "Success Rate" }
               ].map((stat, i) => (
-                <div key={i} className="text-center">
-                  <h4 className="text-3xl font-black text-[#002366] tracking-tighter">{stat.number}</h4>
-                  <p className="text-[9px] font-black uppercase tracking-widest text-dark/40 mt-1">{stat.label}</p>
+                <div key={i} className="text-center gsap-stat-card opacity-0">
+                  <h4 className="text-3xl font-black text-black tracking-tight">
+                    <Counter value={stat.value} />{stat.suffix}
+                  </h4>
+                  <p className="text-[9px] font-black uppercase tracking-widest text-black/40 mt-1">{stat.label}</p>
                 </div>
               ))}
             </div>
@@ -472,118 +660,791 @@ export default function HomeClient() {
         </div>
       </section>
 
-      {/* 3. SERVICES SECTION */}
-      <section id="services" className="py-24 md:py-32 bg-[#FAF9F6] relative">
+      {/* 3. WHAT WE DO SECTION */}
+      <section id="what-we-do" className="py-24 md:py-32 bg-white relative">
         <div className="container-wide relative z-10">
-          
+
           {/* Header */}
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-20">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-20 gsap-wwd-header opacity-0">
             <div className="max-w-xl">
               <div className="flex items-center gap-3 mb-6">
-                <span className="w-2 h-2 bg-[#002366] rounded-full" />
-                <span className="text-xs font-black uppercase tracking-[0.4em] text-[#002366]/90 leading-none">Accelerator Services</span>
+                <span className="w-2 h-2 bg-black rounded-full" />
+                <span className="text-xs font-black uppercase tracking-[0.4em] text-black/90 leading-none">What We Do</span>
               </div>
-              <h2 className="text-4xl md:text-6xl font-black text-dark tracking-tighter leading-none">
-                Bespoke Services <br />To Scale Your Startup
+              <h2 className="text-3xl md:text-5xl font-black text-black tracking-tight leading-tight font-primary">
+                We Help Businesses Grow <br />Beyond Borders
               </h2>
             </div>
-            <p className="text-lg text-dark/50 font-secondary md:text-right max-w-sm mt-6 md:mt-0 italic">
-              Access the operations and technology behind RiseMates' four core entities to supercharge your startup's traction.
+            <p className="text-base text-gray-600 font-secondary max-w-md mt-6 md:mt-0 leading-relaxed">
+              Rather than offering isolated services, we create integrated growth strategies supported by execution.
             </p>
           </div>
 
-          {/* Cards Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {services.map((s, idx) => (
-              <motion.div
-                key={idx}
-                variants={cardHover}
-                whileHover="hover"
-                className="group relative p-8 md:p-12 bg-white border border-dark/5 rounded-[32px] md:rounded-[48px] transition-all duration-500 overflow-hidden flex flex-col justify-between min-h-[640px]"
-              >
-                {/* Background glow on hover */}
-                <div className={`absolute -top-10 -right-10 w-32 h-32 blur-3xl opacity-0 group-hover:opacity-40 transition-opacity duration-700 rounded-full ${s.bgColor} z-0`} />
+          {/* Desktop Layout: Radial Interactive Wheel */}
+          <div className="hidden lg:grid grid-cols-12 gap-16 items-center min-h-[550px]">
 
-                {/* Background Watermark Entity Logo (Full size of card div) */}
-                {s.logo && (
-                  <div className={`absolute inset-0 w-full h-full pointer-events-none group-hover:scale-105 transition-all duration-700 select-none z-0 flex items-center justify-center p-12 ${s.entity === "Synchronous" ? "opacity-[0.16] group-hover:opacity-[0.26] mix-blend-multiply" : "opacity-[0.08] group-hover:opacity-[0.14]"}`}>
-                    <img
-                      src={s.logo}
-                      alt=""
-                      className="w-full h-full object-contain grayscale"
-                    />
-                  </div>
-                )}
+            {/* Left Column (5 cols): Active Content Display */}
+            <div
+              onMouseEnter={() => setIsPaused(true)}
+              onMouseLeave={() => setIsPaused(false)}
+              className="col-span-5 bg-white border border-gray-200 p-10 rounded-[32px] shadow-sm min-h-[460px] flex flex-col justify-between relative overflow-hidden"
+            >
+              <div className="absolute -top-10 -right-10 w-32 h-32 blur-3xl opacity-20 rounded-full bg-gold/30 pointer-events-none" />
 
-                <div>
-                  {/* Top: Icon & Entity indicator */}
-                  <div className="flex items-center justify-between gap-4 mb-8">
-                    <div className={`w-14 h-14 rounded-2xl ${s.bgColor} flex items-center justify-center border border-dark/5`}>
-                      <span className={`material-symbols-outlined text-2xl ${s.color}`}>{s.icon}</span>
-                    </div>
-                    <div className="text-right">
-                      <span className="text-[9px] font-black uppercase tracking-[0.3em] text-dark/30">Vertical {idx + 1}</span>
-                      <p className={`text-xs font-black uppercase tracking-widest ${s.color} mt-1`}>{s.entity} Power</p>
-                    </div>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeService}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 20 }}
+                  transition={{ duration: 0.3 }}
+                  className="space-y-6"
+                >
+                  <div>
+                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-black/30 block mb-1">Module 0{activeService + 1} / 05</span>
+                    <h3 className="text-2xl md:text-3xl font-black text-black tracking-tight leading-snug font-primary">
+                      {whatWeDoList[activeService].title}
+                    </h3>
                   </div>
 
-                  {/* Title & Tagline */}
-                  <h3 className="text-2xl md:text-3xl font-black text-dark tracking-tight leading-snug mb-2 group-hover:text-[#002366] transition-colors">
-                    {s.title}
-                  </h3>
-                  <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#002366] italic mb-6">
-                    {s.tagline}
+                  <div className="h-[1px] w-full bg-dark/5" />
+
+                  <p className="text-sm md:text-base text-black/70 leading-relaxed font-secondary">
+                    {whatWeDoList[activeService].desc}
                   </p>
 
-                  <div className="h-[1px] w-full bg-dark/5 mb-8" />
+                  <ul className="space-y-3">
+                    {whatWeDoList[activeService].benefits.map((benefit, idx) => (
+                      <li key={idx} className="flex items-start gap-2.5 text-xs md:text-sm text-black/65 font-secondary leading-relaxed">
+                        <span className={`material-symbols-outlined text-sm ${whatWeDoList[activeService].color} mt-0.5`}>check_circle</span>
+                        <span>{benefit}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              </AnimatePresence>
 
-                  {/* Content details */}
-                  <div className="space-y-6">
-                    <div>
-                      <h4 className="text-[10px] font-black uppercase tracking-widest text-dark/30 mb-2">Service Overview</h4>
-                      <p className="text-sm text-dark/70 leading-relaxed font-secondary">{s.desc}</p>
-                    </div>
+              <div className="pt-6 border-t border-gray-200 mt-6 flex justify-between items-center relative z-10">
+                <span className="text-[9px] font-black uppercase tracking-wider text-black/30">Scalable Architecture</span>
+                <Link
+                  href={`/contact?interest=${encodeURIComponent(whatWeDoList[activeService].title)}`}
+                  className="inline-flex items-center justify-center bg-black text-gold px-6 py-3.5 rounded-xl text-xs font-black uppercase tracking-widest hover:bg-gray-800 transition-all shadow-md shadow-black/10"
+                >
+                  Partner With Us
+                  <span className="material-symbols-outlined text-sm ml-2">arrow_forward</span>
+                </Link>
+              </div>
+            </div>
 
-                    <div>
-                      <h4 className="text-[10px] font-black uppercase tracking-widest text-dark/30 mb-2">Core Benefits</h4>
-                      <ul className="space-y-2">
-                        {s.benefits.map((b, i) => (
-                          <li key={i} className="flex items-start gap-2.5 text-sm text-dark/70 font-secondary leading-relaxed">
-                            <span className={`material-symbols-outlined text-sm ${s.color} mt-1`}>check_circle</span>
-                            <span>{b}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+            {/* Right Column (7 cols): Circular Orbit Wheel */}
+            <div className="col-span-7 flex items-center justify-center relative min-h-[500px]">
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-dark/5">
-                      <div>
-                        <h4 className="text-[10px] font-black uppercase tracking-widest text-dark/30 mb-1">Process Plan</h4>
-                        <p className="text-xs font-bold text-dark/70 font-secondary leading-relaxed">{s.process}</p>
-                      </div>
-                      <div>
-                        <h4 className="text-[10px] font-black uppercase tracking-widest text-dark/30 mb-1">Core Deliverables</h4>
-                        <p className="text-xs font-bold text-dark/70 font-secondary leading-relaxed">{s.deliverables}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              {/* Visual Orbits (Back dashes) */}
+              <div className="absolute w-[360px] h-[360px] border border-dashed border-gray-300 rounded-full pointer-events-none" />
+              <div className="absolute w-[240px] h-[240px] border border-dashed border-dark/15 rounded-full pointer-events-none" />
 
-                {/* Expected Results & CTA Button */}
-                <div className="pt-8 mt-8 border-t border-dark/5 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
-                  <div>
-                    <h4 className="text-[9px] font-black uppercase tracking-widest text-dark/30 mb-1">Expected Outcomes</h4>
-                    <p className={`text-sm font-black uppercase tracking-wider ${s.color}`}>{s.results}</p>
-                  </div>
-                  <Link
-                    href="/contact?service=consultation"
-                    className="flex justify-center items-center bg-dark text-white px-6 py-4 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-[#002366] transition-colors"
+              {/* Center Hub Logo Container */}
+              <div className="absolute z-20 w-32 h-32 bg-white border-2 border-gold/30 text-black rounded-full flex flex-col items-center justify-center shadow-[0_0_50px_rgba(0,18,51,0.15)] select-none">
+                <span className="text-gold font-serif text-3xl font-black tracking-widest leading-none">RMV</span>
+                <span className="text-[7px] text-black/40 uppercase tracking-[0.25em] font-black mt-1">Ecosystem</span>
+
+                {/* Subtle pulsing outer rings */}
+                <div className="absolute inset-[-4px] border border-gold/15 rounded-full animate-ping pointer-events-none" />
+              </div>
+
+              {/* 5 Orbiting Nodes */}
+              {whatWeDoList.map((item, idx) => {
+                const r = 180; // circle radius
+                const angle = (idx * 2 * Math.PI) / 5 - Math.PI / 2; // Offset by -90deg so index 0 is top
+                const x = r * Math.cos(angle);
+                const y = r * Math.sin(angle);
+                const isActive = idx === activeService;
+
+                return (
+                  <button
+                    key={idx}
+                    onMouseEnter={() => {
+                      setActiveService(idx);
+                      setIsPaused(true);
+                    }}
+                    onMouseLeave={() => setIsPaused(false)}
+                    onClick={() => {
+                      setActiveService(idx);
+                      setIsPaused(true);
+                    }}
+                    style={{
+                      left: `calc(50% + ${x}px)`,
+                      top: `calc(50% + ${y}px)`,
+                      transform: "translate(-50%, -50%)"
+                    }}
+                    className={`absolute z-30 flex flex-col items-center justify-center rounded-full transition-all duration-500 cursor-pointer ${isActive ? "w-20 h-20 bg-white border-2 border-black shadow-xl scale-110" : "w-16 h-16 bg-white border border-gray-300 shadow-md hover:scale-105 hover:border-black/40"}`}
                   >
-                    Book a Free Consultation
-                  </Link>
+                    {isActive && (
+                      <div className="absolute inset-[-8px] border border-gold/40 rounded-full animate-pulse-slow pointer-events-none" />
+                    )}
+
+                    <span className={`material-symbols-outlined text-xl transition-all ${isActive ? `${item.color} scale-110 font-bold` : "text-black/45"}`}>
+                      {item.icon}
+                    </span>
+
+                    <span className={`absolute top-full mt-1.5 whitespace-nowrap text-[8px] font-black uppercase tracking-widest rounded px-1.5 py-0.5 transition-opacity ${isActive ? "opacity-100 bg-black text-gold" : "opacity-0 group-hover:opacity-100 bg-dark/5 text-gray-500"}`}>
+                      Module 0{idx + 1}
+                    </span>
+                  </button>
+                );
+              })}
+
+            </div>
+          </div>
+
+          {/* Mobile Layout: Swipeable Tab selector & Detail Card */}
+          <div className="lg:hidden block space-y-8">
+
+            {/* Scrollable Icon Pills Header */}
+            <div className="flex items-center gap-3 overflow-x-auto pb-4 pt-1 snap-x scrollbar-none scroll-smooth">
+              {whatWeDoList.map((item, idx) => {
+                const isActive = idx === activeService;
+                return (
+                  <button
+                    key={idx}
+                    onMouseEnter={() => setIsPaused(true)}
+                    onMouseLeave={() => setIsPaused(false)}
+                    onTouchStart={() => setIsPaused(true)}
+                    onTouchEnd={() => setIsPaused(false)}
+                    onClick={() => {
+                      setActiveService(idx);
+                      setIsPaused(true);
+                    }}
+                    className={`flex items-center gap-2.5 px-5 py-3 rounded-full snap-center text-xs font-black uppercase tracking-wider transition-all duration-300 shrink-0 border ${isActive ? "bg-black text-gold border-transparent shadow-md shadow-black/10" : "bg-white text-gray-500 border-gray-200"}`}
+                  >
+                    <span className={`material-symbols-outlined text-sm ${isActive ? "text-gold" : "text-black/45"}`}>{item.icon}</span>
+                    <span>{item.title.split(" & ")[0]}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Mobile Active Details Card */}
+            <div
+              onMouseEnter={() => setIsPaused(true)}
+              onMouseLeave={() => setIsPaused(false)}
+              onTouchStart={() => setIsPaused(true)}
+              onTouchEnd={() => setIsPaused(false)}
+              className="bg-white border border-gray-200 p-8 rounded-3xl shadow-sm relative overflow-hidden space-y-6"
+            >
+              <div className="absolute -top-10 -right-10 w-28 h-28 blur-3xl opacity-10 rounded-full bg-gold pointer-events-none" />
+
+              <div>
+                <span className="text-[9px] font-black uppercase tracking-[0.25em] text-black/30 block mb-1">Module 0{activeService + 1} / 05</span>
+                <h3 className="text-xl font-black text-black tracking-tight leading-snug font-primary">
+                  {whatWeDoList[activeService].title}
+                </h3>
+              </div>
+
+              <div className="h-[1px] w-full bg-dark/5" />
+
+              <p className="text-xs sm:text-sm text-black/70 leading-relaxed font-secondary">
+                {whatWeDoList[activeService].desc}
+              </p>
+
+              <ul className="space-y-3 pt-2">
+                {whatWeDoList[activeService].benefits.map((benefit, idx) => (
+                  <li key={idx} className="flex items-start gap-2.5 text-xs text-black/65 font-secondary leading-relaxed">
+                    <span className={`material-symbols-outlined text-xs ${whatWeDoList[activeService].color} mt-0.5`}>check_circle</span>
+                    <span>{benefit}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="pt-6 border-t border-gray-200 mt-6 flex flex-col gap-3">
+                <Link
+                  href={`/contact?interest=${encodeURIComponent(whatWeDoList[activeService].title)}`}
+                  className="flex justify-center items-center bg-black text-gold py-4 rounded-xl text-xs font-black uppercase tracking-[0.2em] shadow-md shadow-black/10 text-center"
+                >
+                  Partner With Us
+                  <span className="material-symbols-outlined text-sm ml-2">arrow_forward</span>
+                </Link>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* 4. WHY RISE MATE VENTURES SECTION */}
+      <section className="py-24 md:py-32 bg-white text-black relative overflow-hidden">
+        {/* Background decorative glows */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/10 blur-[150px] rounded-full pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-amber-500/5 blur-[120px] rounded-full pointer-events-none" />
+
+        <div className="container-wide relative z-10">
+          {/* Section Header */}
+          <div className="max-w-3xl mx-auto text-center mb-16 md:mb-24 gsap-why-header opacity-0">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 border border-gray-200 mb-6">
+              <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
+              <span className="text-[9px] font-black uppercase tracking-[0.25em] text-gold">The Ecosystem Difference</span>
+            </div>
+            <h2 className="text-3xl md:text-5xl font-black tracking-tight leading-tight mb-6 font-primary text-shadow-premium">
+              More Than Consulting.<br />
+              <span className="text-gold italic font-serif font-normal">More Than Capital.</span>
+            </h2>
+            <p className="text-black/70 font-secondary leading-relaxed text-sm md:text-base">
+              Traditional firms solve only one part of the growth equation. Rise Mate Ventures integrates strategy, partnerships, technology, capital access, and execution into one unified platform.
+            </p>
+          </div>
+
+          {/* Desktop SVG Flow Diagram */}
+          <div className="hidden lg:block w-full max-w-[1050px] mx-auto overflow-visible mb-10 relative gsap-why-svg opacity-0">
+            <h3 className="text-center text-[10px] font-black uppercase tracking-[0.3em] text-gold/60 mb-8 font-primary">
+              Rise Mate Ventures Growth Platform
+            </h3>
+
+            <svg viewBox="0 0 1050 650" className="w-full h-auto overflow-visible select-none">
+              <defs>
+                <linearGradient id="snake-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="#FF7B00" />
+                  <stop offset="25%" stopColor="#E5B800" />
+                  <stop offset="50%" stopColor="#2ECC71" />
+                  <stop offset="75%" stopColor="#0066CC" />
+                  <stop offset="100%" stopColor="#8E44AD" />
+                </linearGradient>
+              </defs>
+
+              {/* Segment 1: Orange (Unified Platform) */}
+              <g
+                onMouseEnter={() => setHoveredSegment(0)}
+                onMouseLeave={() => setHoveredSegment(null)}
+                className="cursor-pointer group"
+              >
+                <path
+                  d="M 50 480 L 150 480 A 120 120 0 0 0 270 360 L 270 300"
+                  fill="none"
+                  stroke="#FF7B00"
+                  strokeWidth="80"
+                  strokeLinecap="round"
+                  className="transition-all duration-300"
+                  style={{
+                    filter: hoveredSegment === 0 ? 'drop-shadow(0 0 15px rgba(255, 123, 0, 0.6))' : 'none',
+                    opacity: hoveredSegment !== null && hoveredSegment !== 0 ? 0.4 : 1
+                  }}
+                />
+                <path
+                  d="M 50 480 L 150 480 A 120 120 0 0 0 270 360 L 270 300"
+                  fill="none"
+                  stroke="#001233"
+                  strokeWidth="76"
+                  strokeLinecap="round"
+                  className="transition-all duration-300"
+                  style={{ opacity: hoveredSegment !== null && hoveredSegment !== 0 ? 0.4 : 1 }}
+                />
+                <path
+                  d="M 50 480 L 150 480 A 120 120 0 0 0 270 360 L 270 300"
+                  fill="none"
+                  stroke="#FF7B00"
+                  strokeWidth="76"
+                  strokeLinecap="round"
+                  opacity="0.15"
+                  className="transition-all duration-300"
+                  style={{ opacity: hoveredSegment !== null && hoveredSegment !== 0 ? 0.05 : 0.15 }}
+                />
+              </g>
+
+              {/* Segment 2: Yellow (Integrated Ecosystem) */}
+              <g
+                onMouseEnter={() => setHoveredSegment(1)}
+                onMouseLeave={() => setHoveredSegment(null)}
+                className="cursor-pointer group"
+              >
+                <path
+                  d="M 270 300 L 270 240 A 120 120 0 0 1 390 120 L 450 120"
+                  fill="none"
+                  stroke="#E5B800"
+                  strokeWidth="80"
+                  strokeLinecap="round"
+                  className="transition-all duration-300"
+                  style={{
+                    filter: hoveredSegment === 1 ? 'drop-shadow(0 0 15px rgba(229, 184, 0, 0.6))' : 'none',
+                    opacity: hoveredSegment !== null && hoveredSegment !== 1 ? 0.4 : 1
+                  }}
+                />
+                <path
+                  d="M 270 300 L 270 240 A 120 120 0 0 1 390 120 L 450 120"
+                  fill="none"
+                  stroke="#001233"
+                  strokeWidth="76"
+                  strokeLinecap="round"
+                  className="transition-all duration-300"
+                  style={{ opacity: hoveredSegment !== null && hoveredSegment !== 1 ? 0.4 : 1 }}
+                />
+                <path
+                  d="M 270 300 L 270 240 A 120 120 0 0 1 390 120 L 450 120"
+                  fill="none"
+                  stroke="#E5B800"
+                  strokeWidth="76"
+                  strokeLinecap="round"
+                  opacity="0.15"
+                  className="transition-all duration-300"
+                  style={{ opacity: hoveredSegment !== null && hoveredSegment !== 1 ? 0.05 : 0.15 }}
+                />
+              </g>
+
+              {/* Segment 3: Green (Global Network) */}
+              <g
+                onMouseEnter={() => setHoveredSegment(2)}
+                onMouseLeave={() => setHoveredSegment(null)}
+                className="cursor-pointer group"
+              >
+                <path
+                  d="M 450 120 L 510 120 A 120 120 0 0 1 630 240 L 630 300"
+                  fill="none"
+                  stroke="#2ECC71"
+                  strokeWidth="80"
+                  strokeLinecap="round"
+                  className="transition-all duration-300"
+                  style={{
+                    filter: hoveredSegment === 2 ? 'drop-shadow(0 0 15px rgba(46, 204, 113, 0.6))' : 'none',
+                    opacity: hoveredSegment !== null && hoveredSegment !== 2 ? 0.4 : 1
+                  }}
+                />
+                <path
+                  d="M 450 120 L 510 120 A 120 120 0 0 1 630 240 L 630 300"
+                  fill="none"
+                  stroke="#001233"
+                  strokeWidth="76"
+                  strokeLinecap="round"
+                  className="transition-all duration-300"
+                  style={{ opacity: hoveredSegment !== null && hoveredSegment !== 2 ? 0.4 : 1 }}
+                />
+                <path
+                  d="M 450 120 L 510 120 A 120 120 0 0 1 630 240 L 630 300"
+                  fill="none"
+                  stroke="#2ECC71"
+                  strokeWidth="76"
+                  strokeLinecap="round"
+                  opacity="0.15"
+                  className="transition-all duration-300"
+                  style={{ opacity: hoveredSegment !== null && hoveredSegment !== 2 ? 0.05 : 0.15 }}
+                />
+              </g>
+
+              {/* Segment 4: Blue (Technology Driven) */}
+              <g
+                onMouseEnter={() => setHoveredSegment(3)}
+                onMouseLeave={() => setHoveredSegment(null)}
+                className="cursor-pointer group"
+              >
+                <path
+                  d="M 630 300 L 630 360 A 120 120 0 0 0 750 480 L 810 480"
+                  fill="none"
+                  stroke="#0066CC"
+                  strokeWidth="80"
+                  strokeLinecap="round"
+                  className="transition-all duration-300"
+                  style={{
+                    filter: hoveredSegment === 3 ? 'drop-shadow(0 0 15px rgba(0, 102, 204, 0.6))' : 'none',
+                    opacity: hoveredSegment !== null && hoveredSegment !== 3 ? 0.4 : 1
+                  }}
+                />
+                <path
+                  d="M 630 300 L 630 360 A 120 120 0 0 0 750 480 L 810 480"
+                  fill="none"
+                  stroke="#001233"
+                  strokeWidth="76"
+                  strokeLinecap="round"
+                  className="transition-all duration-300"
+                  style={{ opacity: hoveredSegment !== null && hoveredSegment !== 3 ? 0.4 : 1 }}
+                />
+                <path
+                  d="M 630 300 L 630 360 A 120 120 0 0 0 750 480 L 810 480"
+                  fill="none"
+                  stroke="#0066CC"
+                  strokeWidth="76"
+                  strokeLinecap="round"
+                  opacity="0.15"
+                  className="transition-all duration-300"
+                  style={{ opacity: hoveredSegment !== null && hoveredSegment !== 3 ? 0.05 : 0.15 }}
+                />
+              </g>
+
+              {/* Segment 5: Purple (Execution Excellence) */}
+              <g
+                onMouseEnter={() => setHoveredSegment(4)}
+                onMouseLeave={() => setHoveredSegment(null)}
+                className="cursor-pointer group"
+              >
+                <path
+                  d="M 810 480 L 870 480 A 120 120 0 0 0 990 360 L 990 240"
+                  fill="none"
+                  stroke="#8E44AD"
+                  strokeWidth="80"
+                  strokeLinecap="round"
+                  className="transition-all duration-300"
+                  style={{
+                    filter: hoveredSegment === 4 ? 'drop-shadow(0 0 15px rgba(142, 68, 173, 0.6))' : 'none',
+                    opacity: hoveredSegment !== null && hoveredSegment !== 4 ? 0.4 : 1
+                  }}
+                />
+                <path
+                  d="M 810 480 L 870 480 A 120 120 0 0 0 990 360 L 990 240"
+                  fill="none"
+                  stroke="#001233"
+                  strokeWidth="76"
+                  strokeLinecap="round"
+                  className="transition-all duration-300"
+                  style={{ opacity: hoveredSegment !== null && hoveredSegment !== 4 ? 0.4 : 1 }}
+                />
+                <path
+                  d="M 810 480 L 870 480 A 120 120 0 0 0 990 360 L 990 240"
+                  fill="none"
+                  stroke="#8E44AD"
+                  strokeWidth="76"
+                  strokeLinecap="round"
+                  opacity="0.15"
+                  className="transition-all duration-300"
+                  style={{ opacity: hoveredSegment !== null && hoveredSegment !== 4 ? 0.05 : 0.15 }}
+                />
+              </g>
+
+              {/* Snake Animation */}
+              <motion.path
+                d="M 50 480 L 150 480 A 120 120 0 0 0 270 360 L 270 300 L 270 240 A 120 120 0 0 1 390 120 L 450 120 L 510 120 A 120 120 0 0 1 630 240 L 630 300 L 630 360 A 120 120 0 0 0 750 480 L 810 480 L 870 480 A 120 120 0 0 0 990 360 L 990 240"
+                fill="none"
+                stroke="url(#snake-gradient)"
+                strokeWidth="12"
+                strokeLinecap="round"
+                initial={{ pathLength: 0.1, pathOffset: -0.1 }}
+                animate={{ pathOffset: 1.1 }}
+                transition={{ duration: 6, ease: "linear", repeat: Infinity }}
+                style={{ filter: "drop-shadow(0 0 15px rgba(255,255,255,1))" }}
+              />
+
+              {/* Dividers */}
+              <line x1="230" y1="300" x2="310" y2="300" stroke="#001233" strokeWidth="2.5" />
+              <line x1="450" y1="80" x2="450" y2="160" stroke="#001233" strokeWidth="2.5" />
+              <line x1="590" y1="300" x2="670" y2="300" stroke="#001233" strokeWidth="2.5" />
+              <line x1="810" y1="440" x2="810" y2="520" stroke="#001233" strokeWidth="2.5" />
+
+              {/* Nodes */}
+              {/* 1. Orange Node */}
+              <g
+                onMouseEnter={() => setHoveredSegment(0)}
+                onMouseLeave={() => setHoveredSegment(null)}
+                className="cursor-pointer group"
+                style={{ opacity: hoveredSegment !== null && hoveredSegment !== 0 ? 0.5 : 1 }}
+              >
+                <circle cx="235" cy="445" r="28" fill="#001233" />
+                <circle cx="235" cy="445" r="28" fill="#FF7B00" opacity="0.15" />
+                <circle cx="235" cy="445" r={hoveredSegment === 0 ? "32" : "28"} stroke="#FF7B00" strokeWidth="2" fill="none" className="transition-all duration-300" />
+                <g className="text-[#FF7B00] transition-transform duration-300" style={{ transform: hoveredSegment === 0 ? 'scale(1.15) translate(-1.5px, -1.5px)' : 'none', transformOrigin: '235px 445px' }}>
+                  <svg x={235 - 12} y={445 - 12} width="24" height="24">
+                    {whyPoints[0].icon}
+                  </svg>
+                </g>
+              </g>
+
+              {/* 2. Yellow Node */}
+              <g
+                onMouseEnter={() => setHoveredSegment(1)}
+                onMouseLeave={() => setHoveredSegment(null)}
+                className="cursor-pointer group"
+                style={{ opacity: hoveredSegment !== null && hoveredSegment !== 1 ? 0.5 : 1 }}
+              >
+                <circle cx="305" cy="155" r="28" fill="#001233" />
+                <circle cx="305" cy="155" r="28" fill="#E5B800" opacity="0.15" />
+                <circle cx="305" cy="155" r={hoveredSegment === 1 ? "32" : "28"} stroke="#E5B800" strokeWidth="2" fill="none" className="transition-all duration-300" />
+                <g className="text-[#E5B800] transition-transform duration-300" style={{ transform: hoveredSegment === 1 ? 'scale(1.15) translate(-1.5px, -1.5px)' : 'none', transformOrigin: '305px 155px' }}>
+                  <svg x={305 - 12} y={155 - 12} width="24" height="24">
+                    {whyPoints[1].icon}
+                  </svg>
+                </g>
+              </g>
+
+              {/* 3. Green Node */}
+              <g
+                onMouseEnter={() => setHoveredSegment(2)}
+                onMouseLeave={() => setHoveredSegment(null)}
+                className="cursor-pointer group"
+                style={{ opacity: hoveredSegment !== null && hoveredSegment !== 2 ? 0.5 : 1 }}
+              >
+                <circle cx="595" cy="155" r="28" fill="#001233" />
+                <circle cx="595" cy="155" r="28" fill="#2ECC71" opacity="0.15" />
+                <circle cx="595" cy="155" r={hoveredSegment === 2 ? "32" : "28"} stroke="#2ECC71" strokeWidth="2" fill="none" className="transition-all duration-300" />
+                <g className="text-[#2ECC71] transition-transform duration-300" style={{ transform: hoveredSegment === 2 ? 'scale(1.15) translate(-1.5px, -1.5px)' : 'none', transformOrigin: '595px 155px' }}>
+                  <svg x={595 - 12} y={155 - 12} width="24" height="24">
+                    {whyPoints[2].icon}
+                  </svg>
+                </g>
+              </g>
+
+              {/* 4. Blue Node */}
+              <g
+                onMouseEnter={() => setHoveredSegment(3)}
+                onMouseLeave={() => setHoveredSegment(null)}
+                className="cursor-pointer group"
+                style={{ opacity: hoveredSegment !== null && hoveredSegment !== 3 ? 0.5 : 1 }}
+              >
+                <circle cx="665" cy="445" r="28" fill="#001233" />
+                <circle cx="665" cy="445" r="28" fill="#0066CC" opacity="0.15" />
+                <circle cx="665" cy="445" r={hoveredSegment === 3 ? "32" : "28"} stroke="#0066CC" strokeWidth="2" fill="none" className="transition-all duration-300" />
+                <g className="text-[#0066CC] transition-transform duration-300" style={{ transform: hoveredSegment === 3 ? 'scale(1.15) translate(-1.5px, -1.5px)' : 'none', transformOrigin: '665px 445px' }}>
+                  <svg x={665 - 12} y={445 - 12} width="24" height="24">
+                    {whyPoints[3].icon}
+                  </svg>
+                </g>
+              </g>
+
+              {/* 5. Purple Node */}
+              <g
+                onMouseEnter={() => setHoveredSegment(4)}
+                onMouseLeave={() => setHoveredSegment(null)}
+                className="cursor-pointer group"
+                style={{ opacity: hoveredSegment !== null && hoveredSegment !== 4 ? 0.5 : 1 }}
+              >
+                <circle cx="955" cy="445" r="28" fill="#001233" />
+                <circle cx="955" cy="445" r="28" fill="#8E44AD" opacity="0.15" />
+                <circle cx="955" cy="445" r={hoveredSegment === 4 ? "32" : "28"} stroke="#8E44AD" strokeWidth="2" fill="none" className="transition-all duration-300" />
+                <g className="text-[#8E44AD] transition-transform duration-300" style={{ transform: hoveredSegment === 4 ? 'scale(1.15) translate(-1.5px, -1.5px)' : 'none', transformOrigin: '955px 445px' }}>
+                  <svg x={955 - 12} y={445 - 12} width="24" height="24">
+                    {whyPoints[4].icon}
+                  </svg>
+                </g>
+              </g>
+
+              {/* Leader Lines and Texts */}
+              {/* 1. Unified Platform */}
+              <g
+                onMouseEnter={() => setHoveredSegment(0)}
+                onMouseLeave={() => setHoveredSegment(null)}
+                className="cursor-pointer transition-opacity duration-300"
+                style={{ opacity: hoveredSegment !== null && hoveredSegment !== 0 ? 0.5 : 1 }}
+              >
+                <circle cx="263" cy="473" r="3.5" fill="#FF7B00" />
+                <line x1="263" y1="473" x2="263" y2="530" stroke="#FF7B00" strokeWidth="1.5" strokeDasharray={hoveredSegment === 0 ? "0" : "3,3"} className="transition-all duration-300" />
+                <circle cx="263" cy="530" r="3.5" fill="#FF7B00" />
+                <foreignObject x={263 - 125} y={540} width="250" height="90" className="overflow-visible">
+                  <div className="flex flex-col items-center text-center justify-start h-full px-2">
+                    <span className="text-[12px] font-black tracking-widest uppercase transition-colors duration-300 text-[#FF7B00] drop-shadow-[0_0_8px_rgba(255,123,0,0.2)]">
+                      Unified Platform
+                    </span>
+                    <span className="text-[10px] text-black/60 font-secondary mt-1.5 leading-relaxed max-w-[190px]">
+                      Integrated strategy, capital, execution
+                    </span>
+                  </div>
+                </foreignObject>
+              </g>
+
+              {/* 2. Integrated Ecosystem */}
+              <g
+                onMouseEnter={() => setHoveredSegment(1)}
+                onMouseLeave={() => setHoveredSegment(null)}
+                className="cursor-pointer transition-opacity duration-300"
+                style={{ opacity: hoveredSegment !== null && hoveredSegment !== 1 ? 0.5 : 1 }}
+              >
+                <circle cx="277" cy="127" r="3.5" fill="#E5B800" />
+                <line x1="277" y1="127" x2="277" y2="70" stroke="#E5B800" strokeWidth="1.5" strokeDasharray={hoveredSegment === 1 ? "0" : "3,3"} className="transition-all duration-300" />
+                <circle cx="277" cy="70" r="3.5" fill="#E5B800" />
+                <foreignObject x={277 - 125} y={0} width="250" height="65" className="overflow-visible">
+                  <div className="flex flex-col items-center text-center justify-end h-full px-2">
+                    <span className="text-[12px] font-black tracking-widest uppercase transition-colors duration-300 text-[#E5B800] drop-shadow-[0_0_8px_rgba(229,184,0,0.2)]">
+                      Integrated Ecosystem
+                    </span>
+                    <span className="text-[10px] text-black/60 font-secondary mt-1.5 leading-relaxed max-w-[190px]">
+                      One partner managing business growth
+                    </span>
+                  </div>
+                </foreignObject>
+              </g>
+
+              {/* 3. Global Network */}
+              <g
+                onMouseEnter={() => setHoveredSegment(2)}
+                onMouseLeave={() => setHoveredSegment(null)}
+                className="cursor-pointer transition-opacity duration-300"
+                style={{ opacity: hoveredSegment !== null && hoveredSegment !== 2 ? 0.5 : 1 }}
+              >
+                <circle cx="623" cy="127" r="3.5" fill="#2ECC71" />
+                <line x1="623" y1="127" x2="623" y2="70" stroke="#2ECC71" strokeWidth="1.5" strokeDasharray={hoveredSegment === 2 ? "0" : "3,3"} className="transition-all duration-300" />
+                <circle cx="623" cy="70" r="3.5" fill="#2ECC71" />
+                <foreignObject x={623 - 125} y={0} width="250" height="65" className="overflow-visible">
+                  <div className="flex flex-col items-center text-center justify-end h-full px-2">
+                    <span className="text-[12px] font-black tracking-widest uppercase transition-colors duration-300 text-[#2ECC71] drop-shadow-[0_0_8px_rgba(46,204,113,0.2)]">
+                      Global Network
+                    </span>
+                    <span className="text-[10px] text-black/60 font-secondary mt-1.5 leading-relaxed max-w-[190px]">
+                      Connecting businesses with opportunities
+                    </span>
+                  </div>
+                </foreignObject>
+              </g>
+
+              {/* 4. Technology Driven */}
+              <g
+                onMouseEnter={() => setHoveredSegment(3)}
+                onMouseLeave={() => setHoveredSegment(null)}
+                className="cursor-pointer transition-opacity duration-300"
+                style={{ opacity: hoveredSegment !== null && hoveredSegment !== 3 ? 0.5 : 1 }}
+              >
+                <circle cx="637" cy="473" r="3.5" fill="#0066CC" />
+                <line x1="637" y1="473" x2="637" y2="530" stroke="#0066CC" strokeWidth="1.5" strokeDasharray={hoveredSegment === 3 ? "0" : "3,3"} className="transition-all duration-300" />
+                <circle cx="637" cy="530" r="3.5" fill="#0066CC" />
+                <foreignObject x={637 - 125} y={540} width="250" height="90" className="overflow-visible">
+                  <div className="flex flex-col items-center text-center justify-start h-full px-2">
+                    <span className="text-[12px] font-black tracking-widest uppercase transition-colors duration-300 text-[#0066CC] drop-shadow-[0_0_8px_rgba(0,102,204,0.2)]">
+                      Technology Driven
+                    </span>
+                    <span className="text-[10px] text-black/60 font-secondary mt-1.5 leading-relaxed max-w-[190px]">
+                      Building future-ready businesses
+                    </span>
+                  </div>
+                </foreignObject>
+              </g>
+
+              {/* 5. Execution Excellence */}
+              <g
+                onMouseEnter={() => setHoveredSegment(4)}
+                onMouseLeave={() => setHoveredSegment(null)}
+                className="cursor-pointer transition-opacity duration-300"
+                style={{ opacity: hoveredSegment !== null && hoveredSegment !== 4 ? 0.5 : 1 }}
+              >
+                <circle cx="983" cy="473" r="3.5" fill="#8E44AD" />
+                <line x1="983" y1="473" x2="983" y2="530" stroke="#8E44AD" strokeWidth="1.5" strokeDasharray={hoveredSegment === 4 ? "0" : "3,3"} className="transition-all duration-300" />
+                <circle cx="983" cy="530" r="3.5" fill="#8E44AD" />
+                <foreignObject x={983 - 125} y={540} width="250" height="90" className="overflow-visible">
+                  <div className="flex flex-col items-center text-center justify-start h-full px-2">
+                    <span className="text-[12px] font-black tracking-widest uppercase transition-colors duration-300 text-[#8E44AD] drop-shadow-[0_0_8px_rgba(142,68,173,0.2)]">
+                      Execution Excellence
+                    </span>
+                    <span className="text-[10px] text-black/60 font-secondary mt-1.5 leading-relaxed max-w-[190px]">
+                      Delivering measurable outcomes
+                    </span>
+                  </div>
+                </foreignObject>
+              </g>
+            </svg>
+          </div>
+
+          {/* Mobile Connected Flow */}
+          <div className="lg:hidden space-y-6 max-w-md mx-auto relative pt-4">
+            <div className="absolute left-7 top-6 bottom-6 w-0.5 bg-gray-200 z-0" />
+
+            {whyPoints.map((point, idx) => (
+              <div
+                key={idx}
+                className="relative z-10 flex gap-5 items-start p-5 rounded-[24px] bg-white/[0.02] border border-gray-200 hover:bg-white/[0.04] transition-all duration-300 group"
+              >
+                <div
+                  className="w-10 h-10 rounded-xl bg-gray-100 flex items-center justify-center shrink-0 border transition-all duration-300"
+                  style={{
+                    borderColor: `${point.color}40`,
+                    color: point.color,
+                    boxShadow: `0 0 12px ${point.color}20`
+                  }}
+                >
+                  {point.icon}
+                </div>
+                <div>
+                  <h3
+                    className="text-base font-black font-primary mb-1 transition-colors duration-300"
+                    style={{ color: point.color }}
+                  >
+                    {point.title}
+                  </h3>
+                  <p className="text-xs md:text-sm text-black/60 font-secondary leading-relaxed">
+                    {point.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* 5. OUR GROWTH FRAMEWORK SECTION - ROADMAP REDESIGN */}
+      <section className="py-24 md:py-32 bg-white relative overflow-hidden">
+        <div className="container-wide relative z-10">
+
+          {/* Header */}
+          <div className="text-center max-w-3xl mx-auto mb-10 gsap-framework-header opacity-0">
+            <span className="text-xs font-black uppercase tracking-[0.4em] text-gold mb-4 block">Scaling System</span>
+            <h2 className="text-4xl md:text-5xl font-black text-black tracking-tighter leading-[1.1] font-primary">
+              Our Growth Framework
+            </h2>
+          </div>
+
+          <div className="w-full relative max-w-6xl mx-auto mb-6">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+              variants={{
+                visible: {
+                  transition: {
+                    staggerChildren: 0.15
+                  }
+                }
+              }}
+              className="flex flex-nowrap justify-start lg:justify-center items-center gap-3 md:gap-5 overflow-x-auto w-full pb-4 px-4 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+            >
+              {["Strategy", "Partnerships", "Technology", "Execution", "Scale"].map((tag, i, arr) => (
+                <div key={i} className="flex items-center gap-3 md:gap-5 shrink-0 snap-center">
+                  <motion.div
+                    variants={{
+                      hidden: { opacity: 0, scale: 0.8 },
+                      visible: { opacity: 1, scale: 1 }
+                    }}
+                    transition={{ type: "spring", stiffness: 200, damping: 15 }}
+                    className="flex items-center justify-center px-5 py-2.5 md:px-6 md:py-3 rounded-full bg-gray-50 border border-gray-200 shadow-sm hover:border-gold hover:shadow-md transition-all duration-300 group cursor-default"
+                  >
+                    <span className="text-[10px] md:text-xs font-black uppercase tracking-[0.2em] text-gray-700 group-hover:text-black transition-colors">{tag}</span>
+                  </motion.div>
+
+                  {i !== arr.length - 1 && (
+                    <motion.span
+                      variants={{
+                        hidden: { opacity: 0, x: -10 },
+                        visible: { opacity: 1, x: 0 }
+                      }}
+                      className="text-gold material-symbols-outlined text-lg md:text-xl drop-shadow-sm"
+                    >
+                      arrow_right_alt
+                    </motion.span>
+                  )}
+                </div>
+              ))}
+            </motion.div>
+          </div>
+
+          <div className="text-center max-w-3xl mx-auto mb-20 md:mb-28 px-4">
+            <p className="text-sm md:text-base text-gray-500 font-secondary leading-relaxed">
+              Growth is never accidental. It is built through a structured framework that transforms ideas into measurable business outcomes.
+            </p>
+          </div>
+
+          {/* Compact 3x2 Grid */}
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 max-w-6xl mx-auto">
+            {growthSteps.map((step, idx) => (
+              <div
+                key={idx}
+                className="bg-gray-50 border border-gray-200 p-4 sm:p-6 md:p-8 rounded-[20px] md:rounded-[24px] hover:border-gold/50 hover:shadow-lg transition-all duration-300 group gsap-framework-card opacity-0"
+              >
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 md:mb-6">
+                  <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center group-hover:bg-black group-hover:border-black transition-colors duration-300 shadow-sm">
+                    <span className="text-xs md:text-sm font-black text-black group-hover:text-gold transition-colors">
+                      0{idx + 1}
+                    </span>
+                  </div>
+                  <span className="text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 group-hover:text-gold transition-colors">Phase 0{idx + 1}</span>
                 </div>
 
-              </motion.div>
+                <h3 className="text-base sm:text-lg md:text-xl font-black text-black font-primary mb-2 md:mb-3">
+                  {step.title}
+                </h3>
+                <p className="text-[11px] sm:text-xs md:text-sm text-gray-500 font-secondary leading-relaxed">
+                  {step.desc}
+                </p>
+              </div>
             ))}
           </div>
 
@@ -592,583 +1453,232 @@ export default function HomeClient() {
 
 
 
-      {/* 4. CASE STUDIES SECTION */}
-      <section id="cases" className="py-24 md:py-32 bg-white relative">
-        <div className="container-wide">
-          
-          {/* Header */}
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16">
-            <div className="max-w-xl">
-              <span className="text-xs font-black uppercase tracking-[0.4em] text-[#002366] mb-3 block">Verified Results</span>
-              <h2 className="text-4xl md:text-6xl font-black text-dark tracking-tighter leading-none">
-                Proven Cases of Growth
-              </h2>
-            </div>
+      {/* 7. FAQ SECTION - ADVANCED REDESIGN */}
+      <section className="py-24 md:py-32 bg-gray-50 text-black relative overflow-hidden">
+        {/* Background Accents */}
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gold/5 blur-[150px] rounded-full pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gray-200/50 blur-[150px] rounded-full pointer-events-none" />
 
-            {/* Selector tabs */}
-            <div className="flex flex-wrap gap-2 mt-6 md:mt-0 bg-[#FAF9F6] p-1.5 rounded-full border border-dark/5">
-              {caseStudies.map((c, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setActiveCaseStudy(idx)}
-                  className={`px-6 py-3 rounded-full text-[10px] font-black uppercase tracking-wider transition-all duration-300 ${activeCaseStudy === idx ? "bg-[#002366] text-white shadow-md" : "text-dark/50 hover:text-dark"}`}
-                >
-                  Case 0{idx + 1}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Active Case Study Details */}
-          <div className="border border-dark/5 rounded-[40px] p-8 md:p-16 bg-[#FAF9F6] shadow-sm relative overflow-hidden">
-            <div className="absolute top-10 right-10 text-[180px] font-black text-dark/[0.02] pointer-events-none leading-none select-none">
-              0{activeCaseStudy + 1}
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 relative z-10">
-              
-              {/* Left Column: Info Card */}
-              <div className="lg:col-span-8 space-y-8">
-                <div>
-                  <div className="flex items-center gap-4 mb-4 flex-wrap">
-                    <span className="px-3 py-1 bg-white border border-dark/10 rounded-md text-[9px] font-black uppercase tracking-wider text-[#002366]">{caseStudies[activeCaseStudy].stage}</span>
-                    <span className="text-xs text-dark/40 font-bold uppercase tracking-widest">{caseStudies[activeCaseStudy].industry}</span>
-                  </div>
-                  <h3 className="text-3xl md:text-4xl font-black text-dark tracking-tight leading-snug">
-                    {caseStudies[activeCaseStudy].title}
-                  </h3>
-                </div>
-
-                <div className="h-[1px] w-full bg-dark/5" />
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div>
-                    <h4 className="text-[10px] font-black uppercase tracking-widest text-dark/30 mb-2">The Challenge</h4>
-                    <p className="text-sm text-dark/70 font-secondary leading-relaxed">{caseStudies[activeCaseStudy].challenge}</p>
-                  </div>
-                  <div>
-                    <h4 className="text-[10px] font-black uppercase tracking-widest text-dark/30 mb-2">The Solution</h4>
-                    <p className="text-sm text-dark/70 font-secondary leading-relaxed">{caseStudies[activeCaseStudy].solution}</p>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div>
-                    <h4 className="text-[10px] font-black uppercase tracking-widest text-dark/30 mb-2">Operational Process</h4>
-                    <p className="text-sm text-dark/70 font-secondary leading-relaxed">{caseStudies[activeCaseStudy].process}</p>
-                  </div>
-                  <div>
-                    <h4 className="text-[10px] font-black uppercase tracking-widest text-dark/30 mb-2">Metrics Gained</h4>
-                    <p className="text-sm text-dark/70 font-secondary leading-relaxed">{caseStudies[activeCaseStudy].results}</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Right Column: Funding & Results Badge */}
-              <div className="lg:col-span-4 flex flex-col justify-between bg-white border border-dark/10 p-8 md:p-10 rounded-[32px] shadow-sm">
-                <div>
-                  <span className="text-[9px] font-black uppercase tracking-widest text-dark/30 mb-4 block">Funding Outcome</span>
-                  <div className="flex items-start gap-3">
-                    <span className="material-symbols-outlined text-4xl text-[#002366]">payments</span>
-                    <h4 className="text-2xl font-black text-dark tracking-tight leading-tight">
-                      {caseStudies[activeCaseStudy].funding}
-                    </h4>
-                  </div>
-                </div>
-
-                <div className="border-t border-dark/5 pt-6 mt-8">
-                  <span className="text-[9px] font-black uppercase tracking-widest text-dark/30 mb-3 block">Before & After Growth</span>
-                  <div className="flex items-center justify-between">
-                    <div className="text-left">
-                      <p className="text-[8px] font-black uppercase tracking-widest text-dark/30">Previous State</p>
-                      <p className="text-xl font-bold text-dark/50 line-through mt-1">{caseStudies[activeCaseStudy].beforeAfter.before}</p>
-                    </div>
-                    <div className="w-8 h-[1px] bg-dark/20 relative">
-                      <span className="material-symbols-outlined text-sm absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-dark/40">trending_flat</span>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-[8px] font-black uppercase tracking-widest text-[#002366]">Optimized State</p>
-                      <p className="text-2xl font-black text-emerald-600 mt-1">{caseStudies[activeCaseStudy].beforeAfter.after}</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="border-t border-dark/5 pt-6 mt-8">
-                  <Link
-                    href="/contact"
-                    className="flex justify-center items-center w-full bg-[#002366] text-white py-4 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-dark transition-colors"
-                  >
-                    Talk to Our Experts
-                  </Link>
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* 5. TESTIMONIALS SECTION */}
-      <section className="py-24 md:py-32 bg-[#001233] text-white relative overflow-hidden">
-        {/* Background decorative glows */}
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/10 blur-[150px] rounded-full pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-amber-500/5 blur-[120px] rounded-full pointer-events-none" />
-
-        <div className="relative z-10">
-          
-          {/* Header */}
-          <div className="container-wide mb-16 md:mb-20">
-            <span className="text-xs font-black uppercase tracking-[0.4em] text-gold mb-3 block">Testimonials</span>
-            <h2 className="text-4xl md:text-6xl font-black tracking-tighter leading-none">
-              Startups Scaling with Us
-            </h2>
-          </div>
-
-          {/* Testimonials Infinite Loop Row */}
-          <div className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] overflow-hidden py-4 select-none">
-            <motion.div
-              animate={{
-                x: ["0%", "-50%"]
-              }}
-              transition={{
-                duration: 50,
-                repeat: Infinity,
-                ease: "linear"
-              }}
-              className="flex gap-6 w-max px-6"
-            >
-              {/* Render the testimonials list twice for seamless looping marquee */}
-              {[...testimonials, ...testimonials].map((item, idx) => (
-                <div
-                  key={idx}
-                  className="w-[320px] sm:w-[420px] bg-white/5 border border-white/10 p-6 md:p-8 rounded-[24px] md:rounded-[32px] flex flex-col justify-between h-[450px] md:h-[480px] backdrop-blur-md relative overflow-hidden group"
-                >
-                  <div>
-                    {/* Rating stars */}
-                    <div className="flex items-center gap-1.5 text-gold mb-6">
-                      {[...Array(item.rating)].map((_, i) => (
-                        <span key={i} className="material-symbols-outlined fill-current text-xs md:text-sm">star</span>
-                      ))}
-                    </div>
-
-                    {/* Review text */}
-                    <p className="text-sm md:text-base text-white/90 leading-relaxed font-serif italic mb-6 line-clamp-6">
-                      "{item.review}"
-                    </p>
-                  </div>
-
-                  <div>
-                    {/* Metrics outcomes box */}
-                    <div className="grid grid-cols-2 gap-3 mb-6 bg-white/[0.02] border border-white/5 rounded-xl p-3">
-                      <div>
-                        <p className="text-[7px] font-black uppercase tracking-widest text-white/40 mb-1">Funding</p>
-                        <p className="text-[11px] font-black text-gold truncate">{item.metrics.funding}</p>
-                      </div>
-                      <div>
-                        <p className="text-[7px] font-black uppercase tracking-widest text-white/40 mb-1">Growth</p>
-                        <p className="text-[11px] font-black text-white truncate">{item.metrics.growth}</p>
-                      </div>
-                    </div>
-
-                    {/* Client details signature */}
-                    <div className="flex items-center justify-between border-t border-white/10 pt-4">
-                      <div className="flex items-center gap-3">
-                        <div className="relative w-10 h-10 rounded-full overflow-hidden border border-gold/40 shrink-0">
-                          <img
-                            src={item.photo}
-                            alt={item.name}
-                            className="object-cover w-full h-full"
-                          />
-                        </div>
-                        <div className="min-w-0">
-                          <h4 className="text-xs font-black text-white leading-none mb-1 truncate">{item.name}</h4>
-                          <p className="text-[9px] text-white/40 uppercase tracking-widest leading-none truncate max-w-[150px]">{item.role}</p>
-                          <p className="text-[8px] text-gold font-bold leading-none mt-1 truncate max-w-[150px]">{item.company}</p>
-                        </div>
-                      </div>
-
-                      <div className="w-7 h-7 rounded-full bg-white text-dark flex items-center justify-center p-1 shrink-0">
-                        {item.logo && <img src={item.logo} alt="" className="w-full h-full object-contain" />}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </motion.div>
-          </div>
-
-          {/* Testimonial Page-to-Services Link */}
-          <div className="container-wide mt-16 text-center">
-            <Link
-              href="#services"
-              className="inline-flex items-center gap-3 text-xs font-black uppercase tracking-[0.3em] text-gold hover:text-white transition-colors group"
-            >
-              See Acceleration Verticals
-              <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
-            </Link>
-          </div>
-
-        </div>
-      </section>
-
-      {/* 6. FAQ SECTION */}
-      <section className="py-24 md:py-32 bg-white relative">
-        <div className="container-wide">
+        <div className="container-wide relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
-            
+
             {/* Left FAQ Info */}
-            <div className="lg:col-span-4 flex flex-col justify-between">
+            <div className="lg:col-span-5 flex flex-col justify-between gsap-faq-item opacity-0">
               <div>
-                <span className="text-xs font-black uppercase tracking-[0.4em] text-[#002366] mb-3 block">FAQ</span>
-                <h2 className="text-4xl md:text-5xl font-black text-dark tracking-tighter leading-none mb-6">
-                  Frequently Asked Questions
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-gray-200 mb-6 shadow-sm">
+                  <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
+                  <span className="text-[10px] font-black uppercase tracking-[0.25em] text-black">FAQ</span>
+                </div>
+                <h2 className="text-4xl md:text-6xl font-black text-black tracking-tighter leading-[1.1] mb-6 font-primary">
+                  Clarity on our <br /><span className="text-gold">Process & Capital.</span>
                 </h2>
-                <p className="text-dark/60 font-secondary leading-relaxed mb-8">
+                <p className="text-gray-500 font-secondary leading-relaxed mb-10 max-w-md">
                   Get answers to all questions relating to funding processes, document submissions, mentorship access, and vertical consulting.
                 </p>
               </div>
 
-              {/* Secondary CTA block */}
-              <div className="bg-[#FAF9F6] border border-dark/5 p-8 rounded-3xl">
-                <h4 className="text-sm font-black uppercase tracking-wider text-dark mb-2">Still have questions?</h4>
-                <p className="text-xs text-dark/50 font-secondary mb-6">We'd love to chat directly and outline a funding blueprint for your startup.</p>
+              {/* Secondary CTA block (Glassmorphism) */}
+              <div className="bg-white border border-gray-200 shadow-sm p-8 rounded-3xl relative overflow-hidden group hover:border-gold/30 transition-colors">
+                <div className="absolute -right-10 -top-10 w-32 h-32 bg-gold/10 blur-3xl rounded-full group-hover:bg-gold/20 transition-colors" />
+                <h4 className="text-xs font-black uppercase tracking-wider text-black mb-2 relative z-10">Still have questions?</h4>
+                <p className="text-xs text-gray-500 font-secondary mb-8 relative z-10">We'd love to chat directly and outline a funding blueprint for your startup.</p>
                 <Link
                   href="/contact"
-                  className="inline-flex items-center justify-center w-full bg-[#002366] text-white py-4 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-dark transition-colors"
+                  className="relative z-10 inline-flex items-center justify-between w-full bg-black text-gold px-6 py-4 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-gold hover:text-black transition-colors shadow-md"
                 >
                   Talk to Our Experts
+                  <span className="material-symbols-outlined text-sm">arrow_forward</span>
                 </Link>
               </div>
             </div>
 
-            {/* Right Accordion */}
-            <div className="lg:col-span-8 space-y-4">
-              {faqs.map((faq, idx) => (
-                <div
-                  key={idx}
-                  className="border border-dark/5 rounded-2xl overflow-hidden transition-all duration-300"
-                >
+            {/* Right Chatbot */}
+            <div className="lg:col-span-7 gsap-faq-item opacity-0">
+              <div className="bg-white border border-gray-200 rounded-[32px] overflow-hidden flex flex-col h-[550px] shadow-sm relative">
+
+                {/* Chat Header */}
+                <div className="bg-gray-50 border-b border-gray-100 p-4 md:p-5 flex items-center justify-between z-10">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-black flex items-center justify-center shrink-0 border border-gold/25 shadow-sm">
+                      <span className="material-symbols-outlined text-gold text-lg font-bold">smart_toy</span>
+                    </div>
+                    <div>
+                      <h3 className="text-xs font-black text-black font-primary uppercase tracking-wider">RiseMates AI</h3>
+                      <p className="text-[9px] text-gray-500 font-secondary uppercase tracking-widest flex items-center gap-1.5 mt-0.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+                        Online • Ask anything
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Reset Button */}
                   <button
-                    onClick={() => toggleFaq(idx)}
-                    className="w-full flex items-center justify-between text-left p-6 md:p-8 bg-[#FAF9F6] hover:bg-dark/5 transition-colors focus:outline-none"
+                    onClick={() => setChatMessages([
+                      { role: 'bot', text: 'Hi! I am the RiseMate AI Assistant. How can I help you with our funding process, capital structure, or mentorship today?' }
+                    ])}
+                    className="w-8 h-8 rounded-lg hover:bg-gray-100 flex items-center justify-center text-gray-400 hover:text-black transition-colors"
+                    title="Reset Conversation"
+                    disabled={isBotTyping}
                   >
-                    <span className="text-base sm:text-lg font-black text-dark tracking-tight leading-snug">{faq.q}</span>
-                    <span className="material-symbols-outlined text-dark/50 transition-transform duration-300" style={{ transform: openFaq === idx ? "rotate(180deg)" : "rotate(0deg)" }}>
-                      keyboard_arrow_down
-                    </span>
+                    <span className="material-symbols-outlined text-base">refresh</span>
                   </button>
-
-                  <AnimatePresence initial={false}>
-                    {openFaq === idx && (
-                      <motion.div
-                        initial={{ height: 0 }}
-                        animate={{ height: "auto" }}
-                        exit={{ height: 0 }}
-                        transition={{ duration: 0.3, ease: "easeInOut" }}
-                        className="overflow-hidden bg-[#FAF9F6] border-t border-dark/5"
-                      >
-                        <div className="p-6 md:p-8 text-sm text-dark/70 font-secondary leading-relaxed">
-                          {faq.a}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
                 </div>
-              ))}
+
+                {/* Messages Area */}
+                <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-6 relative bg-[radial-gradient(#f3f4f6_1px,transparent_1px)] bg-[size:16px_16px]" ref={chatScrollRef}>
+
+                  {/* Top Progress Indicator line */}
+                  {isBotTyping && (
+                    <div className="absolute top-0 left-0 right-0 h-0.5 bg-gray-150 overflow-hidden z-20">
+                      <div className="h-full bg-gold/50 animate-pulse w-full" />
+                    </div>
+                  )}
+
+                  {chatMessages.map((msg, idx) => {
+                    const isBot = msg.role === 'bot';
+                    return (
+                      <motion.div
+                        key={idx}
+                        initial={{ opacity: 0, y: 12, scale: 0.98 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                        className={`flex gap-3 items-start ${isBot ? 'justify-start' : 'justify-end'}`}
+                      >
+                        {isBot && (
+                          <div className="w-8 h-8 rounded-full bg-black border border-gold/30 flex items-center justify-center shrink-0 shadow-md">
+                            <span className="material-symbols-outlined text-[15px] text-gold font-bold">smart_toy</span>
+                          </div>
+                        )}
+
+                        <div className={`max-w-[78%] md:max-w-[70%] rounded-2xl p-4 text-xs md:text-sm font-secondary leading-relaxed shadow-[0_2px_10px_rgba(0,0,0,0.015)] ${isBot
+                            ? 'bg-gray-50 border border-gray-150 text-gray-800 rounded-tl-none'
+                            : 'bg-black text-gold rounded-tr-none shadow-md shadow-black/5'
+                          }`}>
+                          {msg.text}
+                        </div>
+
+                        {!isBot && (
+                          <div className="w-8 h-8 rounded-full bg-gold/10 border border-gold/25 flex items-center justify-center shrink-0 shadow-md">
+                            <span className="material-symbols-outlined text-[15px] text-gold font-bold">person</span>
+                          </div>
+                        )}
+                      </motion.div>
+                    );
+                  })}
+
+                  {isBotTyping && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="flex gap-3 items-start justify-start"
+                    >
+                      <div className="w-8 h-8 rounded-full bg-black border border-gold/30 flex items-center justify-center shrink-0 shadow-md">
+                        <span className="material-symbols-outlined text-[15px] text-gold font-bold">smart_toy</span>
+                      </div>
+                      <div className="bg-gray-50 border border-gray-150 rounded-2xl rounded-tl-none px-4 py-3.5 flex gap-1.5 items-center shadow-[0_2px_10px_rgba(0,0,0,0.015)]">
+                        <span className="w-1.5 h-1.5 bg-gold rounded-full animate-bounce" />
+                        <span className="w-1.5 h-1.5 bg-gold rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                        <span className="w-1.5 h-1.5 bg-gold rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                      </div>
+                    </motion.div>
+                  )}
+                </div>
+
+                {/* Input Area */}
+                <div className="p-4 bg-white border-t border-gray-100 z-10">
+                  {/* Suggested Prompts */}
+                  <div className="flex overflow-x-auto gap-2 pb-4 mb-2 scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                    {faqs.map((faq, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => handleSendMessage(faq.q)}
+                        disabled={isBotTyping}
+                        className="whitespace-nowrap bg-gray-50 border border-gray-200 hover:bg-black hover:border-black hover:text-gold text-[10px] font-black uppercase tracking-wider text-gray-600 font-secondary px-4 py-2.5 rounded-full transition-all duration-300 flex-shrink-0 disabled:opacity-50"
+                      >
+                        {faq.q}
+                      </button>
+                    ))}
+                  </div>
+
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      handleSendMessage(chatInput);
+                    }}
+                    className="relative flex items-center"
+                  >
+                    <input
+                      type="text"
+                      value={chatInput}
+                      onChange={(e) => setChatInput(e.target.value)}
+                      placeholder="Ask about our funding process..."
+                      className="w-full bg-gray-50 border border-gray-200 rounded-xl py-3.5 pl-4 pr-12 text-xs md:text-sm font-secondary focus:outline-none focus:border-gold/50 focus:ring-1 focus:ring-gold/30 transition-all disabled:opacity-50"
+                      disabled={isBotTyping}
+                    />
+                    <button
+                      type="submit"
+                      disabled={!chatInput.trim() || isBotTyping}
+                      className="absolute right-2 w-8 h-8 flex items-center justify-center bg-black text-gold rounded-lg hover:bg-gold hover:text-white transition-colors disabled:opacity-50"
+                    >
+                      <span className="material-symbols-outlined text-[16px]">arrow_upward</span>
+                    </button>
+                  </form>
+                </div>
+              </div>
             </div>
-
           </div>
         </div>
       </section>
 
-      {/* 7. CONVERSION BANNER (MID PAGE) */}
-      <section className="py-20 md:py-28 bg-[#FAF9F6] border-t border-dark/5 overflow-hidden relative">
-        <div className="container-wide relative z-10 text-center max-w-4xl">
-          <span className="text-xs font-black uppercase tracking-[0.5em] text-[#002366] mb-6 inline-block">Consultation Protocol</span>
-          <h2 className="text-4xl md:text-6xl font-black text-dark tracking-tighter leading-tight mb-8">
-            Create Your Investment Blueprint. <br />Initialize Partnership.
-          </h2>
-          <p className="text-lg text-dark/60 font-secondary leading-relaxed mb-12 max-w-2xl mx-auto">
-            Book a complimentary 30-minute growth evaluation with our partners. We review scaling frameworks and direct funding options.
-          </p>
+      {/* 8. CONVERSION BANNER (READY TO BUILD) */}
+      <section className="py-20 md:py-28 bg-white border-t border-gray-200 overflow-hidden relative">
+        <div className="container-wide relative z-10 max-w-5xl mx-auto">
+          <div className="bg-gray-50 border border-gray-200 rounded-[40px] px-8 py-16 md:py-24 text-center relative overflow-hidden shadow-sm gsap-cta-card opacity-0">
+            {/* Background elements */}
+            <div className="absolute inset-0 pointer-events-none opacity-[0.02] bg-[linear-gradient(to_right,#000_1px,transparent_1px),linear-gradient(to_bottom,#000_1px,transparent_1px)] bg-[size:3rem_3rem]" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2/3 h-full bg-gold/10 blur-[120px] rounded-full pointer-events-none" />
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-            <Link
-              href="/contact"
-              className="flex justify-center items-center bg-[#002366] text-white px-8 py-5 rounded-full text-xs font-black uppercase tracking-[0.2em] shadow-lg shadow-[#002366]/20 hover:bg-dark transition-all duration-300 min-w-[240px]"
-            >
-              Book a Free Consultation
-            </Link>
-            
-            <Link
-              href="/contact?type=advisor"
-              className="flex justify-center items-center bg-white border border-dark/10 text-dark px-8 py-5 rounded-full text-xs font-black uppercase tracking-[0.2em] hover:bg-dark hover:text-white transition-all duration-300 min-w-[240px]"
-            >
-              Talk to Our Experts
-            </Link>
+            <span className="text-xs font-black uppercase tracking-[0.4em] text-gold mb-6 inline-block">Partner Scoping Initiated</span>
+            <h2 className="text-3xl md:text-5xl font-black text-black tracking-tight leading-tight mb-8 font-primary max-w-3xl mx-auto">
+              Ready to Build Your Next Growth Story?
+            </h2>
+            <p className="text-base text-gray-600 font-secondary leading-relaxed mb-12 max-w-2xl mx-auto">
+              Whether you're entering a new market, seeking strategic partnerships, raising capital, implementing AI, or accelerating business growth, Rise Mate Ventures provides the ecosystem to help you scale with confidence.
+            </p>
+
+            <div className="flex justify-center">
+              <Link
+                href="/contact"
+                className="inline-flex justify-center items-center bg-black text-gold hover:bg-gold hover:text-black px-10 py-5 rounded-xl text-xs font-black uppercase tracking-[0.2em] transition-all duration-300 shadow-xl shadow-black/10 font-primary"
+              >
+                Partner With Us
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 8. MOBILE STICKY FLOATING CTA BAR */}
+      {/* 9. MOBILE STICKY FLOATING CTA BAR */}
       <div className="sm:hidden fixed bottom-4 inset-x-4 z-[190] pointer-events-none flex justify-center">
         <motion.div
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 1, duration: 0.5 }}
-          className="pointer-events-auto bg-white border border-[#002366]/15 rounded-full p-2.5 shadow-[0_16px_36px_rgba(0,18,51,0.18)] flex items-center justify-between gap-6 w-full max-w-[400px]"
+          className="pointer-events-auto bg-white border border-gray-200 rounded-full p-2.5 shadow-[0_16px_36px_rgba(0,0,0,0.1)] flex items-center justify-between gap-6 w-full max-w-[400px]"
         >
           <div className="pl-4">
-            <p className="text-[8px] font-black uppercase tracking-widest text-dark/45 leading-none mb-1">RiseMate Accelerator</p>
-            <p className="text-xs font-black text-[#002366] leading-none">Consultation Free</p>
+            <p className="text-[8px] font-black uppercase tracking-widest text-gray-500 leading-none mb-1">Rise Mate Ventures</p>
+            <p className="text-xs font-black text-black leading-none">Global Growth Partner</p>
           </div>
-          
+
           <Link
             href="/contact"
-            className="bg-[#002366] hover:bg-dark text-white px-5 py-3 rounded-full text-[9px] font-black uppercase tracking-[0.15em] transition-colors whitespace-nowrap"
+            className="bg-black hover:bg-gold text-gold hover:text-black px-5 py-3 rounded-full text-[9px] font-black uppercase tracking-[0.15em] transition-colors whitespace-nowrap"
           >
-            Book Free Call
+            Partner With Us
           </Link>
         </motion.div>
       </div>
-
-      {/* 9. SERVICE DETAILS MODAL */}
-      <AnimatePresence>
-        {activeServiceModal && (() => {
-          const service = SERVICES_DATA[activeServiceModal];
-          if (!service) return null;
-
-          return (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-dark/75 backdrop-blur-md z-[9999] flex items-center justify-center p-4 md:p-6"
-              onClick={() => setActiveServiceModal(null)}
-            >
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95, y: 30 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95, y: 30 }}
-                transition={{ type: "spring", damping: 30, stiffness: 300 }}
-                className="bg-white max-w-4xl w-full rounded-[32px] md:rounded-[40px] overflow-hidden shadow-2xl relative flex flex-col max-h-[85vh] text-dark"
-                onClick={(e) => e.stopPropagation()}
-              >
-                
-                {/* Modal Close Button */}
-                <button
-                  onClick={() => setActiveServiceModal(null)}
-                  className="absolute top-6 right-6 w-10 h-10 rounded-full bg-[#FAF9F6] border border-dark/5 flex items-center justify-center text-dark/50 hover:text-dark hover:bg-[#FAF9F6]/85 transition-colors z-[1001]"
-                  aria-label="Close modal"
-                >
-                  <span className="material-symbols-outlined text-lg">close</span>
-                </button>
-
-                {/* Modal Header */}
-                <div className="p-8 md:p-10 border-b border-dark/5 bg-[#FAF9F6] relative">
-                  <div className="flex items-center gap-4 mb-4">
-                    <span className="px-3 py-1 bg-white border border-dark/10 rounded-md text-[9px] font-black uppercase tracking-wider text-[#002366]">
-                      {service.entity}
-                    </span>
-                    <span className="text-[10px] font-black uppercase tracking-widest text-dark/30">Service Profile</span>
-                  </div>
-                  <h3 className="text-2xl md:text-3xl font-black tracking-tight text-dark mb-2 leading-tight pr-12">
-                    {service.name}
-                  </h3>
-                  <p className="text-sm text-dark/60 font-secondary leading-relaxed max-w-2xl">
-                    {service.summary}
-                  </p>
-                </div>
-
-                {/* Modal Tabs navigation */}
-                <div className="flex border-b border-dark/5 px-8 md:px-10 bg-white shrink-0">
-                  {[
-                    { id: "overview", label: "Overview", icon: "info" },
-                    { id: "scope", label: "Scope & Benefits", icon: "rule" },
-                    { id: "process", label: "Onboarding & Process", icon: "route" }
-                  ].map((tab) => (
-                    <button
-                      key={tab.id}
-                      onClick={() => setActiveModalTab(tab.id)}
-                      className={`py-4 px-6 text-xs font-black uppercase tracking-wider border-b-2 flex items-center gap-2 transition-all ${activeModalTab === tab.id ? "border-[#002366] text-[#002366]" : "border-transparent text-dark/45 hover:text-dark"}`}
-                    >
-                      <span className="material-symbols-outlined text-sm">{tab.icon}</span>
-                      {tab.label}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Modal Body (Scrollable container) */}
-                <div className="p-8 md:p-10 overflow-y-auto flex-1 font-secondary text-sm text-dark/70 space-y-8">
-                  
-                  {/* Tab Content: Overview */}
-                  {activeModalTab === "overview" && (
-                    <div className="space-y-6">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div>
-                          <h4 className="text-[10px] font-black uppercase tracking-widest text-[#002366] mb-3">Service Overview</h4>
-                          <p className="leading-relaxed mb-4">{service.detailedDescription.what}</p>
-                          <h4 className="text-[10px] font-black uppercase tracking-widest text-[#002366] mb-3">Why it is Critical</h4>
-                          <p className="leading-relaxed">{service.detailedDescription.why}</p>
-                        </div>
-                        <div>
-                          <h4 className="text-[10px] font-black uppercase tracking-widest text-[#002366] mb-3">How RiseMate Delivers</h4>
-                          <p className="leading-relaxed mb-4">{service.detailedDescription.how}</p>
-                          <h4 className="text-[10px] font-black uppercase tracking-widest text-[#002366] mb-3">What Makes Us Different</h4>
-                          <p className="leading-relaxed">{service.detailedDescription.diff}</p>
-                        </div>
-                      </div>
-
-                      <div className="h-[1px] w-full bg-dark/5 my-6" />
-
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-[#FAF9F6] border border-dark/5 p-6 rounded-2xl">
-                        <div>
-                          <h4 className="text-[10px] font-black uppercase tracking-widest text-dark/45 mb-2">Target Audience</h4>
-                          <p className="text-xs font-bold leading-relaxed">{service.targetAudience.who}</p>
-                          <p className="text-xs text-dark/50 mt-1 font-secondary">Ideal Stage: {service.targetAudience.stage}</p>
-                          <p className="text-xs text-dark/50 mt-1 font-secondary">Sectors: {service.targetAudience.industries}</p>
-                        </div>
-                        <div>
-                          <h4 className="text-[10px] font-black uppercase tracking-widest text-dark/45 mb-2">Eligibility Criteria</h4>
-                          <p className="text-xs font-bold leading-relaxed">{service.targetAudience.eligibility}</p>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Tab Content: Scope & Benefits */}
-                  {activeModalTab === "scope" && (
-                    <div className="space-y-6">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div>
-                          <h4 className="text-[10px] font-black uppercase tracking-widest text-[#002366] mb-4">Key Features Included</h4>
-                          <ul className="space-y-3">
-                            {service.features.map((f, i) => (
-                              <li key={i} className="flex items-start gap-2.5 leading-relaxed text-xs font-secondary text-dark/80">
-                                <span className="material-symbols-outlined text-emerald-600 text-sm mt-0.5">check_circle</span>
-                                <span>{f}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                        <div>
-                          <h4 className="text-[10px] font-black uppercase tracking-widest text-[#002366] mb-4">Core Deliverables</h4>
-                          <ul className="space-y-3">
-                            {service.deliverables.map((d, i) => (
-                              <li key={i} className="flex items-start gap-2.5 leading-relaxed text-xs font-secondary text-dark/80">
-                                <span className="material-symbols-outlined text-[#002366] text-sm mt-0.5">drafts</span>
-                                <span>{d}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-
-                      <div className="h-[1px] w-full bg-dark/5 my-6" />
-
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div>
-                          <h4 className="text-[10px] font-black uppercase tracking-widest text-[#002366] mb-4">Problems Solved</h4>
-                          <ul className="space-y-3">
-                            {service.problemsSolved.map((p, i) => (
-                              <li key={i} className="flex items-start gap-2.5 leading-relaxed text-xs font-secondary text-dark/80">
-                                <span className="material-symbols-outlined text-amber-600 text-sm mt-0.5">report_problem</span>
-                                <span>{p}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                        <div>
-                          <h4 className="text-[10px] font-black uppercase tracking-widest text-[#002366] mb-4">Business Benefits</h4>
-                          <ul className="space-y-3">
-                            {service.benefits.map((b, i) => (
-                              <li key={i} className="flex items-start gap-2.5 leading-relaxed text-xs font-secondary text-dark/80">
-                                <span className="material-symbols-outlined text-[#002366] text-sm mt-0.5">done_all</span>
-                                <span>{b}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Tab Content: Process */}
-                  {activeModalTab === "process" && (
-                    <div className="space-y-6">
-                      <h4 className="text-[10px] font-black uppercase tracking-widest text-[#002366] mb-6">Service Execution Roadmap</h4>
-                      
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        {service.process.map((p, i) => (
-                          <div key={i} className="bg-[#FAF9F6] border border-dark/5 p-5 rounded-2xl space-y-2 relative group hover:border-[#002366]/20 transition-all">
-                            <span className="w-6 h-6 rounded-full bg-[#002366] text-white flex items-center justify-center font-black text-[10px] mb-2">{p.step}</span>
-                            <h5 className="text-xs font-black text-dark">{p.title}</h5>
-                            <p className="text-[11px] text-dark/50 leading-relaxed font-secondary">{p.desc}</p>
-                          </div>
-                        ))}
-                      </div>
-
-                      <div className="h-[1px] w-full bg-dark/5 my-6" />
-
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        {/* Onboarding Documents */}
-                        <div className="bg-[#FAF9F6] border border-dark/5 p-6 rounded-2xl">
-                          <h4 className="text-[10px] font-black uppercase tracking-widest text-[#002366] mb-3">Documents Required</h4>
-                          <ul className="space-y-2">
-                            {service.requiredDocs.map((doc, i) => (
-                              <li key={i} className="flex items-center gap-2 text-xs text-dark/80 font-secondary leading-none">
-                                <span className="material-symbols-outlined text-xs text-[#002366]">article</span>
-                                {doc}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-
-                        {/* Performance Metrics */}
-                        <div className="bg-[#001233] text-white p-6 rounded-2xl flex flex-col justify-between">
-                          <div>
-                            <h4 className="text-[10px] font-black uppercase tracking-widest text-gold mb-3">Success Metrics & Case Summary</h4>
-                            <p className="text-xs text-white/80 font-serif italic mb-4">"{service.successMetrics.stories}"</p>
-                          </div>
-                          <div className="flex justify-between items-center border-t border-white/10 pt-3 text-xs text-white/50 font-secondary">
-                            <span>Clients: {service.successMetrics.clients}</span>
-                            <span className="text-gold font-bold">{service.successMetrics.results}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                </div>
-
-                {/* Modal Footer */}
-                <div className="p-8 md:p-10 border-t border-dark/5 bg-[#FAF9F6] flex flex-col sm:flex-row items-center justify-between gap-4 shrink-0">
-                  <div className="text-center sm:text-left">
-                    <p className="text-xs text-dark/45 uppercase tracking-widest font-black leading-none mb-1">Expected Service Duration</p>
-                    <p className="text-sm font-black text-dark leading-none">{service.timeline.duration} <span className="text-xs text-dark/50 font-secondary font-normal">({service.timeline.turnaround})</span></p>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <button
-                      onClick={() => setActiveServiceModal(null)}
-                      className="px-6 py-4 border border-dark/5 bg-white text-dark/70 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-dark hover:text-white transition-colors"
-                    >
-                      Close Window
-                    </button>
-                    <Link
-                      href="/contact?service=consultation"
-                      className="px-6 py-4 bg-[#002366] text-white rounded-xl text-[10px] font-black uppercase tracking-[0.2em] hover:bg-dark transition-colors"
-                    >
-                      Book Free Consultation
-                    </Link>
-                  </div>
-                </div>
-
-              </motion.div>
-            </motion.div>
-          );
-        })()}
-      </AnimatePresence>
 
     </div>
   );

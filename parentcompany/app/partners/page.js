@@ -63,7 +63,6 @@ export default function Partners() {
 
     return (
         <div className="bg-glacier min-h-screen selection:bg-gold selection:text-dark">
-            <Navbar />
 
             <main className="pt-32">
                 {/* 1. HERO */}

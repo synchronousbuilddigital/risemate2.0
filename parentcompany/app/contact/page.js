@@ -95,11 +95,9 @@ export default function ContactPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <Navbar />
       <main>
         <ContactClient />
       </main>
-      <Footer />
     </>
   );
 }

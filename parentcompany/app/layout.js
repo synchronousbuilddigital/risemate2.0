@@ -1,10 +1,14 @@
 import "./globals.css";
 import PageAnimatePresence from "./components/PageAnimatePresence";
+import LoaderProvider from "./components/LoaderProvider";
 
 export const metadata = {
   title: "RISEMATES VENTURES | One Vision. Four Empires.",
   description: "A premium conglomerate merging Bworth, VegaVrudhi, RYM, and Synchronous Digital Build under the RISEMATES banner.",
 };
+
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 export default function RootLayout({ children }) {
   return (
@@ -15,9 +19,15 @@ export default function RootLayout({ children }) {
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Outfit:wght@100..900&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
       </head>
       <body suppressHydrationWarning={true} className="bg-white text-dark font-secondary overflow-x-hidden selection:bg-[#002366] selection:text-white antialiased grain">
-        <PageAnimatePresence>
-          {children}
-        </PageAnimatePresence>
+        <LoaderProvider>
+          <Navbar />
+          <PageAnimatePresence>
+            <main>
+              {children}
+            </main>
+          </PageAnimatePresence>
+          <Footer />
+        </LoaderProvider>
       </body>
     </html>
   );

@@ -35,7 +35,6 @@ export default function TermsOfService() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <Navbar />
       <main className="pt-48 pb-24 container-wide">
         <h1 className="text-6xl font-black text-dark mb-12 tracking-tighter">Terms of Service</h1>
         <div className="prose prose-lg text-dark/60 font-secondary max-w-4xl space-y-8">
@@ -50,7 +49,6 @@ export default function TermsOfService() {
           </section>
         </div>
       </main>
-      <Footer />
     </>
   );
 }

@@ -58,11 +58,9 @@ export default function LeadershipPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <Navbar />
       <main>
         <LeadershipClient />
       </main>
-      <Footer />
     </>
   );
 }

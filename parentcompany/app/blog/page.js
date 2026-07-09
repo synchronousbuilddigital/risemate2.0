@@ -61,11 +61,9 @@ export default async function BlogPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <Navbar />
       <main>
         <BlogClient initialBlogs={blogs} />
       </main>
-      <Footer />
     </>
   );
 }

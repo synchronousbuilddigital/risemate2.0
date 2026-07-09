@@ -34,8 +34,6 @@ export default function Operations() {
       <div className="cursor-dot hidden md:block" />
       <div className="cursor-outline hidden md:block" />
 
-      <Navbar />
-
       <main className="animate-page-in pt-32 px-8 md:px-24">
         {/* Footprint Hero */}
         <div className="max-w-7xl relative z-10 mb-24">

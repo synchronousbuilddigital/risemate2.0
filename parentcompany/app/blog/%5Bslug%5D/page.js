@@ -129,7 +129,6 @@ export default async function BlogPostPage({ params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <Navbar />
       
       <article className="min-h-screen bg-[#FAF9F6] pt-28 pb-20 md:pt-36 md:pb-32">
         <div className="container-wide max-w-4xl">
@@ -278,8 +277,6 @@ export default async function BlogPostPage({ params }) {
 
         </div>
       </article>
-
-      <Footer />
     </>
   );
 }

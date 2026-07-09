@@ -3,22 +3,22 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
 export const metadata = {
-  title: "RiseMate Ventures | Helping Startups Raise Capital & Scale Faster",
-  description: "RiseMate Ventures helps high-growth startups raise institutional capital, build investor confidence, and accelerate scale. Access specialized operations and technology via BWorth circular commerce, Vega Vrudhi managed sales, RYM deep-tech, and Synchronous brand systems.",
+  title: "Rise Mate Ventures | Connecting Global Opportunities with Scalable Execution",
+  description: "Rise Mate Ventures is a Global Business Growth & Venture Ecosystem that helps startups, enterprises, banks, fintech companies, and investors unlock new growth opportunities across international markets.",
   alternates: {
     canonical: "https://risemates.com",
   },
   openGraph: {
-    title: "RiseMate Ventures | Startup Consulting, Capital Raising & Acceleration",
-    description: "Scale faster, build investor trust, and raise capital with RiseMate's direct operational verticals and funding networks.",
+    title: "Rise Mate Ventures | Global Business Growth & Venture Ecosystem",
+    description: "By integrating strategy, funding access, AI-powered technology, business partnerships, market expansion, and execution capabilities, we help organizations scale faster with lower execution risk.",
     url: "https://risemates.com",
-    siteName: "RiseMate Ventures",
+    siteName: "Rise Mate Ventures",
     images: [
       {
         url: "https://risemates.com/beautiful-city-landscape-with-tall-buildings.jpg",
         width: 1200,
         height: 630,
-        alt: "RiseMate Ventures - Capital and Scaling Ecosystem",
+        alt: "Rise Mate Ventures - Global Business Growth & Venture Ecosystem",
       },
     ],
     locale: "en_IN",
@@ -26,8 +26,8 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "RiseMate Ventures | Helping Startups Raise Capital & Scale",
-    description: "Access specialized operations and funding networks to scale your startup. We bridge execution gaps and facilitate institutional capital.",
+    title: "Rise Mate Ventures | Connecting Global Opportunities with Scalable Execution",
+    description: "Unlock new growth opportunities across international markets by integrating strategy, funding access, AI-powered technology, and ground execution.",
     images: ["https://risemates.com/beautiful-city-landscape-with-tall-buildings.jpg"],
   },
 };
@@ -135,11 +135,7 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
       />
-      <Navbar />
-      <main>
-        <HomeClient />
-      </main>
-      <Footer />
+      <HomeClient />
     </>
   );
 }

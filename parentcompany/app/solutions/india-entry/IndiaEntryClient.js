@@ -1,0 +1,157 @@
+"use client";
+
+import Link from "next/link";
+import { motion } from "framer-motion";
+
+const solutionsList = [
+  "Market Research", "Entry Strategy", "Regulatory Guidance", "Business Setup Support", 
+  "Localization", "Strategic Partnerships", "Distribution Networks", "Sales Enablement", 
+  "Recruitment Support", "Operational Execution", "Technology Integration", 
+  "Government Liaison Support"
+];
+
+const journey = [
+  { step: "Research", desc: "Market dynamics, competition, and regulatory landscape." },
+  { step: "Plan", desc: "Business models, timelines, and capitalization." },
+  { step: "Establish", desc: "Legal setup, infrastructure, and hiring." },
+  { step: "Partner", desc: "Distribution, supply chain, and local alliances." },
+  { step: "Launch", desc: "Go-to-market and brand positioning." },
+  { step: "Execute", desc: "Sales activation and operational management." },
+  { step: "Scale", desc: "National expansion and continuous growth." },
+];
+
+const whyIndia = [
+  "One of the world's fastest-growing major economies.",
+  "Large and diverse consumer market.",
+  "Expanding digital infrastructure.",
+  "Strong startup and innovation ecosystem.",
+  "Manufacturing and supply chain opportunities.",
+  "Government initiatives supporting investment and ease of doing business."
+];
+
+export default function IndiaEntryClient() {
+  return (
+    <div className="bg-white min-h-screen selection:bg-black selection:text-white pb-32">
+      
+      {/* HERO SECTION */}
+      <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-gray-50 border-b border-gray-200">
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gold/10 blur-[150px] rounded-full pointer-events-none" />
+        
+        <div className="container-wide relative z-10 w-full text-center max-w-4xl mx-auto">
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-gray-200 shadow-sm mb-6">
+              <span className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
+              <Link href="/solutions" className="text-[10px] font-black uppercase tracking-[0.25em] text-gray-500 hover:text-black transition-colors">Solutions</Link>
+              <span className="text-gray-300 mx-1">/</span>
+              <span className="text-[10px] font-black uppercase tracking-[0.25em] text-black">India Entry</span>
+            </div>
+
+            <h1 className="text-5xl sm:text-6xl md:text-7xl font-black leading-[1.05] text-black tracking-tighter mb-8 font-primary">
+              Your Trusted Partner for <br />
+              <span className="text-gold">Business Expansion in India.</span>
+            </h1>
+            
+            <p className="text-xl md:text-2xl text-gray-500 font-secondary leading-relaxed mb-12">
+              Helping international organizations establish, expand, and grow successfully across one of the world's fastest-growing economies.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* QUOTE SECTION */}
+      <section className="py-20 bg-white border-b border-gray-200">
+        <div className="container-wide">
+          <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} className="max-w-4xl mx-auto text-center">
+            <span className="material-symbols-outlined text-4xl text-gold/50 mb-6">public</span>
+            <h2 className="text-2xl md:text-4xl font-black text-black leading-snug font-primary mb-6">
+              Why Rise Mate Ventures?
+            </h2>
+            <p className="text-lg md:text-xl text-gray-500 font-secondary leading-relaxed">
+              Unlike traditional consulting firms that stop after delivering recommendations, Rise Mate Ventures works alongside your organization to execute your market entry strategy, build local partnerships, establish operational capabilities, and support long-term growth in India.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* MAIN CONTENT */}
+      <section className="py-24 bg-white relative">
+        <div className="container-wide max-w-7xl">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
+            
+            {/* Left Column */}
+            <div className="lg:col-span-5 space-y-16">
+              
+              <div>
+                <h3 className="text-xs font-black uppercase tracking-widest text-gold mb-6 block border-b border-gray-200 pb-4">
+                  India Entry Solutions
+                </h3>
+                <ul className="space-y-4">
+                  {solutionsList.map((item, i) => (
+                    <li key={i} className="flex items-start gap-4">
+                      <div className="w-5 h-5 rounded-full bg-gray-50 border border-gray-200 flex items-center justify-center shrink-0 mt-0.5">
+                        <span className="material-symbols-outlined text-[10px] text-black">check</span>
+                      </div>
+                      <span className="text-base text-gray-700 font-medium">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="text-xs font-black uppercase tracking-widest text-gold mb-6 block border-b border-gray-200 pb-4">
+                  Why India?
+                </h3>
+                <div className="space-y-4">
+                  {whyIndia.map((item, i) => (
+                    <div key={i} className="flex gap-4 p-4 rounded-2xl bg-gray-50 border border-gray-100">
+                      <span className="material-symbols-outlined text-gold">trending_up</span>
+                      <p className="text-sm text-gray-600 font-secondary font-medium">{item}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+            </div>
+
+            {/* Right Column (Journey) */}
+            <div className="lg:col-span-7">
+              <div className="bg-gray-50 border border-gray-200 rounded-[40px] p-8 md:p-12">
+                <h3 className="text-2xl md:text-3xl font-black text-black mb-10 font-primary">
+                  Our India Expansion Framework
+                </h3>
+                <div className="space-y-0 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-gray-300 before:to-transparent">
+                  {journey.map((step, i) => (
+                    <div key={i} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active py-6">
+                      <div className="flex items-center justify-center w-10 h-10 rounded-full border border-gray-300 bg-white group-hover:border-gold group-hover:bg-gold text-gray-500 group-hover:text-black shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 transition-colors z-10">
+                        <span className="font-black text-sm">{i + 1}</span>
+                      </div>
+                      <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-6 rounded-2xl border border-gray-200 bg-white shadow-sm group-hover:shadow-md group-hover:border-gold/30 transition-all">
+                        <h4 className="font-black text-black text-lg font-primary mb-2">{step.step}</h4>
+                        <p className="text-sm text-gray-500 font-secondary leading-relaxed">{step.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA SECTION */}
+      <section className="pt-20">
+        <div className="container-wide">
+          <div className="bg-black text-white rounded-[40px] p-12 md:p-20 text-center relative overflow-hidden shadow-2xl">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-gold/20 blur-[80px] rounded-full pointer-events-none" />
+            <h2 className="text-3xl md:text-5xl font-black tracking-tighter leading-tight mb-10 font-primary relative z-10">
+              Let's Build Your India Success Story.
+            </h2>
+            <Link href="/contact" className="relative z-10 inline-flex items-center justify-center bg-gold text-black hover:bg-white hover:text-black px-10 py-5 rounded-xl text-xs font-black uppercase tracking-[0.2em] transition-all duration-300 font-primary">
+              Initialize Connection
+            </Link>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}

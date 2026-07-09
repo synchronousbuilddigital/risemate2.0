@@ -77,6 +77,13 @@ function CustomDropdown({ options, selected, onSelect, placeholder }) {
 
 export default function Investment() {
   const [interestType, setInterestType] = useState("");
+  const [identity, setIdentity] = useState("");
+  const [email, setEmail] = useState("");
+  const [summary, setSummary] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+
   const institutionalSect = useReveal();
   const incubationSect = useReveal();
 
@@ -93,13 +100,53 @@ export default function Investment() {
     return () => window.removeEventListener("mousemove", moveCursor);
   }, []);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!identity.trim() || !email.trim() || !interestType || !summary.trim()) {
+      setSubmitError("Please fill out all required fields.");
+      return;
+    }
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setSubmitError("Please enter a valid secure channel email address.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitError("");
+
+    try {
+      const res = await fetch("/api/invest", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          identity,
+          email,
+          category: interestType,
+          summary,
+        }),
+      });
+
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setSubmitted(true);
+      } else {
+        setSubmitError(data.error || "Failed to submit intent. Please try again.");
+      }
+    } catch (err) {
+      console.error("Intent submission error:", err);
+      setSubmitError("A connection error occurred. Please check your connection and try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="bg-dark text-glacier min-h-screen selection:bg-gold selection:text-dark">
       <div className="grain-overlay" />
       <div className="cursor-dot hidden md:block" />
       <div className="cursor-outline hidden md:block" />
-
-      <Navbar />
 
       <main className="animate-page-in">
         {/* Investor Hero */}
@@ -153,31 +200,85 @@ export default function Investment() {
         <section className="py-48 px-8 md:px-24 bg-dark">
              <div className="max-w-4xl mx-auto border border-gold/10 p-12 md:p-24 bg-gold/5 rounded-sm editorial-shadow">
                   <h3 className="font-headline italic text-5xl mb-12 text-center">Submission of Intent.</h3>
-                  <form className="space-y-12" onSubmit={(e) => e.preventDefault()}>
-                        <div className="border-b border-gold/20 pb-4 transition-colors duration-500 focus-within:border-gold">
-                            <input type="text" placeholder="IDENTITY / GROUP" className="w-full bg-transparent border-none focus:outline-none focus:ring-0 placeholder:text-gold/20 font-body text-sm uppercase tracking-widest text-gold" />
-                        </div>
-                        <div className="flex flex-col md:flex-row gap-12">
-                             <div className="flex-1 border-b border-gold/20 pb-4 transition-colors duration-500 focus-within:border-gold">
-                                <input type="email" placeholder="SECURE CHANNEL" className="w-full bg-transparent border-none focus:outline-none focus:ring-0 placeholder:text-gold/20 font-body text-sm uppercase tracking-widest text-gold" />
-                             </div>
-                             <div className="flex-1">
-                                <CustomDropdown 
-                                    options={["INSTITUTIONAL INVESTOR", "VENTURE FOUNDER", "PARTNER", "GENERAL ENQUIRY"]} 
-                                    selected={interestType} 
-                                    onSelect={setInterestType}
-                                    placeholder="SELECTION CATEGORY"
+                  {submitted ? (
+                       <div className="text-center space-y-8 py-12">
+                            <span className="material-symbols-outlined text-gold text-6xl">check_circle</span>
+                            <h4 className="font-headline italic text-3xl text-white">Proposal Logged.</h4>
+                            <p className="font-body text-glacier/60 text-sm max-w-md mx-auto leading-relaxed">
+                                 Your intent has been registered on secure channels. A confirmation email has been dispatched, and a venture associate will contact you shortly if there is strategic alignment.
+                            </p>
+                            <button 
+                                onClick={() => {
+                                     setSubmitted(false);
+                                     setIdentity("");
+                                     setEmail("");
+                                     setSummary("");
+                                     setInterestType("");
+                                     setSubmitError("");
+                                }}
+                                className="px-8 py-4 border border-gold/40 text-xs font-industrial tracking-[0.3em] hover:bg-gold hover:text-dark transition-all uppercase"
+                            >
+                                Submit Another Proposal
+                            </button>
+                       </div>
+                  ) : (
+                       <form className="space-y-12" onSubmit={handleSubmit}>
+                            <div className="border-b border-gold/20 pb-4 transition-colors duration-500 focus-within:border-gold">
+                                <input 
+                                     type="text" 
+                                     placeholder="IDENTITY / GROUP" 
+                                     required
+                                     value={identity}
+                                     onChange={(e) => setIdentity(e.target.value)}
+                                     className="w-full bg-transparent border-none focus:outline-none focus:ring-0 placeholder:text-gold/20 font-body text-sm uppercase tracking-widest text-gold" 
                                 />
-                             </div>
-                        </div>
-                        <div className="border-b border-gold/20 pb-4 transition-colors duration-500 focus-within:border-gold">
-                            <textarea placeholder="PROPOSAL SUMMARY" className="w-full bg-transparent border-none focus:outline-none focus:ring-0 placeholder:text-gold/20 font-body text-sm uppercase tracking-widest text-gold h-32 resize-none" />
-                        </div>
-                        <button className="w-full py-8 bg-gold text-dark font-industrial text-2xl tracking-[0.4em] hover:scale-[1.02] transition-all uppercase flex items-center justify-center gap-4">
-                            <span>Reach OUT</span>
-                            <span className="material-symbols-outlined">mail</span>
-                        </button>
-                  </form>
+                            </div>
+                            <div className="flex flex-col md:flex-row gap-12">
+                                 <div className="flex-1 border-b border-gold/20 pb-4 transition-colors duration-500 focus-within:border-gold">
+                                    <input 
+                                         type="email" 
+                                         placeholder="SECURE CHANNEL" 
+                                         required
+                                         value={email}
+                                         onChange={(e) => setEmail(e.target.value)}
+                                         className="w-full bg-transparent border-none focus:outline-none focus:ring-0 placeholder:text-gold/20 font-body text-sm uppercase tracking-widest text-gold" 
+                                    />
+                                 </div>
+                                 <div className="flex-1">
+                                    <CustomDropdown 
+                                        options={["INSTITUTIONAL INVESTOR", "VENTURE FOUNDER", "PARTNER", "GENERAL ENQUIRY"]} 
+                                        selected={interestType} 
+                                        onSelect={setInterestType}
+                                        placeholder="SELECTION CATEGORY"
+                                    />
+                                 </div>
+                            </div>
+                            <div className="border-b border-gold/20 pb-4 transition-colors duration-500 focus-within:border-gold">
+                                <textarea 
+                                     placeholder="PROPOSAL SUMMARY" 
+                                     required
+                                     value={summary}
+                                     onChange={(e) => setSummary(e.target.value)}
+                                     className="w-full bg-transparent border-none focus:outline-none focus:ring-0 placeholder:text-gold/20 font-body text-sm uppercase tracking-widest text-gold h-32 resize-none" 
+                                />
+                            </div>
+                            
+                            {submitError && (
+                                 <div className="p-4 border border-red-500/30 bg-red-500/5 text-red-400 font-body text-xs uppercase tracking-widest text-center">
+                                      {submitError}
+                                 </div>
+                            )}
+
+                            <button 
+                                 type="submit"
+                                 disabled={isSubmitting}
+                                 className="w-full py-8 bg-gold text-dark font-industrial text-2xl tracking-[0.4em] hover:scale-[1.02] transition-all uppercase flex items-center justify-center gap-4 disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                <span>{isSubmitting ? "TRANSMITTING..." : "Reach OUT"}</span>
+                                <span className="material-symbols-outlined">mail</span>
+                            </button>
+                       </form>
+                  )}
              </div>
         </section>
 

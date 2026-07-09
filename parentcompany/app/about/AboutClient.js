@@ -1,388 +1,489 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+import Globe3D from "../components/Globe3D";
 
-const staticEntities = [
+const whyPoints = [
   {
-    key: "entity_01",
-    name: "BWorth",
-    sector: "Sustainable Fashion",
-    desc: "Revolutionizing the fashion industry through a unique circular luxury ecosystem. Buy, sell, and recycle fashion while earning rewards through our unique buyback program that preserves the planet's beauty.",
-    logo: "/BWORTH.jpg",
-    textColor: "text-cyan-600",
-    hoverTextColor: "group-hover:text-cyan-600",
-    lineColor: "bg-cyan-600/30",
-    gradientColor: "from-cyan-50/80"
+    title: "Global Perspective",
+    desc: "Connecting businesses with international opportunities."
   },
   {
-    key: "entity_02",
-    name: "Vega Vrudhi",
-    sector: "Execution Architecture",
-    desc: "Precision execution architecture bridging the gap between digital leads and on-ground reality. We deploy trained field teams to accelerate market presence for national growth engines.",
-    logo: "/VEGA.png",
-    textColor: "text-green-600",
-    hoverTextColor: "group-hover:text-green-600",
-    lineColor: "bg-green-600/30",
-    gradientColor: "from-green-50/80"
+    title: "Execution Driven",
+    desc: "Turning strategy into measurable results."
   },
   {
-    key: "entity_03",
-    name: "RYM Grenergy",
-    sector: "Deep-Tech",
-    desc: "Enabling a carbon-neutral future by developing the world’s greenest battery cell and intelligent green-tech infrastructure through AI, IoT, and Smart Automation.",
-    logo: "/RYM.png",
-    textColor: "text-[#C9A84C]",
-    hoverTextColor: "group-hover:text-[#C9A84C]",
-    lineColor: "bg-[#C9A84C]/30",
-    gradientColor: "from-[#C9A84C]/10"
+    title: "Innovation Focused",
+    desc: "Using AI and digital transformation to build future-ready businesses."
   },
   {
-    key: "entity_04",
-    name: "Synchronous",
-    sector: "Digital Marketing",
-    desc: "Architecting high-velocity digital ecosystems for high-growth elite brands. We build vertically integrated brand identities and compound ROI via algorithmic process automation.",
-    logo: "/sync.jpg",
-    textColor: "text-orange-500",
-    hoverTextColor: "group-hover:text-orange-500",
-    lineColor: "bg-orange-500/30",
-    gradientColor: "from-orange-50/80"
+    title: "Collaborative Network",
+    desc: "Building meaningful relationships across industries and markets."
+  },
+  {
+    title: "Sustainable Growth",
+    desc: "Helping organizations create lasting value through responsible expansion."
+  }
+];
+
+const coreValues = [
+  {
+    title: "Partnership",
+    desc: "Building relationships based on trust, collaboration, and shared success."
+  },
+  {
+    title: "Innovation",
+    desc: "Continuously embracing technology and new ideas."
+  },
+  {
+    title: "Integrity",
+    desc: "Operating with transparency, accountability, and professionalism."
+  },
+  {
+    title: "Excellence",
+    desc: "Delivering the highest standards in strategy and execution."
+  },
+  {
+    title: "Global Mindset",
+    desc: "Thinking beyond borders while understanding local markets."
+  },
+  {
+    title: "Impact",
+    desc: "Creating measurable value for businesses, industries, and communities."
   }
 ];
 
 export default function AboutClient() {
-  const [dynamicEntities, setDynamicEntities] = useState(staticEntities);
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
 
-  useEffect(() => {
-    fetch("/api/content", { cache: "no-store" })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.portfolioItems && data.portfolioItems.length > 0) {
-          const merged = staticEntities.map((staticEnt) => {
-            const dynamicEnt = data.portfolioItems.find(p => p.key === staticEnt.key);
-            if (dynamicEnt) {
-              return {
-                ...staticEnt,
-                name: dynamicEnt.title,
-                tagline: dynamicEnt.tagline || staticEnt.tagline,
-                tag: dynamicEnt.tag || staticEnt.tag,
-                img: dynamicEnt.img || staticEnt.img,
-                desc: dynamicEnt.desc || staticEnt.desc,
-                logo: dynamicEnt.logo || staticEnt.logo,
-                link: dynamicEnt.link || staticEnt.link,
-                sector: dynamicEnt.sector || staticEnt.sector
-              };
-            }
-            return staticEnt;
-          });
-
-          data.portfolioItems.forEach(dynamicEnt => {
-            const exists = staticEntities.some(staticEnt => staticEnt.key === dynamicEnt.key);
-            if (!exists) {
-              merged.push({
-                key: dynamicEnt.key,
-                name: dynamicEnt.title,
-                sector: dynamicEnt.sector || "New Venture",
-                desc: dynamicEnt.desc || "",
-                tagline: dynamicEnt.tagline || "",
-                tag: dynamicEnt.tag || "",
-                img: dynamicEnt.img || "",
-                logo: dynamicEnt.logo || "",
-                link: dynamicEnt.link || "",
-                textColor: "text-blue-600",
-                hoverTextColor: "group-hover:text-blue-600",
-                lineColor: "bg-blue-600/30",
-                gradientColor: "from-blue-50/80"
-              });
-            }
-          });
-          setDynamicEntities(merged);
-        }
-      })
-      .catch((err) => console.error("Error fetching content:", err));
-  }, []);
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, 100]);
 
   return (
-    <div className="bg-white">
-      {/* 1. HERO SECTION */}
-      <section className="relative pt-10 pb-16 md:pt-24 md:pb-28 px-6 md:px-12 lg:px-24 overflow-hidden border-b border-dark/5 bg-[#fafafa]">
-        {/* Architectural Mesh Background */}
-        <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,#000_1px,transparent_1px),linear-gradient(to_bottom,#000_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
+    <div className="bg-white min-h-screen selection:bg-black selection:text-white" ref={containerRef}>
 
-        {/* Massive Outline Text Background */}
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center pointer-events-none select-none z-0">
+      {/* 1. HERO SECTION (PREMIUM LIGHT, SPLIT LAYOUT) */}
+      <section className="relative min-h-[95vh] flex items-center pt-32 pb-20 overflow-hidden bg-white">
+        {/* Subtle Background Elements */}
+        <div className="absolute top-0 right-0 w-full h-full overflow-hidden pointer-events-none">
+          <div className="absolute top-[-20%] right-[-10%] w-[1000px] h-[1000px] bg-gold/5 blur-[120px] rounded-full" />
+          <div className="absolute bottom-[-20%] left-[-10%] w-[800px] h-[800px] bg-gray-100/50 blur-[100px] rounded-full" />
+        </div>
+
+        <div className="container-wide relative z-10 w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+
+            {/* Left Column: Typography */}
+            <div className="lg:col-span-6 flex flex-col items-start text-left">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1 }}
+                className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-gray-50 border border-gray-200 shadow-sm mb-10"
+              >
+                <span className="w-2 h-2 rounded-full bg-gold animate-pulse" />
+                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-gray-600">About The Ecosystem</span>
+              </motion.div>
+
+              <motion.h1
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 0.1 }}
+                className="text-5xl sm:text-7xl md:text-[5.5rem] lg:text-[6.5rem] font-black leading-[1.05] text-black tracking-tighter mb-8 font-primary"
+              >
+                Building <br /> Businesses <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-gold to-yellow-600">
+                  Beyond Borders.
+                </span>
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 0.2 }}
+                className="text-lg md:text-2xl text-gray-500 font-secondary leading-relaxed max-w-xl mb-12"
+              >
+                Creating opportunities where strategy, technology, capital, and execution come together.
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 0.3 }}
+                className="flex flex-wrap gap-4"
+              >
+                <Link href="#our-story" className="bg-black text-white px-8 py-4 rounded-full text-[11px] font-black uppercase tracking-[0.2em] hover:bg-gold hover:text-black transition-colors shadow-lg shadow-black/10">
+                  Our Story
+                </Link>
+                <Link href="/services" className="bg-white text-black px-8 py-4 rounded-full text-[11px] font-black uppercase tracking-[0.2em] border border-gray-200 hover:border-gold/50 hover:bg-gray-50 transition-colors shadow-sm">
+                  Explore Ecosystem
+                </Link>
+              </motion.div>
+            </div>
+
+            {/* Right Column: Stunning Integrated Globe Card */}
+            <div className="lg:col-span-6 relative flex justify-end">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95, x: 20 }}
+                animate={{ opacity: 1, scale: 1, x: 0 }}
+                transition={{ duration: 1.2, delay: 0.3 }}
+                className="w-full max-w-[600px] aspect-[4/5] md:aspect-square rounded-[48px] overflow-hidden bg-gray-50 border border-gray-200 shadow-2xl relative group"
+              >
+                {/* Internal Card Header */}
+                <div className="absolute top-0 left-0 w-full p-8 z-20 flex justify-between items-start pointer-events-none">
+                  <div className="bg-white/80 backdrop-blur-md px-4 py-2 rounded-2xl border border-white/50 shadow-sm">
+                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-black">Global Reach</span>
+                  </div>
+                  <div className="w-12 h-12 rounded-full bg-white/80 backdrop-blur-md border border-white/50 shadow-sm flex items-center justify-center">
+                    <span className="material-symbols-outlined text-gold">public</span>
+                  </div>
+                </div>
+
+                {/* The Globe */}
+                <div className="absolute inset-0 bg-gradient-to-br from-[#000d24] to-[#001f54]">
+                  <Globe3D focusLocation={{ longitude: 77.02, latitude: 28.45, zoom: 1.5 }} />
+                  <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: 'inset 0 0 60px rgba(0,0,0,0.6)' }} />
+                </div>
+
+                {/* Bottom Floating Stats */}
+                <div className="absolute bottom-8 left-8 right-8 z-20 pointer-events-none">
+                  <div className="bg-white/90 backdrop-blur-xl p-6 rounded-3xl border border-white/50 shadow-xl transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                    <p className="text-xs font-black text-gray-500 uppercase tracking-widest mb-1">Execution Hub</p>
+                    <p className="text-2xl font-black text-black font-primary">Strategy + Capital</p>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* 2. WHO WE ARE - CREATIVE TYPOGRAPHY REVEAL */}
+      <section className="py-24 md:py-40 bg-white relative">
+        <div className="container-wide max-w-6xl">
+          <div className="flex items-center gap-4 mb-16">
+            <div className="w-16 h-px bg-gold" />
+            <span className="text-xs font-black uppercase tracking-[0.4em] text-black">Who We Are</span>
+          </div>
+
+          {/* Massive Text Statement */}
           <motion.h2
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 2, ease: "easeOut" }}
-            className="text-[15vw] font-black text-transparent uppercase tracking-tighter" style={{ WebkitTextStroke: "2px rgba(0,35,102,0.05)" }}>
-            RISEMATES
-          </motion.h2>
-        </div>
-
-        <div className="max-w-screen-2xl mx-auto relative z-10 w-full">
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-16 lg:gap-24 w-full">
-
-            {/* Left Text Block */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-              className="flex-1"
-            >
-              <div className="inline-flex items-center gap-6 mb-12">
-                <div className="h-[1px] w-20 bg-[#002366]/30 relative overflow-hidden">
-                  <motion.div initial={{ x: "-100%" }} animate={{ x: "0%" }} transition={{ duration: 1.5, delay: 0.5, ease: "easeInOut" }} className="absolute top-0 left-0 w-full h-full bg-[#002366]" />
-                </div>
-                <span className="text-[10px] font-black uppercase tracking-[0.6em] text-[#002366]">About the Portal</span>
-              </div>
-
-              <h1 className="text-3xl sm:text-6xl md:text-[6.5rem] xl:text-[8.5rem] font-black leading-[0.85] text-dark tracking-tighter mb-8">
-                The Sovereign<br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 via-blue-900 to-dark opacity-90 pr-4">Legacy.</span>
-              </h1>
-            </motion.div>
-
-            {/* Right Descriptor Block */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="flex-1 lg:max-w-xl pb-6 border-l-[2px] border-[#002366]/20 pl-8 lg:pl-16 relative"
-            >
-              {/* Vertical Animated Line Overlay */}
-              <motion.div
-                initial={{ height: 0 }}
-                animate={{ height: "100%" }}
-                transition={{ duration: 1.5, delay: 0.8, ease: "easeInOut" }}
-                className="absolute top-0 -left-[2px] w-[2px] bg-[#002366]"
-              />
-
-              <div className="hidden lg:flex w-14 h-14 mb-10 rounded-full border border-dark/10 items-center justify-center bg-white shadow-md">
-                <span className="material-symbols-outlined text-dark text-2xl font-light">language</span>
-              </div>
-
-              <p className="text-xl md:text-3xl text-dark/60 font-secondary leading-snug">
-                RiseMates Ventures catalysts economic development by connecting global institutional expertise with high-growth entities across <span className="font-bold text-dark">fashion, tech, energy,</span> and <span className="font-bold text-dark">digital sectors.</span>
-              </p>
-
-              <div className="mt-14 flex flex-col sm:flex-row sm:items-center gap-6">
-                <div className="flex -space-x-4">
-                  <div className="w-12 h-12 rounded-full border-[3px] border-[#fafafa] bg-emerald-50 text-emerald-600 shadow-lg flex items-center justify-center z-[1]">
-                    <span className="material-symbols-outlined text-base">eco</span>
-                  </div>
-                  <div className="w-12 h-12 rounded-full border-[3px] border-[#fafafa] bg-dark text-white shadow-lg flex items-center justify-center z-[2]">
-                    <span className="material-symbols-outlined text-base">precision_manufacturing</span>
-                  </div>
-                  <div className="w-12 h-12 rounded-full border-[3px] border-[#fafafa] bg-[#002366] text-white shadow-lg flex items-center justify-center z-[3]">
-                    <span className="material-symbols-outlined text-base">data_object</span>
-                  </div>
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-[10px] font-black uppercase tracking-[0.3em] text-dark">Multi-Sector Integration</span>
-                  <span className="text-[9px] font-bold text-dark/40 uppercase tracking-widest mt-1">Cross-Industry Expertise</span>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* 2. MISSION & VISION */}
-      <section className="py-16 md:py-24 bg-dark text-white relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-full bg-blue-600/5 mix-blend-overlay" />
-        <div className="container-wide relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-20 items-center">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              viewport={{ once: false, amount: 0.2 }}
-              transition={{ duration: 1 }}
-              className="lg:col-span-12"
-            >
-              <h2 className="text-4xl md:text-8xl font-black mb-16 leading-tight tracking-tighter text-center">
-                Architecting <span className="text-gold">Sovereign</span> <br />Industrial Success
-              </h2>
-            </motion.div>
-            <div className="lg:col-span-6 space-y-12">
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -30 }}
-                viewport={{ once: false, amount: 0.3 }}
-                transition={{ duration: 0.8 }}
-                className="p-6 md:p-10 border border-white/10 rounded-[24px] md:rounded-[40px] hover:border-gold/30 transition-all group"
-              >
-                <h3 className="text-2xl font-bold mb-6 text-gold group-hover:tracking-widest transition-all">Our Philosophy</h3>
-                <p className="text-lg text-white/50 font-secondary leading-relaxed italic">
-                  "Stewardship defined by the fusion of industrial intelligence and sovereign legacy. Leading the next generation of global impact through precision execution."
-                </p>
-              </motion.div>
-            </div>
-            <div className="lg:col-span-6 space-y-12">
-              <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 30 }}
-                viewport={{ once: false, amount: 0.3 }}
-                transition={{ duration: 0.8 }}
-                className="p-6 md:p-10 border border-white/10 rounded-[24px] md:rounded-[40px] hover:border-blue-500/30 transition-all group"
-              >
-                <h3 className="text-2xl font-bold mb-6 text-blue-500 group-hover:tracking-widest transition-all">Institutional Impact</h3>
-                <p className="text-lg text-white/50 font-secondary leading-relaxed italic">
-                  We operate as a central repository for verified institutional content, ensuring that every entity under the RISEMATES banner adheres to supreme market authority.
-                </p>
-              </motion.div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. FOUR ENTITIES OVERVIEW */}
-      <section className="py-16 bg-white">
-        <div className="container-wide">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.5 }}
-            className="flex flex-col md:flex-row justify-between items-end mb-24 border-b border-dark/10 pb-12"
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1 }}
+            className="text-2xl md:text-3xl lg:text-4xl xl:text-[40px] font-black text-black tracking-tight leading-[1.2] mb-16 font-primary w-full"
           >
-            <h2 className="text-4xl md:text-7xl font-bold text-dark tracking-tighter">The Registry</h2>
-            <p className="text-dark/40 font-black uppercase tracking-[0.3em] text-xs mt-4 md:mt-0">Ref: CONTENT_MANIFESTO_2026</p>
-          </motion.div>
+            Rise Mate Ventures is a Global Growth Ecosystem helping organizations <span className="text-gray-400 whitespace-nowrap">unlock their full potential.</span>
+          </motion.h2>
 
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {dynamicEntities.map((entity, idx) => (
+          {/* Comparison Concept Layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-start">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="space-y-8"
+            >
+              <h3 className="text-2xl md:text-4xl font-black text-black leading-tight">
+                Your strategic growth partner.
+              </h3>
+              <p className="text-lg text-gray-500 font-secondary leading-relaxed">
+                We empower businesses to scale globally, navigate complexity, and seize new opportunities with confidence.
+              </p>
+            </motion.div>
+
+            {/* Visual breakdown instead of paragraphs */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="bg-gray-50 border border-gray-200 p-10 md:p-12 rounded-[40px] relative overflow-hidden"
+            >
+              <span className="text-[10px] font-black uppercase tracking-widest text-gold mb-8 block">The Difference</span>
+
+              <div className="space-y-8 relative z-10">
+                <div className="flex gap-4 items-start opacity-40">
+                  <span className="material-symbols-outlined text-black mt-1">close</span>
+                  <div>
+                    <h4 className="text-lg font-black text-black mb-1">Traditional Consulting</h4>
+                    <p className="text-sm text-gray-600">Provide recommendations only.</p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4 items-start opacity-40">
+                  <span className="material-symbols-outlined text-black mt-1">close</span>
+                  <div>
+                    <h4 className="text-lg font-black text-black mb-1">Traditional VC</h4>
+                    <p className="text-sm text-gray-600">Focus primarily on investment.</p>
+                  </div>
+                </div>
+
+                <div className="w-full h-px bg-gray-200" />
+
+                <div className="flex gap-4 items-start">
+                  <div className="w-8 h-8 rounded-full bg-gold flex items-center justify-center shrink-0 shadow-lg">
+                    <span className="material-symbols-outlined text-white text-sm">check</span>
+                  </div>
+                  <div>
+                    <h4 className="text-xl font-black text-black mb-2">Rise Mate Ecosystem</h4>
+                    <p className="text-sm text-gray-600 leading-relaxed font-secondary">
+                      Integrated strategy, capital, and execution. <br /><br />
+                      <strong>We don't just plan—we execute.</strong>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. OUR STORY - CREATIVE SPLIT SCREEN */}
+      <section id="our-story" className="py-24 md:py-40 bg-white relative overflow-hidden border-y border-gray-100">
+        <div className="container-wide max-w-7xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+
+            {/* Image Side (Redesigned Container) */}
+            <motion.div
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1 }}
+              className="relative w-full aspect-square md:aspect-[4/3] lg:aspect-square rounded-[40px] overflow-hidden bg-gray-50 border border-gray-200 shadow-2xl p-10 flex items-center justify-center group"
+            >
+              <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20" />
+              <div className="relative w-full h-full transform group-hover:scale-105 transition-transform duration-700">
+                <Image
+                  src="/about_story.png"
+                  alt="Integrated Strategy and Growth"
+                  fill
+                  className="object-contain drop-shadow-2xl"
+                  unoptimized
+                />
+              </div>
+              {/* Floating Badge */}
+              <div className="absolute top-6 right-6 bg-white/90 backdrop-blur-md px-6 py-3 rounded-full border border-gray-200 shadow-lg">
+                <span className="text-[10px] font-black uppercase tracking-widest text-black">Unified Strategy</span>
+              </div>
+            </motion.div>
+
+            {/* Text Side (Refined Typography) */}
+            <div className="flex flex-col justify-center">
+              <div className="flex items-center gap-4 mb-10">
+                <div className="w-12 h-px bg-gold" />
+                <span className="text-xs font-black uppercase tracking-[0.4em] text-gold">Our Story</span>
+              </div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-black tracking-tight leading-[1.05] mb-10 font-primary">
+                  Every successful business shares one common challenge. <br />
+                  <span className="text-gray-400 text-3xl md:text-4xl lg:text-5xl block mt-4">Growth requires multiple capabilities working together seamlessly.</span>
+                </h2>
+
+                <div className="flex flex-wrap gap-2 mb-10">
+                  {["Guidance", "Funding", "Technology", "Sales Infrastructure", "Partnerships", "Execution"].map((tag, i) => (
+                    <span key={i} className="px-4 py-2 rounded-full border border-gray-200 bg-white text-[10px] font-black uppercase tracking-widest text-gray-600 shadow-sm hover:border-gold hover:text-black transition-colors cursor-default">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <p className="text-lg text-gray-600 font-secondary leading-relaxed mb-10">
+                  Traditionally, these capabilities have existed in isolation. Rise Mate Ventures was established to bridge this gap by creating an integrated ecosystem where businesses can access every growth enabler through one trusted partner.
+                </p>
+
+                <div className="relative p-8 rounded-3xl bg-black overflow-hidden group shadow-xl">
+                  <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-black z-0" />
+                  <div className="absolute right-0 top-0 w-32 h-32 bg-gold/10 blur-3xl rounded-full z-0 group-hover:bg-gold/20 transition-colors duration-500" />
+
+                  <div className="relative z-10">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-gold mb-3 flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-gold" />
+                      Our Purpose
+                    </span>
+                    <p className="text-xl font-black text-white leading-snug font-primary">
+                      To make business growth faster, smarter, and more sustainable by connecting vision with execution.
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* 4. VISION, MISSION, PURPOSE - INTERACTIVE CARDS */}
+      <section className="py-24 md:py-32 bg-white">
+        <div className="container-wide max-w-7xl">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+            {/* Vision */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="bg-white border border-gray-200 p-10 lg:p-12 rounded-[40px] shadow-sm hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-2 transition-all duration-300 group flex flex-col justify-between"
+            >
+              <div>
+                <div className="text-6xl text-gray-300 font-black mb-8 group-hover:text-gold/40 transition-colors">01</div>
+                <h3 className="text-3xl font-black text-black font-primary mb-6">Our Vision</h3>
+                <p className="text-gray-500 font-secondary leading-relaxed">
+                  To become the world's most trusted Global Business Growth & Venture Ecosystem, enabling organizations to scale across borders through innovation, partnerships, technology, and execution excellence.
+                </p>
+              </div>
+              <div className="w-12 h-12 rounded-full border border-gray-200 mt-12 flex items-center justify-center group-hover:bg-black group-hover:border-black transition-colors">
+                <span className="material-symbols-outlined text-black group-hover:text-gold transition-colors">visibility</span>
+              </div>
+            </motion.div>
+
+            {/* Mission */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="bg-black text-white p-10 lg:p-12 rounded-[40px] shadow-xl hover:-translate-y-2 transition-all duration-300 group flex flex-col justify-between relative overflow-hidden"
+            >
+              <div className="absolute top-0 right-0 w-64 h-64 bg-gold/20 blur-[80px] rounded-full pointer-events-none" />
+              <div className="relative z-10">
+                <div className="text-6xl text-white/30 font-black mb-8 group-hover:text-gold/50 transition-colors">02</div>
+                <h3 className="text-3xl font-black text-white font-primary mb-6">Our Mission</h3>
+                <p className="text-white/70 font-secondary leading-relaxed">
+                  To empower businesses by providing integrated access to advisory, funding, digital transformation, and execution. We are committed to creating an ecosystem where startups, enterprises, governments, and investors collaborate to build sustainable economic value.
+                </p>
+              </div>
+              <div className="relative z-10 w-12 h-12 rounded-full border border-white/20 mt-12 flex items-center justify-center bg-white/10 backdrop-blur-md">
+                <span className="material-symbols-outlined text-gold">rocket_launch</span>
+              </div>
+            </motion.div>
+
+            {/* Purpose */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="bg-white border border-gray-200 p-10 lg:p-12 rounded-[40px] shadow-sm hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] hover:-translate-y-2 transition-all duration-300 group flex flex-col justify-between"
+            >
+              <div>
+                <div className="text-6xl text-gray-300 font-black mb-8 group-hover:text-gold/40 transition-colors">03</div>
+                <h3 className="text-3xl font-black text-black font-primary mb-6">Our Purpose</h3>
+                <p className="text-gray-500 font-secondary leading-relaxed">
+                  We exist to simplify business growth. By integrating strategy, capital access, technology, partnerships, and execution, we help organizations transform opportunities into measurable outcomes.
+                </p>
+              </div>
+              <div className="w-12 h-12 rounded-full border border-gray-200 mt-12 flex items-center justify-center group-hover:bg-black group-hover:border-black transition-colors">
+                <span className="material-symbols-outlined text-black group-hover:text-gold transition-colors">target</span>
+              </div>
+            </motion.div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* 5. WHY RISE MATE VENTURES - CREATIVE LIST */}
+      <section className="py-24 md:py-32 bg-gray-50 border-y border-gray-200 relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
+
+        <div className="container-wide">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24">
+
+            {/* Sticky Header */}
+            <div className="lg:col-span-5 relative">
+              <div className="sticky top-40">
+                <span className="text-xs font-black uppercase tracking-[0.4em] text-gold mb-4 block">Why Us</span>
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-black tracking-tighter leading-[1.1] mb-6 font-primary">
+                  Integrated <br />Growth Platform
+                </h2>
+                <p className="text-lg text-gray-500 font-secondary leading-relaxed border-l-2 border-gold pl-6">
+                  One ecosystem supporting every stage of business growth.
+                </p>
+              </div>
+            </div>
+
+            {/* Scrolling Points */}
+            <div className="lg:col-span-7 space-y-6">
+              {whyPoints.map((point, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, x: 40 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.6, delay: idx * 0.1 }}
+                  className="bg-white border border-gray-200 p-8 md:p-10 rounded-[32px] flex flex-col sm:flex-row items-start sm:items-center gap-6 md:gap-10 hover:border-gold/50 hover:shadow-lg transition-all duration-300 group"
+                >
+                  <div className="text-3xl font-black text-gray-300 group-hover:text-gold transition-colors">
+                    0{idx + 1}
+                  </div>
+                  <div>
+                    <h3 className="text-xl md:text-2xl font-black text-black font-primary mb-2">
+                      {point.title}
+                    </h3>
+                    <p className="text-sm md:text-base text-gray-500 font-secondary leading-relaxed">
+                      {point.desc}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* 6. CORE VALUES - BENTO GRID */}
+      <section className="py-24 md:py-32 bg-white">
+        <div className="container-wide max-w-6xl">
+          <div className="text-center mb-20">
+            <span className="text-xs font-black uppercase tracking-[0.4em] text-gold mb-4 block">Principles</span>
+            <h2 className="text-4xl md:text-5xl font-black text-black tracking-tighter leading-[1.1] font-primary">
+              Core Values
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {coreValues.map((value, idx) => (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                viewport={{ once: true, amount: 0.1 }}
-                transition={{ delay: idx * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }} className="group relative h-auto pb-6 sm:h-[300px] md:h-[380px] lg:h-[420px] bg-[#f8f9fa] border border-dark/5 hover:border-blue-600/10 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] rounded-[20px] md:rounded-[40px] overflow-hidden flex flex-col"
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                className="bg-white border border-gray-200 rounded-[32px] p-8 md:p-10 hover:bg-black hover:text-white transition-colors duration-500 group shadow-sm"
               >
-                {/* Large background watermark logo */}
-                {entity.logo && (
-                  <div className="absolute inset-0 w-full h-full opacity-[0.25] group-hover:opacity-[0.4] group-hover:scale-105 pointer-events-none z-0 transition-all duration-1000">
-                    <Image src={entity.logo} alt="" fill className="object-contain p-6 filter grayscale mix-blend-multiply" unoptimized={true} />
-                  </div>
-                )}
-                {/* Top bar with Entity Number & Logo */}
-                <div className="flex items-center justify-between p-5 pb-0 lg:p-10 lg:pb-0 z-10">
-                  <span className={`text-[7px] md:text-[10px] font-black uppercase tracking-[0.4em] text-dark/30 block ${entity.hoverTextColor} transition-colors duration-500`}>Entity 0{idx + 1}</span>
-                  {entity.logo && (
-                    <div className="w-10 h-10 md:w-16 md:h-16 bg-white rounded-full p-1.5 md:p-2 border border-dark/5 shadow-sm overflow-hidden flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
-                      <Image src={entity.logo} alt={entity.name} width={44} height={44} className="object-contain" unoptimized={true} />
-                    </div>
-                  )}
+                <div className="w-12 h-12 bg-gray-50 border border-gray-200 rounded-full flex items-center justify-center mb-8 group-hover:bg-white/10 group-hover:border-white/10 transition-colors">
+                  <div className="w-3 h-3 bg-gold rounded-full" />
                 </div>
-
-                {/* Content container that slides up (desktop only) */}
-                <div className="p-5 pt-4 lg:p-10 lg:pt-6 flex flex-col h-full justify-end transform transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] md:group-hover:-translate-y-[120px] lg:group-hover:-translate-y-[140px] z-10 relative">
-                  <h4 className="text-base sm:text-3xl font-black text-dark mb-1 lg:mb-4 leading-none">{entity.name}</h4>
-                  <p className={`text-[7px] sm:text-[10px] sm:text-xs font-bold ${entity.textColor} uppercase tracking-widest leading-none mb-3 md:mb-0`}>{entity.sector}</p>
-
-                  {/* Mobile Description to fill empty card space */}
-                  <p className="block md:hidden text-[9px] text-dark/70 font-secondary leading-tight mt-2">
-                    {entity.desc}
-                  </p>
-                </div>
-
-                {/* Absolute details that fade & slide in from bottom (desktop only) */}
-                <div className="hidden md:block absolute bottom-0 left-0 w-full p-10 pt-0 opacity-0 translate-y-12 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-20 pointer-events-none">
-                  <div className={`w-8 h-[2px] ${entity.lineColor} mb-5 group-hover:w-16 transition-all duration-700 delay-100 ease-[cubic-bezier(0.16,1,0.3,1)]`} />
-                  <p className="text-[11px] lg:text-xs text-dark/70 font-secondary leading-relaxed w-[95%]">
-                    {entity.desc}
-                  </p>
-                </div>
-
-                {/* Subtle decorative background gradient on hover */}
-                <div className={`absolute inset-0 bg-gradient-to-t ${entity.gradientColor} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none`} />
+                <h3 className="text-2xl font-black text-black group-hover:text-white font-primary mb-4 transition-colors">
+                  {value.title}
+                </h3>
+                <p className="text-sm text-gray-500 group-hover:text-gray-400 font-secondary leading-relaxed transition-colors">
+                  {value.desc}
+                </p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 4. GLOBAL REACH */}
-      <section className="py-16 md:py-24 bg-[#f8f9fa] border-t border-dark/5">
-        <div className="container-wide text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 30 }}
-            viewport={{ once: false, amount: 0.3 }}
-            className="max-w-4xl mx-auto mb-24"
-          >
-            <h2 className="text-5xl md:text-8xl font-black text-dark tracking-tighter mb-12">Global <br className="md:hidden" /><span className="text-dark/20 text-4xl md:text-7xl italic">Headquarters.</span></h2>
-            <p className="text-xl text-dark/40 font-secondary italic">Our physical presence operating at high-velocity across the continental registry.</p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              viewport={{ once: false, amount: 0.2 }}
-              className="p-6 md:p-16 bg-white shadow-xl rounded-[32px] md:rounded-[60px] relative overflow-hidden group border border-dark/5"
-            >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-gold/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-1000" />
-              <span className="block text-xs font-black uppercase tracking-[0.8em] text-gold mb-10">Institutional NCR</span>
-              <h3 className="text-3xl md:text-5xl font-black text-dark mb-6">Gurugram</h3>
-              <p className="text-lg text-dark/60 font-secondary leading-relaxed">
-                7th Floor, Spaze Plazo, <br />
-                Golf Course Ext. Road Sector – 69.
-              </p>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 50 }}
-              viewport={{ once: false, amount: 0.2 }}
-              className="p-6 md:p-16 bg-white shadow-xl rounded-[32px] md:rounded-[60px] relative overflow-hidden group border border-dark/5"
-            >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-blue-600/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-1000" />
-              <span className="block text-xs font-black uppercase tracking-[0.8em] text-[#002366] mb-10">Royal Heritage Hub</span>
-              <h3 className="text-3xl md:text-5xl font-black text-dark mb-6">Jaipur</h3>
-              <p className="text-lg text-dark/60 font-secondary leading-relaxed">
-                Vinayak Enclave, <br />
-                Jagatpura.
-              </p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 bg-white border-t border-dark/5 text-center">
-        <div className="max-w-3xl mx-auto px-6">
-          <h2 className="text-3xl md:text-5xl font-black text-dark tracking-tighter mb-6">
-            Ready to Accelerate Growth?
-          </h2>
-          <p className="text-base text-dark/60 font-secondary mb-10">
-            Learn how RiseMate's corporate legacy and funding network can empower your startup's future.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link
-              href="/contact"
-              className="bg-[#002366] text-white px-8 py-4 rounded-full text-xs font-black uppercase tracking-[0.2em] shadow-lg shadow-[#002366]/20 hover:bg-dark transition-all duration-300"
-            >
-              Book a Free Consultation
-            </Link>
-            <Link
-              href="/contact?type=partner"
-              className="bg-white border border-dark/10 text-dark px-8 py-4 rounded-full text-xs font-black uppercase tracking-[0.2em] hover:bg-dark hover:text-white transition-all duration-300"
-            >
-              Talk to Our Experts
-            </Link>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

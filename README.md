@@ -52,3 +52,5 @@ To validate the builds for production and compile optimal bundles:
 cd parentcompany
 npm run build
 ```
+
+# risemate2.0

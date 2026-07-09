@@ -58,11 +58,9 @@ export default function AboutPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <Navbar />
       <main>
         <AboutClient />
       </main>
-      <Footer />
     </>
   );
 }
