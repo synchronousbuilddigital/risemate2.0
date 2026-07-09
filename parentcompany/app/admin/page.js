@@ -524,7 +524,8 @@ export default function AdminDashboard() {
         }
 
         const payload = {
-            slug: activeBlogSlug,
+            slug: blogSlug || activeBlogSlug,
+            oldSlug: activeBlogSlug,
             title: targetTitle,
             category: finalCategory,
             description: blogDescription,

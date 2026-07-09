@@ -23,7 +23,7 @@ export async function POST(request) {
         }
 
         const data = await request.json();
-        const { slug, title, category, description, author, date, readTime, image, content, related } = data;
+        const { slug, oldSlug, title, category, description, author, date, readTime, image, content, related } = data;
 
         if (!title) {
             return NextResponse.json({ success: false, error: 'Blog title is required' }, { status: 400 });
@@ -51,18 +51,21 @@ export async function POST(request) {
             if (!baseSlug) baseSlug = 'article';
             
             const existing = await collection.findOne({ slug: baseSlug });
-            if (existing) {
+            if (existing && (!oldSlug || oldSlug === '__new__')) {
                 targetSlug = `${baseSlug}-${Math.floor(Date.now() / 1000)}`;
             } else {
                 targetSlug = baseSlug;
             }
         }
+        
+        targetSlug = slugify(targetSlug); // ensure completely sanitized
         updateDoc.slug = targetSlug;
 
-        const isNewPost = !slug || slug === '__new__';
+        const isNewPost = !oldSlug || oldSlug === '__new__';
+        const lookupSlug = isNewPost ? targetSlug : oldSlug;
 
         await collection.updateOne(
-            { slug: targetSlug },
+            { slug: lookupSlug },
             { $set: updateDoc },
             { upsert: true }
         );
