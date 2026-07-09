@@ -1,5 +1,5 @@
 export default function sitemap() {
-  const baseUrl = "https://risemates.com"; // Change to active production domain if different
+  const baseUrl = "https://RiseMatess.com"; // Change to active production domain if different
   const routes = [
     "",
     "/about",

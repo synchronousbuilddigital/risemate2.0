@@ -24,7 +24,8 @@ const WysiwygEditor = ({ value, onChange }) => {
 
     return (
         <div className="space-y-2 relative">
-            <style dangerouslySetInnerHTML={{__html: `
+            <style dangerouslySetInnerHTML={{
+                __html: `
                 div[contenteditable="true"] h2 { font-size: 1.5em; font-weight: 800; margin-bottom: 0.5em; margin-top: 1em; color: white; }
                 div[contenteditable="true"] h3 { font-size: 1.25em; font-weight: 700; margin-bottom: 0.5em; margin-top: 1em; color: white; }
                 div[contenteditable="true"] p { margin-bottom: 1em; }
@@ -300,7 +301,7 @@ export default function AdminDashboard() {
         setBlogCategory('Startup Funding');
         setBlogCustomCategory('');
         setBlogDescription('');
-        setBlogAuthor('RiseMates Ventures');
+        setBlogAuthor('RiseMatess Ventures');
 
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         const today = new Date().toLocaleDateString('en-US', options);
@@ -656,7 +657,7 @@ export default function AdminDashboard() {
             setBlogReadTime(blog.readTime || '5 min read');
             setBlogContent(blog.content || '');
             setBlogCustomCategory('');
-            
+
             const slugify = (text) => text.toString().toLowerCase().trim().replace(/\s+/g, '-').replace(/[^\w\-]+/g, '').replace(/\-\-+/g, '-');
             setBlogSlug(slugify(blog.title));
 
@@ -883,7 +884,7 @@ export default function AdminDashboard() {
                         {/* Recent Inquiries Table */}
                         <div className="bg-[#001233]/30 border border-white/5 rounded-3xl p-6 md:p-8 shadow-xl">
                             <span className="text-[10px] font-black uppercase tracking-widest text-[#C9A84C] block mb-6 border-b border-white/5 pb-3">Recent Contact Inquiries</span>
-                            
+
                             <div className="overflow-x-auto w-full">
                                 {stats?.recentContacts && stats.recentContacts.length > 0 ? (
                                     <table className="w-full text-left text-xs border-collapse">
@@ -1697,7 +1698,7 @@ export default function AdminDashboard() {
                                             <h4 className="text-xs font-black uppercase tracking-wider text-white">AI Article Drafter (Sarvam AI)</h4>
                                         </div>
                                         <div className="flex gap-2">
-                                            <input 
+                                            <input
                                                 type="text"
                                                 value={aiTopic}
                                                 onChange={(e) => setAiTopic(e.target.value)}

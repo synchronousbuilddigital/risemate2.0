@@ -83,27 +83,27 @@ export default function Loader({ onComplete }) {
   // Lock body scroll and run progress counter
   useEffect(() => {
     document.body.style.overflow = "hidden";
-    
-    const duration = 2000; // 2 seconds loader
+
+    const duration = 900; // 0.9 seconds loader
     const startTime = performance.now();
-    
+
     const updateProgress = (now) => {
       const elapsed = now - startTime;
       const pct = Math.min((elapsed / duration) * 100, 100);
       setProgress(Math.floor(pct));
-      
+
       if (pct < 100) {
         requestAnimationFrame(updateProgress);
       } else {
         const timer = setTimeout(() => {
           setIsExiting(true);
-        }, 350);
+        }, 150);
         return () => clearTimeout(timer);
       }
     };
-    
+
     const frameId = requestAnimationFrame(updateProgress);
-    
+
     return () => {
       cancelAnimationFrame(frameId);
       document.body.style.overflow = "";
@@ -116,7 +116,7 @@ export default function Loader({ onComplete }) {
       const timer = setTimeout(() => {
         setIsDone(true);
         if (onComplete) onComplete();
-      }, 1250); // match door opening duration (1.2s + buffer)
+      }, 700); // match door opening duration
       return () => clearTimeout(timer);
     }
   }, [isExiting, onComplete]);
@@ -130,7 +130,7 @@ export default function Loader({ onComplete }) {
   const rotAngle = 90 * factor;    // 90deg max rotation
 
   return (
-    <div 
+    <div
       className="fixed inset-0 z-[99999] overflow-hidden flex items-center justify-center pointer-events-none select-none"
       style={{ perspective: "1500px" }}
     >
@@ -144,9 +144,9 @@ export default function Loader({ onComplete }) {
       <motion.div
         initial={{ x: 0, rotateY: 0, opacity: 1 }}
         animate={isExiting ? { x: "-100%", rotateY: -35, opacity: 0 } : { x: 0, rotateY: 0, opacity: 1 }}
-        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
         className="absolute top-0 left-0 bottom-0 w-1/2 bg-[#010611] border-r border-[#C9A84C]/15 flex justify-end pointer-events-auto overflow-hidden"
-        style={{ 
+        style={{
           transformOrigin: "left center",
           background: "radial-gradient(circle at 100% 50%, #08142b 0%, #010611 100%)",
           boxShadow: "30px 0 60px rgba(0,0,0,0.8)"
@@ -162,7 +162,7 @@ export default function Loader({ onComplete }) {
         animate={isExiting ? { x: "100%", rotateY: 35, opacity: 0 } : { x: 0, rotateY: 0, opacity: 1 }}
         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
         className="absolute top-0 right-0 bottom-0 w-1/2 bg-[#010611] border-l border-[#C9A84C]/15 flex justify-start pointer-events-auto overflow-hidden"
-        style={{ 
+        style={{
           transformOrigin: "right center",
           background: "radial-gradient(circle at 0% 50%, #08142b 0%, #010611 100%)",
           boxShadow: "-30px 0 60px rgba(0,0,0,0.8)"
@@ -176,7 +176,7 @@ export default function Loader({ onComplete }) {
       <motion.div
         initial={{ scaleY: 0, opacity: 0 }}
         animate={isExiting ? { opacity: 0, scaleY: 0 } : { scaleY: 1, opacity: 0.8 }}
-        transition={{ 
+        transition={{
           scaleY: { duration: 0.8, ease: "easeOut" },
           opacity: isExiting ? { duration: 0.4 } : { duration: 0.5 }
         }}
@@ -188,18 +188,18 @@ export default function Loader({ onComplete }) {
         {!isExiting && (
           <motion.div
             initial={{ opacity: 1 }}
-            exit={{ 
-              opacity: 0, 
-              scale: 0.9, 
-              filter: "blur(20px)", 
-              transition: { duration: 0.6, ease: "easeInOut" } 
+            exit={{
+              opacity: 0,
+              scale: 0.9,
+              filter: "blur(20px)",
+              transition: { duration: 0.6, ease: "easeInOut" }
             }}
             className="relative z-[3] flex flex-col items-center justify-center text-center px-4"
           >
             {/* SVG Logo convergence animation */}
             <div className="mb-8 relative w-32 h-32 flex items-center justify-center">
               {/* Golden circular shadow field */}
-              <div 
+              <div
                 className="absolute inset-2 rounded-full border border-[#C9A84C]/15 blur-[8px]"
                 style={{
                   boxShadow: "0 0 35px rgba(201, 168, 76, 0.12) inset, 0 0 35px rgba(201, 168, 76, 0.12)"
@@ -234,7 +234,7 @@ export default function Loader({ onComplete }) {
                 <g style={{ transform: `translate(${slideOffset}px, ${slideOffset}px) rotate(${-rotAngle}deg)`, transformOrigin: "75px 75px" }}>
                   <path d="M 82 70 V 82 H 70" stroke="#C9A84C" strokeWidth="2.5" strokeLinecap="round" />
                 </g>
-                
+
                 {/* Thin outer compass ticks */}
                 <circle
                   cx="50"
@@ -256,7 +256,7 @@ export default function Loader({ onComplete }) {
               >
                 <Image
                   src="/logo.png"
-                  alt="RiseMate Ventures Logo"
+                  alt="RiseMates Ventures Logo"
                   fill
                   className="object-contain drop-shadow-[0_0_12px_rgba(255,255,255,0.15)]"
                   priority
@@ -267,7 +267,7 @@ export default function Loader({ onComplete }) {
 
             {/* Glowing Brand Title */}
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-primary tracking-[-0.03em] font-black text-white flex items-center mb-2.5">
-              {"RiseMate".split("").map((char, index) => (
+              {"RiseMates".split("").map((char, index) => (
                 <motion.span
                   key={index}
                   initial={{ opacity: 0, y: 15 }}
@@ -277,7 +277,7 @@ export default function Loader({ onComplete }) {
                   {char}
                 </motion.span>
               ))}
-              <span 
+              <span
                 className="font-light ml-2 flex"
                 style={{
                   background: "linear-gradient(135deg, #C9A84C 30%, #ffd97d 100%)",
@@ -321,7 +321,7 @@ export default function Loader({ onComplete }) {
             </div>
 
             {/* Numerical Percentage Counter */}
-            <div 
+            <div
               className="text-[11px] font-mono tracking-[0.25em] font-medium"
               style={{ color: "rgba(201, 168, 76, 0.85)", textShadow: "0 0 10px rgba(201, 168, 76, 0.4)" }}
             >

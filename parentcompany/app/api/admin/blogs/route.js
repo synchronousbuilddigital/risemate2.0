@@ -49,7 +49,7 @@ export async function POST(request) {
         if (!targetSlug || targetSlug === '__new__') {
             let baseSlug = slugify(title);
             if (!baseSlug) baseSlug = 'article';
-            
+
             const existing = await collection.findOne({ slug: baseSlug });
             if (existing && (!oldSlug || oldSlug === '__new__')) {
                 targetSlug = `${baseSlug}-${Math.floor(Date.now() / 1000)}`;
@@ -57,7 +57,7 @@ export async function POST(request) {
                 targetSlug = baseSlug;
             }
         }
-        
+
         targetSlug = slugify(targetSlug); // ensure completely sanitized
         updateDoc.slug = targetSlug;
 
@@ -76,13 +76,13 @@ export async function POST(request) {
                 const subscribers = await db.collection('subscribers').find({}).toArray();
                 if (subscribers.length > 0) {
                     const emails = subscribers.map(s => s.email);
-                    const postUrl = `https://risemates.com/blog/${targetSlug}`;
-                    const subject = `[New Insight] ${title} - RiseMate Ventures`;
+                    const postUrl = `https://RiseMatess.com/blog/${targetSlug}`;
+                    const subject = `[New Insight] ${title} - RiseMates Ventures`;
                     const html = `
                         <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #222; max-width: 600px; margin: auto; padding: 30px; border: 1px solid #e5e7eb; border-radius: 12px; background-color: #ffffff;">
                             <div style="text-align: center; margin-bottom: 25px;">
                                 <h1 style="color: #000000; font-size: 24px; font-weight: 800; letter-spacing: -0.05em; margin: 0;">
-                                    RISEMATES <span style="color: #C9A84C;">VENTURES</span>
+                                    RiseMatesS <span style="color: #C9A84C;">VENTURES</span>
                                 </h1>
                                 <p style="font-size: 10px; color: #9ca3af; text-align: center; margin: 5px 0 0 0; text-transform: uppercase; letter-spacing: 0.15em;">Ecosystem Intelligence Insights</p>
                             </div>
@@ -100,7 +100,7 @@ export async function POST(request) {
                             </h2>
                             
                             <p style="font-size: 12px; color: #6b7280; margin: 0 0 20px 0;">
-                                By ${author || 'RiseMate Team'} | ${readTime || '5 min read'}
+                                By ${author || 'RiseMates Team'} | ${readTime || '5 min read'}
                             </p>
                             
                             <p style="font-size: 14px; color: #4b5563; line-height: 1.7; margin-bottom: 25px;">
@@ -116,9 +116,9 @@ export async function POST(request) {
                             <hr style="border: 0; border-top: 1px solid #e5e7eb; margin: 30px 0;" />
                             
                             <div style="font-size: 11px; color: #9ca3af; text-align: center; line-height: 1.5;">
-                                <p style="margin: 0; font-weight: bold; color: #6b7280;">RiseMates Ventures</p>
+                                <p style="margin: 0; font-weight: bold; color: #6b7280;">RiseMatess Ventures</p>
                                 <p style="margin: 2px 0;">NCR HQ: Spaze Plazo, Golf Course Ext. Road, Gurugram, India</p>
-                                <p style="margin: 0; color: #9ca3af;">You are receiving this email because you subscribed to RiseMates Ventures Ecosystem Intelligence.</p>
+                                <p style="margin: 0; color: #9ca3af;">You are receiving this email because you subscribed to RiseMatess Ventures Ecosystem Intelligence.</p>
                             </div>
                         </div>
                     `;

@@ -96,7 +96,7 @@ export default function SolutionsClient() {
       </section>
 
       {/* 2. SOLUTION CATEGORIES */}
-      <section id="categories" className="py-24 md:py-32 bg-gray-50 relative">
+      <section id="categories" className="py-14 md:py-20 bg-gray-50 relative">
         <div className="container-wide">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {solutionCategories.map((category, idx) => (
@@ -141,7 +141,7 @@ export default function SolutionsClient() {
       </section>
 
       {/* 3. WHY CHOOSE OUR SOLUTIONS */}
-      <section className="py-24 md:py-32 bg-black text-white overflow-hidden relative">
+      <section className="py-14 md:py-20 bg-black text-white overflow-hidden relative">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[300px] bg-gold/10 blur-[150px] pointer-events-none" />
         
         <div className="container-wide relative z-10 max-w-5xl">

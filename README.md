@@ -1,9 +1,9 @@
-# RISEMATE VENTURE · Institutional Portfolio Portal
+# RiseMates VENTURE · Institutional Portfolio Portal
 
-Welcome to the central repository for the **RiseMate Venture** conglomerate portal. This repository coordinates active digital architectures and execution frameworks across sustainable fashion, managed sales, green energy, and high-conversion marketing.
+Welcome to the central repository for the **RiseMates Venture** conglomerate portal. This repository coordinates active digital architectures and execution frameworks across sustainable fashion, managed sales, green energy, and high-conversion marketing.
 
 ```
-risemate/
+RiseMates/
 ├── parentcompany/        # Active Next.js portal application
 │   ├── app/             # Application pages (Home, About, Portfolio, Contact, etc.)
 │   ├── public/          # Static assets, logos, and illustrations
@@ -17,7 +17,7 @@ risemate/
 
 ## ⚡ Active Conglomerate Entities
 
-RiseMate serves as the overarching holding architecture for four high-velocity regional sectors:
+RiseMates serves as the overarching holding architecture for four high-velocity regional sectors:
 
 | Entity | Vertical | Focus Area | Portal Link |
 | :--- | :--- | :--- | :--- |
@@ -53,4 +53,4 @@ cd parentcompany
 npm run build
 ```
 
-# risemate2.0
+# RiseMates2.0

@@ -22,7 +22,7 @@ export async function POST(request) {
         try {
             const { db } = await connectToDatabase();
             const collection = db.collection('subscribers');
-            
+
             // Check if already subscribed to prevent duplicates
             const existing = await collection.findOne({ email });
             if (!existing) {
@@ -37,34 +37,34 @@ export async function POST(request) {
         }
 
         // 2. Prepare Emails
-        const adminEmail = process.env.ADMIN_EMAIL || 'biz@risematesventures.com';
+        const adminEmail = process.env.ADMIN_EMAIL || 'biz@RiseMatessventures.com';
 
         // 2.1 Send email to Admin
         const adminSubject = `[Newsletter] New Subscriber: ${email}`;
         const adminHtml = `
             <div style="font-family: sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #eaeaea; borderRadius: 10px;">
                 <h2 style="border-bottom: 2px solid #C9A84C; padding-bottom: 10px; color: #000;">New Newsletter Subscriber</h2>
-                <p>A new user has subscribed to the RiseMates Ventures newsletter.</p>
+                <p>A new user has subscribed to the RiseMatess Ventures newsletter.</p>
                 <p><strong>Email Address:</strong> <a href="mailto:${email}">${email}</a></p>
                 <hr style="border: 0; border-top: 1px solid #eee; margin-top: 30px;" />
-                <p style="font-size: 11px; color: #999; text-align: center;">RiseMates Ventures Conglomerate Portal</p>
+                <p style="font-size: 11px; color: #999; text-align: center;">RiseMatess Ventures Conglomerate Portal</p>
             </div>
         `;
 
         // 2.2 Send Thank You email to User
-        const userSubject = `Welcome to RiseMates Ventures Ecosystem Intelligence`;
+        const userSubject = `Welcome to RiseMatess Ventures Ecosystem Intelligence`;
         const userHtml = `
             <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #222; max-width: 600px; margin: auto; padding: 30px; border: 1px solid #e5e7eb; border-radius: 12px; background-color: #ffffff;">
                 <div style="text-align: center; margin-bottom: 30px;">
                     <h1 style="color: #000000; font-size: 24px; font-weight: 800; letter-spacing: -0.05em; margin: 0;">
-                        RISEMATES <span style="color: #C9A84C;">VENTURES</span>
+                        RiseMatesS <span style="color: #C9A84C;">VENTURES</span>
                     </h1>
                 </div>
                 
                 <h3 style="font-size: 18px; font-weight: 700; color: #000; margin-bottom: 15px;">Welcome to Our Network</h3>
                 
                 <p style="font-size: 14px; color: #4b5563; margin-bottom: 20px;">
-                    Thank you for subscribing to <strong>RiseMates Ventures Ecosystem Intelligence</strong>.
+                    Thank you for subscribing to <strong>RiseMatess Ventures Ecosystem Intelligence</strong>.
                 </p>
 
                 <p style="font-size: 14px; color: #4b5563; margin-bottom: 20px;">
@@ -85,9 +85,9 @@ export async function POST(request) {
                 <hr style="border: 0; border-top: 1px solid #e5e7eb; margin: 25px 0;" />
 
                 <div style="font-size: 12px; color: #9ca3af; text-align: center;">
-                    <p style="margin: 0; font-weight: bold; color: #6b7280;">RiseMates Ventures</p>
+                    <p style="margin: 0; font-weight: bold; color: #6b7280;">RiseMatess Ventures</p>
                     <p style="margin: 4px 0;">Gurugram, India</p>
-                    <p style="margin: 0;"><a href="mailto:${adminEmail}" style="color: #C9A84C; text-decoration: none;">biz@risematesventures.com</a></p>
+                    <p style="margin: 0;"><a href="mailto:${adminEmail}" style="color: #C9A84C; text-decoration: none;">biz@RiseMatessventures.com</a></p>
                 </div>
             </div>
         `;
@@ -103,7 +103,7 @@ export async function POST(request) {
             sendEmail({
                 to: email,
                 subject: userSubject,
-                text: `Welcome to RiseMates Ventures Ecosystem Intelligence.\n\nThank you for subscribing to our newsletter. You will receive periodic insights from our ecosystem.\n\nBest regards,\nRiseMates Ventures`,
+                text: `Welcome to RiseMatess Ventures Ecosystem Intelligence.\n\nThank you for subscribing to our newsletter. You will receive periodic insights from our ecosystem.\n\nBest regards,\nRiseMatess Ventures`,
                 html: userHtml
             })
         ]);

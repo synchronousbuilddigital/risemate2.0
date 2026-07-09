@@ -3,22 +3,22 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 export const metadata = {
-  title: "About RiseMate Ventures | Sovereign Accelerator & Consulting",
-  description: "Learn how RiseMate Ventures accelerates economic development by connecting global institutional expertise with high-growth startup entities across sustainable fashion, technology, energy, and brand scaling hubs.",
+  title: "About RiseMates Ventures | Sovereign Accelerator & Consulting",
+  description: "Learn how RiseMates Ventures accelerates economic development by connecting global institutional expertise with high-growth startup entities across sustainable fashion, technology, energy, and brand scaling hubs.",
   alternates: {
-    canonical: "https://risemates.com/about",
+    canonical: "https://RiseMatess.com/about",
   },
   openGraph: {
-    title: "About RiseMate Ventures | Our Mission & Core Verticals",
+    title: "About RiseMates Ventures | Our Mission & Core Verticals",
     description: "Operating NCR and Jaipur hubs, we bridge the gap between startup execution and institutional-grade investments.",
-    url: "https://risemates.com/about",
-    siteName: "RiseMate Ventures",
+    url: "https://RiseMatess.com/about",
+    siteName: "RiseMates Ventures",
     images: [
       {
-        url: "https://risemates.com/corporate-interior.png",
+        url: "https://RiseMatess.com/corporate-interior.png",
         width: 1200,
         height: 630,
-        alt: "RiseMate Ventures HQ interior",
+        alt: "RiseMates Ventures HQ interior",
       },
     ],
     locale: "en_IN",
@@ -26,9 +26,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "About RiseMate Ventures | Sovereign Startup Support",
+    title: "About RiseMates Ventures | Sovereign Startup Support",
     description: "Bridging the gap between global institutional expertise and high-growth retail, AI, and energy startups.",
-    images: ["https://risemates.com/corporate-interior.png"],
+    images: ["https://RiseMatess.com/corporate-interior.png"],
   },
 };
 
@@ -41,13 +41,13 @@ export default function AboutPage() {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://risemates.com"
+        "item": "https://RiseMatess.com"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "About Us",
-        "item": "https://risemates.com/about"
+        "item": "https://RiseMatess.com/about"
       }
     ]
   };

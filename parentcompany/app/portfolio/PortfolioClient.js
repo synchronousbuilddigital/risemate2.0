@@ -161,7 +161,7 @@ export default function PortfolioClient() {
                   />
                 </div>
                 <p className="text-xl md:text-2xl text-dark/60 font-secondary max-w-xl leading-relaxed">
-                  A legacy of strategic allocation across four high-velocity sectors. Each entity operates as a sovereign architectural unit under the RiseMates banner.
+                  A legacy of strategic allocation across four high-velocity sectors. Each entity operates as a sovereign architectural unit under the RiseMatess banner.
                 </p>
               </div>
             </div>
@@ -194,7 +194,7 @@ export default function PortfolioClient() {
                 {/* Center Logo Area */}
                 <div className="relative z-10 flex flex-col items-center justify-center flex-grow group-hover:scale-105 transition-transform duration-1000">
                   <div className="relative w-64 md:w-80 h-32 md:h-40 mb-4 filter drop-shadow-xl">
-                    <Image src="/logo.png" alt="RiseMates Ventures" fill className="object-contain" />
+                    <Image src="/logo.png" alt="RiseMatess Ventures" fill className="object-contain" />
                   </div>
                   <p className="text-[10px] font-black uppercase tracking-[0.4em] text-dark/30">Master Holding Company</p>
                 </div>

@@ -234,7 +234,7 @@ const growthSteps = [
 
 const faqs = [
   {
-    q: "Who can apply for RiseMate funding or support?",
+    q: "Who can apply for RiseMatess funding or support?",
     a: "Startups from Seed to Growth stages seeking strategic capital, execution capability, sustainable commerce architecture, or tech engineering can apply. We look for passionate founders focusing on circular economy, FinTech, clean tech, or automation."
   },
   {
@@ -247,7 +247,7 @@ const faqs = [
   },
   {
     q: "Is mentorship included in your programs?",
-    a: "Yes, mentorship is a key pillar of the RiseMate ecosystem. Selected founders work directly with Saurabh Jain, Dheeraj Anand, Yograj Rundhanker, and Devam Srivastava to scale sales operations, brand identity, and tech development."
+    a: "Yes, mentorship is a key pillar of the RiseMatess ecosystem. Selected founders work directly with Saurabh Jain, Dheeraj Anand, Yograj Rundhanker, and Devam Srivastava to scale sales operations, brand identity, and tech development."
   },
   {
     q: "How long does the entire process take?",
@@ -270,7 +270,7 @@ export default function HomeClient() {
 
   // Chatbot State
   const [chatMessages, setChatMessages] = useState([
-    { role: 'bot', text: 'Hi! I am the RiseMate AI Assistant. How can I help you with our funding process, capital structure, or mentorship today?' }
+    { role: 'bot', text: 'Hi! I am the RiseMatess AI Assistant. How can I help you with our funding process, capital structure, or mentorship today?' }
   ]);
   const [chatInput, setChatInput] = useState("");
   const [isBotTyping, setIsBotTyping] = useState(false);
@@ -493,7 +493,7 @@ export default function HomeClient() {
       },
       {
         keywords: ["hello", "hi", "hey", "greetings", "good morning", "good afternoon"],
-        response: "Hi! I am the RiseMate AI Assistant. How can I help you with our funding process, capital structure, or mentorship today?"
+        response: "Hi! I am the RiseMatess AI Assistant. How can I help you with our funding process, capital structure, or mentorship today?"
       }
     ];
 
@@ -599,10 +599,7 @@ export default function HomeClient() {
                 <Globe3D />
                 <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: 'inset 0 0 40px rgba(0,0,0,0.5)' }} />
 
-                {/* Scroll hint circle */}
-                <div className="absolute bottom-6 right-6 w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white border border-white/20 z-10 pointer-events-none">
-                  <span className="material-symbols-outlined text-sm">keyboard_arrow_down</span>
-                </div>
+
               </div>
 
 
@@ -1501,7 +1498,7 @@ export default function HomeClient() {
                       <span className="material-symbols-outlined text-gold text-lg font-bold">smart_toy</span>
                     </div>
                     <div>
-                      <h3 className="text-xs font-black text-black font-primary uppercase tracking-wider">RiseMates AI</h3>
+                      <h3 className="text-xs font-black text-black font-primary uppercase tracking-wider">RiseMatesss AI</h3>
                       <p className="text-[9px] text-gray-500 font-secondary uppercase tracking-widest flex items-center gap-1.5 mt-0.5">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
                         Online • Ask anything
@@ -1512,7 +1509,7 @@ export default function HomeClient() {
                   {/* Reset Button */}
                   <button
                     onClick={() => setChatMessages([
-                      { role: 'bot', text: 'Hi! I am the RiseMate AI Assistant. How can I help you with our funding process, capital structure, or mentorship today?' }
+                      { role: 'bot', text: 'Hi! I am the RiseMatess AI Assistant. How can I help you with our funding process, capital structure, or mentorship today?' }
                     ])}
                     className="w-8 h-8 rounded-lg hover:bg-gray-100 flex items-center justify-center text-gray-400 hover:text-black transition-colors"
                     title="Reset Conversation"

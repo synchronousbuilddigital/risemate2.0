@@ -180,7 +180,7 @@ export default function IndustriesClient() {
       </section>
 
       {/* INDUSTRIES GRID */}
-      <section className="py-24 bg-white relative">
+      <section className="py-14 bg-white relative">
         <div className="container-wide">
           <div className="mb-16 text-center">
             <h2 className="text-3xl md:text-5xl font-black text-black tracking-tighter leading-tight mb-4 font-primary">

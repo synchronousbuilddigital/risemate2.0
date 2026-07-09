@@ -53,7 +53,7 @@ export default function Navbar() {
             <div className={`relative h-10 w-10 md:h-12 md:w-12 transition-transform duration-500 group-hover:scale-105 ${scrolled ? "scale-95" : "scale-100"}`}>
               <Image
                 src="/logo.png"
-                alt="RiseMate Logo"
+                alt="RiseMates Logo"
                 fill
                 className="object-contain drop-shadow-sm"
                 priority
@@ -61,7 +61,7 @@ export default function Navbar() {
               />
             </div>
             <span className={`text-lg md:text-xl font-black tracking-tighter transition-colors duration-300 ${scrolled ? "text-black" : "text-black"}`}>
-              RiseMate<span className="font-light text-gray-400">Ventures</span>
+              RiseMates<span className="font-light text-gray-400">Ventures</span>
             </span>
           </Link>
 
@@ -130,10 +130,10 @@ export default function Navbar() {
                 Book Consultation
                 <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
               </Link>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </nav>
-);
+    </nav>
+  );
 }

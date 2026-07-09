@@ -2,10 +2,10 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 export const metadata = {
-  title: "Privacy Policy | RiseMate Ventures",
-  description: "Learn how RiseMate Ventures collects, protects, and governs corporate data in our startup incubation and acceleration programs.",
+  title: "Privacy Policy | RiseMates Ventures",
+  description: "Learn how RiseMates Ventures collects, protects, and governs corporate data in our startup incubation and acceleration programs.",
   alternates: {
-    canonical: "https://risemates.com/privacy",
+    canonical: "https://RiseMatess.com/privacy",
   },
 };
 
@@ -18,13 +18,13 @@ export default function PrivacyPolicy() {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://risemates.com"
+        "item": "https://RiseMatess.com"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Privacy Policy",
-        "item": "https://risemates.com/privacy"
+        "item": "https://RiseMatess.com/privacy"
       }
     ]
   };
@@ -41,7 +41,7 @@ export default function PrivacyPolicy() {
           <p>Last updated: June 2026</p>
           <section>
             <h2 className="text-2xl font-bold text-dark mb-4">1. Data Collection</h2>
-            <p>RiseMates Ventures operates a Sovereign Digital Legacy Registry. We collect institutional identifiers necessary for strategic induction and capital synchronization.</p>
+            <p>RiseMatess Ventures operates a Sovereign Digital Legacy Registry. We collect institutional identifiers necessary for strategic induction and capital synchronization.</p>
           </section>
           <section>
             <h2 className="text-2xl font-bold text-dark mb-4">2. Industrial Security</h2>

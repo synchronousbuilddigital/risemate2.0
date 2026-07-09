@@ -3,22 +3,22 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 export const metadata = {
-  title: "RiseMate Portfolio | High-Growth Startup Ecosystem Verticals",
-  description: "Browse the high-velocity venture projects and startups supported by RiseMate Ventures, including BWorth circular retail systems, Vega Vrudhi managed sales onboarding, RYM deep-tech engineering, and Synchronous AI agent automation.",
+  title: "RiseMates Portfolio | High-Growth Startup Ecosystem Verticals",
+  description: "Browse the high-velocity venture projects and startups supported by RiseMates Ventures, including BWorth circular retail systems, Vega Vrudhi managed sales onboarding, RYM deep-tech engineering, and Synchronous AI agent automation.",
   alternates: {
-    canonical: "https://risemates.com/portfolio",
+    canonical: "https://RiseMatess.com/portfolio",
   },
   openGraph: {
-    title: "Venture Portfolio | RiseMate Ventures",
+    title: "Venture Portfolio | RiseMates Ventures",
     description: "Explore the core scaling entities operating across fashion, technology, IoT energy, and brand building.",
-    url: "https://risemates.com/portfolio",
-    siteName: "RiseMate Ventures",
+    url: "https://RiseMatess.com/portfolio",
+    siteName: "RiseMates Ventures",
     images: [
       {
-        url: "https://risemates.com/image copy.png",
+        url: "https://RiseMatess.com/image copy.png",
         width: 1200,
         height: 630,
-        alt: "RiseMate Ventures Portfolio Overview",
+        alt: "RiseMates Ventures Portfolio Overview",
       },
     ],
     locale: "en_IN",
@@ -26,9 +26,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Startup Verticals Portfolio | RiseMate Ventures",
-    description: "Overview of RiseMate's active companies, metrics, and execution models.",
-    images: ["https://risemates.com/image copy.png"],
+    title: "Startup Verticals Portfolio | RiseMates Ventures",
+    description: "Overview of RiseMates's active companies, metrics, and execution models.",
+    images: ["https://RiseMatess.com/image copy.png"],
   },
 };
 
@@ -41,13 +41,13 @@ export default function PortfolioPage() {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://risemates.com"
+        "item": "https://RiseMatess.com"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Portfolio",
-        "item": "https://risemates.com/portfolio"
+        "item": "https://RiseMatess.com/portfolio"
       }
     ]
   };

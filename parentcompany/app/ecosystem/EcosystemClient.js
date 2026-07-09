@@ -181,7 +181,7 @@ export default function EcosystemClient() {
       </section>
 
       {/* 2. INTERACTIVE ECOSYSTEM DIAGRAM */}
-      <section className="py-24 md:py-32 bg-gray-50 border-b border-gray-200 overflow-hidden">
+      <section className="py-14 md:py-20 bg-gray-50 border-b border-gray-200 overflow-hidden">
         <div className="container-wide">
           <div className="text-center max-w-3xl mx-auto mb-16 md:mb-24">
             <span className="text-xs font-black uppercase tracking-[0.4em] text-gold mb-4 block">The Network</span>
@@ -306,7 +306,7 @@ export default function EcosystemClient() {
                     className="flex flex-col items-center justify-center"
                   >
                     <span className="text-gold font-serif text-3xl md:text-5xl font-black tracking-widest leading-none">RMV</span>
-                    <span className="text-[7px] md:text-[9px] text-black uppercase tracking-[0.3em] font-black mt-2 text-center">RiseMates<br />Ventures</span>
+                    <span className="text-[7px] md:text-[9px] text-black uppercase tracking-[0.3em] font-black mt-2 text-center">RiseMatess<br />Ventures</span>
                   </motion.div>
                 ) : (
                   <motion.div
@@ -387,7 +387,7 @@ export default function EcosystemClient() {
       </section>
 
       {/* 3. OUR ECOSYSTEM PILLARS */}
-      <section className="py-24 md:py-32 bg-white border-b border-gray-200">
+      <section className="py-14 md:py-20 bg-white border-b border-gray-200">
         <div className="container-wide max-w-7xl">
           <div className="text-center max-w-3xl mx-auto mb-16 md:mb-24">
             <h2 className="text-4xl md:text-5xl font-black text-black tracking-tighter leading-[1.1] font-primary mb-4">
@@ -424,7 +424,7 @@ export default function EcosystemClient() {
       </section>
 
       {/* 4. WHO BENEFITS - CREATIVE CARDS */}
-      <section className="py-24 md:py-32 bg-gray-50 relative overflow-hidden">
+      <section className="py-14 md:py-20 bg-gray-50 relative overflow-hidden">
         <div className="container-wide">
           <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-8">
             <div className="max-w-2xl">

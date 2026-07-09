@@ -167,7 +167,7 @@ export default function AboutClient() {
       </section>
 
       {/* 2. WHO WE ARE - CREATIVE TYPOGRAPHY REVEAL */}
-      <section className="py-24 md:py-40 bg-white relative">
+      <section className="py-12 md:py-16 bg-white relative">
         <div className="container-wide max-w-6xl">
           <div className="flex items-center gap-4 mb-16">
             <div className="w-16 h-px bg-gold" />
@@ -200,6 +200,38 @@ export default function AboutClient() {
               <p className="text-lg text-gray-500 font-secondary leading-relaxed">
                 We empower businesses to scale globally, navigate complexity, and seize new opportunities with confidence.
               </p>
+              
+              <div className="pt-4 space-y-6">
+                <div className="flex gap-4 items-start">
+                  <div className="w-10 h-10 rounded-full bg-black flex items-center justify-center shrink-0 shadow-md">
+                    <span className="material-symbols-outlined text-gold text-[18px]">public</span>
+                  </div>
+                  <div>
+                    <h4 className="text-base font-black text-black tracking-tight mb-1">Global Expansion</h4>
+                    <p className="text-sm text-gray-500 font-secondary leading-relaxed">Seamlessly enter new markets with localized strategies and deep regional expertise.</p>
+                  </div>
+                </div>
+                
+                <div className="flex gap-4 items-start">
+                  <div className="w-10 h-10 rounded-full bg-black flex items-center justify-center shrink-0 shadow-md">
+                    <span className="material-symbols-outlined text-gold text-[18px]">timeline</span>
+                  </div>
+                  <div>
+                    <h4 className="text-base font-black text-black tracking-tight mb-1">Operational Scaling</h4>
+                    <p className="text-sm text-gray-500 font-secondary leading-relaxed">Optimize workflows, integrate technology, and build resilient frameworks for sustainable growth.</p>
+                  </div>
+                </div>
+                
+                <div className="flex gap-4 items-start">
+                  <div className="w-10 h-10 rounded-full bg-black flex items-center justify-center shrink-0 shadow-md">
+                    <span className="material-symbols-outlined text-gold text-[18px]">handshake</span>
+                  </div>
+                  <div>
+                    <h4 className="text-base font-black text-black tracking-tight mb-1">Strategic Partnerships</h4>
+                    <p className="text-sm text-gray-500 font-secondary leading-relaxed">Unlock capital, joint ventures, and high-value alliances through our extensive network.</p>
+                  </div>
+                </div>
+              </div>
             </motion.div>
 
             {/* Visual breakdown instead of paragraphs */}
@@ -250,7 +282,7 @@ export default function AboutClient() {
       </section>
 
       {/* 3. OUR STORY - CREATIVE SPLIT SCREEN */}
-      <section id="our-story" className="py-24 md:py-40 bg-white relative overflow-hidden border-y border-gray-100">
+      <section id="our-story" className="py-12 md:py-16 bg-white relative overflow-hidden border-y border-gray-100">
         <div className="container-wide max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
 
@@ -330,7 +362,7 @@ export default function AboutClient() {
       </section>
 
       {/* 4. VISION, MISSION, PURPOSE - INTERACTIVE CARDS */}
-      <section className="py-24 md:py-32 bg-white">
+      <section className="py-12 md:py-16 bg-white">
         <div className="container-wide max-w-7xl">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
@@ -400,7 +432,7 @@ export default function AboutClient() {
       </section>
 
       {/* 5. WHY RISE MATE VENTURES - CREATIVE LIST */}
-      <section className="py-24 md:py-32 bg-gray-50 border-y border-gray-200 relative overflow-hidden">
+      <section className="py-12 md:py-16 bg-gray-50 border-y border-gray-200 relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
 
         <div className="container-wide">

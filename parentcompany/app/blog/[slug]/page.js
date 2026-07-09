@@ -10,21 +10,21 @@ export async function generateMetadata({ params }) {
 
   if (!blog) {
     return {
-      title: "Article Not Found | RiseMate Ventures",
+      title: "Article Not Found | RiseMates Ventures",
     };
   }
 
   return {
-    title: `${blog.title} | RiseMate Insights`,
+    title: `${blog.title} | RiseMates Insights`,
     description: blog.description,
     alternates: {
-      canonical: `https://risemates.com/blog/${slug}`,
+      canonical: `https://RiseMatess.com/blog/${slug}`,
     },
     openGraph: {
       title: blog.title,
       description: blog.description,
-      url: `https://risemates.com/blog/${slug}`,
-      siteName: "RiseMate Ventures",
+      url: `https://RiseMatess.com/blog/${slug}`,
+      siteName: "RiseMates Ventures",
       images: [
         {
           url: blog.image,
@@ -82,15 +82,15 @@ export default async function BlogPostPage({ params }) {
     },
     "publisher": {
       "@type": "Organization",
-      "name": "RiseMate Ventures",
+      "name": "RiseMates Ventures",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://risemates.com/logo.png"
+        "url": "https://RiseMatess.com/logo.png"
       }
     },
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `https://risemates.com/blog/${slug}`
+      "@id": `https://RiseMatess.com/blog/${slug}`
     }
   };
 
@@ -102,19 +102,19 @@ export default async function BlogPostPage({ params }) {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://risemates.com"
+        "item": "https://RiseMatess.com"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Blog",
-        "item": "https://risemates.com/blog"
+        "item": "https://RiseMatess.com/blog"
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": blog.title,
-        "item": `https://risemates.com/blog/${slug}`
+        "item": `https://RiseMatess.com/blog/${slug}`
       }
     ]
   };
@@ -129,10 +129,10 @@ export default async function BlogPostPage({ params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      
+
       <article className="min-h-screen bg-[#FAF9F6] pt-28 pb-20 md:pt-36 md:pb-32">
         <div className="container-wide max-w-4xl">
-          
+
           {/* Back to Blog */}
           <Link
             href="/blog"
@@ -177,7 +177,7 @@ export default async function BlogPostPage({ params }) {
             <div className="flex items-center gap-3">
               <span className="text-[10px] font-black uppercase tracking-wider text-dark/40 mr-2">Share Article:</span>
               <a
-                href={`https://api.whatsapp.com/send?text=${encodeURIComponent(blog.title)} - https://risemates.com/blog/${slug}`}
+                href={`https://api.whatsapp.com/send?text=${encodeURIComponent(blog.title)} - https://RiseMatess.com/blog/${slug}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-white border border-dark/10 flex items-center justify-center text-dark/50 hover:text-emerald-600 hover:border-emerald-500/20 transition-all shadow-sm"
@@ -186,7 +186,7 @@ export default async function BlogPostPage({ params }) {
                 <span className="material-symbols-outlined text-lg">chat</span>
               </a>
               <a
-                href={`https://www.linkedin.com/sharing/share-offsite/?url=https://risemates.com/blog/${slug}`}
+                href={`https://www.linkedin.com/sharing/share-offsite/?url=https://RiseMatess.com/blog/${slug}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-white border border-dark/10 flex items-center justify-center text-dark/50 hover:text-[#002366] hover:border-[#002366]/20 transition-all shadow-sm"
@@ -195,7 +195,7 @@ export default async function BlogPostPage({ params }) {
                 <span className="material-symbols-outlined text-lg">share</span>
               </a>
               <a
-                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(blog.title)}&url=https://risemates.com/blog/${slug}`}
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(blog.title)}&url=https://RiseMatess.com/blog/${slug}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-white border border-dark/10 flex items-center justify-center text-dark/50 hover:text-dark hover:border-dark/20 transition-all shadow-sm"

@@ -1,16 +1,16 @@
 import LeadershipClient from "../leadership/LeadershipClient";
 
 export const metadata = {
-  title: "Our Team | RiseMate Ventures - Founders & Partners",
-  description: "Meet the executive team and founders behind the RiseMate acceleration ecosystem. Saurabh Jain, Dheeraj Anand, Yograj Rundhanker, and Devam Srivastava.",
+  title: "Our Team | RiseMates Ventures - Founders & Partners",
+  description: "Meet the executive team and founders behind the RiseMates acceleration ecosystem. Saurabh Jain, Dheeraj Anand, Yograj Rundhanker, and Devam Srivastava.",
   alternates: {
-    canonical: "https://risemates.com/team",
+    canonical: "https://RiseMatess.com/team",
   },
   openGraph: {
-    title: "Our Team | RiseMate Ventures",
-    description: "The executive team and founders behind the RiseMate acceleration ecosystem.",
-    url: "https://risemates.com/team",
-    siteName: "RiseMate Ventures",
+    title: "Our Team | RiseMates Ventures",
+    description: "The executive team and founders behind the RiseMates acceleration ecosystem.",
+    url: "https://RiseMatess.com/team",
+    siteName: "RiseMates Ventures",
     locale: "en_IN",
     type: "website",
   }
@@ -25,13 +25,13 @@ export default function TeamPage() {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://risemates.com"
+        "item": "https://RiseMatess.com"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Team",
-        "item": "https://risemates.com/team"
+        "item": "https://RiseMatess.com/team"
       }
     ]
   };

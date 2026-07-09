@@ -99,7 +99,7 @@ export default function ServicesClient() {
       </section>
 
       {/* 2. SERVICES LIST - CREATIVE LAYOUT */}
-      <section className="py-24 md:py-40 bg-white relative">
+      <section className="py-14 md:py-20 bg-white relative">
         <div className="container-wide">
           <div className="mb-20 text-center">
             <span className="text-xs font-black uppercase tracking-[0.4em] text-gold mb-4 block">What We Do</span>

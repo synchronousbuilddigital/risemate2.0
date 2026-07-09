@@ -2,10 +2,10 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 export const metadata = {
-  title: "Terms of Service | RiseMate Ventures",
-  description: "Read the terms and conditions governing startup engagement, capital advisory, and operational services under RiseMate Ventures.",
+  title: "Terms of Service | RiseMates Ventures",
+  description: "Read the terms and conditions governing startup engagement, capital advisory, and operational services under RiseMates Ventures.",
   alternates: {
-    canonical: "https://risemates.com/terms",
+    canonical: "https://RiseMatess.com/terms",
   },
 };
 
@@ -18,13 +18,13 @@ export default function TermsOfService() {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://risemates.com"
+        "item": "https://RiseMatess.com"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Terms of Service",
-        "item": "https://risemates.com/terms"
+        "item": "https://RiseMatess.com/terms"
       }
     ]
   };
@@ -41,11 +41,11 @@ export default function TermsOfService() {
           <p>Effective Date: June 2026</p>
           <section>
             <h2 className="text-2xl font-bold text-dark mb-4">1. Institutional Engagement</h2>
-            <p>By accessing the RiseMates Ventures portal, you agree to engage with our sovereign entities in accordance with institutional best practices.</p>
+            <p>By accessing the RiseMatess Ventures portal, you agree to engage with our sovereign entities in accordance with institutional best practices.</p>
           </section>
           <section>
             <h2 className="text-2xl font-bold text-dark mb-4">2. Intellectual Capital</h2>
-            <p>All architectural designs, digital legacy content, and entity taglines are the intellectual capital of RiseMates Ventures.</p>
+            <p>All architectural designs, digital legacy content, and entity taglines are the intellectual capital of RiseMatess Ventures.</p>
           </section>
         </div>
       </main>

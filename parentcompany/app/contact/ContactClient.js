@@ -67,7 +67,7 @@ export default function ContactClient() {
 
   return (
     <div className="bg-white min-h-screen relative overflow-x-hidden selection:bg-gold selection:text-black">
-      
+
       {/* 1. HERO SECTION (PREMIUM LIGHT) */}
       <section className="relative pt-32 pb-20 md:pt-40 md:pb-24 px-6 md:px-24 overflow-hidden border-b border-gray-100">
         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-br from-gold/5 via-transparent to-transparent rounded-full blur-[100px] opacity-70 pointer-events-none -translate-y-1/2 translate-x-1/3" />
@@ -75,7 +75,7 @@ export default function ContactClient() {
 
         <div className="max-w-screen-2xl mx-auto relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            
+
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -115,14 +115,14 @@ export default function ContactClient() {
               transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
               className="relative aspect-square md:aspect-[4/3] rounded-[40px] overflow-hidden bg-gray-50 border border-gray-100 shadow-2xl group"
             >
-              <Image 
+              <Image
                 src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80"
                 alt="Corporate Collaboration"
                 fill
                 className="object-cover transition-transform duration-1000 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-              
+
               <div className="absolute bottom-8 left-8 right-8 bg-white/95 backdrop-blur-xl p-6 rounded-3xl border border-white shadow-lg">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center text-white shrink-0">
@@ -143,7 +143,7 @@ export default function ContactClient() {
       <section className="py-24 px-6 md:px-24 bg-gray-50 relative border-t border-gray-100">
         <div className="max-w-screen-2xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-            
+
             {/* Left: Contact Form */}
             <div className="lg:col-span-7 bg-white p-8 md:p-12 rounded-[40px] border border-gray-200 shadow-sm">
               {submitted ? (
@@ -264,7 +264,7 @@ export default function ContactClient() {
 
             {/* Right: Locations & Direct Contacts */}
             <div className="lg:col-span-5 space-y-6">
-              
+
               {/* HQ Card */}
               <div className="bg-white p-8 rounded-[40px] border border-gray-200 shadow-sm relative overflow-hidden group">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-gold/10 rounded-bl-full -z-10 group-hover:scale-150 transition-transform duration-700" />
@@ -276,11 +276,11 @@ export default function ContactClient() {
                   Gurugram, Haryana.
                 </p>
                 <div className="space-y-3">
-                  <a href="mailto:biz@risematesventures.com" className="flex items-center gap-3 text-sm font-bold text-gray-700 hover:text-black transition-colors group/link">
+                  <a href="mailto:biz@RiseMatessventures.com" className="flex items-center gap-3 text-sm font-bold text-gray-700 hover:text-black transition-colors group/link">
                     <div className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center group-hover/link:bg-gold group-hover/link:text-black transition-colors">
                       <span className="material-symbols-outlined text-[16px]">mail</span>
                     </div>
-                    biz@risematesventures.com
+                    biz@RiseMatessventures.com
                   </a>
                   <a href="tel:+918239660777" className="flex items-center gap-3 text-sm font-bold text-gray-700 hover:text-black transition-colors group/link">
                     <div className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center group-hover/link:bg-gold group-hover/link:text-black transition-colors">
@@ -295,7 +295,7 @@ export default function ContactClient() {
               <div className="bg-black p-8 rounded-[40px] shadow-xl text-white">
                 <h3 className="text-lg font-black tracking-tight mb-6 font-primary">Connect with us</h3>
                 <div className="flex gap-3">
-                  <a href="https://www.linkedin.com/company/risematesventures/posts/?feedView=all" target="_blank" className="flex-1 flex flex-col items-center justify-center p-4 bg-white/10 rounded-2xl hover:bg-gold hover:text-black transition-all">
+                  <a href="https://www.linkedin.com/company/RiseMatessventures/posts/?feedView=all" target="_blank" className="flex-1 flex flex-col items-center justify-center p-4 bg-white/10 rounded-2xl hover:bg-gold hover:text-black transition-all">
                     <span className="font-bold text-sm">LinkedIn</span>
                   </a>
                 </div>
@@ -313,66 +313,108 @@ export default function ContactClient() {
             <span className="text-[10px] font-black uppercase tracking-[0.3em] text-gold mb-3 block">Our Ecosystem</span>
             <h2 className="text-3xl md:text-5xl font-black text-black tracking-tighter font-primary">Ecosystem Entities</h2>
             <p className="text-sm text-gray-500 font-secondary mt-2 max-w-lg mx-auto">
-              Specialized entities within the RiseMates Ventures network delivering domain-specific expertise and execution capabilities.
+              Specialized entities within the RiseMatess Ventures network delivering domain-specific expertise and execution capabilities.
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
             {/* BWorth */}
-            <div className="bg-gray-50 border border-gray-200 rounded-[32px] p-8 hover:shadow-xl hover:border-gold transition-all duration-300 group cursor-default flex flex-col items-center text-center justify-between">
-              <div className="flex flex-col items-center">
-                <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 group-hover:-translate-y-2 transition-transform duration-500 overflow-hidden border border-gray-100">
-                  <Image src="/BWORTH.jpg" alt="BWorth" width={40} height={40} className="object-contain" unoptimized />
-                </div>
-                <h3 className="text-lg font-black text-black mb-1">BWorth</h3>
-                <span className="text-[8px] font-black uppercase tracking-[0.15em] px-2.5 py-1 rounded-full bg-gold/10 text-gold mb-6 inline-block font-secondary">Circular Supply</span>
-                <p className="text-xs text-gray-500 font-secondary leading-relaxed">
-                  Specializing in sustainable raw materials, scrap supply chains, recycling networks, and circular economy infrastructure.
-                </p>
+            <div className="bg-gray-50 border border-gray-200 rounded-[32px] p-8 hover:shadow-xl hover:border-gold transition-all duration-300 group cursor-default flex flex-col items-center text-center">
+              <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 group-hover:-translate-y-2 transition-transform duration-500 overflow-hidden border border-gray-100">
+                <Image src="/BWORTH.jpg" alt="BWorth" width={40} height={40} className="object-contain" unoptimized />
               </div>
+              <h3 className="text-lg font-black text-black mb-1">BWorth</h3>
+              <span className="text-[8px] font-black uppercase tracking-[0.15em] px-2.5 py-1 rounded-full bg-gold/10 text-gold mb-4 inline-block font-secondary">Circular Supply</span>
+              <p className="text-xs text-gray-500 font-secondary leading-relaxed">
+                Specializing in sustainable raw materials, scrap supply chains, recycling networks, and circular economy infrastructure.
+              </p>
             </div>
 
             {/* Vega Vrudhi */}
-            <div className="bg-gray-50 border border-gray-200 rounded-[32px] p-8 hover:shadow-xl hover:border-gold transition-all duration-300 group cursor-default flex flex-col items-center text-center justify-between">
-              <div className="flex flex-col items-center">
-                <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 group-hover:-translate-y-2 transition-transform duration-500 overflow-hidden border border-gray-100 p-2">
-                  <Image src="/VEGA.png" alt="Vega Vrudhi" width={40} height={40} className="object-contain" unoptimized />
-                </div>
-                <h3 className="text-lg font-black text-black mb-1">Vega Vrudhi</h3>
-                <span className="text-[8px] font-black uppercase tracking-[0.15em] px-2.5 py-1 rounded-full bg-gold/10 text-gold mb-6 inline-block font-secondary">Sales & Execution</span>
-                <p className="text-xs text-gray-500 font-secondary leading-relaxed">
-                  Providing end-to-end sales force outsourcing, channel expansion, retail distribution network, and on-ground brand activation.
-                </p>
+            <div className="bg-gray-50 border border-gray-200 rounded-[32px] p-8 hover:shadow-xl hover:border-gold transition-all duration-300 group cursor-default flex flex-col items-center text-center">
+              <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 group-hover:-translate-y-2 transition-transform duration-500 overflow-hidden border border-gray-100 p-2">
+                <Image src="/VEGA.png" alt="Vega Vrudhi" width={40} height={40} className="object-contain" unoptimized />
               </div>
+              <h3 className="text-lg font-black text-black mb-1">Vega Vrudhi</h3>
+              <span className="text-[8px] font-black uppercase tracking-[0.15em] px-2.5 py-1 rounded-full bg-gold/10 text-gold mb-4 inline-block font-secondary">Sales & Execution</span>
+              <p className="text-xs text-gray-500 font-secondary leading-relaxed">
+                Providing end-to-end sales force outsourcing, channel expansion, retail distribution network, and on-ground brand activation.
+              </p>
             </div>
 
-            {/* RYM */}
-            <div className="bg-gray-50 border border-gray-200 rounded-[32px] p-8 hover:shadow-xl hover:border-gold transition-all duration-300 group cursor-default flex flex-col items-center text-center justify-between">
-              <div className="flex flex-col items-center">
-                <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 group-hover:-translate-y-2 transition-transform duration-500 overflow-hidden border border-gray-100 p-2">
-                  <Image src="/RYM.png" alt="RYM Grenergy" width={40} height={40} className="object-contain" unoptimized />
-                </div>
-                <h3 className="text-lg font-black text-black mb-1">RYM Grenergy</h3>
-                <span className="text-[8px] font-black uppercase tracking-[0.15em] px-2.5 py-1 rounded-full bg-gold/10 text-gold mb-6 inline-block font-secondary">IoT & Deep-Tech</span>
-                <p className="text-xs text-gray-500 font-secondary leading-relaxed">
-                  Developing custom hardware, sensor networks, smart metering, remote diagnostics, and industrial IoT solutions.
-                </p>
+            {/* RYM Grenergy */}
+            <div className="bg-gray-50 border border-gray-200 rounded-[32px] p-8 hover:shadow-xl hover:border-gold transition-all duration-300 group cursor-default flex flex-col items-center text-center">
+              <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 group-hover:-translate-y-2 transition-transform duration-500 overflow-hidden border border-gray-100 p-2">
+                <Image src="/RYM.png" alt="RYM Grenergy" width={40} height={40} className="object-contain" unoptimized />
               </div>
+              <h3 className="text-lg font-black text-black mb-1">RYM Grenergy</h3>
+              <span className="text-[8px] font-black uppercase tracking-[0.15em] px-2.5 py-1 rounded-full bg-gold/10 text-gold mb-4 inline-block font-secondary">IoT & Deep-Tech</span>
+              <p className="text-xs text-gray-500 font-secondary leading-relaxed">
+                Developing custom hardware, sensor networks, smart metering, remote diagnostics, and industrial IoT solutions.
+              </p>
             </div>
 
             {/* Synchronous */}
-            <div className="bg-gray-50 border border-gray-200 rounded-[32px] p-8 hover:shadow-xl hover:border-gold transition-all duration-300 group cursor-default flex flex-col items-center text-center justify-between">
-              <div className="flex flex-col items-center">
-                <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 group-hover:-translate-y-2 transition-transform duration-500 overflow-hidden border border-gray-100 p-2">
-                  <Image src="/sync.jpg" alt="Synchronous" width={40} height={40} className="object-contain" unoptimized />
-                </div>
-                <h3 className="text-lg font-black text-black mb-1">Synchronous</h3>
-                <span className="text-[8px] font-black uppercase tracking-[0.15em] px-2.5 py-1 rounded-full bg-gold/10 text-gold mb-6 inline-block font-secondary">AI & Brand Identity</span>
-                <p className="text-xs text-gray-500 font-secondary leading-relaxed">
-                  Powering corporate digital transformation, web and mobile development, custom AI tools, and cohesive brand design.
-                </p>
+            <div className="bg-gray-50 border border-gray-200 rounded-[32px] p-8 hover:shadow-xl hover:border-gold transition-all duration-300 group cursor-default flex flex-col items-center text-center">
+              <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 group-hover:-translate-y-2 transition-transform duration-500 overflow-hidden border border-gray-100 p-2">
+                <Image src="/sync.jpg" alt="Synchronous" width={40} height={40} className="object-contain" unoptimized />
               </div>
+              <h3 className="text-lg font-black text-black mb-1">Synchronous</h3>
+              <span className="text-[8px] font-black uppercase tracking-[0.15em] px-2.5 py-1 rounded-full bg-gold/10 text-gold mb-4 inline-block font-secondary">AI & Brand Identity</span>
+              <p className="text-xs text-gray-500 font-secondary leading-relaxed">
+                Powering corporate digital transformation, web and mobile development, custom AI tools, and cohesive brand design.
+              </p>
             </div>
+
+            {/* Sovra */}
+            <div className="bg-gray-50 border border-gray-200 rounded-[32px] p-8 hover:shadow-xl hover:border-gold transition-all duration-300 group cursor-default flex flex-col items-center text-center">
+              <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 group-hover:-translate-y-2 transition-transform duration-500 overflow-hidden border border-gray-100 p-2">
+                <Image src="/sovra.png" alt="Sovra" width={40} height={40} className="object-contain" unoptimized />
+              </div>
+              <h3 className="text-lg font-black text-black mb-1">Sovra</h3>
+              <span className="text-[8px] font-black uppercase tracking-[0.15em] px-2.5 py-1 rounded-full bg-gold/10 text-gold mb-4 inline-block font-secondary">Jewellery & Luxury</span>
+              <p className="text-xs text-gray-500 font-secondary leading-relaxed">
+                Curating premium jewellery brands with a focus on craftsmanship, heritage design, and modern retail distribution.
+              </p>
+            </div>
+
+            {/* Seemee */}
+            <div className="bg-gray-50 border border-gray-200 rounded-[32px] p-8 hover:shadow-xl hover:border-gold transition-all duration-300 group cursor-default flex flex-col items-center text-center">
+              <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 group-hover:-translate-y-2 transition-transform duration-500 overflow-hidden border border-gray-100 p-2">
+                <Image src="/seeme.png" alt="Seemee" width={40} height={40} className="object-contain" unoptimized />
+              </div>
+              <h3 className="text-lg font-black text-black mb-1">Seemee</h3>
+              <span className="text-[8px] font-black uppercase tracking-[0.15em] px-2.5 py-1 rounded-full bg-gold/10 text-gold mb-4 inline-block font-secondary">Fashion & Apparel</span>
+              <p className="text-xs text-gray-500 font-secondary leading-relaxed">
+                Building contemporary clothing brands through design innovation, supply chain development, and omnichannel retail growth.
+              </p>
+            </div>
+
+            {/* Boxfox */}
+            <div className="bg-gray-50 border border-gray-200 rounded-[32px] p-8 hover:shadow-xl hover:border-gold transition-all duration-300 group cursor-default flex flex-col items-center text-center">
+              <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 group-hover:-translate-y-2 transition-transform duration-500 overflow-hidden border border-gray-100 p-2">
+                <Image src="/boxfox.png" alt="Boxfox" width={40} height={40} className="object-contain" unoptimized />
+              </div>
+              <h3 className="text-lg font-black text-black mb-1">Boxfox</h3>
+              <span className="text-[8px] font-black uppercase tracking-[0.15em] px-2.5 py-1 rounded-full bg-gold/10 text-gold mb-4 inline-block font-secondary">Logistics & Delivery</span>
+              <p className="text-xs text-gray-500 font-secondary leading-relaxed">
+                Enabling last-mile delivery, packaging solutions, and end-to-end fulfilment infrastructure for D2C and e-commerce brands.
+              </p>
+            </div>
+
+            {/* Closetrush */}
+            <div className="bg-gray-50 border border-gray-200 rounded-[32px] p-8 hover:shadow-xl hover:border-gold transition-all duration-300 group cursor-default flex flex-col items-center text-center">
+              <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 group-hover:-translate-y-2 transition-transform duration-500 overflow-hidden border border-gray-100 p-2">
+                <Image src="/closetruh.png" alt="Closetrush" width={40} height={40} className="object-contain" unoptimized />
+              </div>
+              <h3 className="text-lg font-black text-black mb-1">Closetrush</h3>
+              <span className="text-[8px] font-black uppercase tracking-[0.15em] px-2.5 py-1 rounded-full bg-gold/10 text-gold mb-4 inline-block font-secondary">Fashion Resale</span>
+              <p className="text-xs text-gray-500 font-secondary leading-relaxed">
+                Powering the circular fashion economy through curated pre-owned clothing, resale platform infrastructure, and sustainable wardrobe solutions.
+              </p>
+            </div>
+
           </div>
         </div>
       </section>

@@ -4,22 +4,22 @@ import Footer from "../components/Footer";
 import { getAllBlogs } from "../../lib/blogs";
 
 export const metadata = {
-  title: "RiseMate Blog | Startup Acceleration, Funding & Growth Insights",
+  title: "RiseMates Blog | Startup Acceleration, Funding & Growth Insights",
   description: "Stay ahead with professional guides on startup venture capital rounds, sustainable commerce, managed sales force systems, and tech advisory written by our managing partners.",
   alternates: {
-    canonical: "https://risemates.com/blog",
+    canonical: "https://RiseMatess.com/blog",
   },
   openGraph: {
-    title: "RiseMate Ventures Blog | Growth Strategies & Industry Insights",
+    title: "RiseMates Ventures Blog | Growth Strategies & Industry Insights",
     description: "Expert startup growth advisory on raising capital, building networks, and executing sales frameworks.",
-    url: "https://risemates.com/blog",
-    siteName: "RiseMate Ventures",
+    url: "https://RiseMatess.com/blog",
+    siteName: "RiseMates Ventures",
     images: [
       {
         url: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?q=80&w=800&auto=format&fit=crop",
         width: 1200,
         height: 630,
-        alt: "RiseMate Blog Hub",
+        alt: "RiseMates Blog Hub",
       },
     ],
     locale: "en_IN",
@@ -27,7 +27,7 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "RiseMate Blog | Startup & Investment Tips",
+    title: "RiseMates Blog | Startup & Investment Tips",
     description: "Insights and strategies on startup capital, sales growth, and sustainability.",
     images: ["https://images.unsplash.com/photo-1515187029135-18ee286d815b?q=80&w=800&auto=format&fit=crop"],
   },
@@ -44,13 +44,13 @@ export default async function BlogPage() {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://risemates.com"
+        "item": "https://RiseMatess.com"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Blog",
-        "item": "https://risemates.com/blog"
+        "item": "https://RiseMatess.com/blog"
       }
     ]
   };

@@ -1,7 +1,7 @@
 const topic = 'Seed Funding';
 const apiKey = 'sk_b46gl2ai_R3JBGrozjGfBSf2aSUoSABqx'; // from .env
 const modelName = 'sarvam-30b';
-const systemPrompt = `You are a professional venture capital and business scaling blog writer for RiseMate Ventures.
+const systemPrompt = `You are a professional venture capital and business scaling blog writer for RiseMates Ventures.
 Your task is to generate a highly detailed, comprehensive, and authoritative article (at least 800-1200 words, minimum 5-8 minutes read time) about the user's requested topic. The blog MUST NOT be a short snippet. It should include deep insights, actionable strategies, industry examples, and a strong conclusion.
 
 CRITICAL INSTRUCTION: You MUST format your response using standard XML tags. Do not use JSON. Do not output markdown code blocks.
@@ -29,7 +29,7 @@ fetch('https://api.sarvam.ai/v1/chat/completions', {
     const text = d.choices?.[0]?.message?.content || "";
     console.log("Raw Output:");
     console.log(text);
-    
+
     // Simulate fallback parser
     let extTitle = null;
     let extContent = null;

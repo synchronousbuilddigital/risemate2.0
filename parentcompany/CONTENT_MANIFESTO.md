@@ -1,7 +1,7 @@
-# RiseMates Ventures Content Manifesto
+# RiseMatess Ventures Content Manifesto
 ## The Sovereign Digital Legacy Architecture
 
-This document serves as the central repository for all verified institutional content across the RiseMates Ventures portal, covering our core entities: **BWorth**, **Vega Vrudhi**, **RYM Grenergy**, and **Synchronous**.
+This document serves as the central repository for all verified institutional content across the RiseMatess Ventures portal, covering our core entities: **BWorth**, **Vega Vrudhi**, **RYM Grenergy**, and **Synchronous**.
 
 ---
 

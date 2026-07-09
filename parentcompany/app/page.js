@@ -6,16 +6,16 @@ export const metadata = {
   title: "Rise Mate Ventures | Connecting Global Opportunities with Scalable Execution",
   description: "Rise Mate Ventures is a Global Business Growth & Venture Ecosystem that helps startups, enterprises, banks, fintech companies, and investors unlock new growth opportunities across international markets.",
   alternates: {
-    canonical: "https://risemates.com",
+    canonical: "https://RiseMatess.com",
   },
   openGraph: {
     title: "Rise Mate Ventures | Global Business Growth & Venture Ecosystem",
     description: "By integrating strategy, funding access, AI-powered technology, business partnerships, market expansion, and execution capabilities, we help organizations scale faster with lower execution risk.",
-    url: "https://risemates.com",
+    url: "https://RiseMatess.com",
     siteName: "Rise Mate Ventures",
     images: [
       {
-        url: "https://risemates.com/beautiful-city-landscape-with-tall-buildings.jpg",
+        url: "https://RiseMatess.com/beautiful-city-landscape-with-tall-buildings.jpg",
         width: 1200,
         height: 630,
         alt: "Rise Mate Ventures - Global Business Growth & Venture Ecosystem",
@@ -28,7 +28,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Rise Mate Ventures | Connecting Global Opportunities with Scalable Execution",
     description: "Unlock new growth opportunities across international markets by integrating strategy, funding access, AI-powered technology, and ground execution.",
-    images: ["https://risemates.com/beautiful-city-landscape-with-tall-buildings.jpg"],
+    images: ["https://RiseMatess.com/beautiful-city-landscape-with-tall-buildings.jpg"],
   },
 };
 
@@ -39,7 +39,7 @@ export default function Home() {
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "Who can apply for RiseMate funding or support?",
+        "name": "Who can apply for RiseMates funding or support?",
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "Startups from Seed to Growth stages seeking strategic capital, execution capability, sustainable commerce architecture, or tech engineering can apply. We look for passionate founders focusing on circular economy, FinTech, clean tech, or automation."
@@ -66,7 +66,7 @@ export default function Home() {
         "name": "Is mentorship included in your programs?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes, mentorship is a key pillar of the RiseMate ecosystem. Selected founders work directly with Saurabh Jain, Dheeraj Anand, Yograj Rundhanker, and Devam Srivastava to scale sales operations, brand identity, and tech development."
+          "text": "Yes, mentorship is a key pillar of the RiseMates ecosystem. Selected founders work directly with Saurabh Jain, Dheeraj Anand, Yograj Rundhanker, and Devam Srivastava to scale sales operations, brand identity, and tech development."
         }
       },
       {
@@ -99,10 +99,10 @@ export default function Home() {
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "RiseMate Ventures",
-    "alternateName": "Risemates",
-    "url": "https://risemates.com",
-    "logo": "https://risemates.com/logo.png",
+    "name": "RiseMates Ventures",
+    "alternateName": "RiseMatess",
+    "url": "https://RiseMatess.com",
+    "logo": "https://RiseMatess.com/logo.png",
     "contactPoint": [
       {
         "@type": "ContactPoint",
@@ -120,8 +120,8 @@ export default function Home() {
       }
     ],
     "sameAs": [
-      "https://www.linkedin.com/company/risemates-ventures",
-      "https://www.instagram.com/risemates"
+      "https://www.linkedin.com/company/RiseMatess-ventures",
+      "https://www.instagram.com/RiseMatess"
     ]
   };
 

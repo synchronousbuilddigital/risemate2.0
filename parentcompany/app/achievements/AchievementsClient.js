@@ -7,7 +7,7 @@ import Image from "next/image";
 
 // Achievements Data Matching User Requests
 const MILESTONES = [
-  { year: "2021", title: "Company Inception", desc: "RiseMate established as a specialized digital startup accelerator in Jaipur, launching our first Cohort." },
+  { year: "2021", title: "Company Inception", desc: "RiseMates established as a specialized digital startup accelerator in Jaipur, launching our first Cohort." },
   { year: "2022", title: "Regional Expansion", desc: "Expanded geographic reach across Rajasthan and Delhi NCR, connecting 40+ early angels." },
   { year: "2023", title: "Ecosystem IP Integration", desc: "Launched BWorth circular retail and RYM industrial IoT automation software platforms." },
   { year: "2024", title: "Gurugram Corporate HQ", desc: "Established NCR Gurugram Corporate HQ, expanding team size and deploying Vega Vrudhi." },
@@ -96,7 +96,7 @@ export default function AchievementsClient() {
   const chartHeight = 350;
   const paddingX = 60;
   const paddingY = 40;
-  
+
   // Map years data to SVG coordinates
   const points = FUNDING_STATS.chartData.map((d, i) => {
     const x = paddingX + (i * (chartWidth - paddingX * 2)) / (FUNDING_STATS.chartData.length - 1);
@@ -110,13 +110,13 @@ export default function AchievementsClient() {
 
   return (
     <div className="min-h-screen bg-[#FAF9F6] text-dark selection:bg-[#002366] selection:text-white pt-28 pb-24 relative overflow-hidden">
-      
+
       {/* Decorative backing glows */}
       <div className="absolute top-0 right-0 w-1/2 h-full bg-[#002366]/5 blur-[200px] rounded-full pointer-events-none z-0" />
       <div className="absolute bottom-0 left-0 w-1/3 h-1/2 bg-amber-500/5 blur-[150px] rounded-full pointer-events-none z-0" />
 
       <div className="container-wide relative z-10 w-full">
-        
+
         {/* Breadcrumbs & Capsule */}
         <div className="mb-6 flex items-center gap-3">
           <Link href="/" className="text-xs font-black uppercase tracking-wider text-dark/45 hover:text-dark transition-colors">Home</Link>
@@ -135,19 +135,19 @@ export default function AchievementsClient() {
             & Milestones
           </h1>
           <p className="text-lg md:text-xl text-dark/60 leading-relaxed font-secondary">
-            Since our establishment in 2021, RiseMate has engineered structural growth for high-potential startups. We provide verified validation, process audits, and direct funding facilitation.
+            Since our establishment in 2021, RiseMates has engineered structural growth for high-potential startups. We provide verified validation, process audits, and direct funding facilitation.
           </p>
         </div>
 
         {/* 1. ANIMATED SVG GROWTH CHART SECTION */}
         <section className="bg-white border border-dark/5 p-8 md:p-10 rounded-[32px] shadow-sm mb-12 relative overflow-hidden">
-          
+
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">
             <div>
               <span className="text-[10px] font-black uppercase tracking-widest text-dark/45">Funding Velocity</span>
               <h3 className="text-2xl font-black text-dark tracking-tight leading-none mt-1">Facilitated Funding Journey</h3>
             </div>
-            
+
             {/* Legend / Stats */}
             <div className="flex gap-8 text-xs font-secondary text-dark/50">
               <div>
@@ -169,7 +169,7 @@ export default function AchievementsClient() {
           <div className="relative w-full overflow-x-auto">
             <div className="min-w-[800px] relative">
               <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} className="w-full h-auto select-none pointer-events-none">
-                
+
                 {/* Defs for gradients */}
                 <defs>
                   <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
@@ -284,9 +284,9 @@ export default function AchievementsClient() {
               ))}
             </div>
           </div>
-          
+
           <div className="text-[10px] text-dark/40 font-secondary text-center mt-6">
-            Hover over chart nodes to see cumulative funding details facilitated via RiseMate co-investments and venture partners.
+            Hover over chart nodes to see cumulative funding details facilitated via RiseMates co-investments and venture partners.
           </div>
         </section>
 
@@ -298,7 +298,7 @@ export default function AchievementsClient() {
           viewport={{ once: true, margin: "-100px" }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch"
         >
-          
+
           {/* Card 1: Growth Timeline (span-2) */}
           <motion.div variants={cardVariants} whileHover={{ y: -6, scale: 1.008 }} className="lg:col-span-2 bg-white border border-dark/5 p-8 rounded-[32px] shadow-sm flex flex-col justify-between group hover:border-[#002366]/10 transition-all duration-300">
             <div>
@@ -306,7 +306,7 @@ export default function AchievementsClient() {
                 <span className="material-symbols-outlined text-[#002366] text-sm">timeline</span>
                 <span className="text-[10px] font-black uppercase tracking-widest text-[#002366]">Growth Journey & Milestones</span>
               </div>
-              
+
               {/* Vertical / Horizontal Timeline Layout */}
               <div className="space-y-6 md:space-y-0 md:grid md:grid-cols-3 md:gap-6 relative before:absolute before:left-[11px] md:before:left-0 md:before:right-0 md:before:top-4 before:bottom-0 md:before:bottom-auto before:w-0.5 md:before:w-auto md:before:h-0.5 before:bg-[#002366]/5">
                 {MILESTONES.slice(0, 3).map((m, i) => (
@@ -318,9 +318,9 @@ export default function AchievementsClient() {
                   </div>
                 ))}
               </div>
-              
+
               <div className="h-[1px] w-full bg-dark/5 my-6 md:my-8" />
-              
+
               <div className="space-y-6 md:space-y-0 md:grid md:grid-cols-3 md:gap-6 relative before:absolute before:left-[11px] md:before:left-0 md:before:right-0 md:before:top-4 before:bottom-0 md:before:bottom-auto before:w-0.5 md:before:w-auto md:before:h-0.5 before:bg-[#002366]/5">
                 {MILESTONES.slice(3).map((m, i) => (
                   <div key={i} className="relative pl-8 md:pl-0 pt-0.5 md:pt-8 flex flex-col items-start z-10">
@@ -346,7 +346,7 @@ export default function AchievementsClient() {
                 <span className="material-symbols-outlined text-[#002366] text-sm">rocket_launch</span>
                 <span className="text-[10px] font-black uppercase tracking-widest text-[#002366]">Startup Impact & Stages</span>
               </div>
-              
+
               <div className="space-y-6">
                 <div className="flex items-center justify-between border-b border-dark/5 pb-3">
                   <div>
@@ -391,7 +391,7 @@ export default function AchievementsClient() {
                 <span className="material-symbols-outlined text-[#002366] text-sm">hub</span>
                 <span className="text-[10px] font-black uppercase tracking-widest text-[#002366]">Ecosystem Alliances</span>
               </div>
-              
+
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <span className="w-8 h-8 rounded-full bg-[#002366]/5 flex items-center justify-center text-[#002366] material-symbols-outlined text-base">handshake</span>
@@ -437,7 +437,7 @@ export default function AchievementsClient() {
                 <span className="material-symbols-outlined text-[#002366] text-sm">workspace_premium</span>
                 <span className="text-[10px] font-black uppercase tracking-widest text-[#002366]">Certifications & Awards</span>
               </div>
-              
+
               <div className="space-y-4">
                 {RECOGNITIONS.map((r, i) => (
                   <div key={i} className="flex items-start gap-3">
@@ -464,7 +464,7 @@ export default function AchievementsClient() {
                 <span className="material-symbols-outlined text-[#002366] text-sm">groups</span>
                 <span className="text-[10px] font-black uppercase tracking-widest text-[#002366]">Events & Community Footprint</span>
               </div>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-dark/60 font-secondary">
                 <div className="space-y-3">
                   <div className="flex items-center gap-3">
@@ -482,7 +482,7 @@ export default function AchievementsClient() {
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="space-y-3">
                   <div className="flex items-center gap-3">
                     <span className="w-6 h-6 rounded-full bg-[#002366]/5 flex items-center justify-center font-black text-[10px] text-[#002366]">03</span>
@@ -541,7 +541,7 @@ export default function AchievementsClient() {
             </div>
 
             <div className="border-t border-white/10 pt-4 text-[9px] font-black uppercase tracking-wider text-white/45 z-10">
-              Measurable public business impact verified by RiseMate compliance audit teams.
+              Measurable public business impact verified by RiseMates compliance audit teams.
             </div>
           </motion.div>
 

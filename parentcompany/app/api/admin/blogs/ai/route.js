@@ -26,7 +26,7 @@ export async function POST(request) {
             );
         }
 
-        const systemPrompt = `You are a professional venture capital and business scaling blog writer for RiseMate Ventures.
+        const systemPrompt = `You are a professional venture capital and business scaling blog writer for RiseMates Ventures.
 Your task is to generate a highly detailed, comprehensive, and authoritative article (at least 800-1200 words, minimum 5-8 minutes read time) about the user's requested topic. The blog MUST NOT be a short snippet. It should include deep insights, actionable strategies, industry examples, and a strong conclusion.
 
 CRITICAL INSTRUCTION: You MUST format your response using standard XML tags. Do not use JSON. Do not output markdown code blocks.
@@ -40,18 +40,18 @@ You must wrap your content exactly in these tags:
         const modelName = process.env.SARVAM_MODEL || "sarvam-30b";
 
         const response = await fetch("https://api.sarvam.ai/v1/chat/completions", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${apiKey}`,
-          },
-          body: JSON.stringify({
-            model: modelName,
-            messages: [
-              { role: "system", content: systemPrompt },
-              { role: "user", content: `Write an article on the topic: ${topic}. Remember to use the XML tags.` }
-            ],
-          }),
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${apiKey}`,
+            },
+            body: JSON.stringify({
+                model: modelName,
+                messages: [
+                    { role: "system", content: systemPrompt },
+                    { role: "user", content: `Write an article on the topic: ${topic}. Remember to use the XML tags.` }
+                ],
+            }),
         });
 
         let text = "";
@@ -123,7 +123,7 @@ You must wrap your content exactly in these tags:
                     readTime: extractTag('readtime') || "5 min read",
                     content: extContent
                 };
-                
+
                 console.log("---- RAW AI TEXT ----");
                 console.log(text);
                 console.log("---- EXTRACTED PARSED DATA ----");
