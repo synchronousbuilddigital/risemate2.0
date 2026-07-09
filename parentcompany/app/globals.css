@@ -130,6 +130,38 @@
       transform: translateY(-20px);
     }
   }
+
+  /* Typography for Blog Content (Replaces missing Tailwind Typography plugin) */
+  .prose h1, .prose h2, .prose h3, .prose h4 {
+    @apply text-dark font-primary tracking-tight font-black mt-12 mb-6;
+  }
+  .prose h1 { @apply text-4xl md:text-5xl; }
+  .prose h2 { @apply text-3xl md:text-4xl; }
+  .prose h3 { @apply text-2xl md:text-3xl; }
+  .prose p {
+    @apply mb-6 text-lg leading-relaxed text-dark/80;
+  }
+  .prose ul {
+    @apply list-disc list-outside ml-6 mb-6 space-y-3;
+  }
+  .prose ol {
+    @apply list-decimal list-outside ml-6 mb-6 space-y-3;
+  }
+  .prose li {
+    @apply text-lg leading-relaxed text-dark/80 pl-2 marker:text-[#002366];
+  }
+  .prose blockquote {
+    @apply border-l-4 border-[#C9A84C] pl-6 py-4 my-10 italic text-xl font-secondary text-dark bg-[#001233]/5 rounded-r-2xl;
+  }
+  .prose strong {
+    @apply font-black text-dark;
+  }
+  .prose a {
+    @apply text-[#002366] font-bold underline underline-offset-4 decoration-2 hover:text-gold transition-colors;
+  }
+  .prose img {
+    @apply rounded-[32px] w-full my-12 shadow-xl border border-dark/5 object-cover;
+  }
 }
 
 @layer utilities {
