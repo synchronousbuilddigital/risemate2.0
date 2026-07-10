@@ -52,8 +52,16 @@ const WalkingFigure = ({ isCelebrating }) => {
   return (
     <motion.div 
       className="w-12 h-12 md:w-[64px] md:h-[64px] relative flex items-center justify-center drop-shadow-[0_0_15px_rgba(255,215,0,0.8)] z-[60]"
-      animate={isCelebrating ? { y: [-15, 0, -15] } : { y: [0, -3, 0] }}
-      transition={isCelebrating ? { repeat: Infinity, duration: 0.6, ease: "easeOut" } : { repeat: Infinity, duration: 0.5, ease: "easeInOut" }}
+      animate={
+        isCelebrating 
+          ? { y: [-15, 0, -15], scale: 1.3 } 
+          : { y: [0, -3, 0], scale: 1 }
+      }
+      transition={
+        isCelebrating 
+          ? { y: { repeat: Infinity, duration: 0.6, ease: "easeOut" }, scale: { type: "spring", stiffness: 100 } } 
+          : { y: { repeat: Infinity, duration: 0.5, ease: "easeInOut" } }
+      }
     >
       <svg viewBox="0 0 100 100" className="w-full h-full stroke-gold fill-transparent" strokeLinecap="round" strokeLinejoin="round">
         {/* Head */}
@@ -94,15 +102,18 @@ const WalkingFigure = ({ isCelebrating }) => {
             <line x1="50" y1="88" x2="57" y2="88" strokeWidth="6" className="stroke-gold" /> {/* Foot */}
         </motion.g>
         
-        {/* Right Arm (Front) */}
-        <motion.line 
-          strokeWidth="7"
-          x1="50" y1="32" x2="50" y2="58" 
+        {/* Right Arm (Front) with Briefcase */}
+        <motion.g
           animate={isCelebrating ? { rotate: 150 } : { rotate: [-35, 35, -35] }} 
           transition={isCelebrating ? { type: "spring", stiffness: 200, damping: 15 } : { repeat: Infinity, duration: 1, ease: "linear" }}
           style={{ transformOrigin: "50px 32px" }}
-          className="stroke-gold"
-        />
+        >
+            <line strokeWidth="7" x1="50" y1="32" x2="50" y2="58" className="stroke-gold" />
+            
+            {/* Briefcase */}
+            <rect x="41" y="58" width="18" height="14" rx="2" className="fill-black stroke-gold stroke-[3px]" />
+            <path d="M 45 58 C 45 53, 55 53, 55 58" className="fill-transparent stroke-gold stroke-[3px]" />
+        </motion.g>
       </svg>
     </motion.div>
   );
@@ -142,8 +153,7 @@ const DeliveryModel = () => {
   useEffect(() => {
     let timeout1, timeout2, confettiInterval;
     if (isInView && currentStep < deliverySteps.length) {
-        // the walk duration is approx 1000ms.
-        // Wait 1000ms, then fire confetti
+        // Continuous walk: wait for the walk to complete, then instantly trigger next step
         timeout1 = setTimeout(() => {
             const stepEl = document.getElementById(`step-${currentStep}`);
             if (stepEl && confettiInstance && confettiCanvasRef.current) {
@@ -180,17 +190,20 @@ const DeliveryModel = () => {
                 }
             }
             
-            // Wait a bit, then move to next step
-            timeout2 = setTimeout(() => {
+            // IMMEDIATELY move to next step without pausing!
+            if (currentStep < deliverySteps.length - 1) {
                 setCurrentStep(p => p + 1);
-            }, currentStep === deliverySteps.length - 1 ? 4000 : 1500); // stay longer on final step
+            } else {
+                // If it is the last step, wait for the finale to finish, then cleanly reset
+                timeout2 = setTimeout(() => {
+                    setCurrentStep(-1); // Unmount everything instantly
+                    setTimeout(() => {
+                        if (isInView) setCurrentStep(0); // Start over!
+                    }, 50);
+                }, 4000);
+            }
 
-        }, currentStep === 0 ? 500 : 1000); 
-    } else if (isInView && currentStep >= deliverySteps.length) {
-        // loop back after grand finale
-        timeout1 = setTimeout(() => {
-            setCurrentStep(0);
-        }, 1000);
+        }, currentStep === 0 ? 500 : 1500); // 1500ms walk duration
     } else if (!isInView) {
         // Reset when out of view
         setCurrentStep(-1);
@@ -231,6 +244,16 @@ const DeliveryModel = () => {
                   id={`step-${idx}`}
                   className="relative flex flex-col items-center group w-full"
                 >
+                  {/* Shockwave Pulse Effect */}
+                  {isCurrent && (
+                     <motion.div 
+                        initial={{ scale: 0.8, opacity: 1 }}
+                        animate={{ scale: 1.8, opacity: 0 }}
+                        transition={{ duration: 1.0, ease: "easeOut" }}
+                        className="absolute w-16 h-16 rounded-full border-2 border-gold z-0 pointer-events-none"
+                     />
+                  )}
+
                   {/* Person Walking / Celebrating */}
                   {isCurrent && (
                     <motion.div
@@ -238,9 +261,9 @@ const DeliveryModel = () => {
                       transition={{ 
                         type: "tween", 
                         ease: "linear",
-                        duration: 1
+                        duration: 1.5
                       }}
-                      className="absolute -top-[30px] md:top-[-26px] z-[60] pointer-events-none"
+                      className="absolute -top-[44px] md:-top-[44px] z-[60] pointer-events-none"
                     >
                       <WalkingFigure isCelebrating={currentStep === deliverySteps.length - 1} />
                     </motion.div>
@@ -263,7 +286,7 @@ const DeliveryModel = () => {
                             className="absolute inset-0 bg-gold origin-left"
                             initial={{ scaleX: 0 }}
                             animate={{ scaleX: currentStep > idx ? 1 : 0 }}
-                            transition={{ duration: 1, ease: "easeInOut" }}
+                            transition={{ duration: currentStep > idx ? 1.5 : 0, ease: "linear" }}
                          />
                      </div>
                   )}
@@ -278,7 +301,7 @@ const DeliveryModel = () => {
                             className="absolute inset-0 bg-gold origin-top"
                             initial={{ scaleY: 0 }}
                             animate={{ scaleY: currentStep > idx ? 1 : 0 }}
-                            transition={{ duration: 1, ease: "easeInOut" }}
+                            transition={{ duration: currentStep > idx ? 1.5 : 0, ease: "linear" }}
                          />
                      </div>
                   )}
