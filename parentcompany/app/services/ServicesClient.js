@@ -44,75 +44,126 @@ const servicesList = [
   }
 ];
 
-const deliverySteps = [
-  "Discover", "Strategize", "Connect", "Execute", "Measure", "Scale"
+const deliveryStepsData = [
+  { title: "Discover", desc: "Deep dive into your business goals, current state, and market landscape.", points: ["Requirement gathering", "Market analysis", "Goal setting"] },
+  { title: "Strategize", desc: "Formulate a tailored roadmap to achieve measurable business outcomes.", points: ["Solution architecture", "Resource planning", "Timeline creation"] },
+  { title: "Connect", desc: "Align stakeholders, technology partners, and functional teams.", points: ["Team onboarding", "Tool setup", "Communication plan"] },
+  { title: "Execute", desc: "Deploy the strategy with agile methodologies and active monitoring.", points: ["Iterative sprints", "Quality assurance", "Daily standups"] },
+  { title: "Measure", desc: "Analyze performance metrics and validate against initial objectives.", points: ["KPI tracking", "User feedback", "Performance optimization"] },
+  { title: "Scale", desc: "Expand operations and unlock new growth opportunities seamlessly.", points: ["Capacity planning", "Market expansion", "Continuous improvement"] }
 ];
+
+const MoneyRain = () => {
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    setItems(Array.from({ length: 60 }).map((_, i) => ({
+      id: i,
+      type: Math.random() > 0.3 ? 'bill' : 'coin',
+      x: Math.random() * 100,
+      delay: Math.random() * 3,
+      duration: 3 + Math.random() * 2,
+      rotation: Math.random() * 360,
+      scale: 0.6 + Math.random() * 0.6
+    })));
+  }, []);
+
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none z-[80]">
+      {items.map((item) => (
+        <motion.div
+          key={item.id}
+          className="absolute top-[-100px] drop-shadow-[0_5px_10px_rgba(0,0,0,0.5)]"
+          style={{ left: `${item.x}%` }}
+          initial={{ y: 0, rotateZ: item.rotation, rotateX: 0, rotateY: 0, scale: item.scale }}
+          animate={{
+            y: "120vh",
+            rotateZ: item.rotation + (Math.random() > 0.5 ? 360 : -360),
+            rotateX: item.type === 'bill' ? 720 : 0,
+            rotateY: 720
+          }}
+          transition={{
+            duration: item.duration,
+            delay: item.delay,
+            ease: "linear",
+            repeat: Infinity
+          }}
+        >
+          {item.type === 'bill' ? (
+            <svg width="60" height="30" viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="116" height="56" rx="4" fill="#15803d" stroke="#4ade80" strokeWidth="2" />
+              <rect x="8" y="8" width="104" height="44" rx="2" fill="#166534" stroke="#4ade80" strokeWidth="1" strokeDasharray="4 4" />
+              <circle cx="60" cy="30" r="14" fill="#4ade80" />
+              <text x="60" y="36" fontSize="20" fill="#166534" textAnchor="middle" fontWeight="bold" fontFamily="serif">$</text>
+              <circle cx="20" cy="30" r="8" fill="#4ade80" opacity="0.6" />
+              <circle cx="100" cy="30" r="8" fill="#4ade80" opacity="0.6" />
+              <path d="M 12 12 L 28 28 M 108 12 L 92 28 M 12 48 L 28 32 M 108 48 L 92 32" stroke="#4ade80" strokeWidth="1" opacity="0.3" />
+            </svg>
+          ) : (
+            <svg width="30" height="30" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="20" cy="20" r="18" fill="#eab308" stroke="#ca8a04" strokeWidth="2" />
+              <circle cx="20" cy="20" r="14" fill="#facc15" stroke="#ca8a04" strokeWidth="1" strokeDasharray="2 2" />
+              <text x="20" y="26" fontSize="18" fill="#ca8a04" textAnchor="middle" fontWeight="bold" fontFamily="serif">$</text>
+            </svg>
+          )}
+        </motion.div>
+      ))}
+    </div>
+  );
+};
 
 const WalkingFigure = ({ isCelebrating }) => {
   return (
-    <motion.div 
+    <motion.div
       className="w-12 h-12 md:w-[64px] md:h-[64px] relative flex items-center justify-center drop-shadow-[0_0_15px_rgba(255,215,0,0.8)] z-[60]"
       animate={
-        isCelebrating 
-          ? { y: [-15, 0, -15], scale: 1.3 } 
+        isCelebrating
+          ? { y: [-15, 0, -15], scale: 1.3 }
           : { y: [0, -3, 0], scale: 1 }
       }
       transition={
-        isCelebrating 
-          ? { y: { repeat: Infinity, duration: 0.6, ease: "easeOut" }, scale: { type: "spring", stiffness: 100 } } 
+        isCelebrating
+          ? { y: { repeat: Infinity, duration: 0.6, ease: "easeOut" }, scale: { type: "spring", stiffness: 100 } }
           : { y: { repeat: Infinity, duration: 0.5, ease: "easeInOut" } }
       }
     >
       <svg viewBox="0 0 100 100" className="w-full h-full stroke-gold fill-transparent" strokeLinecap="round" strokeLinejoin="round">
-        {/* Head */}
         <circle cx="50" cy="18" r="9" className="fill-gold stroke-none" />
-        
-        {/* Torso */}
         <line x1="50" y1="28" x2="50" y2="58" strokeWidth="12" />
-        
-        {/* Left Arm (Back) */}
-        <motion.line 
+        <motion.line
           strokeWidth="7"
-          x1="50" y1="32" x2="50" y2="58" 
-          animate={isCelebrating ? { rotate: -150 } : { rotate: [35, -35, 35] }} 
+          x1="50" y1="32" x2="50" y2="58"
+          animate={isCelebrating ? { rotate: -150 } : { rotate: [35, -35, 35] }}
           transition={isCelebrating ? { type: "spring", stiffness: 200, damping: 15 } : { repeat: Infinity, duration: 1, ease: "linear" }}
           style={{ transformOrigin: "50px 32px" }}
           className="stroke-gold/60"
         />
-        
-        {/* Left Leg (Back) */}
         <motion.g
           strokeWidth="8"
-          animate={isCelebrating ? { rotate: -20 } : { rotate: [-40, 40, -40] }} 
+          animate={isCelebrating ? { rotate: -20 } : { rotate: [-40, 40, -40] }}
           transition={isCelebrating ? { type: "spring", stiffness: 200, damping: 15 } : { repeat: Infinity, duration: 1, ease: "linear" }}
           style={{ transformOrigin: "50px 58px" }}
         >
-            <line x1="50" y1="58" x2="50" y2="88" className="stroke-gold/60" />
-            <line x1="50" y1="88" x2="57" y2="88" strokeWidth="6" className="stroke-gold/60" /> {/* Foot */}
+          <line x1="50" y1="58" x2="50" y2="88" className="stroke-gold/60" />
+          <line x1="50" y1="88" x2="57" y2="88" strokeWidth="6" className="stroke-gold/60" />
         </motion.g>
-
-        {/* Right Leg (Front) */}
         <motion.g
           strokeWidth="8"
-          animate={isCelebrating ? { rotate: 20 } : { rotate: [40, -40, 40] }} 
+          animate={isCelebrating ? { rotate: 20 } : { rotate: [40, -40, 40] }}
           transition={isCelebrating ? { type: "spring", stiffness: 200, damping: 15 } : { repeat: Infinity, duration: 1, ease: "linear" }}
           style={{ transformOrigin: "50px 58px" }}
         >
-            <line x1="50" y1="58" x2="50" y2="88" className="stroke-gold" />
-            <line x1="50" y1="88" x2="57" y2="88" strokeWidth="6" className="stroke-gold" /> {/* Foot */}
+          <line x1="50" y1="58" x2="50" y2="88" className="stroke-gold" />
+          <line x1="50" y1="88" x2="57" y2="88" strokeWidth="6" className="stroke-gold" />
         </motion.g>
-        
-        {/* Right Arm (Front) with Briefcase */}
         <motion.g
-          animate={isCelebrating ? { rotate: 150 } : { rotate: [-35, 35, -35] }} 
+          animate={isCelebrating ? { rotate: 150 } : { rotate: [-35, 35, -35] }}
           transition={isCelebrating ? { type: "spring", stiffness: 200, damping: 15 } : { repeat: Infinity, duration: 1, ease: "linear" }}
           style={{ transformOrigin: "50px 32px" }}
         >
-            <line strokeWidth="7" x1="50" y1="32" x2="50" y2="58" className="stroke-gold" />
-            
-            {/* Briefcase */}
-            <rect x="41" y="58" width="18" height="14" rx="2" className="fill-black stroke-gold stroke-[3px]" />
-            <path d="M 45 58 C 45 53, 55 53, 55 58" className="fill-transparent stroke-gold stroke-[3px]" />
+          <line strokeWidth="7" x1="50" y1="32" x2="50" y2="58" className="stroke-gold" />
+          <rect x="41" y="58" width="18" height="14" rx="2" className="fill-black stroke-gold stroke-[3px]" />
+          <path d="M 45 58 C 45 53, 55 53, 55 58" className="fill-transparent stroke-gold stroke-[3px]" />
         </motion.g>
       </svg>
     </motion.div>
@@ -126,7 +177,6 @@ const DeliveryModel = () => {
   const [currentStep, setCurrentStep] = useState(-1);
   const [confettiInstance, setConfettiInstance] = useState(null);
 
-  // Load canvas-confetti
   useEffect(() => {
     if (typeof window !== 'undefined' && !window.confetti) {
       const script = document.createElement('script');
@@ -134,183 +184,179 @@ const DeliveryModel = () => {
       script.async = true;
       document.body.appendChild(script);
     }
-    
-    // Initialize custom canvas
+
     const initConfetti = setInterval(() => {
-       if (window.confetti && confettiCanvasRef.current) {
-           const myConfetti = window.confetti.create(confettiCanvasRef.current, {
-             resize: true,
-             useWorker: true
-           });
-           setConfettiInstance(() => myConfetti);
-           clearInterval(initConfetti);
-       }
+      if (window.confetti && confettiCanvasRef.current) {
+        const myConfetti = window.confetti.create(confettiCanvasRef.current, {
+          resize: true,
+          useWorker: true
+        });
+        setConfettiInstance(() => myConfetti);
+        clearInterval(initConfetti);
+      }
     }, 100);
-    
+
     return () => clearInterval(initConfetti);
   }, []);
 
   useEffect(() => {
-    let timeout1, timeout2, confettiInterval;
-    if (isInView && currentStep < deliverySteps.length) {
-        // Continuous walk: wait for the walk to complete, then instantly trigger next step
-        timeout1 = setTimeout(() => {
-            const stepEl = document.getElementById(`step-${currentStep}`);
-            if (stepEl && confettiInstance && confettiCanvasRef.current) {
-                const rect = stepEl.getBoundingClientRect();
-                const canvasRect = confettiCanvasRef.current.getBoundingClientRect();
-                const x = (rect.left + rect.width / 2 - canvasRect.left) / canvasRect.width;
-                const y = (rect.top + rect.height / 2 - canvasRect.top) / canvasRect.height;
-                
-                if (currentStep === deliverySteps.length - 1) {
-                    // Grand finale fireworks for the final step!
-                    const duration = 2500;
-                    const animationEnd = Date.now() + duration;
-                    const defaults = { startVelocity: 30, spread: 360, ticks: 60, colors: ['#FFD700', '#ffffff', '#aaaaaa', '#ffaa00'] };
+    let timeout1, timeout2;
+    if (isInView && currentStep < deliveryStepsData.length) {
+      timeout1 = setTimeout(() => {
+        const stepEl = document.getElementById(`step-${currentStep}`);
+        if (stepEl && confettiInstance && confettiCanvasRef.current) {
+          const rect = stepEl.getBoundingClientRect();
+          const canvasRect = confettiCanvasRef.current.getBoundingClientRect();
+          const x = (rect.left + rect.width / 2 - canvasRect.left) / canvasRect.width;
+          const y = (rect.top + rect.height / 2 - canvasRect.top) / canvasRect.height;
 
-                    confettiInterval = setInterval(function() {
-                      const timeLeft = animationEnd - Date.now();
+          confettiInstance({
+            particleCount: 50,
+            spread: 60,
+            origin: { x, y },
+            colors: ['#FFD700', '#ffffff', '#aaaaaa'],
+            disableForReducedMotion: true
+          });
+        }
 
-                      if (timeLeft <= 0) {
-                        return clearInterval(confettiInterval);
-                      }
+        if (currentStep < deliveryStepsData.length - 1) {
+          setCurrentStep(p => p + 1);
+        } else {
+          timeout2 = setTimeout(() => {
+            setCurrentStep(-1);
+            setTimeout(() => {
+              if (isInView) setCurrentStep(0); // Start over!
+            }, 50);
+          }, 4000);
+        }
 
-                      const particleCount = 50 * (timeLeft / duration);
-                      confettiInstance(Object.assign({}, defaults, { particleCount, origin: { x: Math.random(), y: Math.random() - 0.2 } }));
-                    }, 250);
-                } else {
-                    // Normal step burst
-                    confettiInstance({
-                        particleCount: 50,
-                        spread: 60,
-                        origin: { x, y },
-                        colors: ['#FFD700', '#ffffff', '#aaaaaa'],
-                        disableForReducedMotion: true
-                    });
-                }
-            }
-            
-            // IMMEDIATELY move to next step without pausing!
-            if (currentStep < deliverySteps.length - 1) {
-                setCurrentStep(p => p + 1);
-            } else {
-                // If it is the last step, wait for the finale to finish, then cleanly reset
-                timeout2 = setTimeout(() => {
-                    setCurrentStep(-1); // Unmount everything instantly
-                    setTimeout(() => {
-                        if (isInView) setCurrentStep(0); // Start over!
-                    }, 50);
-                }, 4000);
-            }
-
-        }, currentStep === 0 ? 500 : 1500); // 1500ms walk duration
+      }, currentStep === 0 ? 500 : 1500); // 1500ms walk duration
     } else if (!isInView) {
-        // Reset when out of view
-        setCurrentStep(-1);
+      // Reset when out of view
+      setCurrentStep(-1);
     }
 
     return () => {
-        clearTimeout(timeout1);
-        clearTimeout(timeout2);
-        clearInterval(confettiInterval);
+      clearTimeout(timeout1);
+      clearTimeout(timeout2);
     };
   }, [currentStep, isInView, confettiInstance]);
 
   return (
-    <section className="py-24 md:py-32 bg-black text-white relative overflow-hidden">
-        {/* Background Grid */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+    <section className="pt-24 md:pt-32 pb-48 md:pb-64 bg-black text-white relative overflow-hidden">
+      {/* Background Grid */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem]" />
 
-        {/* Confetti Canvas strictly confined to this section */}
-        <canvas ref={confettiCanvasRef} className="absolute inset-0 w-full h-full pointer-events-none z-10" />
+      {/* Confetti Canvas strictly confined to this section */}
+      <canvas ref={confettiCanvasRef} className="absolute inset-0 w-full h-full pointer-events-none z-10" />
 
-        <div className="container-wide relative z-20">
-          <div className="text-center max-w-3xl mx-auto mb-20">
-            <h2 className="text-4xl md:text-5xl font-black text-white tracking-tighter leading-[1.1] mb-6 font-primary">
-              Our Delivery Model
-            </h2>
-            <p className="text-lg text-white/50 font-secondary leading-relaxed">
-              Every engagement follows a structured methodology focused on delivering sustainable and measurable business outcomes.
-            </p>
-          </div>
+      {/* Accurate SVG Money Rain Effect for Scale Step */}
+      {currentStep === deliveryStepsData.length - 1 && <MoneyRain />}
 
-          <div className="flex flex-col md:flex-row items-center justify-between gap-12 md:gap-2 max-w-5xl mx-auto mt-16" ref={containerRef}>
-            {deliverySteps.map((step, idx) => {
-              const isActive = currentStep >= idx;
-              const isCurrent = currentStep === idx;
-              return (
-                <div
-                  key={idx}
-                  id={`step-${idx}`}
-                  className="relative flex flex-col items-center group w-full"
-                >
-                  {/* Shockwave Pulse Effect */}
-                  {isCurrent && (
-                     <motion.div 
-                        initial={{ scale: 0.8, opacity: 1 }}
-                        animate={{ scale: 1.8, opacity: 0 }}
-                        transition={{ duration: 1.0, ease: "easeOut" }}
-                        className="absolute w-16 h-16 rounded-full border-2 border-gold z-0 pointer-events-none"
-                     />
-                  )}
-
-                  {/* Person Walking / Celebrating */}
-                  {isCurrent && (
-                    <motion.div
-                      layoutId="walkingPerson"
-                      transition={{ 
-                        type: "tween", 
-                        ease: "linear",
-                        duration: 1.5
-                      }}
-                      className="absolute -top-[44px] md:-top-[44px] z-[60] pointer-events-none"
-                    >
-                      <WalkingFigure isCelebrating={currentStep === deliverySteps.length - 1} />
-                    </motion.div>
-                  )}
-
-                  <div className={`relative w-16 h-16 rounded-full flex items-center justify-center mb-4 transition-all duration-500 z-10 ${isActive ? 'bg-gold border-gold text-black shadow-[0_0_20px_rgba(255,215,0,0.4)]' : 'bg-white/5 border-white/10 text-white'}`}>
-                    <span className="font-black font-primary text-xl">0{idx + 1}</span>
-                  </div>
-                  <span className={`text-[10px] md:text-xs font-black uppercase tracking-widest transition-colors duration-500 ${isActive ? 'text-gold drop-shadow-[0_0_5px_rgba(255,215,0,0.5)]' : 'text-white/70'}`}>
-                    {step}
-                  </span>
-
-                  {/* Connecting Lines for Desktop */}
-                  {idx !== deliverySteps.length - 1 && (
-                     <div className="hidden md:block absolute h-[2px] top-8 left-[50%] w-full -z-0">
-                         {/* Background line */}
-                         <div className="absolute inset-0 bg-white/10" />
-                         {/* Active line fill */}
-                         <motion.div 
-                            className="absolute inset-0 bg-gold origin-left"
-                            initial={{ scaleX: 0 }}
-                            animate={{ scaleX: currentStep > idx ? 1 : 0 }}
-                            transition={{ duration: currentStep > idx ? 1.5 : 0, ease: "linear" }}
-                         />
-                     </div>
-                  )}
-                  
-                  {/* Connecting Lines for Mobile */}
-                  {idx !== deliverySteps.length - 1 && (
-                     <div className="md:hidden absolute w-[2px] top-[2rem] left-1/2 -translate-x-1/2 -z-0" style={{ height: 'calc(100% + 3rem)' }}>
-                         {/* Background line */}
-                         <div className="absolute inset-0 bg-white/10" />
-                         {/* Active line fill */}
-                         <motion.div 
-                            className="absolute inset-0 bg-gold origin-top"
-                            initial={{ scaleY: 0 }}
-                            animate={{ scaleY: currentStep > idx ? 1 : 0 }}
-                            transition={{ duration: currentStep > idx ? 1.5 : 0, ease: "linear" }}
-                         />
-                     </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
+      <div className="container-wide relative z-20">
+        <div className="text-center max-w-3xl mx-auto mb-20">
+          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tighter leading-[1.1] mb-6 font-primary">
+            Our Delivery Model
+          </h2>
+          <p className="text-lg text-white/50 font-secondary leading-relaxed">
+            Every engagement follows a structured methodology focused on delivering sustainable and measurable business outcomes.
+          </p>
         </div>
-      </section>
+
+        <div className="flex flex-col md:flex-row items-center justify-between gap-12 md:gap-2 max-w-5xl mx-auto mt-16" ref={containerRef}>
+          {deliveryStepsData.map((step, idx) => {
+            const isActive = currentStep >= idx;
+            const isCurrent = currentStep === idx;
+            return (
+              <div
+                key={idx}
+                id={`step-${idx}`}
+                className="relative flex flex-col items-center group w-full"
+              >
+                {/* Shockwave Pulse Effect */}
+                {isCurrent && (
+                  <motion.div
+                    initial={{ scale: 0.8, opacity: 1 }}
+                    animate={{ scale: 1.8, opacity: 0 }}
+                    transition={{ duration: 1.0, ease: "easeOut" }}
+                    className="absolute w-16 h-16 rounded-full border-2 border-gold z-0 pointer-events-none"
+                  />
+                )}
+
+                {/* Person Walking / Celebrating */}
+                {isCurrent && (
+                  <motion.div
+                    layoutId="walkingPerson"
+                    transition={{
+                      type: "tween",
+                      ease: "linear",
+                      duration: 1.5
+                    }}
+                    className="absolute -top-[44px] md:-top-[44px] z-[60] pointer-events-none"
+                  >
+                    <WalkingFigure currentStep={currentStep} />
+                  </motion.div>
+                )}
+
+                <div className={`relative w-16 h-16 rounded-full flex items-center justify-center mb-4 transition-all duration-500 z-10 ${isActive ? 'bg-gold border-gold text-black shadow-[0_0_20px_rgba(255,215,0,0.4)]' : 'bg-white/5 border-white/10 text-white'}`}>
+                  <span className="font-black font-primary text-xl">0{idx + 1}</span>
+                </div>
+                <span className={`text-[10px] md:text-xs font-black uppercase tracking-widest transition-colors duration-500 ${isActive ? 'text-gold drop-shadow-[0_0_5px_rgba(255,215,0,0.5)]' : 'text-white/70'}`}>
+                  {step.title}
+                </span>
+
+                {/* Pop-up Detail Card */}
+                <div
+                  className={`absolute top-[100px] md:top-[110px] w-[260px] md:w-[300px] p-6 rounded-2xl bg-white/5 backdrop-blur-md border border-gold/30 shadow-[0_10px_40px_rgba(0,0,0,0.5)] transition-all duration-500 z-[70] ${isCurrent ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-8 pointer-events-none'
+                    }`}
+                >
+                  <h4 className="text-xl font-bold text-gold mb-2 font-primary">{step.title}</h4>
+                  <p className="text-sm text-white/80 leading-relaxed mb-4 font-secondary">{step.desc}</p>
+                  <ul className="text-xs text-white/60 space-y-2 font-secondary">
+                    {step.points.map((point, i) => (
+                      <li key={i} className="flex items-start gap-2 text-left">
+                        <span className="w-1.5 h-1.5 rounded-full bg-gold mt-1 shrink-0" />
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Connecting Lines for Desktop */}
+                {idx !== deliveryStepsData.length - 1 && (
+                  <div className="hidden md:block absolute h-[2px] top-8 left-[50%] w-full -z-0">
+                    {/* Background line */}
+                    <div className="absolute inset-0 bg-white/10" />
+                    {/* Active line fill */}
+                    <motion.div
+                      className="absolute inset-0 bg-gold origin-left"
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: currentStep > idx ? 1 : 0 }}
+                      transition={{ duration: currentStep > idx ? 1.5 : 0, ease: "linear" }}
+                    />
+                  </div>
+                )}
+
+                {/* Connecting Lines for Mobile */}
+                {idx !== deliveryStepsData.length - 1 && (
+                  <div className="md:hidden absolute w-[2px] top-[2rem] left-1/2 -translate-x-1/2 -z-0" style={{ height: 'calc(100% + 3rem)' }}>
+                    {/* Background line */}
+                    <div className="absolute inset-0 bg-white/10" />
+                    {/* Active line fill */}
+                    <motion.div
+                      className="absolute inset-0 bg-gold origin-top"
+                      initial={{ scaleY: 0 }}
+                      animate={{ scaleY: currentStep > idx ? 1 : 0 }}
+                      transition={{ duration: currentStep > idx ? 1.5 : 0, ease: "linear" }}
+                    />
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
   );
 };
 
