@@ -360,6 +360,178 @@ const DeliveryModel = () => {
   );
 };
 
+const CreativeStepsAnimation = () => {
+  const steps = [
+    { text: "Curiosity", color: "#facc15" },
+    { text: "Ideation", color: "#fbbf24" },
+    { text: "Innovation", color: "#f59e0b" },
+    { text: "Execution", color: "#d97706" },
+    { text: "Impact", color: "#b45309" }
+  ];
+
+  const keyframesX = [50, 180, 310, 440, 570, 700, 850];
+  const keyframesY = [385, 385, 315, 245, 175, 105, -95];
+
+  return (
+    <div className="relative w-full h-full bg-white flex items-center justify-center overflow-hidden">
+      <svg viewBox="0 0 800 600" className="w-full h-full">
+        <defs>
+          <linearGradient id="stepGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#fafafa" />
+            <stop offset="100%" stopColor="#e5e5e5" />
+          </linearGradient>
+          <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="10" stdDeviation="15" floodOpacity="0.1" />
+          </filter>
+        </defs>
+
+        {/* Steps Backgrounds (drawn first) */}
+        {steps.map((step, idx) => {
+          const x = 100 + idx * 130;
+          const y = 450 - idx * 70;
+          const w = 130;
+          const h = 150 + idx * 70;
+          return (
+            <g key={`step-bg-${idx}`}>
+              <motion.path
+                d={`M ${x} ${y} L ${x + w} ${y} L ${x + w} ${y + h} L ${x} ${y + h} Z`}
+                fill={step.color}
+                stroke="#d4d4d8"
+                strokeWidth="1"
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: idx * 0.1, duration: 0.6, ease: "easeOut" }}
+              />
+              <motion.path
+                d={`M ${x} ${y} L ${x + w} ${y} L ${x + w + 30} ${y - 30} L ${x + 30} ${y - 30} Z`}
+                fill={step.color}
+                style={{ filter: "brightness(1.15)" }}
+                stroke="#d4d4d8"
+                strokeWidth="1"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: idx * 0.1 + 0.2 }}
+              />
+              <motion.path
+                d={`M ${x + w} ${y} L ${x + w + 30} ${y - 30} L ${x + w + 30} ${y - 30 + h} L ${x + w} ${y + h} Z`}
+                fill={step.color}
+                style={{ filter: "brightness(0.9)" }}
+                stroke="#d4d4d8"
+                strokeWidth="1"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: idx * 0.1 + 0.2 }}
+              />
+            </g>
+          );
+        })}
+
+        {/* Text and Sparkles (drawn on top) */}
+        {steps.map((step, idx) => {
+          const x = 100 + idx * 130;
+          const y = 450 - idx * 70;
+          const w = 130;
+          const h = 150 + idx * 70;
+          return (
+            <g key={`step-text-${idx}`}>
+              <g transform={`rotate(-90 ${x + 65} ${y + h - 25})`}>
+                <motion.text
+                  x={x + 65}
+                  y={y + h - 25}
+                  textAnchor="start"
+                  className="text-xl md:text-2xl font-black font-primary"
+                  style={{ filter: "drop-shadow(0px 2px 4px rgba(0,0,0,0.3))" }}
+                  initial={{ fill: "#ffffff", scale: 1, opacity: 0 }}
+                  animate={{ opacity: 1, scale: [1, 1.05, 1.05, 1] }}
+                  transition={{
+                    opacity: { duration: 0.5, delay: idx * 0.1 },
+                    scale: {
+                      duration: 2.5,
+                      times: [0, 0.2, 0.8, 1],
+                      delay: idx * 1.5 + 1.0,
+                      repeat: Infinity,
+                      repeatDelay: 6.5
+                    }
+                  }}
+                >
+                  {step.text}
+                </motion.text>
+              </g>
+
+              <motion.circle
+                cx={x + 80}
+                cy={y - 40}
+                r="40"
+                fill={step.color}
+                filter="url(#shadow)"
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: [0, 0.4, 0], scale: [0.5, 1.5, 2] }}
+                transition={{
+                  duration: 1.5,
+                  delay: idx * 1.5 + 1.5,
+                  repeat: Infinity,
+                  repeatDelay: 7.5
+                }}
+              />
+            </g>
+          );
+        })}
+
+        <motion.g
+          animate={{ x: keyframesX, y: keyframesY }}
+          transition={{
+            duration: 9,
+            times: [0, 1 / 6, 2 / 6, 3 / 6, 4 / 6, 5 / 6, 1],
+            ease: "linear",
+            repeat: Infinity,
+          }}
+        >
+          <motion.g
+            animate={{ y: [0, -50, 0] }}
+            transition={{
+              duration: 1.5,
+              ease: ["easeOut", "easeIn"],
+              repeat: Infinity
+            }}
+          >
+            <motion.g
+              animate={{ scaleY: [1, 0.85, 1.1, 1, 1], scaleX: [1, 1.1, 0.9, 1, 1] }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                times: [0, 0.1, 0.5, 0.9, 1]
+              }}
+            >
+              <circle cx="0" cy="-35" r="14" fill="#000" />
+              <path d="M 0 -20 Q 10 0 0 20" stroke="#000" strokeWidth="10" fill="none" strokeLinecap="round" />
+              <motion.path
+                d="M 0 -10 Q -20 0 -10 10" stroke="#000" strokeWidth="8" fill="none" strokeLinecap="round"
+                animate={{ rotate: [-40, 40, -40] }} transition={{ repeat: Infinity, duration: 0.75, ease: "easeInOut" }}
+                style={{ transformOrigin: "0px -10px" }}
+              />
+              <motion.path
+                d="M 0 -10 Q 20 0 10 10" stroke="#000" strokeWidth="8" fill="none" strokeLinecap="round"
+                animate={{ rotate: [40, -40, 40] }} transition={{ repeat: Infinity, duration: 0.75, ease: "easeInOut" }}
+                style={{ transformOrigin: "0px -10px" }}
+              />
+              <motion.path
+                d="M 0 20 Q -15 35 -10 50" stroke="#000" strokeWidth="10" fill="none" strokeLinecap="round"
+                animate={{ rotate: [-45, 45, -45] }} transition={{ repeat: Infinity, duration: 0.75, ease: "easeInOut" }}
+                style={{ transformOrigin: "0px 20px" }}
+              />
+              <motion.path
+                d="M 0 20 Q 15 35 10 50" stroke="#000" strokeWidth="10" fill="none" strokeLinecap="round"
+                animate={{ rotate: [45, -45, 45] }} transition={{ repeat: Infinity, duration: 0.75, ease: "easeInOut" }}
+                style={{ transformOrigin: "0px 20px" }}
+              />
+            </motion.g>
+          </motion.g>
+        </motion.g>
+      </svg>
+    </div>
+  );
+};
+
 export default function ServicesClient() {
   return (
     <div className="bg-white min-h-screen selection:bg-black selection:text-white">
@@ -396,15 +568,9 @@ export default function ServicesClient() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1.2, delay: 0.2 }}
-              className="relative h-[450px] lg:h-[600px] w-full rounded-[40px] overflow-hidden shadow-2xl border border-gray-200/50"
+              className="relative h-[450px] lg:h-[600px] w-full rounded-[40px] overflow-hidden shadow-2xl border border-gray-200/50 bg-white"
             >
-              <Image
-                src="/services_hero.png"
-                alt="Business Growth Solutions"
-                fill
-                className="object-cover"
-                unoptimized
-              />
+              <CreativeStepsAnimation />
             </motion.div>
 
           </div>
