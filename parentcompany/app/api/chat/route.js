@@ -40,7 +40,7 @@ Core Info about RiseMates Ventures:
 Rules for Responses:
 1. Be extremely professional, concise, encouraging, and clear.
 2. Keep responses brief (under 3 sentences where possible) to keep the chat interface clean.
-3. If they ask about funding, eligibility, or partnerships, encourage them to click "Book Consultation" or email biz@RiseMatessventures.com.
+3. If they ask about funding, eligibility, or partnerships, encourage them to click "Book Consultation" or email biz@RiseMatesventures.com.
 4. Keep the tone premium and enterprise-grade.`;
 
     const modelName = process.env.SARVAM_MODEL || "sarvam-30b";

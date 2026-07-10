@@ -1,5 +1,5 @@
 export default function robots() {
-  const baseUrl = "https://RiseMatess.com";
+  const baseUrl = "https://RiseMates.com";
   return {
     rules: {
       userAgent: "*",

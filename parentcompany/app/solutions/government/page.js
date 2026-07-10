@@ -1,7 +1,7 @@
 import GovernmentClient from "./GovernmentClient";
 
 export const metadata = {
-  title: "Solutions For Government | Rise Mate Ventures",
+  title: "Solutions For Government | RiseMates Ventures",
   description: "Supporting governments through AI, digital transformation, innovation ecosystems, and execution excellence.",
 };
 

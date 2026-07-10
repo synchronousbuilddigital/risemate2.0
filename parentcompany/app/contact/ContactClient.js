@@ -93,7 +93,7 @@ export default function ContactClient() {
               </h1>
 
               <p className="text-lg md:text-xl text-gray-500 font-secondary leading-relaxed mb-10 max-w-lg">
-                Whether you're looking to scale globally, raise capital, or establish a presence in new markets, Rise Mate Ventures is your strategic growth partner.
+                Whether you're looking to scale globally, raise capital, or establish a presence in new markets, RiseMates Ventures is your strategic growth partner.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-6 sm:items-center text-sm font-bold text-gray-700 font-secondary">
@@ -276,11 +276,11 @@ export default function ContactClient() {
                   Gurugram, Haryana.
                 </p>
                 <div className="space-y-3">
-                  <a href="mailto:biz@RiseMatessventures.com" className="flex items-center gap-3 text-sm font-bold text-gray-700 hover:text-black transition-colors group/link">
+                  <a href="mailto:biz@RiseMatesventures.com" className="flex items-center gap-3 text-sm font-bold text-gray-700 hover:text-black transition-colors group/link">
                     <div className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center group-hover/link:bg-gold group-hover/link:text-black transition-colors">
                       <span className="material-symbols-outlined text-[16px]">mail</span>
                     </div>
-                    biz@RiseMatessventures.com
+                    biz@RiseMatesventures.com
                   </a>
                   <a href="tel:+918239660777" className="flex items-center gap-3 text-sm font-bold text-gray-700 hover:text-black transition-colors group/link">
                     <div className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center group-hover/link:bg-gold group-hover/link:text-black transition-colors">
@@ -313,7 +313,7 @@ export default function ContactClient() {
             <span className="text-[10px] font-black uppercase tracking-[0.3em] text-gold mb-3 block">Our Ecosystem</span>
             <h2 className="text-3xl md:text-5xl font-black text-black tracking-tighter font-primary">Ecosystem Entities</h2>
             <p className="text-sm text-gray-500 font-secondary mt-2 max-w-lg mx-auto">
-              Specialized entities within the RiseMatess Ventures network delivering domain-specific expertise and execution capabilities.
+              Specialized entities within the RiseMates Ventures network delivering domain-specific expertise and execution capabilities.
             </p>
           </div>
 

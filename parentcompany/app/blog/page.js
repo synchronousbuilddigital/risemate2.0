@@ -7,12 +7,12 @@ export const metadata = {
   title: "RiseMates Blog | Startup Acceleration, Funding & Growth Insights",
   description: "Stay ahead with professional guides on startup venture capital rounds, sustainable commerce, managed sales force systems, and tech advisory written by our managing partners.",
   alternates: {
-    canonical: "https://RiseMatess.com/blog",
+    canonical: "https://RiseMates.com/blog",
   },
   openGraph: {
     title: "RiseMates Ventures Blog | Growth Strategies & Industry Insights",
     description: "Expert startup growth advisory on raising capital, building networks, and executing sales frameworks.",
-    url: "https://RiseMatess.com/blog",
+    url: "https://RiseMates.com/blog",
     siteName: "RiseMates Ventures",
     images: [
       {
@@ -44,13 +44,13 @@ export default async function BlogPage() {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://RiseMatess.com"
+        "item": "https://RiseMates.com"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Blog",
-        "item": "https://RiseMatess.com/blog"
+        "item": "https://RiseMates.com/blog"
       }
     ]
   };

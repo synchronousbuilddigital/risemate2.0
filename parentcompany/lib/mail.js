@@ -24,7 +24,7 @@ export async function sendEmail({ to, subject, text, html }) {
         });
 
         const mailOptions = {
-            from: `"RiseMatess Ventures" <${user}>`,
+            from: `"RiseMates Ventures" <${user}>`,
             to,
             subject,
             text,

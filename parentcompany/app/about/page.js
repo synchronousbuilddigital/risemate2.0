@@ -6,16 +6,16 @@ export const metadata = {
   title: "About RiseMates Ventures | Sovereign Accelerator & Consulting",
   description: "Learn how RiseMates Ventures accelerates economic development by connecting global institutional expertise with high-growth startup entities across sustainable fashion, technology, energy, and brand scaling hubs.",
   alternates: {
-    canonical: "https://RiseMatess.com/about",
+    canonical: "https://RiseMates.com/about",
   },
   openGraph: {
     title: "About RiseMates Ventures | Our Mission & Core Verticals",
     description: "Operating NCR and Jaipur hubs, we bridge the gap between startup execution and institutional-grade investments.",
-    url: "https://RiseMatess.com/about",
+    url: "https://RiseMates.com/about",
     siteName: "RiseMates Ventures",
     images: [
       {
-        url: "https://RiseMatess.com/corporate-interior.png",
+        url: "https://RiseMates.com/corporate-interior.png",
         width: 1200,
         height: 630,
         alt: "RiseMates Ventures HQ interior",
@@ -28,7 +28,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "About RiseMates Ventures | Sovereign Startup Support",
     description: "Bridging the gap between global institutional expertise and high-growth retail, AI, and energy startups.",
-    images: ["https://RiseMatess.com/corporate-interior.png"],
+    images: ["https://RiseMates.com/corporate-interior.png"],
   },
 };
 
@@ -41,13 +41,13 @@ export default function AboutPage() {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://RiseMatess.com"
+        "item": "https://RiseMates.com"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "About Us",
-        "item": "https://RiseMatess.com/about"
+        "item": "https://RiseMates.com/about"
       }
     ]
   };

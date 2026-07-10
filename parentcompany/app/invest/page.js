@@ -157,7 +157,7 @@ export default function Investment() {
               Unified <span className="text-gold">Wealth.</span> <br /> Radical <span className="italic font-light opacity-40">Growth.</span>
             </h1>
             <p className="font-body text-xl text-glacier/60 max-w-2xl leading-relaxed italic border-l border-gold/20 pl-8 ml-[10vw]">
-              Investing in RiseMatesS VENTURES is a commitment to the structural longevity of modern industry. We don't just allocate capital; we engineer growth.
+              Investing in RiseMates VENTURES is a commitment to the structural longevity of modern industry. We don't just allocate capital; we engineer growth.
             </p>
           </div>
           <div className="absolute top-1/2 right-0 w-[50vw] h-[50vw] border-[0.2px] border-gold/5 rounded-full blur-3xl opacity-20 transform -translate-y-1/2 pointer-events-none" />
@@ -284,8 +284,8 @@ export default function Investment() {
 
         <footer className="bg-dark py-12 px-8 md:px-24 border-t border-white/5">
           <div className="max-w-screen-2xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
-            <div className="font-industrial text-gold-premium tracking-[0.6em] text-3xl uppercase">RiseMatesS VENTURES</div>
-            <p className="font-body text-[10px] uppercase tracking-widest opacity-20">© 2024 RiseMatesS VENTURES. CAPITAL SECURED.</p>
+            <div className="font-industrial text-gold-premium tracking-[0.6em] text-3xl uppercase">RiseMates VENTURES</div>
+            <p className="font-body text-[10px] uppercase tracking-widest opacity-20">© 2024 RiseMates VENTURES. CAPITAL SECURED.</p>
           </div>
         </footer>
       </main>

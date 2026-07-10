@@ -114,7 +114,7 @@ const newHeroJSX = `      {/* 1. HERO SECTION - BENTO REDESIGN */}
                     </defs>
                     <text fontSize="10.5" fill="currentColor" letterSpacing="1.5" fontWeight="900" style={{fontFamily: 'sans-serif'}}>
                       <textPath href="#circle">
-                        RISE MATE VENTURES • GLOBAL SCALE • 
+                        RiseMates Ventures • GLOBAL SCALE • 
                       </textPath>
                     </text>
                   </svg>
@@ -135,7 +135,7 @@ export async function GET(request) {
   try {
     const filePath = 'i:/parentcompany/rissemate_final/parentcompany/app/HomeClient.js';
     let content = fs.readFileSync(filePath, 'utf8');
-    
+
     // 1. Clean up prepended garbage from last run
     const useClientIdx = content.indexOf('"use client";');
     if (useClientIdx !== -1) {
@@ -145,24 +145,24 @@ export async function GET(request) {
     // 2. Find old hero boundaries
     const startStr = "{/* 1. HERO SECTION - ADVANCED REDESIGN */}";
     const endStr = "{/* 2. TRUST SECTION & STATS STRIP */}";
-    
+
     const startIdx = content.indexOf(startStr);
     const endIdx = content.indexOf(endStr);
-    
+
     if (startIdx !== -1 && endIdx !== -1) {
       // Look back to the <section> tag to include it in replacement
       const beforeStr = content.substring(0, startIdx);
       const afterStr = content.substring(endIdx);
-      
+
       const newContent = beforeStr + newHeroJSX + '\\n\\n      ' + afterStr;
-      
+
       fs.writeFileSync(filePath, newContent, 'utf8');
-      
+
       return new Response(JSON.stringify({ success: true, message: "Fixed and replaced" }), { status: 200 });
     } else {
       return new Response(JSON.stringify({ success: false, message: "Could not find start or end tags" }), { status: 200 });
     }
-    
+
   } catch (err) {
     return new Response(JSON.stringify({ success: false, error: err.message }), { status: 200 });
   }

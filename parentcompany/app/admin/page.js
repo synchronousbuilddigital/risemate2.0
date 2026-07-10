@@ -301,7 +301,7 @@ export default function AdminDashboard() {
         setBlogCategory('Startup Funding');
         setBlogCustomCategory('');
         setBlogDescription('');
-        setBlogAuthor('RiseMatess Ventures');
+        setBlogAuthor('RiseMates Ventures');
 
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         const today = new Date().toLocaleDateString('en-US', options);

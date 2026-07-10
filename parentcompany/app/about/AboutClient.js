@@ -182,7 +182,7 @@ export default function AboutClient() {
             transition={{ duration: 1 }}
             className="text-2xl md:text-3xl lg:text-4xl xl:text-[40px] font-black text-black tracking-tight leading-[1.2] mb-16 font-primary w-full"
           >
-            Rise Mate Ventures is a Global Growth Ecosystem helping organizations <span className="text-gray-400 whitespace-nowrap">unlock their full potential.</span>
+            RiseMates Ventures is a Global Growth Ecosystem helping organizations <span className="text-gray-400 whitespace-nowrap">unlock their full potential.</span>
           </motion.h2>
 
           {/* Comparison Concept Layout */}
@@ -200,7 +200,7 @@ export default function AboutClient() {
               <p className="text-lg text-gray-500 font-secondary leading-relaxed">
                 We empower businesses to scale globally, navigate complexity, and seize new opportunities with confidence.
               </p>
-              
+
               <div className="pt-4 space-y-6">
                 <div className="flex gap-4 items-start">
                   <div className="w-10 h-10 rounded-full bg-black flex items-center justify-center shrink-0 shadow-md">
@@ -211,7 +211,7 @@ export default function AboutClient() {
                     <p className="text-sm text-gray-500 font-secondary leading-relaxed">Seamlessly enter new markets with localized strategies and deep regional expertise.</p>
                   </div>
                 </div>
-                
+
                 <div className="flex gap-4 items-start">
                   <div className="w-10 h-10 rounded-full bg-black flex items-center justify-center shrink-0 shadow-md">
                     <span className="material-symbols-outlined text-gold text-[18px]">timeline</span>
@@ -221,7 +221,7 @@ export default function AboutClient() {
                     <p className="text-sm text-gray-500 font-secondary leading-relaxed">Optimize workflows, integrate technology, and build resilient frameworks for sustainable growth.</p>
                   </div>
                 </div>
-                
+
                 <div className="flex gap-4 items-start">
                   <div className="w-10 h-10 rounded-full bg-black flex items-center justify-center shrink-0 shadow-md">
                     <span className="material-symbols-outlined text-gold text-[18px]">handshake</span>
@@ -337,7 +337,7 @@ export default function AboutClient() {
                 </div>
 
                 <p className="text-lg text-gray-600 font-secondary leading-relaxed mb-10">
-                  Traditionally, these capabilities have existed in isolation. Rise Mate Ventures was established to bridge this gap by creating an integrated ecosystem where businesses can access every growth enabler through one trusted partner.
+                  Traditionally, these capabilities have existed in isolation. RiseMates Ventures was established to bridge this gap by creating an integrated ecosystem where businesses can access every growth enabler through one trusted partner.
                 </p>
 
                 <div className="relative p-8 rounded-3xl bg-black overflow-hidden group shadow-xl">
@@ -431,7 +431,7 @@ export default function AboutClient() {
         </div>
       </section>
 
-      {/* 5. WHY RISE MATE VENTURES - CREATIVE LIST */}
+      {/* 5. WHY RiseMates Ventures - CREATIVE LIST */}
       <section className="py-12 md:py-16 bg-gray-50 border-y border-gray-200 relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
 

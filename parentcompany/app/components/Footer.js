@@ -91,7 +91,7 @@ const Footer = () => {
           <div className="lg:col-span-3 flex flex-col gap-6">
             <Link href="/" className="inline-block group">
               <span className="text-xl font-black tracking-tighter font-primary">
-                RiseMatesS{" "}
+                RiseMates{" "}
                 <span className="text-gold group-hover:text-white transition-colors duration-300">
                   VENTURES
                 </span>
@@ -107,14 +107,14 @@ const Footer = () => {
                 Contact
               </p>
               <a
-                href="mailto:biz@RiseMatessventures.com"
+                href="mailto:biz@RiseMatesventures.com"
                 className="flex items-center gap-2.5 text-[11px] text-white/40 hover:text-gold transition-colors group/mail"
               >
                 <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-4 h-4 text-gold/60 group-hover/mail:text-gold transition-colors shrink-0">
                   <rect x="2" y="4" width="16" height="12" rx="2" />
                   <path d="M2 7l8 5 8-5" />
                 </svg>
-                biz@RiseMatessventures.com
+                biz@RiseMatesventures.com
               </a>
               <div className="flex items-start gap-2.5 text-[11px] text-white/40 leading-relaxed">
                 <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-4 h-4 text-gold/60 shrink-0 mt-0.5">
@@ -213,7 +213,7 @@ const Footer = () => {
         {/* BOTTOM BAR */}
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 py-5">
           <p className="text-white/20 text-[9px] font-black uppercase tracking-[0.3em] text-center sm:text-left">
-            © 2026 Rise Mate Ventures. All Rights Reserved.
+            © 2026 RiseMates Ventures. All Rights Reserved.
           </p>
 
           <div className="flex items-center gap-5 md:gap-6">

@@ -336,7 +336,7 @@ export default function LeadershipClient() {
               className="flex flex-col gap-10"
             >
               <p className="text-lg md:text-xl text-dark/45 font-secondary leading-relaxed max-w-lg">
-                The executive governance behind RiseMatess Ventures. Each leader operates at the nexus of institutional stability and regional opportunity.
+                The executive governance behind RiseMates Ventures. Each leader operates at the nexus of institutional stability and regional opportunity.
               </p>
 
               {/* Stat pills */}

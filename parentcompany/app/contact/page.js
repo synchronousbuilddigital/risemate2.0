@@ -6,16 +6,16 @@ export const metadata = {
   title: "Contact RiseMates Ventures | Book Consultation & Apply for Funding",
   description: "Connect with the managing partners of RiseMates Ventures. Submit your strategic startup mandate to request capital advisory, Circular Fashion integration (BWorth), Managed Field force scaling (Vega Vrudhi), or brand AI system setup (Synchronous).",
   alternates: {
-    canonical: "https://RiseMatess.com/contact",
+    canonical: "https://RiseMates.com/contact",
   },
   openGraph: {
     title: "Contact RiseMates Ventures | Schedule Startup Valuation",
     description: "Submit your deck and schedule a free growth consultation. We evaluate all acceleration mandates within 24 hours.",
-    url: "https://RiseMatess.com/contact",
+    url: "https://RiseMates.com/contact",
     siteName: "RiseMates Ventures",
     images: [
       {
-        url: "https://RiseMatess.com/beautiful-city-landscape-with-tall-buildings.jpg",
+        url: "https://RiseMates.com/beautiful-city-landscape-with-tall-buildings.jpg",
         width: 1200,
         height: 630,
         alt: "Connect with RiseMates Ventures",
@@ -28,7 +28,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Initialize Connection | RiseMates Ventures",
     description: "Contact our team to explore startup acceleration, managed sales operations, or funding options.",
-    images: ["https://RiseMatess.com/beautiful-city-landscape-with-tall-buildings.jpg"],
+    images: ["https://RiseMates.com/beautiful-city-landscape-with-tall-buildings.jpg"],
   },
 };
 
@@ -37,7 +37,7 @@ export default function ContactPage() {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "RiseMates Ventures",
-    "image": "https://RiseMatess.com/beautiful-city-landscape-with-tall-buildings.jpg",
+    "image": "https://RiseMates.com/beautiful-city-landscape-with-tall-buildings.jpg",
     "telephone": "+91-91166-16636",
     "email": "saurabh@vegavruddhi.com",
     "address": {
@@ -62,7 +62,7 @@ export default function ContactPage() {
     },
     "sameAs": [
       "https://www.linkedin.com/company/risematesventures/posts/?feedView=all",
-      "https://www.instagram.com/RiseMatess"
+      "https://www.instagram.com/RiseMates"
     ]
   };
 
@@ -74,13 +74,13 @@ export default function ContactPage() {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://RiseMatess.com"
+        "item": "https://RiseMates.com"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Contact Us",
-        "item": "https://RiseMatess.com/contact"
+        "item": "https://RiseMates.com/contact"
       }
     ]
   };

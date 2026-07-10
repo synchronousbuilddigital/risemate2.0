@@ -1,7 +1,7 @@
 import SolutionsClient from "./SolutionsClient";
 
 export const metadata = {
-  title: "Solutions | Rise Mate Ventures",
+  title: "Solutions | RiseMates Ventures",
   description: "Growth Solutions Designed Around Your Business. Every business is unique. Every growth journey is different.",
 };
 

@@ -6,16 +6,16 @@ export const metadata = {
   title: "Executive Leadership | RiseMates Ventures - Our Founders & Partners",
   description: "Meet the executive governance behind RiseMates Ventures. Our leaders Saurabh Jain, Dheeraj Anand, Yograj Rundhanker, and Devam Srivastava scale on-ground operations, circular fashion supply chains, deep-tech architectures, and autonomous AI systems.",
   alternates: {
-    canonical: "https://RiseMatess.com/leadership",
+    canonical: "https://RiseMates.com/leadership",
   },
   openGraph: {
     title: "Executive Leadership | RiseMates Ventures",
     description: "The executive team and founders behind the RiseMates acceleration ecosystem.",
-    url: "https://RiseMatess.com/leadership",
+    url: "https://RiseMates.com/leadership",
     siteName: "RiseMates Ventures",
     images: [
       {
-        url: "https://RiseMatess.com/saurab jain sir .jpeg",
+        url: "https://RiseMates.com/saurab jain sir .jpeg",
         width: 1200,
         height: 630,
         alt: "RiseMates Ventures Leadership Team",
@@ -28,7 +28,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Executive Leadership | RiseMates Ventures",
     description: "Meet the founders and managing partners of RiseMates's direct operational verticals.",
-    images: ["https://RiseMatess.com/saurab jain sir .jpeg"],
+    images: ["https://RiseMates.com/saurab jain sir .jpeg"],
   },
 };
 
@@ -41,13 +41,13 @@ export default function LeadershipPage() {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://RiseMatess.com"
+        "item": "https://RiseMates.com"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Leadership",
-        "item": "https://RiseMatess.com/leadership"
+        "item": "https://RiseMates.com/leadership"
       }
     ]
   };

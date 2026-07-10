@@ -36,7 +36,7 @@ export async function POST(request) {
         }
 
         // 2. Prepare Emails
-        const adminEmail = process.env.ADMIN_EMAIL || 'biz@RiseMatessventures.com';
+        const adminEmail = process.env.ADMIN_EMAIL || 'biz@RiseMatesventures.com';
 
         // 2.1 Send email to Admin
         const adminSubject = `[Inquiry] New Contact from ${name} - ${interest}`;
@@ -52,17 +52,17 @@ export async function POST(request) {
                     <p style="margin-bottom: 0; white-space: pre-wrap;">${message}</p>
                 </div>
                 <hr style="border: 0; border-top: 1px solid #eee; margin-top: 30px;" />
-                <p style="font-size: 11px; color: #999; text-align: center;">RiseMatess Ventures Conglomerate Portal</p>
+                <p style="font-size: 11px; color: #999; text-align: center;">RiseMates Ventures Conglomerate Portal</p>
             </div>
         `;
 
         // 2.2 Send Thank You email to User
-        const userSubject = `Thank you for contacting RiseMatess Ventures`;
+        const userSubject = `Thank you for contacting RiseMates Ventures`;
         const userHtml = `
             <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #222; max-width: 600px; margin: auto; padding: 30px; border: 1px solid #e5e7eb; border-radius: 12px; background-color: #ffffff;">
                 <div style="text-align: center; margin-bottom: 30px;">
                     <h1 style="color: #000000; font-size: 24px; font-weight: 800; letter-spacing: -0.05em; margin: 0;">
-                        RiseMatesS <span style="color: #C9A84C;">VENTURES</span>
+                        RiseMates <span style="color: #C9A84C;">VENTURES</span>
                     </h1>
                 </div>
                 
@@ -87,9 +87,9 @@ export async function POST(request) {
                 <hr style="border: 0; border-top: 1px solid #e5e7eb; margin: 25px 0;" />
 
                 <div style="font-size: 12px; color: #9ca3af; text-align: center;">
-                    <p style="margin: 0; font-weight: bold; color: #6b7280;">RiseMatess Ventures</p>
+                    <p style="margin: 0; font-weight: bold; color: #6b7280;">RiseMates Ventures</p>
                     <p style="margin: 4px 0;">Gurugram, India</p>
-                    <p style="margin: 0;"><a href="mailto:${adminEmail}" style="color: #C9A84C; text-decoration: none;">biz@RiseMatessventures.com</a> | <a href="tel:+918239660777" style="color: #6b7280; text-decoration: none;">+91 82396 60777</a></p>
+                    <p style="margin: 0;"><a href="mailto:${adminEmail}" style="color: #C9A84C; text-decoration: none;">biz@RiseMatesventures.com</a> | <a href="tel:+918239660777" style="color: #6b7280; text-decoration: none;">+91 82396 60777</a></p>
                 </div>
             </div>
         `;
@@ -105,7 +105,7 @@ export async function POST(request) {
             sendEmail({
                 to: email,
                 subject: userSubject,
-                text: `Hello ${name},\n\nThank you for contacting RiseMatess Ventures. We have received your inquiry regarding ${interest}.\n\nOur team will connect with you within 24 hours.\n\nBest regards,\nRiseMatess Ventures`,
+                text: `Hello ${name},\n\nThank you for contacting RiseMates Ventures. We have received your inquiry regarding ${interest}.\n\nOur team will connect with you within 24 hours.\n\nBest regards,\nRiseMates Ventures`,
                 html: userHtml
             })
         ]);

@@ -84,7 +84,7 @@ const solutionData = {
     heroTitle: "Your Trusted Partner for",
     heroHighlight: "Business Expansion in India",
     heroDesc: "Helping international organizations establish, expand, and grow successfully across one of the world's fastest-growing economies.",
-    quote: "Why Rise Mate Ventures? Unlike traditional consulting firms that stop after delivering recommendations, we work alongside your organization to execute your market entry strategy, build local partnerships, and establish operational capabilities.",
+    quote: "Why RiseMates Ventures? Unlike traditional consulting firms that stop after delivering recommendations, we work alongside your organization to execute your market entry strategy, build local partnerships, and establish operational capabilities.",
     list1Title: "India Entry Solutions",
     list1: ["Market Research", "Entry Strategy", "Regulatory Guidance", "Business Setup Support", "Localization", "Strategic Partnerships", "Distribution Networks", "Sales Enablement", "Recruitment Support", "Operational Execution", "Technology Integration", "Government Liaison Support"],
     journeyTitle: "Our India Expansion Framework",
@@ -110,11 +110,11 @@ export default function SolutionDetailClient({ slug }) {
 
   return (
     <div className="bg-white min-h-screen selection:bg-black selection:text-white pb-32">
-      
+
       {/* 1. HERO SECTION */}
       <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-gray-50 border-b border-gray-200">
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gold/10 blur-[150px] rounded-full pointer-events-none" />
-        
+
         <div className="container-wide relative z-10 w-full text-center max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -132,7 +132,7 @@ export default function SolutionDetailClient({ slug }) {
               {data.heroTitle} <br />
               <span className="text-gold">{data.heroHighlight}.</span>
             </h1>
-            
+
             <p className="text-xl md:text-2xl text-gray-500 font-secondary leading-relaxed mb-12">
               {data.heroDesc}
             </p>
@@ -144,7 +144,7 @@ export default function SolutionDetailClient({ slug }) {
       {data.quote && (
         <section className="py-20 bg-white border-b border-gray-200">
           <div className="container-wide">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -163,10 +163,10 @@ export default function SolutionDetailClient({ slug }) {
       <section className="py-24 bg-white relative">
         <div className="container-wide max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
-            
+
             {/* Left Column (Lists) */}
             <div className="lg:col-span-5 space-y-16">
-              
+
               {/* List 1 */}
               <div>
                 <h3 className="text-xs font-black uppercase tracking-widest text-gold mb-6 block border-b border-gray-200 pb-4">
@@ -206,14 +206,14 @@ export default function SolutionDetailClient({ slug }) {
                 <h3 className="text-2xl md:text-3xl font-black text-black mb-10 font-primary">
                   {data.journeyTitle}
                 </h3>
-                
+
                 <div className="space-y-0 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-gray-300 before:to-transparent">
                   {data.journey.map((step, i) => (
                     <div key={i} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active py-6">
                       <div className="flex items-center justify-center w-10 h-10 rounded-full border border-gray-300 bg-white group-hover:border-gold group-hover:bg-gold text-gray-500 group-hover:text-black shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 transition-colors z-10">
                         <span className="font-black text-sm">{i + 1}</span>
                       </div>
-                      
+
                       <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-6 rounded-2xl border border-gray-200 bg-white shadow-sm group-hover:shadow-md group-hover:border-gold/30 transition-all">
                         <div className="flex items-center justify-between mb-2">
                           <h4 className="font-black text-black text-lg font-primary">{step.step}</h4>
@@ -237,7 +237,7 @@ export default function SolutionDetailClient({ slug }) {
           <div className="bg-black text-white rounded-[40px] p-12 md:p-20 text-center relative overflow-hidden shadow-2xl">
             <div className="absolute top-0 right-0 w-64 h-64 bg-gold/20 blur-[80px] rounded-full pointer-events-none" />
             <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/20 blur-[80px] rounded-full pointer-events-none" />
-            
+
             <h2 className="text-3xl md:text-5xl font-black tracking-tighter leading-tight mb-10 font-primary relative z-10">
               {data.cta}
             </h2>

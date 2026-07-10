@@ -147,7 +147,7 @@ export default function EcosystemClient() {
               </h1>
 
               <p className="text-lg text-gray-500 font-secondary leading-relaxed mb-10">
-                Rise Mate Ventures is more than a business advisory or investment platform. We are a Global Business Growth & Venture Ecosystem that connects businesses with the people, capital, technology, partnerships, and execution capabilities they need to grow confidently across markets.
+                RiseMates Ventures is more than a business advisory or investment platform. We are a Global Business Growth & Venture Ecosystem that connects businesses with the people, capital, technology, partnerships, and execution capabilities they need to grow confidently across markets.
                 <br /><br />
                 Our ecosystem brings together startups, enterprises, investors, financial institutions, technology partners, governments, and execution teams to transform opportunities into measurable business outcomes.
               </p>
@@ -186,7 +186,7 @@ export default function EcosystemClient() {
           <div className="text-center max-w-3xl mx-auto mb-16 md:mb-24">
             <span className="text-xs font-black uppercase tracking-[0.4em] text-gold mb-4 block">The Network</span>
             <h2 className="text-4xl md:text-5xl font-black text-black tracking-tighter leading-[1.1] mb-6 font-primary">
-              The Rise Mate Ventures Ecosystem
+              The RiseMates Ventures Ecosystem
             </h2>
             <p className="text-base text-gray-500 font-secondary leading-relaxed">
               Every connection within our ecosystem creates new opportunities for collaboration, innovation, market access, and sustainable business growth.
@@ -306,7 +306,7 @@ export default function EcosystemClient() {
                     className="flex flex-col items-center justify-center"
                   >
                     <span className="text-gold font-serif text-3xl md:text-5xl font-black tracking-widest leading-none">RMV</span>
-                    <span className="text-[7px] md:text-[9px] text-black uppercase tracking-[0.3em] font-black mt-2 text-center">RiseMatess<br />Ventures</span>
+                    <span className="text-[7px] md:text-[9px] text-black uppercase tracking-[0.3em] font-black mt-2 text-center">RiseMates<br />Ventures</span>
                   </motion.div>
                 ) : (
                   <motion.div
@@ -483,7 +483,7 @@ export default function EcosystemClient() {
             <span className="text-gray-400">It requires vision, market understanding, technology, strategic relationships, operational excellence, and continuous execution.</span>
           </h2>
           <p className="text-lg text-gold font-secondary tracking-wide uppercase font-bold">
-            Rise Mate Ventures integrates these capabilities into one ecosystem designed to help businesses scale efficiently and sustainably.
+            RiseMates Ventures integrates these capabilities into one ecosystem designed to help businesses scale efficiently and sustainably.
           </p>
         </motion.div>
       </section>
@@ -496,7 +496,7 @@ export default function EcosystemClient() {
 
             <span className="text-xs font-black uppercase tracking-[0.4em] text-gold mb-6 inline-block">Partner Scoping Initiated</span>
             <h2 className="text-3xl md:text-5xl font-black text-black tracking-tight leading-tight mb-8 font-primary max-w-3xl mx-auto">
-              Join the Rise Mate Ventures Ecosystem
+              Join the RiseMates Ventures Ecosystem
             </h2>
             <p className="text-base text-gray-600 font-secondary leading-relaxed mb-12 max-w-2xl mx-auto">
               Whether you're a startup, enterprise, investor, technology provider, or institution, our ecosystem is designed to help you create meaningful partnerships and unlock sustainable growth.

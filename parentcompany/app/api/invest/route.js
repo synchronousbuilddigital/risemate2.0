@@ -35,7 +35,7 @@ export async function POST(request) {
         }
 
         // 2. Prepare Emails
-        const adminEmail = process.env.ADMIN_EMAIL || 'biz@RiseMatessventures.com';
+        const adminEmail = process.env.ADMIN_EMAIL || 'biz@RiseMatesventures.com';
 
         // 2.1 Send email to Admin
         const adminSubject = `[Proposal] New Investment Proposal from ${identity}`;
@@ -50,17 +50,17 @@ export async function POST(request) {
                     <p style="margin-bottom: 0; white-space: pre-wrap; color: #fff;">${summary}</p>
                 </div>
                 <hr style="border: 0; border-top: 1px solid #333; margin-top: 30px;" />
-                <p style="font-size: 11px; color: #666; text-align: center;">RiseMatess Ventures · Capital & Incubation</p>
+                <p style="font-size: 11px; color: #666; text-align: center;">RiseMates Ventures · Capital & Incubation</p>
             </div>
         `;
 
         // 2.2 Send Thank You email to User
-        const userSubject = `Submission of Intent Received - RiseMatess Ventures`;
+        const userSubject = `Submission of Intent Received - RiseMates Ventures`;
         const userHtml = `
             <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #ddd; max-width: 600px; margin: auto; padding: 30px; border: 1px solid #222; border-radius: 12px; background-color: #0c0c0c;">
                 <div style="text-align: center; margin-bottom: 30px;">
                     <h1 style="color: #ffffff; font-size: 24px; font-weight: 800; letter-spacing: 0.1em; margin: 0;">
-                        RiseMatesS <span style="color: #C9A84C;">VENTURES</span>
+                        RiseMates <span style="color: #C9A84C;">VENTURES</span>
                     </h1>
                     <p style="color: #C9A84C; font-size: 10px; text-transform: uppercase; letter-spacing: 0.3em; margin: 5px 0 0 0;">Capital Markets & Incubation</p>
                 </div>
@@ -85,9 +85,9 @@ export async function POST(request) {
                 <hr style="border: 0; border-top: 1px solid #222; margin: 25px 0;" />
 
                 <div style="font-size: 12px; color: #666; text-align: center;">
-                    <p style="margin: 0; font-weight: bold; color: #bbb;">RiseMatess Ventures</p>
+                    <p style="margin: 0; font-weight: bold; color: #bbb;">RiseMates Ventures</p>
                     <p style="margin: 4px 0;">Gurugram, India</p>
-                    <p style="margin: 0;"><a href="mailto:${adminEmail}" style="color: #C9A84C; text-decoration: none;">biz@RiseMatessventures.com</a></p>
+                    <p style="margin: 0;"><a href="mailto:${adminEmail}" style="color: #C9A84C; text-decoration: none;">biz@RiseMatesventures.com</a></p>
                 </div>
             </div>
         `;
@@ -103,7 +103,7 @@ export async function POST(request) {
             sendEmail({
                 to: email,
                 subject: userSubject,
-                text: `Submission of Intent Received.\n\nIdentity/Group: ${identity}\nCategory: ${category}\n\nOur committee is reviewing your submission and will get in touch if there is alignment.\n\nBest regards,\nRiseMatess Ventures`,
+                text: `Submission of Intent Received.\n\nIdentity/Group: ${identity}\nCategory: ${category}\n\nOur committee is reviewing your submission and will get in touch if there is alignment.\n\nBest regards,\nRiseMates Ventures`,
                 html: userHtml
             })
         ]);

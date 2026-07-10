@@ -1,7 +1,7 @@
 import StartupsClient from "./StartupsClient";
 
 export const metadata = {
-  title: "Solutions For Startups | Rise Mate Ventures",
+  title: "Solutions For Startups | RiseMates Ventures",
   description: "Helping founders validate ideas, attract investment, build partnerships, and scale confidently from concept to global growth.",
 };
 

@@ -18,12 +18,12 @@ export async function generateMetadata({ params }) {
     title: `${blog.title} | RiseMates Insights`,
     description: blog.description,
     alternates: {
-      canonical: `https://RiseMatess.com/blog/${slug}`,
+      canonical: `https://RiseMates.com/blog/${slug}`,
     },
     openGraph: {
       title: blog.title,
       description: blog.description,
-      url: `https://RiseMatess.com/blog/${slug}`,
+      url: `https://RiseMates.com/blog/${slug}`,
       siteName: "RiseMates Ventures",
       images: [
         {
@@ -85,12 +85,12 @@ export default async function BlogPostPage({ params }) {
       "name": "RiseMates Ventures",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://RiseMatess.com/logo.png"
+        "url": "https://RiseMates.com/logo.png"
       }
     },
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `https://RiseMatess.com/blog/${slug}`
+      "@id": `https://RiseMates.com/blog/${slug}`
     }
   };
 
@@ -102,19 +102,19 @@ export default async function BlogPostPage({ params }) {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://RiseMatess.com"
+        "item": "https://RiseMates.com"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Blog",
-        "item": "https://RiseMatess.com/blog"
+        "item": "https://RiseMates.com/blog"
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": blog.title,
-        "item": `https://RiseMatess.com/blog/${slug}`
+        "item": `https://RiseMates.com/blog/${slug}`
       }
     ]
   };
@@ -177,7 +177,7 @@ export default async function BlogPostPage({ params }) {
             <div className="flex items-center gap-3">
               <span className="text-[10px] font-black uppercase tracking-wider text-dark/40 mr-2">Share Article:</span>
               <a
-                href={`https://api.whatsapp.com/send?text=${encodeURIComponent(blog.title)} - https://RiseMatess.com/blog/${slug}`}
+                href={`https://api.whatsapp.com/send?text=${encodeURIComponent(blog.title)} - https://RiseMates.com/blog/${slug}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-white border border-dark/10 flex items-center justify-center text-dark/50 hover:text-emerald-600 hover:border-emerald-500/20 transition-all shadow-sm"
@@ -186,7 +186,7 @@ export default async function BlogPostPage({ params }) {
                 <span className="material-symbols-outlined text-lg">chat</span>
               </a>
               <a
-                href={`https://www.linkedin.com/sharing/share-offsite/?url=https://RiseMatess.com/blog/${slug}`}
+                href={`https://www.linkedin.com/sharing/share-offsite/?url=https://RiseMates.com/blog/${slug}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-white border border-dark/10 flex items-center justify-center text-dark/50 hover:text-[#002366] hover:border-[#002366]/20 transition-all shadow-sm"
@@ -195,7 +195,7 @@ export default async function BlogPostPage({ params }) {
                 <span className="material-symbols-outlined text-lg">share</span>
               </a>
               <a
-                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(blog.title)}&url=https://RiseMatess.com/blog/${slug}`}
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(blog.title)}&url=https://RiseMates.com/blog/${slug}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-white border border-dark/10 flex items-center justify-center text-dark/50 hover:text-dark hover:border-dark/20 transition-all shadow-sm"

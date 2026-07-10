@@ -234,7 +234,7 @@ const growthSteps = [
 
 const faqs = [
   {
-    q: "Who can apply for RiseMatess funding or support?",
+    q: "Who can apply for RiseMates funding or support?",
     a: "Startups from Seed to Growth stages seeking strategic capital, execution capability, sustainable commerce architecture, or tech engineering can apply. We look for passionate founders focusing on circular economy, FinTech, clean tech, or automation."
   },
   {
@@ -247,7 +247,7 @@ const faqs = [
   },
   {
     q: "Is mentorship included in your programs?",
-    a: "Yes, mentorship is a key pillar of the RiseMatess ecosystem. Selected founders work directly with Saurabh Jain, Dheeraj Anand, Yograj Rundhanker, and Devam Srivastava to scale sales operations, brand identity, and tech development."
+    a: "Yes, mentorship is a key pillar of the RiseMates ecosystem. Selected founders work directly with Saurabh Jain, Dheeraj Anand, Yograj Rundhanker, and Devam Srivastava to scale sales operations, brand identity, and tech development."
   },
   {
     q: "How long does the entire process take?",
@@ -270,7 +270,7 @@ export default function HomeClient() {
 
   // Chatbot State
   const [chatMessages, setChatMessages] = useState([
-    { role: 'bot', text: 'Hi! I am the RiseMatess AI Assistant. How can I help you with our funding process, capital structure, or mentorship today?' }
+    { role: 'bot', text: 'Hi! I am the RiseMates AI Assistant. How can I help you with our funding process, capital structure, or mentorship today?' }
   ]);
   const [chatInput, setChatInput] = useState("");
   const [isBotTyping, setIsBotTyping] = useState(false);
@@ -493,7 +493,7 @@ export default function HomeClient() {
       },
       {
         keywords: ["hello", "hi", "hey", "greetings", "good morning", "good afternoon"],
-        response: "Hi! I am the RiseMatess AI Assistant. How can I help you with our funding process, capital structure, or mentorship today?"
+        response: "Hi! I am the RiseMates AI Assistant. How can I help you with our funding process, capital structure, or mentorship today?"
       }
     ];
 
@@ -869,7 +869,7 @@ export default function HomeClient() {
         </div>
       </section>
 
-      {/* 4. WHY RISE MATE VENTURES SECTION */}
+      {/* 4. WHY RiseMates Ventures SECTION */}
       <section className="pt-24 pb-12 md:pt-32 md:pb-12 bg-white text-black relative overflow-hidden">
         {/* Background decorative glows */}
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/10 blur-[150px] rounded-full pointer-events-none" />
@@ -887,14 +887,14 @@ export default function HomeClient() {
               <span className="text-gold italic font-serif font-normal">More Than Capital.</span>
             </h2>
             <p className="text-black/70 font-secondary leading-relaxed text-sm md:text-base">
-              Traditional firms solve only one part of the growth equation. Rise Mate Ventures integrates strategy, partnerships, technology, capital access, and execution into one unified platform.
+              Traditional firms solve only one part of the growth equation. RiseMates Ventures integrates strategy, partnerships, technology, capital access, and execution into one unified platform.
             </p>
           </div>
 
           {/* Desktop SVG Flow Diagram */}
           <div className="hidden lg:block w-full max-w-[1050px] mx-auto overflow-visible mb-10 relative gsap-why-svg opacity-0">
             <h3 className="text-center text-[10px] font-black uppercase tracking-[0.3em] text-gold/60 mb-8 font-primary">
-              Rise Mate Ventures Growth Platform
+              RiseMates Ventures Growth Platform
             </h3>
 
             <svg viewBox="0 0 1050 650" className="w-full h-auto overflow-visible select-none">
@@ -1498,7 +1498,7 @@ export default function HomeClient() {
                       <span className="material-symbols-outlined text-gold text-lg font-bold">smart_toy</span>
                     </div>
                     <div>
-                      <h3 className="text-xs font-black text-black font-primary uppercase tracking-wider">RiseMatesss AI</h3>
+                      <h3 className="text-xs font-black text-black font-primary uppercase tracking-wider">RiseMates AI</h3>
                       <p className="text-[9px] text-gray-500 font-secondary uppercase tracking-widest flex items-center gap-1.5 mt-0.5">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
                         Online • Ask anything
@@ -1509,7 +1509,7 @@ export default function HomeClient() {
                   {/* Reset Button */}
                   <button
                     onClick={() => setChatMessages([
-                      { role: 'bot', text: 'Hi! I am the RiseMatess AI Assistant. How can I help you with our funding process, capital structure, or mentorship today?' }
+                      { role: 'bot', text: 'Hi! I am the RiseMates AI Assistant. How can I help you with our funding process, capital structure, or mentorship today?' }
                     ])}
                     className="w-8 h-8 rounded-lg hover:bg-gray-100 flex items-center justify-center text-gray-400 hover:text-black transition-colors"
                     title="Reset Conversation"
@@ -1638,7 +1638,7 @@ export default function HomeClient() {
               Ready to Build Your Next Growth Story?
             </h2>
             <p className="text-base text-gray-600 font-secondary leading-relaxed mb-12 max-w-2xl mx-auto">
-              Whether you're entering a new market, seeking strategic partnerships, raising capital, implementing AI, or accelerating business growth, Rise Mate Ventures provides the ecosystem to help you scale with confidence.
+              Whether you're entering a new market, seeking strategic partnerships, raising capital, implementing AI, or accelerating business growth, RiseMates Ventures provides the ecosystem to help you scale with confidence.
             </p>
 
             <div className="flex justify-center">
@@ -1662,7 +1662,7 @@ export default function HomeClient() {
           className="pointer-events-auto bg-white border border-gray-200 rounded-full p-2.5 shadow-[0_16px_36px_rgba(0,0,0,0.1)] flex items-center justify-between gap-6 w-full max-w-[400px]"
         >
           <div className="pl-4">
-            <p className="text-[8px] font-black uppercase tracking-widest text-gray-500 leading-none mb-1">Rise Mate Ventures</p>
+            <p className="text-[8px] font-black uppercase tracking-widest text-gray-500 leading-none mb-1">RiseMates Ventures</p>
             <p className="text-xs font-black text-black leading-none">Global Growth Partner</p>
           </div>
 

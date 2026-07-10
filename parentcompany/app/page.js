@@ -3,22 +3,22 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
 export const metadata = {
-  title: "Rise Mate Ventures | Connecting Global Opportunities with Scalable Execution",
-  description: "Rise Mate Ventures is a Global Business Growth & Venture Ecosystem that helps startups, enterprises, banks, fintech companies, and investors unlock new growth opportunities across international markets.",
+  title: "RiseMates Ventures | Connecting Global Opportunities with Scalable Execution",
+  description: "RiseMates Ventures is a Global Business Growth & Venture Ecosystem that helps startups, enterprises, banks, fintech companies, and investors unlock new growth opportunities across international markets.",
   alternates: {
-    canonical: "https://RiseMatess.com",
+    canonical: "https://RiseMates.com",
   },
   openGraph: {
-    title: "Rise Mate Ventures | Global Business Growth & Venture Ecosystem",
+    title: "RiseMates Ventures | Global Business Growth & Venture Ecosystem",
     description: "By integrating strategy, funding access, AI-powered technology, business partnerships, market expansion, and execution capabilities, we help organizations scale faster with lower execution risk.",
-    url: "https://RiseMatess.com",
-    siteName: "Rise Mate Ventures",
+    url: "https://RiseMates.com",
+    siteName: "RiseMates Ventures",
     images: [
       {
-        url: "https://RiseMatess.com/beautiful-city-landscape-with-tall-buildings.jpg",
+        url: "https://RiseMates.com/beautiful-city-landscape-with-tall-buildings.jpg",
         width: 1200,
         height: 630,
-        alt: "Rise Mate Ventures - Global Business Growth & Venture Ecosystem",
+        alt: "RiseMates Ventures - Global Business Growth & Venture Ecosystem",
       },
     ],
     locale: "en_IN",
@@ -26,9 +26,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Rise Mate Ventures | Connecting Global Opportunities with Scalable Execution",
+    title: "RiseMates Ventures | Connecting Global Opportunities with Scalable Execution",
     description: "Unlock new growth opportunities across international markets by integrating strategy, funding access, AI-powered technology, and ground execution.",
-    images: ["https://RiseMatess.com/beautiful-city-landscape-with-tall-buildings.jpg"],
+    images: ["https://RiseMates.com/beautiful-city-landscape-with-tall-buildings.jpg"],
   },
 };
 
@@ -100,9 +100,9 @@ export default function Home() {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "RiseMates Ventures",
-    "alternateName": "RiseMatess",
-    "url": "https://RiseMatess.com",
-    "logo": "https://RiseMatess.com/logo.png",
+    "alternateName": "RiseMates",
+    "url": "https://RiseMates.com",
+    "logo": "https://RiseMates.com/logo.png",
     "contactPoint": [
       {
         "@type": "ContactPoint",
@@ -121,7 +121,7 @@ export default function Home() {
     ],
     "sameAs": [
       "https://www.linkedin.com/company/risematesventures/posts/?feedView=all",
-      "https://www.instagram.com/RiseMatess"
+      "https://www.instagram.com/RiseMates"
     ]
   };
 

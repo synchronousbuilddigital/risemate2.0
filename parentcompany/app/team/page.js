@@ -4,12 +4,12 @@ export const metadata = {
   title: "Our Team | RiseMates Ventures - Founders & Partners",
   description: "Meet the executive team and founders behind the RiseMates acceleration ecosystem. Saurabh Jain, Dheeraj Anand, Yograj Rundhanker, and Devam Srivastava.",
   alternates: {
-    canonical: "https://RiseMatess.com/team",
+    canonical: "https://RiseMates.com/team",
   },
   openGraph: {
     title: "Our Team | RiseMates Ventures",
     description: "The executive team and founders behind the RiseMates acceleration ecosystem.",
-    url: "https://RiseMatess.com/team",
+    url: "https://RiseMates.com/team",
     siteName: "RiseMates Ventures",
     locale: "en_IN",
     type: "website",
@@ -25,13 +25,13 @@ export default function TeamPage() {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://RiseMatess.com"
+        "item": "https://RiseMates.com"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Team",
-        "item": "https://RiseMatess.com/team"
+        "item": "https://RiseMates.com/team"
       }
     ]
   };

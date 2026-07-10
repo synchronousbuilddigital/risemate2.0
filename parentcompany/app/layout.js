@@ -3,8 +3,8 @@ import PageAnimatePresence from "./components/PageAnimatePresence";
 import LoaderProvider from "./components/LoaderProvider";
 
 export const metadata = {
-  title: "RiseMatesS VENTURES | One Vision. Four Empires.",
-  description: "A premium conglomerate merging Bworth, VegaVrudhi, RYM, and Synchronous Digital Build under the RiseMatesS banner.",
+  title: "RiseMates VENTURES | One Vision. Four Empires.",
+  description: "A premium conglomerate merging Bworth, VegaVrudhi, RYM, and Synchronous Digital Build under the RiseMates banner.",
 };
 
 import LayoutWrapper from "./components/LayoutWrapper";

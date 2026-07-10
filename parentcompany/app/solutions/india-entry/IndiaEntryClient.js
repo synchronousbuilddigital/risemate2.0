@@ -4,9 +4,9 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 const solutionsList = [
-  "Market Research", "Entry Strategy", "Regulatory Guidance", "Business Setup Support", 
-  "Localization", "Strategic Partnerships", "Distribution Networks", "Sales Enablement", 
-  "Recruitment Support", "Operational Execution", "Technology Integration", 
+  "Market Research", "Entry Strategy", "Regulatory Guidance", "Business Setup Support",
+  "Localization", "Strategic Partnerships", "Distribution Networks", "Sales Enablement",
+  "Recruitment Support", "Operational Execution", "Technology Integration",
   "Government Liaison Support"
 ];
 
@@ -32,11 +32,11 @@ const whyIndia = [
 export default function IndiaEntryClient() {
   return (
     <div className="bg-white min-h-screen selection:bg-black selection:text-white pb-32">
-      
+
       {/* HERO SECTION */}
       <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden bg-gray-50 border-b border-gray-200">
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gold/10 blur-[150px] rounded-full pointer-events-none" />
-        
+
         <div className="container-wide relative z-10 w-full text-center max-w-4xl mx-auto">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}>
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-gray-200 shadow-sm mb-6">
@@ -50,7 +50,7 @@ export default function IndiaEntryClient() {
               Your Trusted Partner for <br />
               <span className="text-gold">Business Expansion in India.</span>
             </h1>
-            
+
             <p className="text-xl md:text-2xl text-gray-500 font-secondary leading-relaxed mb-12">
               Helping international organizations establish, expand, and grow successfully across one of the world's fastest-growing economies.
             </p>
@@ -64,10 +64,10 @@ export default function IndiaEntryClient() {
           <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} className="max-w-4xl mx-auto text-center">
             <span className="material-symbols-outlined text-4xl text-gold/50 mb-6">public</span>
             <h2 className="text-2xl md:text-4xl font-black text-black leading-snug font-primary mb-6">
-              Why Rise Mate Ventures?
+              Why RiseMates Ventures?
             </h2>
             <p className="text-lg md:text-xl text-gray-500 font-secondary leading-relaxed">
-              Unlike traditional consulting firms that stop after delivering recommendations, Rise Mate Ventures works alongside your organization to execute your market entry strategy, build local partnerships, establish operational capabilities, and support long-term growth in India.
+              Unlike traditional consulting firms that stop after delivering recommendations, RiseMates Ventures works alongside your organization to execute your market entry strategy, build local partnerships, establish operational capabilities, and support long-term growth in India.
             </p>
           </motion.div>
         </div>
@@ -77,10 +77,10 @@ export default function IndiaEntryClient() {
       <section className="py-24 bg-white relative">
         <div className="container-wide max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
-            
+
             {/* Left Column */}
             <div className="lg:col-span-5 space-y-16">
-              
+
               <div>
                 <h3 className="text-xs font-black uppercase tracking-widest text-gold mb-6 block border-b border-gray-200 pb-4">
                   India Entry Solutions

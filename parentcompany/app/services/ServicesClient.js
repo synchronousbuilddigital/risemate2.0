@@ -1,8 +1,9 @@
 "use client";
 
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 
 const servicesList = [
   {
@@ -47,6 +48,154 @@ const deliverySteps = [
   "Discover", "Strategize", "Connect", "Execute", "Measure", "Scale"
 ];
 
+const DeliveryModel = () => {
+  const containerRef = useRef(null);
+  const isInView = useInView(containerRef, { once: false, amount: 0.3 });
+  const [currentStep, setCurrentStep] = useState(-1);
+
+  // Load canvas-confetti
+  useEffect(() => {
+    if (typeof window !== 'undefined' && !window.confetti) {
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js';
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  }, []);
+
+  useEffect(() => {
+    let timeout1, timeout2;
+    if (isInView && currentStep < deliverySteps.length) {
+        // the walk duration is approx 1000ms.
+        // Wait 1000ms, then fire confetti
+        timeout1 = setTimeout(() => {
+            const stepEl = document.getElementById(`step-${currentStep}`);
+            if (stepEl && typeof window !== 'undefined' && window.confetti) {
+                const rect = stepEl.getBoundingClientRect();
+                const x = (rect.left + rect.width / 2) / window.innerWidth;
+                const y = (rect.top + rect.height / 2) / window.innerHeight;
+                window.confetti({
+                    particleCount: 50,
+                    spread: 60,
+                    origin: { x, y },
+                    colors: ['#FFD700', '#ffffff', '#aaaaaa'],
+                    zIndex: 100,
+                    disableForReducedMotion: true
+                });
+            }
+            
+            // Wait a bit, then move to next step
+            timeout2 = setTimeout(() => {
+                setCurrentStep(p => p + 1);
+            }, 1500); // 1.5s stay on the step
+
+        }, currentStep === 0 ? 500 : 1000); 
+    } else if (isInView && currentStep >= deliverySteps.length) {
+        // loop back after 4 seconds
+        timeout1 = setTimeout(() => {
+            setCurrentStep(0);
+        }, 4000);
+    } else if (!isInView) {
+        // Reset when out of view
+        setCurrentStep(-1);
+    }
+
+    return () => {
+        clearTimeout(timeout1);
+        clearTimeout(timeout2);
+    };
+  }, [currentStep, isInView]);
+
+  return (
+    <section className="py-24 md:py-32 bg-black text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+
+        <div className="container-wide relative z-10">
+          <div className="text-center max-w-3xl mx-auto mb-20">
+            <h2 className="text-4xl md:text-5xl font-black text-white tracking-tighter leading-[1.1] mb-6 font-primary">
+              Our Delivery Model
+            </h2>
+            <p className="text-lg text-white/50 font-secondary leading-relaxed">
+              Every engagement follows a structured methodology focused on delivering sustainable and measurable business outcomes.
+            </p>
+          </div>
+
+          <div className="flex flex-col md:flex-row items-center justify-between gap-12 md:gap-2 max-w-5xl mx-auto mt-16" ref={containerRef}>
+            {deliverySteps.map((step, idx) => {
+              const isActive = currentStep >= idx;
+              const isCurrent = currentStep === idx;
+              return (
+                <div
+                  key={idx}
+                  id={`step-${idx}`}
+                  className="relative flex flex-col items-center group w-full"
+                >
+                  {/* Person Walking */}
+                  {isCurrent && (
+                    <motion.div
+                      layoutId="walkingPerson"
+                      transition={{ 
+                        type: "spring", 
+                        stiffness: 80, 
+                        damping: 20
+                      }}
+                      className="absolute -top-12 md:-top-16 z-20"
+                    >
+                      <motion.span 
+                        animate={{ y: [0, -8, 0] }}
+                        transition={{ repeat: Infinity, duration: 0.5 }}
+                        className="material-symbols-outlined text-4xl text-gold block drop-shadow-[0_0_10px_rgba(255,215,0,0.8)]"
+                      >
+                        directions_walk
+                      </motion.span>
+                    </motion.div>
+                  )}
+
+                  <div className={`relative w-16 h-16 rounded-full flex items-center justify-center mb-4 transition-all duration-500 z-10 ${isActive ? 'bg-gold border-gold text-black shadow-[0_0_20px_rgba(255,215,0,0.4)]' : 'bg-white/5 border-white/10 text-white'}`}>
+                    <span className="font-black font-primary text-xl">0{idx + 1}</span>
+                  </div>
+                  <span className={`text-[10px] md:text-xs font-black uppercase tracking-widest transition-colors duration-500 ${isActive ? 'text-gold drop-shadow-[0_0_5px_rgba(255,215,0,0.5)]' : 'text-white/70'}`}>
+                    {step}
+                  </span>
+
+                  {/* Connecting Lines for Desktop */}
+                  {idx !== deliverySteps.length - 1 && (
+                     <div className="hidden md:block absolute h-[2px] top-8 left-[50%] w-full -z-0">
+                         {/* Background line */}
+                         <div className="absolute inset-0 bg-white/10" />
+                         {/* Active line fill */}
+                         <motion.div 
+                            className="absolute inset-0 bg-gold origin-left"
+                            initial={{ scaleX: 0 }}
+                            animate={{ scaleX: currentStep > idx ? 1 : 0 }}
+                            transition={{ duration: 1, ease: "easeInOut" }}
+                         />
+                     </div>
+                  )}
+                  
+                  {/* Connecting Lines for Mobile */}
+                  {idx !== deliverySteps.length - 1 && (
+                     <div className="md:hidden absolute w-[2px] top-[2rem] left-1/2 -translate-x-1/2 -z-0" style={{ height: 'calc(100% + 3rem)' }}>
+                         {/* Background line */}
+                         <div className="absolute inset-0 bg-white/10" />
+                         {/* Active line fill */}
+                         <motion.div 
+                            className="absolute inset-0 bg-gold origin-top"
+                            initial={{ scaleY: 0 }}
+                            animate={{ scaleY: currentStep > idx ? 1 : 0 }}
+                            transition={{ duration: 1, ease: "easeInOut" }}
+                         />
+                     </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+  );
+};
+
 export default function ServicesClient() {
   return (
     <div className="bg-white min-h-screen selection:bg-black selection:text-white">
@@ -74,7 +223,7 @@ export default function ServicesClient() {
               </h1>
 
               <p className="text-lg md:text-xl text-gray-500 font-secondary leading-relaxed max-w-lg mb-10">
-                From strategy and market expansion to funding, AI, partnerships, and execution, Rise Mate Ventures provides comprehensive business growth solutions designed to help organizations scale with confidence.
+                From strategy and market expansion to funding, AI, partnerships, and execution, RiseMates Ventures provides comprehensive business growth solutions designed to help organizations scale with confidence.
               </p>
             </motion.div>
 
@@ -157,45 +306,7 @@ export default function ServicesClient() {
       </section>
 
       {/* 3. DELIVERY MODEL */}
-      <section className="py-24 md:py-32 bg-black text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem]" />
-
-        <div className="container-wide relative z-10">
-          <div className="text-center max-w-3xl mx-auto mb-20">
-            <h2 className="text-4xl md:text-5xl font-black text-white tracking-tighter leading-[1.1] mb-6 font-primary">
-              Our Delivery Model
-            </h2>
-            <p className="text-lg text-white/50 font-secondary leading-relaxed">
-              Every engagement follows a structured methodology focused on delivering sustainable and measurable business outcomes.
-            </p>
-          </div>
-
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-2 max-w-5xl mx-auto">
-            {deliverySteps.map((step, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="flex flex-col items-center group w-full"
-              >
-                <div className="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-4 group-hover:bg-gold group-hover:border-gold group-hover:text-black transition-all duration-300">
-                  <span className="font-black font-primary text-xl">0{idx + 1}</span>
-                </div>
-                <span className="text-[10px] md:text-xs font-black uppercase tracking-widest text-white/70 group-hover:text-gold transition-colors">
-                  {step}
-                </span>
-
-                {/* Connecting Lines for Desktop */}
-                {idx !== deliverySteps.length - 1 && (
-                  <div className="hidden md:block absolute w-[10%] h-[1px] bg-white/10 left-[calc(50%+40px)] top-8" style={{ left: `calc(${16.66 * idx}% + 8.33% + 32px)` }} />
-                )}
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <DeliveryModel />
 
       {/* 4. CONVERSION BANNER */}
       <section className="py-20 md:py-32 bg-white overflow-hidden relative border-b border-gray-200">
