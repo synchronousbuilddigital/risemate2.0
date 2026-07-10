@@ -48,10 +48,72 @@ const deliverySteps = [
   "Discover", "Strategize", "Connect", "Execute", "Measure", "Scale"
 ];
 
+const WalkingFigure = ({ isCelebrating }) => {
+  return (
+    <motion.div 
+      className="w-12 h-12 md:w-[64px] md:h-[64px] relative flex items-center justify-center drop-shadow-[0_0_15px_rgba(255,215,0,0.8)] z-[60]"
+      animate={isCelebrating ? { y: [-15, 0, -15] } : { y: [0, -3, 0] }}
+      transition={isCelebrating ? { repeat: Infinity, duration: 0.6, ease: "easeOut" } : { repeat: Infinity, duration: 0.5, ease: "easeInOut" }}
+    >
+      <svg viewBox="0 0 100 100" className="w-full h-full stroke-gold fill-transparent" strokeLinecap="round" strokeLinejoin="round">
+        {/* Head */}
+        <circle cx="50" cy="18" r="9" className="fill-gold stroke-none" />
+        
+        {/* Torso */}
+        <line x1="50" y1="28" x2="50" y2="58" strokeWidth="12" />
+        
+        {/* Left Arm (Back) */}
+        <motion.line 
+          strokeWidth="7"
+          x1="50" y1="32" x2="50" y2="58" 
+          animate={isCelebrating ? { rotate: -150 } : { rotate: [35, -35, 35] }} 
+          transition={isCelebrating ? { type: "spring", stiffness: 200, damping: 15 } : { repeat: Infinity, duration: 1, ease: "linear" }}
+          style={{ transformOrigin: "50px 32px" }}
+          className="stroke-gold/60"
+        />
+        
+        {/* Left Leg (Back) */}
+        <motion.g
+          strokeWidth="8"
+          animate={isCelebrating ? { rotate: -20 } : { rotate: [-40, 40, -40] }} 
+          transition={isCelebrating ? { type: "spring", stiffness: 200, damping: 15 } : { repeat: Infinity, duration: 1, ease: "linear" }}
+          style={{ transformOrigin: "50px 58px" }}
+        >
+            <line x1="50" y1="58" x2="50" y2="88" className="stroke-gold/60" />
+            <line x1="50" y1="88" x2="57" y2="88" strokeWidth="6" className="stroke-gold/60" /> {/* Foot */}
+        </motion.g>
+
+        {/* Right Leg (Front) */}
+        <motion.g
+          strokeWidth="8"
+          animate={isCelebrating ? { rotate: 20 } : { rotate: [40, -40, 40] }} 
+          transition={isCelebrating ? { type: "spring", stiffness: 200, damping: 15 } : { repeat: Infinity, duration: 1, ease: "linear" }}
+          style={{ transformOrigin: "50px 58px" }}
+        >
+            <line x1="50" y1="58" x2="50" y2="88" className="stroke-gold" />
+            <line x1="50" y1="88" x2="57" y2="88" strokeWidth="6" className="stroke-gold" /> {/* Foot */}
+        </motion.g>
+        
+        {/* Right Arm (Front) */}
+        <motion.line 
+          strokeWidth="7"
+          x1="50" y1="32" x2="50" y2="58" 
+          animate={isCelebrating ? { rotate: 150 } : { rotate: [-35, 35, -35] }} 
+          transition={isCelebrating ? { type: "spring", stiffness: 200, damping: 15 } : { repeat: Infinity, duration: 1, ease: "linear" }}
+          style={{ transformOrigin: "50px 32px" }}
+          className="stroke-gold"
+        />
+      </svg>
+    </motion.div>
+  );
+};
+
 const DeliveryModel = () => {
   const containerRef = useRef(null);
+  const confettiCanvasRef = useRef(null);
   const isInView = useInView(containerRef, { once: false, amount: 0.3 });
   const [currentStep, setCurrentStep] = useState(-1);
+  const [confettiInstance, setConfettiInstance] = useState(null);
 
   // Load canvas-confetti
   useEffect(() => {
@@ -61,40 +123,74 @@ const DeliveryModel = () => {
       script.async = true;
       document.body.appendChild(script);
     }
+    
+    // Initialize custom canvas
+    const initConfetti = setInterval(() => {
+       if (window.confetti && confettiCanvasRef.current) {
+           const myConfetti = window.confetti.create(confettiCanvasRef.current, {
+             resize: true,
+             useWorker: true
+           });
+           setConfettiInstance(() => myConfetti);
+           clearInterval(initConfetti);
+       }
+    }, 100);
+    
+    return () => clearInterval(initConfetti);
   }, []);
 
   useEffect(() => {
-    let timeout1, timeout2;
+    let timeout1, timeout2, confettiInterval;
     if (isInView && currentStep < deliverySteps.length) {
         // the walk duration is approx 1000ms.
         // Wait 1000ms, then fire confetti
         timeout1 = setTimeout(() => {
             const stepEl = document.getElementById(`step-${currentStep}`);
-            if (stepEl && typeof window !== 'undefined' && window.confetti) {
+            if (stepEl && confettiInstance && confettiCanvasRef.current) {
                 const rect = stepEl.getBoundingClientRect();
-                const x = (rect.left + rect.width / 2) / window.innerWidth;
-                const y = (rect.top + rect.height / 2) / window.innerHeight;
-                window.confetti({
-                    particleCount: 50,
-                    spread: 60,
-                    origin: { x, y },
-                    colors: ['#FFD700', '#ffffff', '#aaaaaa'],
-                    zIndex: 100,
-                    disableForReducedMotion: true
-                });
+                const canvasRect = confettiCanvasRef.current.getBoundingClientRect();
+                const x = (rect.left + rect.width / 2 - canvasRect.left) / canvasRect.width;
+                const y = (rect.top + rect.height / 2 - canvasRect.top) / canvasRect.height;
+                
+                if (currentStep === deliverySteps.length - 1) {
+                    // Grand finale fireworks for the final step!
+                    const duration = 2500;
+                    const animationEnd = Date.now() + duration;
+                    const defaults = { startVelocity: 30, spread: 360, ticks: 60, colors: ['#FFD700', '#ffffff', '#aaaaaa', '#ffaa00'] };
+
+                    confettiInterval = setInterval(function() {
+                      const timeLeft = animationEnd - Date.now();
+
+                      if (timeLeft <= 0) {
+                        return clearInterval(confettiInterval);
+                      }
+
+                      const particleCount = 50 * (timeLeft / duration);
+                      confettiInstance(Object.assign({}, defaults, { particleCount, origin: { x: Math.random(), y: Math.random() - 0.2 } }));
+                    }, 250);
+                } else {
+                    // Normal step burst
+                    confettiInstance({
+                        particleCount: 50,
+                        spread: 60,
+                        origin: { x, y },
+                        colors: ['#FFD700', '#ffffff', '#aaaaaa'],
+                        disableForReducedMotion: true
+                    });
+                }
             }
             
             // Wait a bit, then move to next step
             timeout2 = setTimeout(() => {
                 setCurrentStep(p => p + 1);
-            }, 1500); // 1.5s stay on the step
+            }, currentStep === deliverySteps.length - 1 ? 4000 : 1500); // stay longer on final step
 
         }, currentStep === 0 ? 500 : 1000); 
     } else if (isInView && currentStep >= deliverySteps.length) {
-        // loop back after 4 seconds
+        // loop back after grand finale
         timeout1 = setTimeout(() => {
             setCurrentStep(0);
-        }, 4000);
+        }, 1000);
     } else if (!isInView) {
         // Reset when out of view
         setCurrentStep(-1);
@@ -103,14 +199,19 @@ const DeliveryModel = () => {
     return () => {
         clearTimeout(timeout1);
         clearTimeout(timeout2);
+        clearInterval(confettiInterval);
     };
-  }, [currentStep, isInView]);
+  }, [currentStep, isInView, confettiInstance]);
 
   return (
     <section className="py-24 md:py-32 bg-black text-white relative overflow-hidden">
+        {/* Background Grid */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem]" />
 
-        <div className="container-wide relative z-10">
+        {/* Confetti Canvas strictly confined to this section */}
+        <canvas ref={confettiCanvasRef} className="absolute inset-0 w-full h-full pointer-events-none z-10" />
+
+        <div className="container-wide relative z-20">
           <div className="text-center max-w-3xl mx-auto mb-20">
             <h2 className="text-4xl md:text-5xl font-black text-white tracking-tighter leading-[1.1] mb-6 font-primary">
               Our Delivery Model
@@ -130,24 +231,18 @@ const DeliveryModel = () => {
                   id={`step-${idx}`}
                   className="relative flex flex-col items-center group w-full"
                 >
-                  {/* Person Walking */}
+                  {/* Person Walking / Celebrating */}
                   {isCurrent && (
                     <motion.div
                       layoutId="walkingPerson"
                       transition={{ 
-                        type: "spring", 
-                        stiffness: 80, 
-                        damping: 20
+                        type: "tween", 
+                        ease: "linear",
+                        duration: 1
                       }}
-                      className="absolute -top-12 md:-top-16 z-20"
+                      className="absolute -top-[30px] md:top-[-26px] z-[60] pointer-events-none"
                     >
-                      <motion.span 
-                        animate={{ y: [0, -8, 0] }}
-                        transition={{ repeat: Infinity, duration: 0.5 }}
-                        className="material-symbols-outlined text-4xl text-gold block drop-shadow-[0_0_10px_rgba(255,215,0,0.8)]"
-                      >
-                        directions_walk
-                      </motion.span>
+                      <WalkingFigure isCelebrating={currentStep === deliverySteps.length - 1} />
                     </motion.div>
                   )}
 
