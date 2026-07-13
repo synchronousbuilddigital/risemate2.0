@@ -8,7 +8,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 const leaders = [
   {
     name: "Saurabh Jain",
-    role: "Founder & CEO · Vega Vrudhi",
+    role: "Founder & CEO · Vegavruddhi",
     vision: "Architecting high-performance field-force efficiency through algorithmic sales fulfillment for national growth engines.",
     focus: "Strategic Retail Expansion & End-to-End Lead conversion fulfillment across India's Tier 1 and 2 cities.",
     philosophy: "Building on-ground execution intelligence via precision managed sales infrastructure.",
@@ -57,7 +57,7 @@ const leaders = [
 ];
 
 const entities = [
-  { label: "Vega Vrudhi", angle: 0, tag: "Managed Sales" },
+  { label: "Vegavruddhi", angle: 0, tag: "Managed Sales" },
   { label: "BWorth", angle: 90, tag: "Circular Luxury" },
   { label: "RYM Grenergy", angle: 180, tag: "Clean Energy" },
   { label: "Synchronous", angle: 270, tag: "Autonomous AI" },

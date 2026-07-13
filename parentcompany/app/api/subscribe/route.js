@@ -73,7 +73,7 @@ export async function POST(request) {
 
                 <ul style="font-size: 13px; color: #4b5563; padding-left: 20px; margin-bottom: 25px;">
                     <li style="margin-bottom: 6px;">Circular Supply Chains & Zero-Landfill Fashion (BWorth)</li>
-                    <li style="margin-bottom: 6px;">Managed Sales Force Infrastructure (Vega Vrudhi)</li>
+                    <li style="margin-bottom: 6px;">Managed Sales Force Infrastructure (Vegavruddhi)</li>
                     <li style="margin-bottom: 6px;">Deep-Tech Hardware & Clean IoT Energy (RYM Grenergy)</li>
                     <li style="margin-bottom: 6px;">Enterprise Digital Transformation & Autonomous AI Agents (Synchronous)</li>
                 </ul>

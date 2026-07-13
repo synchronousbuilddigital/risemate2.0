@@ -8,7 +8,7 @@ const defaultLeaders = [
         id: "leader_01",
         tier: "Executive Tier 001",
         name: "Saurabh Jain",
-        role: "Founder & CEO · Vega Vrudhi",
+        role: "Founder & CEO · Vegavruddhi",
         philosophy: "Building on-ground execution intelligence via precision managed sales infrastructure.",
         vision: "Architecting high-performance field-force efficiency through algorithmic sales fulfillment for national growth engines.",
         focus: "Strategic Retail Expansion & End-to-End Lead conversion fulfillment across India's Tier 1 and 2 cities.",

@@ -331,12 +331,12 @@ export default function ContactClient() {
               </p>
             </div>
 
-            {/* Vega Vrudhi */}
+            {/* Vegavruddhi */}
             <div className="bg-gray-50 border border-gray-200 rounded-[32px] p-8 hover:shadow-xl hover:border-gold transition-all duration-300 group cursor-default flex flex-col items-center text-center">
               <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 group-hover:-translate-y-2 transition-transform duration-500 overflow-hidden border border-gray-100 p-2">
-                <Image src="/VEGA.png" alt="Vega Vrudhi" width={40} height={40} className="object-contain" unoptimized />
+                <Image src="/VEGA.png" alt="Vegavruddhi" width={40} height={40} className="object-contain" unoptimized />
               </div>
-              <h3 className="text-lg font-black text-black mb-1">Vega Vrudhi</h3>
+              <h3 className="text-lg font-black text-black mb-1">Vegavruddhi</h3>
               <span className="text-[8px] font-black uppercase tracking-[0.15em] px-2.5 py-1 rounded-full bg-gold/10 text-gold mb-4 inline-block font-secondary">Sales & Execution</span>
               <p className="text-xs text-gray-500 font-secondary leading-relaxed">
                 Providing end-to-end sales force outsourcing, channel expansion, retail distribution network, and on-ground brand activation.

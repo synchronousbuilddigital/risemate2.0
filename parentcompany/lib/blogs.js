@@ -30,7 +30,7 @@ const BLOGS = [
       </ol>
 
       <h3>Defining Your Traction Metrics Precisely</h3>
-      <p>Investors do not want vanity metrics. Avoid listing total signups. Instead, list monthly active users (MAU), customer lifetime value (LTV), customer acquisition cost (CAC), and cohort retention. If you use on-ground activation force (like our Vega Vrudhi systems), show transaction velocity per agent.</p>
+      <p>Investors do not want vanity metrics. Avoid listing total signups. Instead, list monthly active users (MAU), customer lifetime value (LTV), customer acquisition cost (CAC), and cohort retention. If you use on-ground activation force (like our Vegavruddhi systems), show transaction velocity per agent.</p>
       
       <blockquote>"A pitch deck isn't about selling your product; it is about selling the financial return on your execution capability."</blockquote>
 
@@ -61,7 +61,7 @@ const BLOGS = [
       <blockquote>"On-ground execution bridges the gap between digital scalability and local market reality."</blockquote>
 
       <h3>3. Real-time Compliance Verification</h3>
-      <p>To reduce onboarding fraud and layout shifts in database transactions, field applications must have embedded OCR scanners and identity validators. Vega Vrudhi's deployment models show that double-layer validation decreases verification times from 4 days to under 20 minutes.</p>
+      <p>To reduce onboarding fraud and layout shifts in database transactions, field applications must have embedded OCR scanners and identity validators. Vegavruddhi's deployment models show that double-layer validation decreases verification times from 4 days to under 20 minutes.</p>
     `,
     related: ["how-to-build-pitch-deck-vc-capital", "d2c-brands-circular-retail-rewards"]
   },
@@ -104,7 +104,7 @@ export async function getAllBlogs() {
 
     const dbBlogs = await collection.find({}).toArray();
     const cleanBlogs = dbBlogs.map(({ _id, ...blog }) => blog);
-    
+
     // Sort blogs by date descending
     cleanBlogs.sort((a, b) => new Date(b.date) - new Date(a.date));
     return cleanBlogs;

@@ -22,7 +22,7 @@ RiseMates serves as the overarching holding architecture for four high-velocity 
 | Entity | Vertical | Focus Area | Portal Link |
 | :--- | :--- | :--- | :--- |
 | **BWorth** | Circular Luxury | Fashion recycling & ULTRON validation | [bworth.co.in](https://bworth.co.in) |
-| **Vega Vrudhi** | Execution | Field-force merchant onboarding & scaling | [vegavruddhi.com](https://vegavruddhi.com) |
+| **Vegavruddhi** | Execution | Field-force merchant onboarding & scaling | [vegavruddhi.com](https://vegavruddhi.com) |
 | **RYM Grenergy** | Deep-Tech | Clean energy storage & weighbridge AI systems | [rymgrenergy.com](https://rymgrenergy.com) |
 | **Synchronous** | Digital Build | Algorithmic marketing & growth engineering | [synchronousbuilddigital.com](https://www.synchronousbuilddigital.com/) |
 

@@ -118,7 +118,7 @@ export default function Partners() {
                                     {
                                         name: "Compute Alpha",
                                         category: "AI/ML Infrastructure",
-                                        description: "Providing the high-density neural processing power for Vega Vrudhi's national lead fulfillment engine.",
+                                        description: "Providing the high-density neural processing power for Vegavruddhi's national lead fulfillment engine.",
                                         status: "LIVE OPS · 2h LATENCY"
                                     },
                                     {

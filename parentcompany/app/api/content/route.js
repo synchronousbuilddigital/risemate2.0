@@ -19,7 +19,7 @@ const defaultItems = [
     },
     {
         key: "entity_02",
-        title: "Vega Vrudhi",
+        title: "Vegavruddhi",
         img: "/image copy 2.png",
         desc: "Deploying high-precision execution frameworks that bridge the divide between global strategic mandates and regional operational reality. We architect the backbone of national scale logistics.",
         tag: "Managed Sales",
@@ -58,7 +58,7 @@ function parseManifesto() {
         if (!fs.existsSync(filePath)) {
             return null;
         }
-        
+
         const content = fs.readFileSync(filePath, 'utf8');
         const sections = content.split(/## Entity \d+:\s+/);
         const parsed = {};
@@ -80,12 +80,12 @@ function parseManifesto() {
             for (const sub of subSections) {
                 const subLines = sub.split('\n');
                 const subTitle = subLines[0].trim().toLowerCase();
-                
-                if (subTitle.includes('core proposition') || 
-                    subTitle.includes('service pillars') || 
-                    subTitle.includes('strategic vision') || 
+
+                if (subTitle.includes('core proposition') ||
+                    subTitle.includes('service pillars') ||
+                    subTitle.includes('strategic vision') ||
                     subTitle.includes('core pillars')) {
-                    
+
                     const descLines = subLines.slice(1)
                         .map(l => l.trim())
                         .filter(l => l.length > 0 && !l.startsWith('#') && !l.startsWith('>'))
@@ -97,7 +97,7 @@ function parseManifesto() {
                                 .trim();
                         })
                         .slice(0, 3);
-                    
+
                     description = descLines.join(' ');
                     break;
                 }
@@ -145,9 +145,9 @@ export async function GET() {
 
         const dbItems = await collection.find({}).toArray();
         const cleanDbItems = dbItems.map(({ _id, ...item }) => item);
-        
+
         const orderedItems = [];
-        
+
         defaultItems.forEach(defItem => {
             const match = cleanDbItems.find(dbi => dbi.key === defItem.key);
             if (match) {

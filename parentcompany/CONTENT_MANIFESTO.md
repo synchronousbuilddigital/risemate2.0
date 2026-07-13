@@ -1,7 +1,7 @@
 # RiseMates Ventures Content Manifesto
 ## The Sovereign Digital Legacy Architecture
 
-This document serves as the central repository for all verified institutional content across the RiseMates Ventures portal, covering our core entities: **BWorth**, **Vega Vrudhi**, **RYM Grenergy**, and **Synchronous**.
+This document serves as the central repository for all verified institutional content across the RiseMates Ventures portal, covering our core entities: **BWorth**, **Vegavruddhi**, **RYM Grenergy**, and **Synchronous**.
 
 ---
 
@@ -9,7 +9,7 @@ This document serves as the central repository for all verified institutional co
 ### The Architects of the Future
 
 #### 1. Saurabh Jain
-**Founder & CEO · Vega Vrudhi**
+**Founder & CEO · Vegavruddhi**
 *   **Vision**: Scaling on-ground execution through AI/ML-driven precision.
 *   **Focus**: Managed sales, specialized staffing, and national growth engines.
 *   **Philosophy**: "Numbers don't lie, but passion drives them."
@@ -45,7 +45,7 @@ This document serves as the central repository for all verified institutional co
 
 ---
 
-## Entity 02: Vega Vrudhi
+## Entity 02: Vegavruddhi
 ### Precision Execution & Growth Architecture
 
 > **Tagline**: Where Execution Meets Growth — End-to-end Sales, Staffing & Customer Engagement.
@@ -114,6 +114,6 @@ Founded in 2022 to enable the future of energy by developing the world’s green
 
 ### Support Channels
 *   **BWorth**: info@bworth.co.in | +91 8826668050
-*   **Vega Vrudhi**: saurabh@vegavruddhi.com | +91 91166 16636
+*   **Vegavruddhi**: saurabh@vegavruddhi.com | +91 91166 16636
 *   **RYM**: contact@rym-grenergy.com | +91 82000 55645
 *   **Synchronous**: Global Operations / Remote First

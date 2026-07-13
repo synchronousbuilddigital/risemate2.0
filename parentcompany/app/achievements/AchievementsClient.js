@@ -10,7 +10,7 @@ const MILESTONES = [
   { year: "2021", title: "Company Inception", desc: "RiseMates established as a specialized digital startup accelerator in Jaipur, launching our first Cohort." },
   { year: "2022", title: "Regional Expansion", desc: "Expanded geographic reach across Rajasthan and Delhi NCR, connecting 40+ early angels." },
   { year: "2023", title: "Ecosystem IP Integration", desc: "Launched BWorth circular retail and RYM industrial IoT automation software platforms." },
-  { year: "2024", title: "Gurugram Corporate HQ", desc: "Established NCR Gurugram Corporate HQ, expanding team size and deploying Vega Vrudhi." },
+  { year: "2024", title: "Gurugram Corporate HQ", desc: "Established NCR Gurugram Corporate HQ, expanding team size and deploying Vegavruddhi." },
   { year: "2025", title: "Capital Pool Milestones", desc: "Crossed ₹100 Cr in facilitated venture rounds and integrated Synchronous AI support agents." },
   { year: "2026", title: "Ecosystem Peak & Jaipur Hub", desc: "Expanded Jaipur operational hub and facilitated capital reached ₹150 Cr+ across 25+ completed rounds." }
 ];

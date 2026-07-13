@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 
 export const metadata = {
   title: "Contact RiseMates Ventures | Book Consultation & Apply for Funding",
-  description: "Connect with the managing partners of RiseMates Ventures. Submit your strategic startup mandate to request capital advisory, Circular Fashion integration (BWorth), Managed Field force scaling (Vega Vrudhi), or brand AI system setup (Synchronous).",
+  description: "Connect with the managing partners of RiseMates Ventures. Submit your strategic startup mandate to request capital advisory, Circular Fashion integration (BWorth), Managed Field force scaling (Vegavruddhi), or brand AI system setup (Synchronous).",
   alternates: {
     canonical: "https://RiseMates.com/contact",
   },

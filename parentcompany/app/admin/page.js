@@ -1303,7 +1303,7 @@ export default function AdminDashboard() {
                                                 type="text"
                                                 value={leaderRole}
                                                 onChange={(e) => setLeaderRole(e.target.value)}
-                                                placeholder="e.g. Founder & CEO · Vega Vrudhi"
+                                                placeholder="e.g. Founder & CEO · Vegavruddhi"
                                                 className="w-full bg-[#000c24]/40 border border-white/5 focus:border-[#C9A84C]/30 rounded-xl px-4 py-3 text-sm text-white placeholder-white/20 outline-none transition-all"
                                             />
                                         </div>

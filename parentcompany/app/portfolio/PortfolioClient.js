@@ -24,7 +24,7 @@ const entities = [
   {
     key: "entity_02",
     id: "02",
-    name: "Vega Vrudhi",
+    name: "Vegavruddhi",
     tagline: "Precision Execution & Growth Architecture",
     tag: "Managed Sales",
     img: "/image copy 2.png",

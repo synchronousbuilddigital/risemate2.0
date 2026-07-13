@@ -67,9 +67,9 @@ export const SERVICES_DATA = {
   },
   "vega-vrudhi": {
     name: "Precision Managed Sales & Execution Force",
-    entity: "Vega Vrudhi",
+    entity: "Vegavruddhi",
     summary: "Direct field-force scaling, rapid merchant onboarding, and strategic physical customer activation pipelines.",
-    shortDesc: "Vega Vrudhi deploys highly trained, specialized on-ground sales teams paired with algorithmic routing software to drive physical merchant onboarding and conversion.",
+    shortDesc: "Vegavruddhi deploys highly trained, specialized on-ground sales teams paired with algorithmic routing software to drive physical merchant onboarding and conversion.",
     detailedDescription: {
       what: "A comprehensive managed field force service that executes on-ground customer acquisition, direct B2B onboarding, compliance collection, and sales campaigns at regional scale.",
       why: "Purely digital onboarding fails in emerging markets due to low trust, technical illiteracy, and verification complications. Direct human interaction bridges this trust gap, locking in active users.",
@@ -97,7 +97,7 @@ export const SERVICES_DATA = {
     ],
     deliverables: [
       "Trained dedicated field force (5 to 100+ agents based on requirements).",
-      "Vega Vrudhi Onboarding app license keys.",
+      "Vegavruddhi Onboarding app license keys.",
       "Real-time management dashboard with compliance check validation.",
       "Weekly verified merchant audit registers."
     ],

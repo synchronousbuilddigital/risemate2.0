@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 
 export const metadata = {
   title: "RiseMates Portfolio | High-Growth Startup Ecosystem Verticals",
-  description: "Browse the high-velocity venture projects and startups supported by RiseMates Ventures, including BWorth circular retail systems, Vega Vrudhi managed sales onboarding, RYM deep-tech engineering, and Synchronous AI agent automation.",
+  description: "Browse the high-velocity venture projects and startups supported by RiseMates Ventures, including BWorth circular retail systems, Vegavruddhi managed sales onboarding, RYM deep-tech engineering, and Synchronous AI agent automation.",
   alternates: {
     canonical: "https://RiseMates.com/portfolio",
   },

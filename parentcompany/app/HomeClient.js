@@ -473,7 +473,7 @@ export default function HomeClient() {
       },
       {
         keywords: ["industries", "sectors", "fields", "areas", "banking", "fintech", "saas", "ai"],
-        response: "We support diverse sectors including Banking & Financial Services, FinTech, Technology & SaaS, Artificial Intelligence, Healthcare, Manufacturing, Smart Cities, Energy, Logistics, and Startups. Our own ecosystem companies (like BWorth, Vega Vrudhi, RYM Grenergy, and Synchronous) operate across these verticals."
+        response: "We support diverse sectors including Banking & Financial Services, FinTech, Technology & SaaS, Artificial Intelligence, Healthcare, Manufacturing, Smart Cities, Energy, Logistics, and Startups. Our own ecosystem companies (like BWorth, Vegavruddhi, RYM Grenergy, and Synchronous) operate across these verticals."
       },
       {
         keywords: ["mentorship", "advisory", "coaching", "partners", "saurabh", "dheeraj", "yograj", "devam"],
