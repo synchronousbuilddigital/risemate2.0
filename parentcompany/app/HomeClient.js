@@ -557,7 +557,7 @@ export default function HomeClient() {
     <div ref={containerRef} className="min-h-screen bg-white selection:bg-black selection:text-black relative">
 
       {/* 1. HERO SECTION - BENTO REDESIGN */}
-      <section className="relative min-h-[100svh] flex flex-col justify-center pt-32 pb-20 md:pt-24 md:pb-12 bg-[#FAFAFA] overflow-hidden">
+      <section className="relative pt-36 pb-20 md:pt-44 lg:pt-48 md:pb-12 bg-[#FAFAFA] overflow-hidden">
         <div className="container-wide w-full">
 
           {/* Top Headline Area */}
@@ -741,9 +741,16 @@ export default function HomeClient() {
               <div className="absolute w-[240px] h-[240px] border border-dashed border-dark/15 rounded-full pointer-events-none" />
 
               {/* Center Hub Logo Container */}
-              <div className="absolute z-20 w-32 h-32 bg-white border-2 border-gold/30 text-black rounded-full flex flex-col items-center justify-center shadow-[0_0_50px_rgba(0,18,51,0.15)] select-none">
-                <span className="text-gold font-serif text-3xl font-black tracking-widest leading-none">RMV</span>
-                <span className="text-[7px] text-black/40 uppercase tracking-[0.25em] font-black mt-1">Ecosystem</span>
+              <div className="absolute z-20 w-32 h-32 bg-white border-2 border-gold/30 text-black rounded-full flex flex-col items-center justify-center shadow-[0_0_50px_rgba(0,18,51,0.15)] select-none p-5">
+                <div className="relative w-20 h-20">
+                  <Image
+                    src="/logo.png"
+                    alt="RiseMates Logo"
+                    fill
+                    className="object-contain"
+                    unoptimized
+                  />
+                </div>
 
                 {/* Subtle pulsing outer rings */}
                 <div className="absolute inset-[-4px] border border-gold/15 rounded-full animate-ping pointer-events-none" />

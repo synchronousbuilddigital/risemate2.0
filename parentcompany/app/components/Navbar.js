@@ -8,7 +8,17 @@ const navLinks = [
   { name: "About", href: "/about" },
   { name: "Ecosystem", href: "/ecosystem" },
   { name: "Services", href: "/services" },
-  { name: "Solutions", href: "/solutions" },
+  {
+    name: "Solutions",
+    href: "/solutions",
+    subItems: [
+      { name: "For Startups", href: "/solutions/startups" },
+      { name: "For Enterprises", href: "/solutions/enterprises" },
+      { name: "For Investors", href: "/solutions/investors" },
+      { name: "For Government", href: "/solutions/government" },
+      { name: "India Entry", href: "/solutions/india-entry" },
+    ],
+  },
   { name: "Industries", href: "/industries" },
   { name: "Blog", href: "/blog" },
   { name: "Contact", href: "/contact" },
@@ -43,7 +53,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed left-1/2 top-4 z-[200] w-[min(96vw,1380px)] -translate-x-1/2 px-3 sm:px-4 transition-all duration-500 ease-out ${loaded ? "translate-y-0 opacity-100" : "-translate-y-3 opacity-0"}`}
+      className="fixed left-1/2 top-4 z-[200] w-[min(96vw,1380px)] -translate-x-1/2 px-3 sm:px-4"
     >
       <div className={`relative rounded-full border px-6 py-3 backdrop-blur-2xl transition-all duration-500 ease-out sm:px-8 ${scrolled ? "border-black/5 bg-white/95 shadow-[0_20px_40px_rgba(0,0,0,0.08)] py-3" : "border-white/40 bg-white/70 shadow-[0_10px_30px_rgba(0,0,0,0.05)]"}`}>
         <div className="mx-auto flex items-center justify-between gap-6">
@@ -67,16 +77,48 @@ export default function Navbar() {
 
           {/* Center: Navigation Links */}
           <div className="hidden min-w-0 flex-1 items-center justify-center gap-8 lg:flex">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className={`group relative whitespace-nowrap text-[11px] font-black uppercase tracking-[0.2em] transition-colors duration-300 ${isActive(link.href) ? "text-black" : "text-gray-500 hover:text-black"}`}
-              >
-                {link.name}
-                <span className={`absolute -bottom-2 left-1/2 -translate-x-1/2 h-[2px] rounded-full bg-gold transition-all duration-300 ${isActive(link.href) ? "w-full" : "w-0 group-hover:w-full"}`} />
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              if (link.subItems) {
+                return (
+                  <div key={link.name} className="relative group/dropdown py-2">
+                    <Link
+                      href={link.href}
+                      className={`flex items-center gap-1 whitespace-nowrap text-[11px] font-black uppercase tracking-[0.2em] transition-colors duration-300 ${pathname.startsWith(link.href) ? "text-black" : "text-gray-500 hover:text-black"}`}
+                    >
+                      {link.name}
+                      <span className="material-symbols-outlined text-[12px] transition-transform duration-300 group-hover/dropdown:rotate-180">
+                        keyboard_arrow_down
+                      </span>
+                    </Link>
+                    <span className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] rounded-full bg-gold transition-all duration-300 ${pathname.startsWith(link.href) ? "w-full" : "w-0 group-hover/dropdown:w-full"}`} />
+                    
+                    {/* Dropdown Menu */}
+                    <div className="absolute top-[80%] left-1/2 -translate-x-1/2 mt-3 w-56 rounded-2xl border border-gray-100 bg-white p-2.5 shadow-2xl opacity-0 scale-95 pointer-events-none group-hover/dropdown:opacity-100 group-hover/dropdown:scale-100 group-hover/dropdown:pointer-events-auto transition-all duration-300 origin-top z-[250] flex flex-col gap-1">
+                      {link.subItems.map((sub) => (
+                        <Link
+                          key={sub.name}
+                          href={sub.href}
+                          className="rounded-xl px-4 py-2.5 text-[10px] font-black uppercase tracking-[0.15em] text-gray-600 hover:bg-gray-50 hover:text-black transition-colors"
+                        >
+                          {sub.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                );
+              }
+
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className={`group relative whitespace-nowrap text-[11px] font-black uppercase tracking-[0.2em] transition-colors duration-300 ${isActive(link.href) ? "text-black" : "text-gray-500 hover:text-black"}`}
+                >
+                  {link.name}
+                  <span className={`absolute -bottom-2 left-1/2 -translate-x-1/2 h-[2px] rounded-full bg-gold transition-all duration-300 ${isActive(link.href) ? "w-full" : "w-0 group-hover:w-full"}`} />
+                </Link>
+              );
+            })}
           </div>
 
           {/* Right: CTA & Mobile Toggle */}
@@ -109,16 +151,34 @@ export default function Navbar() {
         >
           <div className="rounded-[32px] border border-gray-100 bg-white/95 p-6 shadow-2xl backdrop-blur-2xl">
             <div className="flex flex-col gap-2">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setMobileOpen(false)}
-                  className={`rounded-2xl px-5 py-4 text-xs font-black uppercase tracking-[0.2em] transition-colors duration-300 ${isActive(link.href) ? "bg-gray-50 text-gold" : "text-gray-600 hover:bg-gray-50 hover:text-black"}`}
-                >
-                  {link.name}
-                </Link>
-              ))}
+              {navLinks.map((link) => {
+                const hasSub = !!link.subItems;
+                return (
+                  <div key={link.name} className="flex flex-col">
+                    <Link
+                      href={link.href}
+                      onClick={() => setMobileOpen(false)}
+                      className={`rounded-2xl px-5 py-3.5 text-xs font-black uppercase tracking-[0.2em] transition-colors duration-300 ${isActive(link.href) ? "bg-gray-50 text-gold" : "text-gray-600 hover:bg-gray-50 hover:text-black"}`}
+                    >
+                      {link.name}
+                    </Link>
+                    {hasSub && (
+                      <div className="flex flex-col pl-6 mt-1 mb-2 gap-1 border-l border-gray-100 ml-5">
+                        {link.subItems.map((sub) => (
+                          <Link
+                            key={sub.name}
+                            href={sub.href}
+                            onClick={() => setMobileOpen(false)}
+                            className={`rounded-xl px-4 py-2 text-[10px] font-bold uppercase tracking-[0.15em] transition-colors duration-300 ${isActive(sub.href) ? "text-gold bg-gray-50" : "text-gray-500 hover:text-black"}`}
+                          >
+                            {sub.name}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
 
             <div className="mt-4 pt-4 border-t border-gray-100">

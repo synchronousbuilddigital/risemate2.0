@@ -69,7 +69,7 @@ export default function AboutClient() {
     <div className="bg-white min-h-screen selection:bg-black selection:text-white" ref={containerRef}>
 
       {/* 1. HERO SECTION (PREMIUM LIGHT, SPLIT LAYOUT) */}
-      <section className="relative min-h-[95vh] flex items-center pt-32 pb-20 overflow-hidden bg-white">
+      <section className="relative pt-36 pb-20 md:pt-44 lg:pt-48 overflow-hidden bg-white">
         {/* Subtle Background Elements */}
         <div className="absolute top-0 right-0 w-full h-full overflow-hidden pointer-events-none">
           <div className="absolute top-[-20%] right-[-10%] w-[1000px] h-[1000px] bg-gold/5 blur-[120px] rounded-full" />

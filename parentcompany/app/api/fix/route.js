@@ -26,7 +26,7 @@ const newHeroJSX = `      {/* 1. HERO SECTION - BENTO REDESIGN */}
               {/* Top Box */}
               <div className="bg-white rounded-[32px] p-6 shadow-sm border border-gray-100 flex items-center gap-5 hover:shadow-md transition-shadow">
                 <div className="w-20 h-20 rounded-2xl overflow-hidden shrink-0 relative bg-gray-100">
-                  <Image src="/ecosystem_hero.png" alt="RMV" fill className="object-cover" unoptimized />
+                  <Image src="/ecosystem_hero.png" alt="RiseMates" fill className="object-cover" unoptimized />
                 </div>
                 <p className="text-sm font-medium text-gray-500 font-secondary leading-snug">
                   Partner with us for exponential market growth and venture scale!
