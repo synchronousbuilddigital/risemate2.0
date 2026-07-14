@@ -155,7 +155,7 @@ export default function AboutClient() {
                       objectFit: 'cover',
                       opacity: 0.95,
                       transform: 'scale(3.2)',
-                      transformOrigin: '71.4% 34.4%',
+                      transformOrigin: '72.8% 40.5%',
                       transition: 'transform 1s ease',
                       mixBlendMode: 'screen',
                       filter: 'none'
@@ -183,45 +183,45 @@ export default function AboutClient() {
                       `}</style>
                     </defs>
 
-                    {/* ── DELHI HUB ── card coords (71.4, 34.4) */}
-                    <circle cx="71.4" cy="34.4" r="3.2" fill="none" stroke="#DFBA6B" strokeWidth="0.2" className="rm-ping"/>
-                    <circle cx="71.4" cy="34.4" r="3.2" fill="none" stroke="#DFBA6B" strokeWidth="0.2" className="rm-ping" style={{animationDelay:'1.1s'}}/>
-                    <circle cx="71.4" cy="34.4" r="1.4" fill="#DFBA6B" filter="url(#rmGlow)" opacity="0.95"/>
-                    <circle cx="71.4" cy="34.4" r="0.6" fill="white"/>
-                    <text x="71.4" y="30.5" fontSize="2.4" fill="#DFBA6B" textAnchor="middle" fontWeight="bold" opacity="0.95">New Delhi</text>
+                    {/* ── DELHI HUB ── card coords (72.8, 40.5) */}
+                    <circle cx="72.8" cy="40.5" r="3.2" fill="none" stroke="#DFBA6B" strokeWidth="0.2" className="rm-ping"/>
+                    <circle cx="72.8" cy="40.5" r="3.2" fill="none" stroke="#DFBA6B" strokeWidth="0.2" className="rm-ping" style={{animationDelay:'1.1s'}}/>
+                    <circle cx="72.8" cy="40.5" r="1.4" fill="#DFBA6B" filter="url(#rmGlow)" opacity="0.95"/>
+                    <circle cx="72.8" cy="40.5" r="0.6" fill="white"/>
+                    <text x="72.8" y="36.5" fontSize="2.4" fill="#DFBA6B" textAnchor="middle" fontWeight="bold" opacity="0.95">New Delhi</text>
 
-                    {/* ── UAE / Dubai ── ~(54, 45) */}
-                    <line x1="71.4" y1="34.4" x2="54" y2="45" stroke="#DFBA6B" strokeWidth="0.3" strokeDasharray="2.5,1.5" opacity="0.75" className="rm-line"/>
-                    <circle cx="54" cy="45" r="0.9" fill="#DFBA6B" filter="url(#rmGlow)" opacity="0.9" className="rm-dot"/>
-                    <text x="54" y="48.5" fontSize="2.1" fill="#DFBA6B" textAnchor="middle" opacity="0.85">UAE</text>
+                    {/* ── UAE / Dubai ── ~(48.2, 40.8) */}
+                    <line x1="72.8" y1="40.5" x2="48.2" y2="40.8" stroke="#DFBA6B" strokeWidth="0.3" strokeDasharray="2.5,1.5" opacity="0.75" className="rm-line"/>
+                    <circle cx="48.2" cy="40.8" r="0.9" fill="#DFBA6B" filter="url(#rmGlow)" opacity="0.9" className="rm-dot"/>
+                    <text x="48.2" y="44.3" fontSize="2.1" fill="#DFBA6B" textAnchor="middle" opacity="0.85">UAE</text>
 
-                    {/* ── Germany ── ~(38, 15) */}
-                    <line x1="71.4" y1="34.4" x2="38" y2="15" stroke="#DFBA6B" strokeWidth="0.28" strokeDasharray="2.5,1.5" opacity="0.65" className="rm-line" style={{animationDelay:'0.6s'}}/>
-                    <circle cx="38" cy="15" r="0.85" fill="#DFBA6B" filter="url(#rmGlow)" opacity="0.85" className="rm-dot" style={{animationDelay:'0.4s'}}/>
-                    <text x="38" y="12.8" fontSize="2.1" fill="#DFBA6B" textAnchor="middle" opacity="0.8">Germany</text>
+                    {/* ── Germany ── ~(9.1, 8.8) */}
+                    <line x1="72.8" y1="40.5" x2="9.1" y2="8.8" stroke="#DFBA6B" strokeWidth="0.28" strokeDasharray="2.5,1.5" opacity="0.65" className="rm-line" style={{animationDelay:'0.6s'}}/>
+                    <circle cx="9.1" cy="8.8" r="0.85" fill="#DFBA6B" filter="url(#rmGlow)" opacity="0.85" className="rm-dot" style={{animationDelay:'0.4s'}}/>
+                    <text x="9.1" y="6.6" fontSize="2.1" fill="#DFBA6B" textAnchor="middle" opacity="0.8">Germany</text>
 
-                    {/* ── UK ── off-screen top-left edge (0, 10) */}
-                    <line x1="71.4" y1="34.4" x2="1" y2="10" stroke="#DFBA6B" strokeWidth="0.25" strokeDasharray="2.5,1.5" opacity="0.55" className="rm-line" style={{animationDelay:'1s'}}/>
-                    <circle cx="4" cy="11.5" r="0.8" fill="#DFBA6B" filter="url(#rmGlow)" opacity="0.75" className="rm-dot" style={{animationDelay:'0.8s'}}/>
-                    <text x="5.5" y="9.5" fontSize="2.1" fill="#DFBA6B" opacity="0.75">UK</text>
+                    {/* ── UK ── off-screen top-left edge (1.5, 5.0) */}
+                    <line x1="72.8" y1="40.5" x2="1.5" y2="5.0" stroke="#DFBA6B" strokeWidth="0.25" strokeDasharray="2.5,1.5" opacity="0.55" className="rm-line" style={{animationDelay:'1s'}}/>
+                    <circle cx="1.5" cy="5.0" r="0.8" fill="#DFBA6B" filter="url(#rmGlow)" opacity="0.75" className="rm-dot" style={{animationDelay:'0.8s'}}/>
+                    <text x="3.0" y="3.0" fontSize="2.1" fill="#DFBA6B" opacity="0.75">UK</text>
 
-                    {/* ── USA ── off-screen left edge (0, 38) */}
-                    <line x1="71.4" y1="34.4" x2="0" y2="38" stroke="#DFBA6B" strokeWidth="0.22" strokeDasharray="2.5,1.5" opacity="0.45" className="rm-line" style={{animationDelay:'1.4s'}}/>
-                    <text x="2.5" y="35.5" fontSize="2.1" fill="#DFBA6B" opacity="0.65">USA</text>
+                    {/* ── USA ── off-screen left edge (0, 41.8) */}
+                    <line x1="72.8" y1="40.5" x2="0" y2="41.8" stroke="#DFBA6B" strokeWidth="0.22" strokeDasharray="2.5,1.5" opacity="0.45" className="rm-line" style={{animationDelay:'1.4s'}}/>
+                    <text x="2.5" y="39.0" fontSize="2.1" fill="#DFBA6B" opacity="0.65">USA</text>
 
-                    {/* ── Kenya / Nairobi ── ~(25, 63) */}
-                    <line x1="71.4" y1="34.4" x2="25" y2="63" stroke="#DFBA6B" strokeWidth="0.26" strokeDasharray="2.5,1.5" opacity="0.6" className="rm-line" style={{animationDelay:'0.3s'}}/>
-                    <circle cx="25" cy="63" r="0.85" fill="#DFBA6B" filter="url(#rmGlow)" opacity="0.82" className="rm-dot" style={{animationDelay:'1.2s'}}/>
-                    <text x="25" y="66.5" fontSize="2.1" fill="#DFBA6B" textAnchor="middle" opacity="0.75">Kenya</text>
+                    {/* ── Kenya / Nairobi ── ~(33.1, 63.2) */}
+                    <line x1="72.8" y1="40.5" x2="33.1" y2="63.2" stroke="#DFBA6B" strokeWidth="0.26" strokeDasharray="2.5,1.5" opacity="0.6" className="rm-line" style={{animationDelay:'0.3s'}}/>
+                    <circle cx="33.1" cy="63.2" r="0.85" fill="#DFBA6B" filter="url(#rmGlow)" opacity="0.82" className="rm-dot" style={{animationDelay:'1.2s'}}/>
+                    <text x="33.1" y="67.0" fontSize="2.1" fill="#DFBA6B" textAnchor="middle" opacity="0.75">Kenya</text>
 
-                    {/* ── Singapore ── right edge (97, 76) */}
-                    <line x1="71.4" y1="34.4" x2="97" y2="76" stroke="#DFBA6B" strokeWidth="0.26" strokeDasharray="2.5,1.5" opacity="0.6" className="rm-line" style={{animationDelay:'0.9s'}}/>
-                    <circle cx="95" cy="74.5" r="0.85" fill="#DFBA6B" filter="url(#rmGlow)" opacity="0.82" className="rm-dot" style={{animationDelay:'0.5s'}}/>
-                    <text x="90" y="72.5" fontSize="2.1" fill="#DFBA6B" opacity="0.75">Singapore</text>
+                    {/* ── Singapore ── right edge (91.7, 62.9) */}
+                    <line x1="72.8" y1="40.5" x2="91.7" y2="62.9" stroke="#DFBA6B" strokeWidth="0.26" strokeDasharray="2.5,1.5" opacity="0.6" className="rm-line" style={{animationDelay:'0.9s'}}/>
+                    <circle cx="91.7" cy="62.9" r="0.85" fill="#DFBA6B" filter="url(#rmGlow)" opacity="0.82" className="rm-dot" style={{animationDelay:'0.5s'}}/>
+                    <text x="87.0" y="60.9" fontSize="2.1" fill="#DFBA6B" opacity="0.75">Singapore</text>
 
-                    {/* ── Japan ── off-screen right edge (100, 32) */}
-                    <line x1="71.4" y1="34.4" x2="100" y2="32" stroke="#DFBA6B" strokeWidth="0.22" strokeDasharray="2.5,1.5" opacity="0.5" className="rm-line" style={{animationDelay:'1.7s'}}/>
-                    <text x="94" y="30" fontSize="2.1" fill="#DFBA6B" opacity="0.65">Japan</text>
+                    {/* ── Japan ── off-screen right edge (100, 28.3) */}
+                    <line x1="72.8" y1="40.5" x2="100" y2="28.3" stroke="#DFBA6B" strokeWidth="0.22" strokeDasharray="2.5,1.5" opacity="0.5" className="rm-line" style={{animationDelay:'1.7s'}}/>
+                    <text x="94.0" y="25.0" fontSize="2.1" fill="#DFBA6B" opacity="0.65">Japan</text>
                   </svg>
 
                   <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: 'inset 0 0 80px rgba(0,0,0,0.75)' }} />
