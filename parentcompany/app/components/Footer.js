@@ -127,7 +127,7 @@ const Footer = () => {
           </div>
 
           {/* Nav columns */}
-          <div className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-3 gap-8">
+          <div className="lg:col-span-5 grid grid-cols-2 sm:grid-cols-3 gap-8">
             {navLinks.map((col) => (
               <div key={col.heading}>
                 <p className="text-[9px] font-black uppercase tracking-[0.25em] text-white/30 mb-5">
@@ -181,7 +181,7 @@ const Footer = () => {
                   </motion.p>
                 ) : (
                   <form onSubmit={handleSubscribe} className="space-y-2">
-                    <div className="flex gap-2">
+                    <div className="flex flex-col sm:flex-row gap-2">
                       <input
                         type="email"
                         placeholder="Enter your email"
@@ -189,12 +189,12 @@ const Footer = () => {
                         disabled={isSubmitting}
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="flex-grow bg-white/[0.04] border border-white/10 rounded-xl px-3.5 py-2.5 text-[11px] text-white outline-none focus:border-gold/50 transition-colors placeholder:text-white/20 disabled:opacity-50"
+                        className="w-full bg-white/[0.04] border border-white/10 rounded-xl px-3.5 py-2.5 text-[11px] text-white outline-none focus:border-gold/50 transition-colors placeholder:text-white/20 disabled:opacity-50"
                       />
                       <button
                         type="submit"
                         disabled={isSubmitting}
-                        className="bg-gold hover:bg-white text-black text-[9px] font-black uppercase tracking-[0.15em] px-4 py-2.5 rounded-xl transition-all duration-300 whitespace-nowrap shrink-0 active:scale-95 disabled:opacity-50"
+                        className="w-full sm:w-auto bg-gold hover:bg-white text-black text-[9px] font-black uppercase tracking-[0.15em] px-4 py-2.5 rounded-xl transition-all duration-300 whitespace-nowrap shrink-0 active:scale-95 disabled:opacity-50 text-center"
                       >
                         {isSubmitting ? "..." : "Subscribe"}
                       </button>
