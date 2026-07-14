@@ -70,7 +70,7 @@ const whatWeDoList = [
       "Family office & angel syndicate introductions",
       "Government agency program integrations"
     ],
-    color: "text-[#C9A84C]",
+    color: "text-[#DFBA6B]",
     bgColor: "bg-amber-50/30",
     borderColor: "hover:border-amber-200"
   },

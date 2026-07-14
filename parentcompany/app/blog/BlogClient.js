@@ -25,7 +25,7 @@ export default function BlogClient({ initialBlogs }) {
         
         {/* Header Title */}
         <div className="max-w-4xl mb-16">
-          <span className="text-xs font-black uppercase tracking-[0.4em] text-[#C9A84C] mb-3 block">Our News & Articles</span>
+          <span className="text-xs font-black uppercase tracking-[0.4em] text-[#DFBA6B] mb-3 block">Our News & Articles</span>
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-dark tracking-tighter leading-none mb-6 sm:whitespace-nowrap">
             Ecosystem Insights
           </h1>
@@ -42,7 +42,7 @@ export default function BlogClient({ initialBlogs }) {
               <button
                 key={c}
                 onClick={() => setActiveCategory(c)}
-                className={`px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-wider transition-all duration-300 ${activeCategory === c ? "bg-black text-[#C9A84C] border-black shadow-md" : "bg-white border border-dark/5 text-dark/60 hover:text-dark"}`}
+                className={`px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-wider transition-all duration-300 ${activeCategory === c ? "bg-black text-[#DFBA6B] border-black shadow-md" : "bg-white border border-dark/5 text-dark/60 hover:text-dark"}`}
               >
                 {c}
               </button>
@@ -57,7 +57,7 @@ export default function BlogClient({ initialBlogs }) {
               placeholder="Search articles..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-white border border-dark/10 rounded-full pl-12 pr-6 py-3 text-sm text-dark focus:border-[#C9A84C] outline-none transition-all placeholder:text-dark/30 font-secondary"
+              className="w-full bg-white border border-dark/10 rounded-full pl-12 pr-6 py-3 text-sm text-dark focus:border-[#DFBA6B] outline-none transition-all placeholder:text-dark/30 font-secondary"
             />
           </div>
         </div>
@@ -81,13 +81,13 @@ export default function BlogClient({ initialBlogs }) {
                       alt={blog.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     />
-                    <div className="absolute inset-0 bg-[#C9A84C]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute inset-0 bg-[#DFBA6B]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </Link>
 
                   {/* Body Content */}
                   <div className="p-4">
                     <div className="flex items-center gap-3 mb-2.5">
-                      <span className="px-2 py-0.5 bg-[#FAF9F6] border border-[#C9A84C]/15 text-[8.5px] font-black uppercase tracking-wider text-[#C9A84C] rounded-md">
+                      <span className="px-2 py-0.5 bg-[#FAF9F6] border border-[#DFBA6B]/15 text-[8.5px] font-black uppercase tracking-wider text-[#DFBA6B] rounded-md">
                         {blog.category}
                       </span>
                       <span className="text-[9px] text-dark/45 font-bold uppercase tracking-wider">
@@ -95,7 +95,7 @@ export default function BlogClient({ initialBlogs }) {
                       </span>
                     </div>
 
-                    <h3 className="text-sm md:text-base font-black text-dark tracking-tight leading-snug mb-2 group-hover:text-[#C9A84C] transition-colors">
+                    <h3 className="text-sm md:text-base font-black text-dark tracking-tight leading-snug mb-2 group-hover:text-[#DFBA6B] transition-colors">
                       <Link href={`/blog/${blog.slug}`}>{blog.title}</Link>
                     </h3>
 
@@ -108,7 +108,7 @@ export default function BlogClient({ initialBlogs }) {
                 {/* Footer details */}
                 <div className="p-4 pt-0 border-t border-dark/5 flex items-center justify-between mt-auto">
                   <div className="flex items-center gap-2.5 mt-3">
-                    <div className="w-7 h-7 rounded-full bg-[#C9A84C]/10 flex items-center justify-center font-black text-[10px] text-[#C9A84C] uppercase">
+                    <div className="w-7 h-7 rounded-full bg-[#DFBA6B]/10 flex items-center justify-center font-black text-[10px] text-[#DFBA6B] uppercase">
                       {blog.author.charAt(0)}
                     </div>
                     <div>

@@ -50,17 +50,17 @@ export default function Navbar() {
 
           {/* Left: Logo */}
           <Link href="/" className="flex items-center gap-3 group min-w-max">
-            <div className={`relative h-10 w-10 md:h-12 md:w-12 transition-transform duration-500 group-hover:scale-105 ${scrolled ? "scale-95" : "scale-100"}`}>
+            <div className={`relative h-14 w-14 md:h-16 md:w-16 transition-transform duration-500 group-hover:scale-105 ${scrolled ? "scale-95" : "scale-100"}`}>
               <Image
                 src="/logo.png"
                 alt="RiseMates Logo"
                 fill
-                className="object-contain drop-shadow-sm"
+                className="object-contain drop-shadow-md"
                 priority
                 unoptimized
               />
             </div>
-            <span className={`text-lg md:text-xl font-black tracking-tighter transition-colors duration-300 ${scrolled ? "text-black" : "text-black"}`}>
+            <span className={`text-xl md:text-2xl font-black tracking-tighter transition-colors duration-300 ${scrolled ? "text-black" : "text-black"}`}>
               RiseMates<span className="font-light text-gray-400">Ventures</span>
             </span>
           </Link>

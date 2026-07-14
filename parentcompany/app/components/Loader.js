@@ -64,7 +64,7 @@ export default function Loader({ onComplete }) {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
         ctx.fillStyle = p.color;
-        ctx.shadowColor = "#C9A84C";
+        ctx.shadowColor = "#DFBA6B";
         ctx.shadowBlur = isExiting ? 0 : p.radius * 2;
         ctx.fill();
       });
@@ -145,7 +145,7 @@ export default function Loader({ onComplete }) {
         initial={{ x: 0, rotateY: 0, opacity: 1 }}
         animate={isExiting ? { x: "-100%", rotateY: -35, opacity: 0 } : { x: 0, rotateY: 0, opacity: 1 }}
         transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute top-0 left-0 bottom-0 w-1/2 bg-[#010611] border-r border-[#C9A84C]/15 flex justify-end pointer-events-auto overflow-hidden"
+        className="absolute top-0 left-0 bottom-0 w-1/2 bg-[#010611] border-r border-[#DFBA6B]/15 flex justify-end pointer-events-auto overflow-hidden"
         style={{
           transformOrigin: "left center",
           background: "radial-gradient(circle at 100% 50%, #08142b 0%, #010611 100%)",
@@ -153,7 +153,7 @@ export default function Loader({ onComplete }) {
         }}
       >
         {/* Sleek metallic reflection line */}
-        <div className="absolute right-0 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-[#C9A84C]/30 to-transparent" />
+        <div className="absolute right-0 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-[#DFBA6B]/30 to-transparent" />
       </motion.div>
 
       {/* Right Door Panel */}
@@ -161,7 +161,7 @@ export default function Loader({ onComplete }) {
         initial={{ x: 0, rotateY: 0, opacity: 1 }}
         animate={isExiting ? { x: "100%", rotateY: 35, opacity: 0 } : { x: 0, rotateY: 0, opacity: 1 }}
         transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute top-0 right-0 bottom-0 w-1/2 bg-[#010611] border-l border-[#C9A84C]/15 flex justify-start pointer-events-auto overflow-hidden"
+        className="absolute top-0 right-0 bottom-0 w-1/2 bg-[#010611] border-l border-[#DFBA6B]/15 flex justify-start pointer-events-auto overflow-hidden"
         style={{
           transformOrigin: "right center",
           background: "radial-gradient(circle at 0% 50%, #08142b 0%, #010611 100%)",
@@ -169,7 +169,7 @@ export default function Loader({ onComplete }) {
         }}
       >
         {/* Sleek metallic reflection line */}
-        <div className="absolute left-0 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-[#C9A84C]/30 to-transparent" />
+        <div className="absolute left-0 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-[#DFBA6B]/30 to-transparent" />
       </motion.div>
 
       {/* Vertical Meeting Line (Splits open) */}
@@ -180,7 +180,7 @@ export default function Loader({ onComplete }) {
           scaleY: { duration: 0.8, ease: "easeOut" },
           opacity: isExiting ? { duration: 0.4 } : { duration: 0.5 }
         }}
-        className="absolute top-0 bottom-0 left-1/2 w-[2px] bg-gradient-to-b from-transparent via-[#C9A84C] to-transparent z-[2] drop-shadow-[0_0_8px_#C9A84C]"
+        className="absolute top-0 bottom-0 left-1/2 w-[2px] bg-gradient-to-b from-transparent via-[#DFBA6B] to-transparent z-[2] drop-shadow-[0_0_8px_#DFBA6B]"
       />
 
       {/* Central Content Box */}
@@ -200,9 +200,9 @@ export default function Loader({ onComplete }) {
             <div className="mb-8 relative w-32 h-32 flex items-center justify-center">
               {/* Golden circular shadow field */}
               <div
-                className="absolute inset-2 rounded-full border border-[#C9A84C]/15 blur-[8px]"
+                className="absolute inset-2 rounded-full border border-[#DFBA6B]/15 blur-[8px]"
                 style={{
-                  boxShadow: "0 0 35px rgba(201, 168, 76, 0.12) inset, 0 0 35px rgba(201, 168, 76, 0.12)"
+                  boxShadow: "0 0 35px rgba(223, 186, 107, 0.12) inset, 0 0 35px rgba(223, 186, 107, 0.12)"
                 }}
               />
 
@@ -213,26 +213,26 @@ export default function Loader({ onComplete }) {
                 viewBox="0 0 100 100"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="absolute inset-0 m-auto drop-shadow-[0_0_20px_rgba(201,168,76,0.35)] z-[2]"
+                className="absolute inset-0 m-auto drop-shadow-[0_0_20px_rgba(223,186,107,0.35)] z-[2]"
               >
                 {/* 1. Bworth corner bracket (Top-Left) */}
                 <g style={{ transform: `translate(${-slideOffset}px, ${-slideOffset}px) rotate(${-rotAngle}deg)`, transformOrigin: "25px 25px" }}>
-                  <path d="M 18 30 V 18 H 30" stroke="#C9A84C" strokeWidth="2.5" strokeLinecap="round" />
+                  <path d="M 18 30 V 18 H 30" stroke="#DFBA6B" strokeWidth="2.5" strokeLinecap="round" />
                 </g>
 
                 {/* 2. VegaVrudhi corner bracket (Top-Right) */}
                 <g style={{ transform: `translate(${slideOffset}px, ${-slideOffset}px) rotate(${rotAngle}deg)`, transformOrigin: "75px 25px" }}>
-                  <path d="M 82 30 V 18 H 70" stroke="#C9A84C" strokeWidth="2.5" strokeLinecap="round" />
+                  <path d="M 82 30 V 18 H 70" stroke="#DFBA6B" strokeWidth="2.5" strokeLinecap="round" />
                 </g>
 
                 {/* 3. RYM corner bracket (Bottom-Left) */}
                 <g style={{ transform: `translate(${-slideOffset}px, ${slideOffset}px) rotate(${rotAngle}deg)`, transformOrigin: "25px 75px" }}>
-                  <path d="M 18 70 V 82 H 30" stroke="#C9A84C" strokeWidth="2.5" strokeLinecap="round" />
+                  <path d="M 18 70 V 82 H 30" stroke="#DFBA6B" strokeWidth="2.5" strokeLinecap="round" />
                 </g>
 
                 {/* 4. Synchronous Digital corner bracket (Bottom-Right) */}
                 <g style={{ transform: `translate(${slideOffset}px, ${slideOffset}px) rotate(${-rotAngle}deg)`, transformOrigin: "75px 75px" }}>
-                  <path d="M 82 70 V 82 H 70" stroke="#C9A84C" strokeWidth="2.5" strokeLinecap="round" />
+                  <path d="M 82 70 V 82 H 70" stroke="#DFBA6B" strokeWidth="2.5" strokeLinecap="round" />
                 </g>
 
                 {/* Thin outer compass ticks */}
@@ -240,7 +240,7 @@ export default function Loader({ onComplete }) {
                   cx="50"
                   cy="50"
                   r="45"
-                  stroke="#C9A84C"
+                  stroke="#DFBA6B"
                   strokeWidth="0.75"
                   strokeDasharray="2 12"
                   className="opacity-45"
@@ -280,7 +280,7 @@ export default function Loader({ onComplete }) {
               <span
                 className="font-light ml-2 flex"
                 style={{
-                  background: "linear-gradient(135deg, #C9A84C 30%, #ffd97d 100%)",
+                  background: "linear-gradient(135deg, #DFBA6B 30%, #ffecb3 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent"
                 }}
@@ -300,22 +300,22 @@ export default function Loader({ onComplete }) {
 
             {/* Tagline with line drawing details */}
             <div className="flex items-center gap-3 mb-8">
-              <div className="w-4 h-[1px] bg-gradient-to-r from-transparent to-[#C9A84C]/50" />
+              <div className="w-4 h-[1px] bg-gradient-to-r from-transparent to-[#DFBA6B]/50" />
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 0.7 }}
                 transition={{ delay: 0.9, duration: 0.6 }}
-                className="text-[10px] sm:text-xs font-secondary uppercase tracking-[0.3em] text-[#C9A84C]"
+                className="text-[10px] sm:text-xs font-secondary uppercase tracking-[0.3em] text-[#DFBA6B]"
               >
                 One Vision. Four Empires.
               </motion.p>
-              <div className="w-4 h-[1px] bg-gradient-to-l from-transparent to-[#C9A84C]/50" />
+              <div className="w-4 h-[1px] bg-gradient-to-l from-transparent to-[#DFBA6B]/50" />
             </div>
 
             {/* Premium Loading Progress Bar */}
             <div className="relative w-52 sm:w-64 h-[2px] bg-white/10 rounded-full overflow-hidden mb-3.5">
               <div
-                className="absolute top-0 left-0 bottom-0 bg-gradient-to-r from-[#C9A84C]/60 via-[#ffdb84] to-[#C9A84C]/60 transition-all duration-75 ease-out"
+                className="absolute top-0 left-0 bottom-0 bg-gradient-to-r from-[#DFBA6B]/60 via-[#ffeed0] to-[#DFBA6B]/60 transition-all duration-75 ease-out"
                 style={{ width: `${progress}%` }}
               />
             </div>
@@ -323,7 +323,7 @@ export default function Loader({ onComplete }) {
             {/* Numerical Percentage Counter */}
             <div
               className="text-[11px] font-mono tracking-[0.25em] font-medium"
-              style={{ color: "rgba(201, 168, 76, 0.85)", textShadow: "0 0 10px rgba(201, 168, 76, 0.4)" }}
+              style={{ color: "rgba(223, 186, 107, 0.85)", textShadow: "0 0 10px rgba(223, 186, 107, 0.4)" }}
             >
               {progress.toString().padStart(3, "0")} %
             </div>

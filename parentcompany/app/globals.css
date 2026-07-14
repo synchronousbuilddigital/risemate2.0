@@ -6,7 +6,7 @@
 
   --color-dark: #001233;
   /* Corporate dark blue/black */
-  --color-gold: #C9A84C;
+  --color-gold: #DFBA6B;
   --color-glacier: #FFFFFF;
   --color-accent: #335C67;
 
@@ -151,7 +151,7 @@
     @apply text-lg leading-relaxed text-dark/80 pl-2 marker:text-[#002366];
   }
   .prose blockquote {
-    @apply border-l-4 border-[#C9A84C] pl-6 py-4 my-10 italic text-xl font-secondary text-dark bg-[#001233]/5 rounded-r-2xl;
+    @apply border-l-4 border-[#DFBA6B] pl-6 py-4 my-10 italic text-xl font-secondary text-dark bg-[#001233]/5 rounded-r-2xl;
   }
   .prose strong {
     @apply font-black text-dark;

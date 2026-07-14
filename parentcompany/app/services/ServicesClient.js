@@ -202,6 +202,13 @@ const DeliveryModel = () => {
   useEffect(() => {
     let timeout1, timeout2;
     if (isInView && currentStep < deliveryStepsData.length) {
+      if (currentStep === -1) {
+        timeout1 = setTimeout(() => {
+          setCurrentStep(0);
+        }, 50);
+        return;
+      }
+
       timeout1 = setTimeout(() => {
         const stepEl = document.getElementById(`step-${currentStep}`);
         if (stepEl && confettiInstance && confettiCanvasRef.current) {
@@ -224,13 +231,10 @@ const DeliveryModel = () => {
         } else {
           timeout2 = setTimeout(() => {
             setCurrentStep(-1);
-            setTimeout(() => {
-              if (isInView) setCurrentStep(0); // Start over!
-            }, 50);
-          }, 4000);
+          }, 8000);
         }
 
-      }, currentStep === 0 ? 500 : 1500); // 1500ms walk duration
+      }, currentStep === 0 ? 1000 : 4000); // 4000ms walk duration
     } else if (!isInView) {
       // Reset when out of view
       setCurrentStep(-1);
@@ -278,7 +282,7 @@ const DeliveryModel = () => {
                   <motion.div
                     initial={{ scale: 0.8, opacity: 1 }}
                     animate={{ scale: 1.8, opacity: 0 }}
-                    transition={{ duration: 1.0, ease: "easeOut" }}
+                    transition={{ duration: 2.0, ease: "easeOut" }}
                     className="absolute w-16 h-16 rounded-full border-2 border-gold z-0 pointer-events-none"
                   />
                 )}
@@ -290,11 +294,11 @@ const DeliveryModel = () => {
                     transition={{
                       type: "tween",
                       ease: "linear",
-                      duration: 1.5
+                      duration: 4.0
                     }}
                     className="absolute -top-[44px] md:-top-[44px] z-[60] pointer-events-none"
                   >
-                    <WalkingFigure currentStep={currentStep} />
+                    <WalkingFigure isCelebrating={currentStep === deliveryStepsData.length - 1} />
                   </motion.div>
                 )}
 
@@ -325,14 +329,14 @@ const DeliveryModel = () => {
                 {/* Connecting Lines for Desktop */}
                 {idx !== deliveryStepsData.length - 1 && (
                   <div className="hidden md:block absolute h-[2px] top-8 left-[50%] w-full -z-0">
-                    {/* Background line */}
+                     {/* Background line */}
                     <div className="absolute inset-0 bg-white/10" />
                     {/* Active line fill */}
                     <motion.div
                       className="absolute inset-0 bg-gold origin-left"
                       initial={{ scaleX: 0 }}
                       animate={{ scaleX: currentStep > idx ? 1 : 0 }}
-                      transition={{ duration: currentStep > idx ? 1.5 : 0, ease: "linear" }}
+                      transition={{ duration: currentStep > idx ? 4.0 : 0, ease: "linear" }}
                     />
                   </div>
                 )}
@@ -347,7 +351,7 @@ const DeliveryModel = () => {
                       className="absolute inset-0 bg-gold origin-top"
                       initial={{ scaleY: 0 }}
                       animate={{ scaleY: currentStep > idx ? 1 : 0 }}
-                      transition={{ duration: currentStep > idx ? 1.5 : 0, ease: "linear" }}
+                      transition={{ duration: currentStep > idx ? 4.0 : 0, ease: "linear" }}
                     />
                   </div>
                 )}

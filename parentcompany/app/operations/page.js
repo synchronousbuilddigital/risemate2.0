@@ -49,24 +49,25 @@ export default function Operations() {
         {/* Map Section */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-24 items-start mb-48">
           {/* Interactive SVG Container */}
-          <div className="lg:col-span-12 relative flex justify-center items-center bg-[#0a0a0a] border border-white/5 rounded-sm p-12 md:p-32 editorial-shadow overflow-hidden group min-h-[600px]">
+          <div className="lg:col-span-12 relative flex justify-center items-center bg-gradient-to-br from-[#000d24] to-[#001f54] border-2 border-[#DFBA6B]/50 rounded-sm p-12 md:p-32 editorial-shadow shadow-[0_0_50px_rgba(223,186,107,0.15)] overflow-hidden group min-h-[600px]">
 
             {/* Architectural Blueprint Grid */}
-            <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
-              style={{ backgroundImage: 'radial-gradient(circle, #C9A84C 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+            <div className="absolute inset-0 opacity-[0.04] pointer-events-none"
+              style={{ backgroundImage: 'radial-gradient(circle, #DFBA6B 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
 
-            <div className="absolute inset-0 bg-gold/5 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none" />
+            <div className="absolute inset-0 bg-[#DFBA6B]/[0.04] opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none" />
 
             {/* Reference Map Container */}
             <div className="relative w-full max-w-[900px] aspect-square flex items-center justify-center">
 
-              {/* Official SVG Integration with Specialized Glow Filter */}
+              {/* Official SVG Integration */}
               <img
-                src="/india_map.svg"
+                src="/worldIndiaHigh.svg"
                 alt="Sovereign Territory"
-                className="w-full h-full object-contain opacity-40 group-hover:opacity-60 transition-all duration-1000 pointer-events-none"
+                className="w-full h-full object-contain opacity-95 group-hover:opacity-100 transition-all duration-1000 pointer-events-none"
                 style={{
-                  filter: 'drop-shadow(0 0 20px rgba(201, 168, 76, 0.3)) invert(84%) sepia(21%) saturate(986%) hue-rotate(5deg) brightness(110%) contrast(90%)'
+                  mixBlendMode: 'screen',
+                  filter: 'none'
                 }}
               />
 
@@ -81,11 +82,11 @@ export default function Operations() {
                 >
                   <div className="relative flex items-center justify-center">
                     {/* Outer Glow */}
-                    <div className={`absolute w-8 h-8 rounded-full ${activeLoc?.id === loc.id ? 'bg-gold animate-ping opacity-20' : 'opacity-0'}`} />
+                    <div className={`absolute w-8 h-8 rounded-full ${activeLoc?.id === loc.id ? 'bg-[#DFBA6B] animate-ping opacity-30' : 'opacity-0'}`} />
 
                     {/* Main Pulsing Dot */}
-                    <div className={`w-4 h-4 rounded-full border border-gold/40 flex items-center justify-center ${activeLoc?.id === loc.id ? 'bg-gold' : 'bg-gold/20 animate-pulse'}`}>
-                      <div className="w-1.5 h-1.5 rounded-full bg-gold shadow-[0_0_10px_#C9A84C]" />
+                    <div className={`w-4 h-4 rounded-full border border-[#DFBA6B]/60 flex items-center justify-center ${activeLoc?.id === loc.id ? 'bg-[#DFBA6B]' : 'bg-[#DFBA6B]/25 animate-pulse'}`}>
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#DFBA6B] shadow-[0_0_12px_#DFBA6B]" />
                     </div>
 
                     {/* Label (Desktop) */}
@@ -98,7 +99,7 @@ export default function Operations() {
             </div>
 
             {/* INFO CARD (Top Right Fixed Overlay) */}
-            <div className={`absolute top-12 right-12 md:top-24 md:right-24 w-80 p-10 bg-[#0C0C0C]/90 backdrop-blur-md border border-gold/20 editorial-shadow transition-all duration-700 ${activeLoc ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12 pointer-events-none'}`}>
+            <div className={`absolute top-12 right-12 md:top-24 md:right-24 w-80 p-10 bg-[#000d24]/95 backdrop-blur-md border border-[#DFBA6B]/25 editorial-shadow transition-all duration-700 ${activeLoc ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12 pointer-events-none'}`}>
               {activeLoc && (
                 <div className="flex flex-col gap-6">
                   <div className="flex justify-between items-start">

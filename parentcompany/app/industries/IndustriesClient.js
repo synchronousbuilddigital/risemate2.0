@@ -137,6 +137,92 @@ const whyUs = [
   "Sustainable value creation"
 ];
 
+const getCardStyles = (category, featured) => {
+  const styleMap = {
+    finance: {
+      light: {
+        bg: "bg-gradient-to-br from-blue-50/50 via-slate-50/40 to-indigo-50/30 border-blue-100/80 text-black",
+        iconBg: "bg-white border-blue-100 text-blue-900 group-hover:bg-blue-900 group-hover:border-blue-900 group-hover:text-white",
+        tag: "bg-white/80 border-blue-100/60 text-blue-800 group-hover:border-blue-300 group-hover:text-blue-950",
+        glow: "bg-blue-500/10",
+        arrow: "text-blue-900",
+        tagBorder: "rgba(30,144,255,0.15)",
+      },
+      dark: {
+        bg: "bg-gradient-to-br from-[#020e26] via-[#051636] to-[#01091b] border-blue-900/40 text-white md:col-span-2",
+        iconBg: "bg-white/10 border-white/10 text-blue-300 group-hover:bg-blue-500 group-hover:border-blue-500 group-hover:text-white",
+        tag: "bg-white/5 border-white/10 text-white/80 group-hover:border-blue-400/30 group-hover:text-blue-300",
+        glow: "bg-blue-500/15",
+        arrow: "text-blue-300",
+        tagBorder: "rgba(255,255,255,0.1)",
+      }
+    },
+    tech: {
+      light: {
+        bg: "bg-gradient-to-br from-purple-50/50 via-pink-50/20 to-violet-50/30 border-purple-100/80 text-black",
+        iconBg: "bg-white border-purple-100 text-purple-900 group-hover:bg-purple-900 group-hover:border-purple-900 group-hover:text-white",
+        tag: "bg-white/80 border-purple-100/60 text-purple-800 group-hover:border-purple-300 group-hover:text-purple-950",
+        glow: "bg-purple-500/10",
+        arrow: "text-purple-900",
+        tagBorder: "rgba(186,85,211,0.15)",
+      },
+      dark: {
+        bg: "bg-gradient-to-br from-[#0c051a] via-[#150a2b] to-[#070310] border-purple-900/40 text-white md:col-span-2",
+        iconBg: "bg-white/10 border-white/10 text-purple-300 group-hover:bg-purple-500 group-hover:border-purple-500 group-hover:text-white",
+        tag: "bg-white/5 border-white/10 text-white/80 group-hover:border-purple-400/30 group-hover:text-purple-300",
+        glow: "bg-purple-500/15",
+        arrow: "text-purple-300",
+        tagBorder: "rgba(255,255,255,0.1)",
+      }
+    },
+    infrastructure: {
+      light: {
+        bg: "bg-gradient-to-br from-amber-50/50 via-orange-50/20 to-yellow-50/30 border-amber-100/80 text-black",
+        iconBg: "bg-white border-amber-100 text-amber-900 group-hover:bg-amber-900 group-hover:border-amber-900 group-hover:text-white",
+        tag: "bg-white/80 border-amber-100/60 text-amber-800 group-hover:border-amber-300 group-hover:text-amber-950",
+        glow: "bg-amber-500/10",
+        arrow: "text-amber-900",
+        tagBorder: "rgba(255,191,0,0.15)",
+      },
+      dark: {
+        bg: "bg-gradient-to-br from-[#1a0f05] via-[#2b190a] to-[#100903] border-amber-900/40 text-white md:col-span-2",
+        iconBg: "bg-white/10 border-white/10 text-amber-300 group-hover:bg-amber-500 group-hover:border-amber-500 group-hover:text-white",
+        tag: "bg-white/5 border-white/10 text-white/80 group-hover:border-amber-400/30 group-hover:text-amber-300",
+        glow: "bg-amber-500/15",
+        arrow: "text-amber-300",
+        tagBorder: "rgba(255,255,255,0.1)",
+      }
+    },
+    sustainability: {
+      light: {
+        bg: "bg-gradient-to-br from-emerald-50/50 via-teal-50/20 to-green-50/30 border-emerald-100/80 text-black",
+        iconBg: "bg-white border-emerald-100 text-emerald-900 group-hover:bg-emerald-900 group-hover:border-emerald-900 group-hover:text-white",
+        tag: "bg-white/80 border-emerald-100/60 text-emerald-800 group-hover:border-emerald-300 group-hover:text-emerald-950",
+        glow: "bg-emerald-500/10",
+        arrow: "text-emerald-900",
+        tagBorder: "rgba(50,205,50,0.15)",
+      },
+      dark: {
+        bg: "bg-gradient-to-br from-[#051a0f] via-[#0a2b19] to-[#031009] border-emerald-900/40 text-white md:col-span-2",
+        iconBg: "bg-white/10 border-white/10 text-emerald-300 group-hover:bg-emerald-500 group-hover:border-emerald-500 group-hover:text-white",
+        tag: "bg-white/5 border-white/10 text-white/80 group-hover:border-emerald-400/30 group-hover:text-emerald-300",
+        glow: "bg-emerald-500/15",
+        arrow: "text-emerald-300",
+        tagBorder: "rgba(255,255,255,0.1)",
+      }
+    }
+  };
+
+  return styleMap[category]?.[featured ? "dark" : "light"] || {
+    bg: "bg-gray-50 border-gray-200 text-black",
+    iconBg: "bg-white border-gray-200 text-black group-hover:bg-black group-hover:border-black group-hover:text-gold",
+    tag: "bg-white border-gray-200 text-gray-600 group-hover:border-black/20 group-hover:text-black",
+    glow: "bg-gold/5",
+    arrow: "text-black",
+    tagBorder: "rgba(0,0,0,0.06)"
+  };
+};
+
 export default function IndustriesClient() {
   const [activeCategory, setActiveCategory] = useState("all");
 
@@ -217,74 +303,62 @@ export default function IndustriesClient() {
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
           >
             <AnimatePresence mode="popLayout">
-              {filteredIndustries.map((ind) => (
-                <motion.div
-                  key={ind.title}
-                  layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.4 }}
-                  className={`relative border rounded-[32px] p-8 md:p-10 hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 group overflow-hidden flex flex-col justify-between min-h-[320px] ${ind.featured
-                      ? "bg-gradient-to-br from-black via-gray-900 to-black border-black text-white md:col-span-2"
-                      : "bg-gray-50 border-gray-200 text-black"
-                    }`}
-                >
-                  {/* Subtle Background Radial Glow for Hover */}
-                  <div className={`absolute top-0 right-0 w-64 h-64 blur-[80px] rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${ind.featured ? "bg-gold/10" : "bg-gold/5"
-                    }`} />
+              {filteredIndustries.map((ind) => {
+                const styles = getCardStyles(ind.category, ind.featured);
+                return (
+                  <motion.div
+                    key={ind.title}
+                    layout
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ duration: 0.4 }}
+                    className={`relative border rounded-[32px] p-8 md:p-10 hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 group overflow-hidden flex flex-col justify-between min-h-[320px] ${styles.bg}`}
+                  >
+                    {/* Subtle Background Radial Glow for Hover */}
+                    <div className={`absolute top-0 right-0 w-64 h-64 blur-[80px] rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${styles.glow}`} />
 
-                  <div>
-                    {/* Header: Icon & Top Right Hover Arrow */}
-                    <div className="flex items-center justify-between mb-8">
-                      <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shadow-sm border transition-all duration-300 ${ind.featured
-                          ? "bg-white/10 border-white/10 group-hover:bg-gold group-hover:border-gold"
-                          : "bg-white border-gray-200 group-hover:bg-black group-hover:border-black"
-                        }`}>
-                        <span className={`material-symbols-outlined text-2xl transition-colors ${ind.featured
-                            ? "text-gold group-hover:text-black"
-                            : "text-black group-hover:text-gold"
-                          }`}>
-                          {ind.icon}
+                    <div>
+                      {/* Header: Icon & Top Right Hover Arrow */}
+                      <div className="flex items-center justify-between mb-8">
+                        <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shadow-sm border transition-all duration-300 ${styles.iconBg}`}>
+                          <span className="material-symbols-outlined text-2xl">
+                            {ind.icon}
+                          </span>
+                        </div>
+
+                        {/* Interactive Link Arrow */}
+                        <span className={`material-symbols-outlined text-lg opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0 ${styles.arrow}`}>
+                          north_east
                         </span>
                       </div>
 
-                      {/* Interactive Link Arrow */}
-                      <span className={`material-symbols-outlined text-lg opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0 ${ind.featured ? "text-gold" : "text-black"
-                        }`}>
-                        north_east
-                      </span>
+                      <h3 className="text-xl md:text-2xl font-black font-primary mb-4">
+                        {ind.title}
+                      </h3>
+
+                      <p className={`text-sm font-secondary leading-relaxed mb-8 ${ind.featured ? "text-white/70" : "text-gray-500"}`}>
+                        {ind.desc}
+                      </p>
                     </div>
 
-                    <h3 className="text-xl md:text-2xl font-black font-primary mb-4">
-                      {ind.title}
-                    </h3>
+                    {/* Footer tags (Some "not only text type") */}
+                    <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-dashed shrink-0 z-10 transition-colors duration-300"
+                      style={{ borderColor: styles.tagBorder }}
+                    >
+                      {ind.tags.map((tag, tIdx) => (
+                        <span
+                          key={tIdx}
+                          className={`text-[9px] font-black uppercase tracking-wider px-3 py-1.5 rounded-full border ${styles.tag} transition-colors duration-300`}
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
 
-                    <p className={`text-sm font-secondary leading-relaxed mb-8 ${ind.featured ? "text-white/70" : "text-gray-500"
-                      }`}>
-                      {ind.desc}
-                    </p>
-                  </div>
-
-                  {/* Footer tags (Some "not only text type") */}
-                  <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-dashed shrink-0 z-10 transition-colors duration-300"
-                    style={{ borderColor: ind.featured ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.06)' }}
-                  >
-                    {ind.tags.map((tag, tIdx) => (
-                      <span
-                        key={tIdx}
-                        className={`text-[9px] font-black uppercase tracking-wider px-3 py-1.5 rounded-full border ${ind.featured
-                            ? "bg-white/5 border-white/5 text-white/80 group-hover:border-gold/30 group-hover:text-gold"
-                            : "bg-white border-gray-200 text-gray-600 group-hover:border-black/20 group-hover:text-black"
-                          } transition-colors duration-300`}
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                </motion.div>
-              ))}
+                  </motion.div>
+                );
+              })}
             </AnimatePresence>
           </motion.div>
         </div>

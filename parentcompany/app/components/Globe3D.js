@@ -3,7 +3,7 @@
 import React, { useLayoutEffect, useRef } from "react";
 import * as am5 from "@amcharts/amcharts5";
 import * as am5map from "@amcharts/amcharts5/map";
-import am5geodata_worldLow from "@amcharts/amcharts5-geodata/worldLow";
+import am5geodata_worldIndiaLow from "@amcharts/amcharts5-geodata/worldIndiaLow";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 
 export default function Globe3D({
@@ -63,7 +63,7 @@ export default function Globe3D({
     // Create polygon series for countries
     let polygonSeries = chart.series.push(
       am5map.MapPolygonSeries.new(root, {
-        geoJSON: am5geodata_worldLow,
+        geoJSON: am5geodata_worldIndiaLow,
       })
     );
 

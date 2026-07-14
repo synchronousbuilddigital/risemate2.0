@@ -276,11 +276,11 @@ export default function ContactClient() {
                   Gurugram, Haryana.
                 </p>
                 <div className="space-y-3">
-                  <a href="mailto:biz@RiseMatesventures.com" className="flex items-center gap-3 text-sm font-bold text-gray-700 hover:text-black transition-colors group/link">
+                  <a href="mailto:biz@risematesventures.com" className="flex items-center gap-3 text-sm font-bold text-gray-700 hover:text-black transition-colors group/link">
                     <div className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center group-hover/link:bg-gold group-hover/link:text-black transition-colors">
                       <span className="material-symbols-outlined text-[16px]">mail</span>
                     </div>
-                    biz@RiseMatesventures.com
+                    biz@risematesventures.com
                   </a>
                   <a href="tel:+918239660777" className="flex items-center gap-3 text-sm font-bold text-gray-700 hover:text-black transition-colors group/link">
                     <div className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center group-hover/link:bg-gold group-hover/link:text-black transition-colors">

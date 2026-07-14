@@ -111,13 +111,10 @@ const beneficiaries = [
 export default function EcosystemClient() {
   const [hoveredNode, setHoveredNode] = useState(null);
 
-  const outerNodes = ecosystemNodes
-    .filter((_, i) => i % 2 === 0)
-    .map((node, i) => ({ ...node, globalIndex: i * 2, localIndex: i }));
-
-  const innerNodes = ecosystemNodes
-    .filter((_, i) => i % 2 !== 0)
-    .map((node, i) => ({ ...node, globalIndex: i * 2 + 1, localIndex: i }));
+  // Inner ring (CW): Banks, Govt, Global Markets, Channel Partners, Execution Teams, Enterprises
+  const innerRingNodes = [3, 5, 9, 7, 11, 1].map(idx => ({ ...ecosystemNodes[idx], globalIndex: idx }));
+  // Outer ring (CCW): Experts, Academic, AI, FinTech, Investors, Startups
+  const outerRingNodes = [10, 8, 6, 4, 2, 0].map(idx => ({ ...ecosystemNodes[idx], globalIndex: idx }));
 
   return (
     <div className="bg-white min-h-screen selection:bg-black selection:text-white">
@@ -147,7 +144,7 @@ export default function EcosystemClient() {
               </h1>
 
               <p className="text-lg text-gray-500 font-secondary leading-relaxed mb-10">
-                RiseMates Ventures is more than a business advisory or investment platform. We are a Global Business Growth & Venture Ecosystem that connects businesses with the people, capital, technology, partnerships, and execution capabilities they need to grow confidently across markets.
+                RiseMates Ventures is more than a business advisory or investment platform. We are a Global Business Growth &amp; Venture Ecosystem that connects businesses with the people, capital, technology, partnerships, and execution capabilities they need to grow confidently across markets.
                 <br /><br />
                 Our ecosystem brings together startups, enterprises, investors, financial institutions, technology partners, governments, and execution teams to transform opportunities into measurable business outcomes.
               </p>
@@ -193,194 +190,117 @@ export default function EcosystemClient() {
             </p>
           </div>
 
-          <div className="relative w-full max-w-[800px] aspect-square mx-auto flex items-center justify-center group/ecosystem">
+          <div className="relative w-full max-w-[760px] aspect-square mx-auto select-none">
 
-            {/* Custom Constellation & Laser Flow CSS Styles */}
             <style>{`
-              @keyframes RMVEcosystemBob0 {
-                0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
-                50% { transform: translate(-50%, -50%) translateY(-6px); }
-              }
-              @keyframes RMVEcosystemBob1 {
-                0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
-                50% { transform: translate(-50%, -50%) translateY(-4px) translateX(2px); }
-              }
-              @keyframes RMVEcosystemBob2 {
-                0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
-                50% { transform: translate(-50%, -50%) translateY(-5px) translateX(-2px); }
-              }
-              @keyframes RMVEcosystemBob3 {
-                0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
-                50% { transform: translate(-50%, -50%) translateY(-7px); }
-              }
-              @keyframes RMVEcosystemBob4 {
-                0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
-                50% { transform: translate(-50%, -50%) translateY(-3px) translateX(3px); }
-              }
-              @keyframes RMVEcosystemBob5 {
-                0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
-                50% { transform: translate(-50%, -50%) translateY(-5px) translateX(-3px); }
-              }
-
-              .rmv-bob-0 { animation: RMVEcosystemBob0 4.5s ease-in-out infinite; }
-              .rmv-bob-1 { animation: RMVEcosystemBob1 5.2s ease-in-out infinite; }
-              .rmv-bob-2 { animation: RMVEcosystemBob2 4.8s ease-in-out infinite; }
-              .rmv-bob-3 { animation: RMVEcosystemBob3 3.8s ease-in-out infinite; }
-              .rmv-bob-4 { animation: RMVEcosystemBob4 5.5s ease-in-out infinite; }
-              .rmv-bob-5 { animation: RMVEcosystemBob5 4.2s ease-in-out infinite; }
-
-              @keyframes RMVEcosystemLineFlow {
-                from { stroke-dashoffset: 24; }
-                to { stroke-dashoffset: 0; }
-              }
-              .rmv-flow-line {
-                stroke-dasharray: 6 6;
-                animation: RMVEcosystemLineFlow 1.2s linear infinite;
-              }
+              @keyframes ecoSpinCW  { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+              @keyframes ecoSpinCCW { from { transform: rotate(0deg); } to { transform: rotate(-360deg); } }
+              @keyframes ecoNodeCW  { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(-360deg); } }
+              @keyframes ecoNodeCCW { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(360deg); } }
+              @keyframes ecoHubPing { 0% { opacity:.5; transform:scale(1); } 100% { opacity:0; transform:scale(2); } }
+              .eco-ring-inner { animation: ecoSpinCW  35s linear infinite; }
+              .eco-ring-outer { animation: ecoSpinCCW 55s linear infinite; }
+              .eco-node-inner { animation: ecoNodeCW  35s linear infinite; }
+              .eco-node-outer { animation: ecoNodeCCW 55s linear infinite; }
             `}</style>
 
-            {/* Background Orbits & Connection Lines */}
-            <svg className="absolute inset-0 w-full h-full pointer-events-none z-0">
-              {/* Outer Orbit Circle */}
-              <circle cx="50%" cy="50%" r="50%" fill="none" stroke="#E2E8F0" strokeWidth="1" strokeDasharray="4 4" className="opacity-40" />
-              {/* Inner Orbit Circle */}
-              <circle cx="50%" cy="50%" r="32.5%" fill="none" stroke="#E2E8F0" strokeWidth="1" strokeDasharray="4 4" className="opacity-40" />
-
-              {/* Connection Lines to Outer Nodes */}
-              {outerNodes.map((node, i) => {
-                const angle = (i / outerNodes.length) * 2 * Math.PI - Math.PI / 2;
-                const x2 = 50 + Math.cos(angle) * 50;
-                const y2 = 50 + Math.sin(angle) * 50;
-                const isHovered = hoveredNode === node.globalIndex;
+            {/* Inner Ring (Clockwise) */}
+            <div
+              className="eco-ring-inner absolute rounded-full border border-dashed border-gold/35"
+              style={{ width: '58%', height: '58%', top: '21%', left: '21%' }}
+            >
+              {innerRingNodes.map((node, i) => {
+                const angle = (i / innerRingNodes.length) * 360;
                 return (
-                  <line
-                    key={`outer-line-${i}`}
-                    x1="50%"
-                    y1="50%"
-                    x2={`${x2}%`}
-                    y2={`${y2}%`}
-                    stroke={isHovered ? "#C9A84C" : "#E2E8F0"}
-                    strokeWidth={isHovered ? "2.5" : "1"}
-                    className={isHovered ? "rmv-flow-line" : "opacity-40 transition-all duration-350"}
-                    style={{
-                      filter: isHovered ? "drop-shadow(0 0 4px rgba(201,168,76,0.6))" : "none"
-                    }}
-                  />
+                  <div key={node.globalIndex} style={{
+                    position: 'absolute', top: 0, left: '50%',
+                    width: 0, height: '50%',
+                    transformOrigin: 'bottom center',
+                    transform: `rotate(${angle}deg)`
+                  }}>
+                    <div
+                      className="eco-node-inner"
+                      style={{ position: 'absolute', top: 0, left: 0 }}
+                    >
+                      <div className="rounded-full flex items-center justify-center border shadow-md bg-white border-gray-200"
+                        style={{ width: 48, height: 48 }}>
+                        <span className="material-symbols-outlined text-base text-gray-500">{node.icon}</span>
+                      </div>
+                      <span className="block mt-1 text-[7px] font-black uppercase tracking-wide text-center whitespace-nowrap text-gray-400"
+                        style={{ transform: 'translateX(-50%)', position: 'relative', left: '50%' }}>
+                        {node.name.split(' & ')[0]}
+                      </span>
+                    </div>
+                  </div>
                 );
               })}
-
-              {/* Connection Lines to Inner Nodes */}
-              {innerNodes.map((node, i) => {
-                const angle = (i / innerNodes.length) * 2 * Math.PI - Math.PI / 2;
-                const x2 = 50 + Math.cos(angle) * 32.5;
-                const y2 = 50 + Math.sin(angle) * 32.5;
-                const isHovered = hoveredNode === node.globalIndex;
-                return (
-                  <line
-                    key={`inner-line-${i}`}
-                    x1="50%"
-                    y1="50%"
-                    x2={`${x2}%`}
-                    y2={`${y2}%`}
-                    stroke={isHovered ? "#C9A84C" : "#E2E8F0"}
-                    strokeWidth={isHovered ? "2.5" : "1"}
-                    className={isHovered ? "rmv-flow-line" : "opacity-40 transition-all duration-350"}
-                    style={{
-                      filter: isHovered ? "drop-shadow(0 0 4px rgba(201,168,76,0.6))" : "none"
-                    }}
-                  />
-                );
-              })}
-            </svg>
-
-            {/* Center Node containing dynamic Hover Details */}
-            <div className="absolute z-30 w-36 h-36 md:w-56 md:h-56 bg-white border border-gold shadow-[0_0_50px_rgba(201,168,76,0.15)] rounded-full flex flex-col items-center justify-center cursor-default p-4 md:p-6 overflow-hidden select-none">
-              <AnimatePresence mode="wait">
-                {hoveredNode === null ? (
-                  <motion.div
-                    key="default"
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                    transition={{ duration: 0.2 }}
-                    className="flex flex-col items-center justify-center"
-                  >
-                    <span className="text-gold font-serif text-3xl md:text-5xl font-black tracking-widest leading-none">RMV</span>
-                    <span className="text-[7px] md:text-[9px] text-black uppercase tracking-[0.3em] font-black mt-2 text-center">RiseMates<br />Ventures</span>
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key={hoveredNode}
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                    transition={{ duration: 0.2 }}
-                    className="flex flex-col items-center justify-center text-center w-full"
-                  >
-                    <span className="material-symbols-outlined text-gold text-lg md:text-2xl mb-1 md:mb-1.5">{ecosystemNodes[hoveredNode].icon}</span>
-                    <h4 className="text-[8px] md:text-[10px] font-black text-black uppercase tracking-wider leading-tight mb-1 max-w-[120px] md:max-w-[170px] break-words">
-                      {ecosystemNodes[hoveredNode].name}
-                    </h4>
-                    <p className="text-[6px] md:text-[9px] text-gray-500 font-secondary leading-tight md:leading-normal max-w-[110px] md:max-w-[160px] line-clamp-3">
-                      {ecosystemNodes[hoveredNode].desc}
-                    </p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-              <div className="absolute inset-[-10px] border border-gold/15 rounded-full animate-ping pointer-events-none" />
             </div>
 
-            {/* Outer Nodes */}
-            {outerNodes.map((node, i) => {
-              const angle = (i / outerNodes.length) * 2 * Math.PI - Math.PI / 2;
-              const left = `calc(50% + ${Math.cos(angle) * 50}%)`;
-              const top = `calc(50% + ${Math.sin(angle) * 50}%)`;
-
-              return (
-                <div
-                  key={node.globalIndex}
-                  className={`absolute z-20 flex flex-col items-center justify-center pointer-events-auto rmv-bob-${i % 6}`}
-                  style={{ left, top }}
-                  onMouseEnter={() => setHoveredNode(node.globalIndex)}
-                  onMouseLeave={() => setHoveredNode(null)}
-                >
-                  <div className={`w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center transition-all duration-300 shadow-md border cursor-pointer ${hoveredNode === node.globalIndex ? 'bg-gold border-gold scale-125 z-40' : 'bg-white border-gray-200 hover:border-gold'}`}>
-                    <span className={`material-symbols-outlined text-lg md:text-xl transition-colors duration-300 ${hoveredNode === node.globalIndex ? 'text-black' : 'text-gray-500'}`}>
-                      {node.icon}
-                    </span>
+            {/* Outer Ring (Counter-Clockwise) */}
+            <div
+              className="eco-ring-outer absolute rounded-full border border-dashed border-gold/15"
+              style={{ width: '94%', height: '94%', top: '3%', left: '3%' }}
+            >
+              {outerRingNodes.map((node, i) => {
+                const angle = (i / outerRingNodes.length) * 360;
+                const isHov = hoveredNode === node.globalIndex;
+                return (
+                  <div key={node.globalIndex} style={{
+                    position: 'absolute', top: 0, left: '50%',
+                    width: 0, height: '50%',
+                    transformOrigin: 'bottom center',
+                    transform: `rotate(${angle}deg)`
+                  }}>
+                    <div
+                      className="eco-node-outer"
+                      style={{ position: 'absolute', top: 0, left: 0 }}
+                      onMouseEnter={() => setHoveredNode(node.globalIndex)}
+                      onMouseLeave={() => setHoveredNode(null)}
+                    >
+                      <div className={`rounded-full flex items-center justify-center border shadow-lg cursor-pointer transition-all duration-300 ${isHov ? 'bg-gold border-gold scale-125' : 'bg-white border-gray-200 hover:border-gold/60'}`}
+                        style={{ width: 56, height: 56 }}>
+                        <span className={`material-symbols-outlined text-lg transition-colors duration-300 ${isHov ? 'text-black' : 'text-gray-500'}`}>{node.icon}</span>
+                      </div>
+                      <span className={`block mt-1 text-[7px] md:text-[8px] font-black uppercase tracking-wide text-center whitespace-nowrap transition-colors duration-300 ${isHov ? 'text-gold' : 'text-gray-400'}`}
+                        style={{ transform: 'translateX(-50%)', position: 'relative', left: '50%' }}>
+                        {node.name.split(' & ')[0]}
+                      </span>
+                    </div>
                   </div>
-                  <span className={`mt-2 text-[8px] md:text-[9px] font-black uppercase tracking-wider text-center leading-tight transition-colors duration-300 max-w-[80px] md:max-w-[100px] break-words ${hoveredNode === node.globalIndex ? 'text-gold scale-105 font-black' : 'text-gray-500'}`}>
-                    {node.name.split(' & ')[0]}
-                  </span>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
 
-            {/* Inner Nodes */}
-            {innerNodes.map((node, i) => {
-              const angle = (i / innerNodes.length) * 2 * Math.PI - Math.PI / 2;
-              const left = `calc(50% + ${Math.cos(angle) * 32.5}%)`;
-              const top = `calc(50% + ${Math.sin(angle) * 32.5}%)`;
-
-              return (
-                <div
-                  key={node.globalIndex}
-                  className={`absolute z-20 flex flex-col items-center justify-center pointer-events-auto rmv-bob-${(i + 3) % 6}`}
-                  style={{ left, top }}
-                  onMouseEnter={() => setHoveredNode(node.globalIndex)}
-                  onMouseLeave={() => setHoveredNode(null)}
-                >
-                  <div className={`w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center transition-all duration-300 shadow-md border cursor-pointer ${hoveredNode === node.globalIndex ? 'bg-gold border-gold scale-125 z-40' : 'bg-white border-gray-200 hover:border-gold'}`}>
-                    <span className={`material-symbols-outlined text-lg md:text-xl transition-colors duration-300 ${hoveredNode === node.globalIndex ? 'text-black' : 'text-gray-500'}`}>
-                      {node.icon}
-                    </span>
-                  </div>
-                  <span className={`mt-2 text-[8px] md:text-[9px] font-black uppercase tracking-wider text-center leading-tight transition-colors duration-300 max-w-[80px] md:max-w-[100px] break-words ${hoveredNode === node.globalIndex ? 'text-gold scale-105 font-black' : 'text-gray-500'}`}>
-                    {node.name.split(' & ')[0]}
-                  </span>
-                </div>
-              );
-            })}
+            {/* Center Hub */}
+            <div className="absolute z-30 flex items-center justify-center"
+              style={{ width: 172, height: 172, top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+              <div className="absolute inset-0 rounded-full border border-gold/30"
+                style={{ animation: 'ecoHubPing 2.2s ease-out infinite' }} />
+              <div className="absolute inset-0 rounded-full border border-gold/20"
+                style={{ animation: 'ecoHubPing 2.2s ease-out 1.1s infinite' }} />
+              <div className="w-full h-full rounded-full bg-white border border-gold shadow-[0_0_60px_rgba(201,168,76,0.18)] flex flex-col items-center justify-center overflow-hidden cursor-default p-4">
+                <AnimatePresence mode="wait">
+                  {hoveredNode === null ? (
+                    <motion.div key="default"
+                      initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9 }} transition={{ duration: 0.15 }}
+                      className="flex flex-col items-center justify-center">
+                      <span className="text-gold font-serif text-3xl md:text-4xl font-black tracking-widest leading-none">RMV</span>
+                      <span className="text-[7px] text-black uppercase tracking-[0.3em] font-black mt-1.5 text-center">RiseMates<br />Ventures</span>
+                    </motion.div>
+                  ) : (
+                    <motion.div key={hoveredNode}
+                      initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9 }} transition={{ duration: 0.15 }}
+                      className="flex flex-col items-center justify-center text-center w-full">
+                      <span className="material-symbols-outlined text-gold text-2xl mb-1">{ecosystemNodes[hoveredNode].icon}</span>
+                      <h4 className="text-[9px] font-black text-black uppercase tracking-wider leading-tight mb-1 max-w-[140px]">{ecosystemNodes[hoveredNode].name}</h4>
+                      <p className="text-[7px] text-gray-500 leading-snug max-w-[130px] line-clamp-3">{ecosystemNodes[hoveredNode].desc}</p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </div>
 
           </div>
         </div>
@@ -499,7 +419,7 @@ export default function EcosystemClient() {
               Join the RiseMates Ventures Ecosystem
             </h2>
             <p className="text-base text-gray-600 font-secondary leading-relaxed mb-12 max-w-2xl mx-auto">
-              Whether you're a startup, enterprise, investor, technology provider, or institution, our ecosystem is designed to help you create meaningful partnerships and unlock sustainable growth.
+              Whether you are a startup, enterprise, investor, technology provider, or institution, our ecosystem is designed to help you create meaningful partnerships and unlock sustainable growth.
             </p>
 
             <div className="flex justify-center">

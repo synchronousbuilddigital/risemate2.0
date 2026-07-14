@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import Globe3D from "../components/Globe3D";
 
 const whyPoints = [
   {
@@ -134,7 +133,7 @@ export default function AboutClient() {
                 initial={{ opacity: 0, scale: 0.95, x: 20 }}
                 animate={{ opacity: 1, scale: 1, x: 0 }}
                 transition={{ duration: 1.2, delay: 0.3 }}
-                className="w-full max-w-[600px] aspect-[4/5] md:aspect-square rounded-[48px] overflow-hidden bg-gray-50 border border-gray-200 shadow-2xl relative group"
+                className="w-full max-w-[600px] aspect-[4/5] md:aspect-square rounded-[48px] overflow-hidden bg-[#000d24] border-2 border-[#DFBA6B]/60 shadow-[0_0_40px_rgba(223,186,107,0.2)] relative group"
               >
                 {/* Internal Card Header */}
                 <div className="absolute top-0 left-0 w-full p-8 z-20 flex justify-between items-start pointer-events-none">
@@ -146,10 +145,86 @@ export default function AboutClient() {
                   </div>
                 </div>
 
-                {/* The Globe */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#000d24] to-[#001f54]">
-                  <Globe3D focusLocation={{ longitude: 77.02, latitude: 28.45, zoom: 1.5 }} />
-                  <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: 'inset 0 0 60px rgba(0,0,0,0.6)' }} />
+                {/* The Map – focused on India / Delhi */}
+                <div className="absolute inset-0 bg-gradient-to-br from-[#000d24] to-[#001f54] flex items-center justify-center overflow-hidden">
+                  <img
+                    src="/worldIndiaHigh.svg"
+                    alt="India Map – Delhi Focus"
+                    className="absolute inset-0 w-full h-full pointer-events-none"
+                    style={{
+                      objectFit: 'cover',
+                      opacity: 0.95,
+                      transform: 'scale(3.2)',
+                      transformOrigin: '71.4% 34.4%',
+                      transition: 'transform 1s ease',
+                      mixBlendMode: 'screen',
+                      filter: 'none'
+                    }}
+                  />
+
+                  {/* ── CONNECTION LINES OVERLAY ── */}
+                  <svg
+                    className="absolute inset-0 w-full h-full z-10 pointer-events-none"
+                    viewBox="0 0 100 100"
+                    preserveAspectRatio="xMidYMid slice"
+                  >
+                    <defs>
+                      <filter id="rmGlow" x="-80%" y="-80%" width="260%" height="260%">
+                        <feGaussianBlur stdDeviation="1" result="blur"/>
+                        <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                      </filter>
+                      <style>{`
+                        @keyframes rmDash { to { stroke-dashoffset: -24; } }
+                        @keyframes rmPulse { 0%,100%{opacity:.5;r:0.7} 50%{opacity:1;r:1.3} }
+                        @keyframes rmPing  { 0%{r:.9;opacity:.9} 100%{r:3.5;opacity:0} }
+                        .rm-line { animation: rmDash 2.8s linear infinite; }
+                        .rm-dot  { animation: rmPulse 2s ease-in-out infinite; }
+                        .rm-ping { animation: rmPing  2.2s ease-out infinite; }
+                      `}</style>
+                    </defs>
+
+                    {/* ── DELHI HUB ── card coords (71.4, 34.4) */}
+                    <circle cx="71.4" cy="34.4" r="3.2" fill="none" stroke="#DFBA6B" strokeWidth="0.2" className="rm-ping"/>
+                    <circle cx="71.4" cy="34.4" r="3.2" fill="none" stroke="#DFBA6B" strokeWidth="0.2" className="rm-ping" style={{animationDelay:'1.1s'}}/>
+                    <circle cx="71.4" cy="34.4" r="1.4" fill="#DFBA6B" filter="url(#rmGlow)" opacity="0.95"/>
+                    <circle cx="71.4" cy="34.4" r="0.6" fill="white"/>
+                    <text x="71.4" y="30.5" fontSize="2.4" fill="#DFBA6B" textAnchor="middle" fontWeight="bold" opacity="0.95">New Delhi</text>
+
+                    {/* ── UAE / Dubai ── ~(54, 45) */}
+                    <line x1="71.4" y1="34.4" x2="54" y2="45" stroke="#DFBA6B" strokeWidth="0.3" strokeDasharray="2.5,1.5" opacity="0.75" className="rm-line"/>
+                    <circle cx="54" cy="45" r="0.9" fill="#DFBA6B" filter="url(#rmGlow)" opacity="0.9" className="rm-dot"/>
+                    <text x="54" y="48.5" fontSize="2.1" fill="#DFBA6B" textAnchor="middle" opacity="0.85">UAE</text>
+
+                    {/* ── Germany ── ~(38, 15) */}
+                    <line x1="71.4" y1="34.4" x2="38" y2="15" stroke="#DFBA6B" strokeWidth="0.28" strokeDasharray="2.5,1.5" opacity="0.65" className="rm-line" style={{animationDelay:'0.6s'}}/>
+                    <circle cx="38" cy="15" r="0.85" fill="#DFBA6B" filter="url(#rmGlow)" opacity="0.85" className="rm-dot" style={{animationDelay:'0.4s'}}/>
+                    <text x="38" y="12.8" fontSize="2.1" fill="#DFBA6B" textAnchor="middle" opacity="0.8">Germany</text>
+
+                    {/* ── UK ── off-screen top-left edge (0, 10) */}
+                    <line x1="71.4" y1="34.4" x2="1" y2="10" stroke="#DFBA6B" strokeWidth="0.25" strokeDasharray="2.5,1.5" opacity="0.55" className="rm-line" style={{animationDelay:'1s'}}/>
+                    <circle cx="4" cy="11.5" r="0.8" fill="#DFBA6B" filter="url(#rmGlow)" opacity="0.75" className="rm-dot" style={{animationDelay:'0.8s'}}/>
+                    <text x="5.5" y="9.5" fontSize="2.1" fill="#DFBA6B" opacity="0.75">UK</text>
+
+                    {/* ── USA ── off-screen left edge (0, 38) */}
+                    <line x1="71.4" y1="34.4" x2="0" y2="38" stroke="#DFBA6B" strokeWidth="0.22" strokeDasharray="2.5,1.5" opacity="0.45" className="rm-line" style={{animationDelay:'1.4s'}}/>
+                    <text x="2.5" y="35.5" fontSize="2.1" fill="#DFBA6B" opacity="0.65">USA</text>
+
+                    {/* ── Kenya / Nairobi ── ~(25, 63) */}
+                    <line x1="71.4" y1="34.4" x2="25" y2="63" stroke="#DFBA6B" strokeWidth="0.26" strokeDasharray="2.5,1.5" opacity="0.6" className="rm-line" style={{animationDelay:'0.3s'}}/>
+                    <circle cx="25" cy="63" r="0.85" fill="#DFBA6B" filter="url(#rmGlow)" opacity="0.82" className="rm-dot" style={{animationDelay:'1.2s'}}/>
+                    <text x="25" y="66.5" fontSize="2.1" fill="#DFBA6B" textAnchor="middle" opacity="0.75">Kenya</text>
+
+                    {/* ── Singapore ── right edge (97, 76) */}
+                    <line x1="71.4" y1="34.4" x2="97" y2="76" stroke="#DFBA6B" strokeWidth="0.26" strokeDasharray="2.5,1.5" opacity="0.6" className="rm-line" style={{animationDelay:'0.9s'}}/>
+                    <circle cx="95" cy="74.5" r="0.85" fill="#DFBA6B" filter="url(#rmGlow)" opacity="0.82" className="rm-dot" style={{animationDelay:'0.5s'}}/>
+                    <text x="90" y="72.5" fontSize="2.1" fill="#DFBA6B" opacity="0.75">Singapore</text>
+
+                    {/* ── Japan ── off-screen right edge (100, 32) */}
+                    <line x1="71.4" y1="34.4" x2="100" y2="32" stroke="#DFBA6B" strokeWidth="0.22" strokeDasharray="2.5,1.5" opacity="0.5" className="rm-line" style={{animationDelay:'1.7s'}}/>
+                    <text x="94" y="30" fontSize="2.1" fill="#DFBA6B" opacity="0.65">Japan</text>
+                  </svg>
+
+                  <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: 'inset 0 0 80px rgba(0,0,0,0.75)' }} />
                 </div>
 
                 {/* Bottom Floating Stats */}
