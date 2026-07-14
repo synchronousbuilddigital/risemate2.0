@@ -199,18 +199,19 @@ export default function EcosystemClient() {
               @keyframes ecoNodeCCW { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(360deg); } }
               @keyframes ecoHubPing { 0% { opacity:.5; transform:scale(1); } 100% { opacity:0; transform:scale(2); } }
               .eco-ring-inner { animation: ecoSpinCW  35s linear infinite; }
-              .eco-ring-outer { animation: ecoSpinCCW 55s linear infinite; }
+              .eco-ring-outer { animation: ecoSpinCW  55s linear infinite; }
               .eco-node-inner { animation: ecoNodeCW  35s linear infinite; }
-              .eco-node-outer { animation: ecoNodeCCW 55s linear infinite; }
+              .eco-node-outer { animation: ecoNodeCW  55s linear infinite; }
             `}</style>
 
             {/* Inner Ring (Clockwise) */}
             <div
               className="eco-ring-inner absolute rounded-full border border-dashed border-gold/35"
-              style={{ width: '58%', height: '58%', top: '21%', left: '21%' }}
+              style={{ width: '58%', height: '58%', top: '21%', left: '21%', pointerEvents: 'none' }}
             >
               {innerRingNodes.map((node, i) => {
                 const angle = (i / innerRingNodes.length) * 360;
+                const isHov = hoveredNode === node.globalIndex;
                 return (
                   <div key={node.globalIndex} style={{
                     position: 'absolute', top: 0, left: '50%',
@@ -220,26 +221,29 @@ export default function EcosystemClient() {
                   }}>
                     <div
                       className="eco-node-inner"
-                      style={{ position: 'absolute', top: 0, left: 0 }}
+                      style={{ position: 'absolute', top: 0, left: 0, pointerEvents: 'auto' }}
+                      onMouseEnter={() => setHoveredNode(node.globalIndex)}
+                      onMouseLeave={() => setHoveredNode(null)}
                     >
-                      <div className="rounded-full flex items-center justify-center border shadow-md bg-white border-gray-200"
-                        style={{ width: 48, height: 48 }}>
-                        <span className="material-symbols-outlined text-base text-gray-500">{node.icon}</span>
+                      <div className={`rounded-full flex items-center justify-center border shadow-md cursor-pointer transition-all duration-300 ${isHov ? 'bg-gold border-gold' : 'bg-white border-gray-200 hover:border-gold/60'}`}
+                        style={{ 
+                          width: 48, 
+                          height: 48,
+                          transform: `rotate(${-angle}deg) scale(${isHov ? 1.25 : 1})`,
+                          transformOrigin: 'center'
+                        }}>
+                        <span className={`material-symbols-outlined text-base transition-colors duration-300 ${isHov ? 'text-black' : 'text-gray-500'}`}>{node.icon}</span>
                       </div>
-                      <span className="block mt-1 text-[7px] font-black uppercase tracking-wide text-center whitespace-nowrap text-gray-400"
-                        style={{ transform: 'translateX(-50%)', position: 'relative', left: '50%' }}>
-                        {node.name.split(' & ')[0]}
-                      </span>
                     </div>
                   </div>
                 );
               })}
             </div>
 
-            {/* Outer Ring (Counter-Clockwise) */}
+            {/* Outer Ring (Clockwise) */}
             <div
               className="eco-ring-outer absolute rounded-full border border-dashed border-gold/15"
-              style={{ width: '94%', height: '94%', top: '3%', left: '3%' }}
+              style={{ width: '94%', height: '94%', top: '3%', left: '3%', pointerEvents: 'none' }}
             >
               {outerRingNodes.map((node, i) => {
                 const angle = (i / outerRingNodes.length) * 360;
@@ -253,18 +257,19 @@ export default function EcosystemClient() {
                   }}>
                     <div
                       className="eco-node-outer"
-                      style={{ position: 'absolute', top: 0, left: 0 }}
+                      style={{ position: 'absolute', top: 0, left: 0, pointerEvents: 'auto' }}
                       onMouseEnter={() => setHoveredNode(node.globalIndex)}
                       onMouseLeave={() => setHoveredNode(null)}
                     >
-                      <div className={`rounded-full flex items-center justify-center border shadow-lg cursor-pointer transition-all duration-300 ${isHov ? 'bg-gold border-gold scale-125' : 'bg-white border-gray-200 hover:border-gold/60'}`}
-                        style={{ width: 56, height: 56 }}>
+                      <div className={`rounded-full flex items-center justify-center border shadow-lg cursor-pointer transition-all duration-300 ${isHov ? 'bg-gold border-gold' : 'bg-white border-gray-200 hover:border-gold/60'}`}
+                        style={{ 
+                          width: 56, 
+                          height: 56,
+                          transform: `rotate(${-angle}deg) scale(${isHov ? 1.25 : 1})`,
+                          transformOrigin: 'center'
+                        }}>
                         <span className={`material-symbols-outlined text-lg transition-colors duration-300 ${isHov ? 'text-black' : 'text-gray-500'}`}>{node.icon}</span>
                       </div>
-                      <span className={`block mt-1 text-[7px] md:text-[8px] font-black uppercase tracking-wide text-center whitespace-nowrap transition-colors duration-300 ${isHov ? 'text-gold' : 'text-gray-400'}`}
-                        style={{ transform: 'translateX(-50%)', position: 'relative', left: '50%' }}>
-                        {node.name.split(' & ')[0]}
-                      </span>
                     </div>
                   </div>
                 );
